@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viviana's Nail Glam – Exclusieve Nagelverzorging Amsterdam</title>
+    <meta name="description" content="Exclusieve nagelverzorging en design op maat bij Viviana's Nail Glam in Amsterdam. Transparante prijzen, ervaren styliste, hygiënische behandeling. Boek nu!">
+    <meta name="keywords" content="nagels, manicure, Amsterdam, nagelstudio, BIAB, shellac, nagelverlenging, exclusief">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Viviana's Nail Glam – Exclusieve Nagelverzorging Amsterdam">
+    <meta property="og:description" content="Exclusieve nagelverzorging en design op maat. Boek nu je afspraak!">
+    <meta property="og:url" content="https://vivianasnailglam.com">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💅</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PapaParse CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-light: #FFF5F8;
+            --accent-rose: #FF4F81;
+            --text-black: #1F1F1F;
+            --white: #FFFFFF;
+            --light-gray: #F8F9FA;
+            --border-light: #F1F5F9;
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --ff-body: 'Inter', sans-serif;
+            --ff-heading: 'Playfair Display', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--ff-body);
+            background-color: var(--bg-light);
+            color: var(--text-black);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Animation Styles */
+        .hero-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: all 0.8s ease;
+        }
+
+        .hero-container.completed {
+            position: relative;
+            height: auto;
+            min-height: 100vh;
+        }
+
+        .logo-animation {
+            font-family: var(--ff-heading);
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 600;
+            color: var(--text-black);
+            text-align: center;
+            letter-spacing: 0.5rem;
+            transition: all 1.5s ease;
+        }
+
+        .logo-animation.expanded {
+            letter-spacing: 0.1rem;
+            font-size: clamp(1.5rem, 6vw, 3rem);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 245, 248, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.5s ease;
+        }
+
+        .navbar.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--ff-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-rose);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            color: var(--text-black);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-rose);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-rose);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--bg-light) 0%, var(--white) 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: var(--ff-heading);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            color: var(--text-black);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary {
+            background: var(--accent-rose);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #e63d6f;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--accent-rose);
+            border: 2px solid var(--accent-rose);
+        }
+
+        .btn-secondary:hover {
+            background: var(--accent-rose);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Sections */
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-white {
+            background: var(--white);
+        }
+
+        .section-products {
+            background: #FFF0F4;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-family: var(--ff-heading);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-text {
+            color: var(--text-black);
+            opacity: 0.7;
+            font-size: 0.95rem;
+        }
+
+        /* Pricing Section */
+        .pricing-section {
+            background: var(--white);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-title {
+            font-family: var(--ff-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-rose);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-rose);
+            padding-bottom: 0.5rem;
+        }
+
+        .price-list {
+            list-style: none;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item:hover {
+            background: rgba(255, 79, 129, 0.05);
+            padding-left: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .price-name {
+            font-weight: 500;
+            color: var(--text-black);
+        }
+
+        .price-value {
+            font-weight: 600;
+            color: var(--accent-rose);
+            font-size: 1.1rem;
+        }
+
+        .price-remark {
+            font-size: 0.9rem;
+            color: var(--text-black);
+            opacity: 0.7;
+            font-style: italic;
+            margin-top: 0.25rem;
+        }
+
+        .social-media-section {
+            background: #FFF0F4;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-top: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .social-media-title {
+            font-family: var(--ff-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-rose);
+            margin-bottom: 1rem;
+        }
+
+        .social-links-pricing {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .social-link-pricing {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-rose);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .social-link-pricing:hover {
+            background: #e63d6f;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Product Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: var(--text-black);
+            opacity: 0.7;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--accent-rose);
+            margin-bottom: 1rem;
+        }
+
+        .product-link {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent-rose);
+            color: var(--white);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .product-link:hover {
+            background: #e63d6f;
+            transform: translateY(-1px);
+        }
+
+        /* Important Info Section */
+        .info-section {
+            background: #FFF0F4;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 900px;
+        }
+
+        .info-title {
+            font-family: var(--ff-heading);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-rose);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 79, 129, 0.1);
+            color: var(--text-black);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-item strong {
+            color: var(--accent-rose);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .contact-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-black);
+            margin-bottom: 1rem;
+        }
+
+        .contact-info {
+            color: var(--text-black);
+            opacity: 0.8;
+        }
+
+        .contact-info a {
+            color: var(--accent-rose);
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: var(--white);
+            border: 2px solid var(--accent-rose);
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .social-link:hover {
+            background: var(--accent-rose);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-light);
+            color: var(--text-black);
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer a {
+            color: var(--accent-rose);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-black);
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .info-section {
+                padding: 2rem;
+                margin: 2rem 1rem;
+            }
+
+            .hero-section {
+                padding: 4rem 1rem 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .social-links-pricing {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .social-link-pricing {
+                width: 100%;
+                max-width: 250px;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-card,
+            .contact-card,
+            .category-card {
+                padding: 1.5rem;
+            }
+
+            .product-info {
+                padding: 1rem;
+            }
+
+            .logo-animation {
+                font-size: clamp(1.5rem, 10vw, 2.5rem);
+            }
+        }
+
+        /* Loading Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        @keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes float {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Hero Animation Container -->
+    <div class="hero-container" id="heroContainer">
+        <h1 class="logo-animation" id="logoAnimation">VNG</h1>
+         <div class="scroll-indicator" id="scrollIndicator" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); text-align: center; z-index: 99; animation: float 2s ease-in-out infinite;">
+    <span class="scroll-arrow" style="font-size: 30px; display: block; animation: bounce 1.5s infinite;">💅</span>
+    <p class="scroll-text" style="margin: 5px 0 0; font-size: 14px; color: #999; font-family: 'Poppins', sans-serif;">Scroll om meer te ontdekken</p>
+</div>
+
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">Viviana's Nail Glam</a>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#diensten" class="nav-link">Diensten</a></li>
+                <li><a href="#prijzen" class="nav-link">Prijzen</a></li>
+                <li><a href="#producten" class="nav-link">Producten</a></li>
+                <li><a href="#info" class="nav-link">Info</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Jouw nagels, jouw stijl – met klasse</h1>
+                <p class="hero-subtitle">Ervaar exclusieve nagelverzorging, design op maat en een persoonlijke behandeling bij Viviana's Nail Glam in Amsterdam.</p>
+                
+                <div class="btn-group">
+                    <a href="https://vivianasnailglam.setmore.com" target="_blank" class="btn btn-primary">
+                        Boek Nu
+                    </a>
+                    <a href="#prijzen" class="btn btn-secondary">
+                        Bekijk Prijzen
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="diensten" class="section section-white">
+            <div class="container">
+                <h2 class="section-title">Waarom kiezen voor Viviana's Nail Glam?</h2>
+                <div class="grid grid-4">
+                    <div class="feature-card">
+                        <span class="feature-icon">💰</span>
+                        <h3 class="feature-title">Transparante Prijzen</h3>
+                        <p class="feature-text">Duidelijke afspraken, geen verrassingen achteraf.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎨</span>
+                        <h3 class="feature-title">Op Maat Gemaakt</h3>
+                        <p class="feature-text">Unieke designs op jouw stijl afgestemd.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">👩‍🎨</span>
+                        <h3 class="feature-title">Ervaren Styliste</h3>
+                        <p class="feature-text">Jarenlange ervaring met oog voor perfectie.</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏥</span>
+                        <h3 class="feature-title">Hygiëne & Professionaliteit</h3>
+                        <p class="feature-text">Veilige behandeling in een schone salon.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="prijzen" class="section pricing-section">
+            <div class="container">
+                <h2 class="section-title">💰 Prijzenlijst Viviana's Nail Glam</h2>
+                <div id="pricing-list" class="pricing-grid">
+                    <div class="loading">Prijzen worden geladen...</div>
+                </div>
+                <div id="social-media-section"></div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section id="producten" class="section section-products">
+            <div class="container">
+                <h2 class="section-title">📦 Onze Producten</h2>
+                <div id="product-list" class="product-grid">
+                    <div class="loading">Producten worden geladen...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Important Info Section -->
+        <section id="info" class="section">
+            <div class="container">
+                <div class="info-section">
+                    <h3 class="info-title">📅 Belangrijke Informatie</h3>
+                    <ul class="info-list">
+                        <li class="info-item">
+                            <strong>🚫 No-show beleid:</strong> 50% wordt aangerekend bij afwezigheid zonder annulering.
+                        </li>
+                        <li class="info-item">
+                            <strong>⏰ 24u Regel:</strong> Annuleer tot 24u vooraf, anders geen restitutie.
+                        </li>
+                        <li class="info-item">
+                            <strong>💳 Aanbetaling nieuwe klanten:</strong> €15 vooraf, wordt afgetrokken van totaal.
+                        </li>
+                        <li class="info-item">
+                            <strong>🎨 Design voorbereiden:</strong> Stuur gewenste design vooraf door.
+                        </li>
+                        <li class="info-item">
+                            <strong>👥 Begeleiding:</strong> Max 1 persoon mag mee (vooraf melden).
+                        </li>
+                        <li class="info-item">
+                            <strong>⏱️ Te laat:</strong> 10+ min = €5 extra, 20+ min = afspraak geannuleerd.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section section-white">
+            <div class="container">
+                <h2 class="section-title">Contact & Locatie</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <span class="contact-icon">📍</span>
+                        <h3 class="contact-title">Adres</h3>
+                        <div class="contact-info">
+                            <strong>Houtrijkstraat 340a</strong><br>
+                            1013 WV Amsterdam
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <span class="contact-icon">📧</span>
+                        <h3 class="contact-title">Contact</h3>
+                        <div class="contact-info">
+                            E-mail:<br>
+                            <a href="mailto:info@vivianasnailglam.com">info@vivianasnailglam.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-card">
+                        <span class="contact-icon">🕒</span>
+                        <h3 class="contact-title">Openingstijden</h3>
+                        <div class="contact-info">
+                            <strong>Ma–Vr:</strong> 09:00 – 19:00<br>
+                            <strong>Za:</strong> 09:00 – 18:00<br>
+                            <strong>Zo:</strong> Gesloten
+                        </div>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="https://instagram.com/vivianasnailglam" target="_blank" class="social-link" title="Instagram">📷</a>
+                    <a href="https://tiktok.com/@vivianasnailglam_" target="_blank" class="social-link" title="TikTok">🎵</a>
+                    <a href="https://linktr.ee/vivianasnailglam" target="_blank" class="social-link" title="Linktree">🔗</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p><strong>Powered by Van Appiah</strong></p>
+        <p>© 2025 Viviana's Nail Glam – All rights reserved.</p>
+    </footer>
+
+    <script>
+        
+  window.addEventListener("scroll", function () {
+    const indicator = document.getElementById("scrollIndicator");
+    if (window.scrollY > 50) {
+      indicator.style.display = "none";
+    }
+  });
+
+
+        // VNG Animation Logic
+        function initHeroAnimation() {
+            const heroContainer = document.getElementById('heroContainer');
+            const logoAnimation = document.getElementById('logoAnimation');
+            const navbar = document.getElementById('navbar');
+            const mainContent = document.getElementById('mainContent');
+
+            // Step 1: Expand VNG to full name after 2 seconds
+            setTimeout(() => {
+                logoAnimation.textContent = 'Viviana\'s Nail Glam';
+                logoAnimation.classList.add('expanded');
+            }, 2000);
+
+            // Step 2: Move to normal layout after 4 seconds
+            setTimeout(() => {
+                heroContainer.classList.add('completed');
+                navbar.classList.add('visible');
+                mainContent.classList.add('visible');
+                
+                // Remove fixed positioning
+                setTimeout(() => {
+                    heroContainer.style.position = 'relative';
+                    heroContainer.style.zIndex = '1';
+                }, 800);
+            }, 4000);
+        }
+
+        // Load Pricing from Google Sheets
+        async function loadPricing() {
+            try {
+                // Convert pubhtml URL to CSV
+                const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUfJ-rgFtoBPn-EqtRqdC6pffUN876I60RXJ3KsEKC83fnrJD2L7ODnENBaUGC1vaEyJ4HtsjrJMrT/pub?output=csv";
+                const response = await fetch(csvUrl);
+                const csvText = await response.text();
+
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        const pricingList = document.getElementById("pricing-list");
+                        const socialMediaSection = document.getElementById("social-media-section");
+                        
+                        // Clear loading message
+                        pricingList.innerHTML = '';
+                        
+                        // Group data by category
+                        const categories = {};
+                        const socialMediaItems = [];
+                        
+                        results.data.forEach(item => {
+                            const category = item["Categorie"]?.trim();
+                            const naam = item["Naam"]?.trim();
+                            const prijs = item["Prijs"]?.trim();
+                            const opmerking = item["Opmerking"]?.trim();
+                            
+                            if (!category || !naam) return;
+                            
+                            // Handle social media separately
+                            if (category.toLowerCase().includes('sociale media') || category.toLowerCase().includes('social media')) {
+                                socialMediaItems.push({ naam, prijs, opmerking });
+                                return;
+                            }
+                            
+                            if (!categories[category]) {
+                                categories[category] = [];
+                            }
+                            
+                            categories[category].push({ naam, prijs, opmerking });
+                        });
+                        
+                        // Create category cards
+                        Object.keys(categories).forEach(category => {
+                            const categoryCard = document.createElement("div");
+                            categoryCard.className = "category-card fade-in-up";
+                            
+                            let categoryHTML = `
+                                <h3 class="category-title">${category}</h3>
+                                <ul class="price-list">
+                            `;
+                            
+                            categories[category].forEach(item => {
+                                categoryHTML += `
+                                    <li class="price-item">
+                                        <div>
+                                            <div class="price-name">${item.naam}</div>
+                                            ${item.opmerking ? `<div class="price-remark">${item.opmerking}</div>` : ''}
+                                        </div>
+                                        ${item.prijs ? `<div class="price-value">${item.prijs}</div>` : ''}
+                                    </li>
+                                `;
+                            });
+                            
+                            categoryHTML += '</ul>';
+                            categoryCard.innerHTML = categoryHTML;
+                            pricingList.appendChild(categoryCard);
+                        });
+                        
+                        // Create social media section if items exist
+                        if (socialMediaItems.length > 0) {
+                            const socialSection = document.createElement("div");
+                            socialSection.className = "social-media-section fade-in-up";
+                            
+                            let socialHTML = `
+                                <h3 class="social-media-title">📱 Volg Ons</h3>
+                                <div class="social-links-pricing">
+                            `;
+                            
+                            socialMediaItems.forEach(item => {
+                                // Create clickable links for social media
+                                let link = '#';
+                                let icon = '📱';
+                                
+                                if (item.naam.toLowerCase().includes('instagram')) {
+                                    link = 'https://instagram.com/vivianasnailglam';
+                                    icon = '📷';
+                                } else if (item.naam.toLowerCase().includes('tiktok')) {
+                                    link = 'https://tiktok.com/@vivianasnailglam_';
+                                    icon = '🎵';
+                                } else if (item.naam.toLowerCase().includes('linktree')) {
+                                    link = 'https://linktr.ee/vivianasnailglam';
+                                    icon = '🔗';
+                                }
+                                
+                                socialHTML += `
+                                    <a href="${link}" target="_blank" class="social-link-pricing">
+                                        ${icon} ${item.naam}
+                                    </a>
+                                `;
+                            });
+                            
+                            socialHTML += '</div>';
+                            socialSection.innerHTML = socialHTML;
+                            socialMediaSection.appendChild(socialSection);
+                        }
+                        
+                        if (Object.keys(categories).length === 0) {
+                            pricingList.innerHTML = '<div class="loading">Momenteel geen prijzen beschikbaar.</div>';
+                        }
+                    },
+                    error: function(error) {
+                        console.error('PapaParse error:', error);
+                        document.getElementById('pricing-list').innerHTML = 
+                            '<div class="loading">Fout bij het laden van prijzen. Probeer later opnieuw.</div>';
+                    }
+                });
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('pricing-list').innerHTML = 
+                    '<div class="loading">Fout bij het laden van prijzen. Probeer later opnieuw.</div>';
+            }
+        }
+
+        // Load Products from Google Sheets
+        async function loadProducts() {
+            try {
+                const response = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vQvtVRcEirKSWSdQxoFLbmwdykZs1GWmmF0L7FkwVSJki-OTqabzdnE-37sejtZquftGAd4_conK28M/pub?output=csv");
+                const csvText = await response.text();
+
+                Papa.parse(csvText, {
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        const productList = document.getElementById("product-list");
+                        
+                        // Clear loading message
+                        productList.innerHTML = '';
+
+                        if (!results.data || results.data.length === 0) {
+                            productList.innerHTML = '<div class="loading">Momenteel geen producten beschikbaar.</div>';
+                            return;
+                        }
+
+                        let productCount = 0;
+
+                        results.data.forEach((product, index) => {
+                            // Only show products with "Beschikbaarheid" = "ja"
+                            if (product["Beschikbaarheid"]?.toLowerCase() !== "ja") return;
+                            
+                            // Skip if essential fields are missing
+                            if (!product["Naam"] || !product["Prijs"]) return;
+
+                            productCount++;
+
+                            const card = document.createElement("div");
+                            card.className = "product-card fade-in-up";
+                            card.style.animationDelay = `${index * 100}ms`;
+                            
+                            card.innerHTML = `
+                                <div class="product-image">
+                                    ${product["Afbeelding URL"] && product["Afbeelding URL"].trim() !== '' ? 
+                                        `<img src="${product["Afbeelding URL"]}" alt="${product["Naam"]}" loading="lazy" />` : 
+                                        '💅'
+                                    }
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="product-title">${product["Naam"]}</h4>
+                                    <p class="product-description">${product["Beschrijving"] || ""}</p>
+                                    <p class="product-price">€${product["Prijs"]}</p>
+                                    ${product["Verkooplink"] && product["Verkooplink"].trim() !== '' ?
+                                        `<a href="${product["Verkooplink"]}" target="_blank" class="product-link">
+                                            Bekijk Product
+                                        </a>` :
+                                        `<a href="https://www.etsy.com/nl/shop/Vivianasnailglam" target="_blank" class="product-link">
+                                            Bekijk op Etsy
+                                        </a>`
+                                    }
+                                </div>
+                            `;
+                            productList.appendChild(card);
+                        });
+
+                        // If no products were added, show message
+                        if (productCount === 0) {
+                            productList.innerHTML = '<div class="loading">Momenteel geen producten beschikbaar.</div>';
+                        }
+                    },
+                    error: function(error) {
+                        console.error('PapaParse error:', error);
+                        document.getElementById('product-list').innerHTML = 
+                            '<div class="loading">Fout bij het laden van producten. Probeer later opnieuw.</div>';
+                    }
+                });
+            } catch (error) {
+                console.error('Fetch error:', error);
+                document.getElementById('product-list').innerHTML = 
+                    '<div class="loading">Fout bij het laden van producten. Probeer later opnieuw.</div>';
+            }
+        }
+
+        // Smooth scrolling for navigation
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerHeight = document.querySelector('.navbar').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initHeroAnimation();
+            
+            // Load content after animation completes
+            setTimeout(() => {
+                loadPricing();
+                loadProducts();
+            }, 4500);
+            
+            initSmoothScrolling();
+        });
+    </script>
+</body>
+</html>

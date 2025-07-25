@@ -8,27 +8,80 @@
     <meta property="og:title" id="og-title" content="Abi Abi Döner - Authentieke Turkse Gerechten">
     <meta property="og:description" id="og-description" content="Geniet van verse döner, kebab en andere Turkse specialiteiten bij Abi Abi Döner. Bestel online voor bezorging of afhaal.">
     <meta property="og:image" id="og-image" content="https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://abidoner.nl">
     <link rel="icon" type="image/png" href="https://i.postimg.cc/KzwzkWnb/abi2.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json" id="structured-data">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Abi Abi Döner",
+        "image": "https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg",
+        "description": "Authentieke Turkse gerechten, vers bereid",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Zuidermolenweg 24",
+            "addressLocality": "Amsterdam",
+            "postalCode": "1069 CG",
+            "addressCountry": "NL"
+        },
+        "telephone": "+31-20-1234567",
+        "servesCuisine": "Turkish",
+        "priceRange": "€€",
+        "openingHours": [
+            "Mo-Th 16:00-23:00",
+            "Fr-Sa 16:00-24:00", 
+            "Su 16:00-23:00"
+        ]
+    }
+    </script>
+
     <style>
         * {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
         
         :root {
-            --primary-red: #8B0000;
-            --secondary-red: #B22222;
-            --accent-gold: #DAA520;
-            --warm-orange: #FF6B35;
+            --primary-red: #DC2626;
+            --secondary-red: #EF4444;
+            --accent-gold: #F59E0B;
+            --warm-orange: #EA580C;
+            --dark-red: #991B1B;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: all 0.8s ease;
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .fade-in.visible {
@@ -36,53 +89,106 @@
             transform: translateY(0);
         }
 
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* Hero Section */
         .hero-bg {
-            background: linear-gradient(135deg, rgba(139, 0, 0, 0.7), rgba(178, 34, 34, 0.5)), 
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.8), rgba(239, 68, 68, 0.6)), 
                         url('https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
         }
 
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Header */
+        .header-blur {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.95);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        /* Menu Cards */
         .menu-card {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 1px solid #e5e7eb;
+            background: white;
         }
 
         .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            border-color: var(--primary-red);
         }
 
+        .menu-card img {
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Category Buttons */
         .category-btn {
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
         }
 
         .category-btn.active {
             background: var(--primary-red);
             color: white;
+            box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.39);
         }
 
-        .status-open {
-            color: #10B981;
+        /* Status Indicators */
+        .status-open { color: #10B981; }
+        .status-closed { color: #EF4444; }
+        .status-closing-soon { color: #F59E0B; }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid var(--primary-red);
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            animation: spin 1s linear infinite;
         }
 
-        .status-closed {
-            color: #EF4444;
-        }
-
-        .status-closing-soon {
-            color: #F59E0B;
-        }
-
+        /* Carousel */
         .carousel-container {
             position: relative;
             overflow: hidden;
+            border-radius: 12px;
         }
 
         .carousel-track {
             display: flex;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .carousel-slide {
@@ -108,58 +214,63 @@
             }
         }
 
-        .loading-spinner {
-            border: 4px solid #f3f4f6;
-            border-top: 4px solid var(--primary-red);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+            transition: all 0.3s ease;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--dark-red), var(--primary-red));
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
         }
 
-        .sticky-header {
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--warm-orange), var(--accent-gold));
+            transition: all 0.3s ease;
         }
 
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #C2410C, #D97706);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(234, 88, 12, 0.3);
+        }
+
+        /* WhatsApp Button */
         .whatsapp-btn {
             background: #25D366;
             transition: all 0.3s ease;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
         }
 
         .whatsapp-btn:hover {
             background: #128C7E;
-            transform: scale(1.05);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
         }
 
-        .lazy-load {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lazy-load.loaded {
-            opacity: 1;
-        }
-
-        .home-button {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .home-button:hover {
-            transform: scale(1.05);
-        }
-
+        /* Legal Sections */
         .legal-section {
             border: 1px solid #e5e7eb;
             border-radius: 8px;
             margin-bottom: 1rem;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .legal-section:hover {
+            border-color: var(--primary-red);
         }
 
         .legal-header {
@@ -174,7 +285,7 @@
         }
 
         .legal-header:hover {
-            background: var(--secondary-red);
+            background: var(--dark-red);
         }
 
         .legal-content {
@@ -186,28 +297,26 @@
 
         .legal-content.active {
             display: block;
+            animation: fadeInUp 0.3s ease-out;
         }
 
-        .legal-content h4 {
-            color: var(--primary-red);
-            font-weight: 600;
-            margin: 1rem 0 0.5rem 0;
-        }
-
+        /* Opening Hours */
         .opening-hours-today {
             background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
             color: white;
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
         }
 
         .opening-hours-item {
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
-            padding: 0.75rem 0;
+            padding: 1rem 0;
             border-bottom: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
         }
 
         .opening-hours-item:last-child {
@@ -215,10 +324,66 @@
         }
 
         .opening-hours-item.today {
-            background: rgba(139, 0, 0, 0.1);
-            border-radius: 4px;
-            padding: 0.75rem;
+            background: rgba(220, 38, 38, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
             font-weight: 600;
+            border-bottom: none;
+            margin: 0.5rem 0;
+        }
+
+        .opening-hours-item:hover {
+            background: rgba(220, 38, 38, 0.05);
+            border-radius: 4px;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        /* Lazy Loading */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Error States */
+        .error-message {
+            background: #FEF2F2;
+            border: 1px solid #FECACA;
+            color: #DC2626;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        /* Responsive Utilities */
+        @media (max-width: 640px) {
+            .hero-bg h2 {
+                font-size: 2.5rem;
+            }
+            
+            .menu-card {
+                margin-bottom: 1rem;
+            }
+            
+            .category-btn {
+                font-size: 0.875rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus States */
+        .focus\:ring-red:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
         }
     </style>
 
@@ -227,78 +392,137 @@
             theme: {
                 extend: {
                     colors: {
-                        'primary-red': '#8B0000',
-                        'secondary-red': '#B22222',
-                        'accent-gold': '#DAA520',
-                        'warm-orange': '#FF6B35'
+                        'primary-red': '#DC2626',
+                        'secondary-red': '#EF4444',
+                        'accent-gold': '#F59E0B',
+                        'warm-orange': '#EA580C',
+                        'dark-red': '#991B1B'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', 'sans-serif']
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 antialiased">
     <!-- Header -->
     <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-4 py-3">
             <div class="flex justify-between items-center">
-                <!-- Logo and Name as Home Button -->
-                <div class="flex items-center space-x-3 home-button" onclick="goToHome()">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer transition-transform hover:scale-105" onclick="goToHome()">
                     <img src="https://i.postimg.cc/SRD09bpt/ABI-LOGO.png" alt="Abi Abi Döner Logo" class="h-12 w-12 rounded-full shadow-lg">
-                    <h1 class="text-2xl font-bold text-primary-red">Abi Abi Döner</h1>
+                    <div>
+                        <h1 class="text-2xl font-bold text-primary-red">Abi Abi Döner</h1>
+                        <p class="text-xs text-gray-600 hidden sm:block">Authentiek • Vers • Snel</p>
+                    </div>
                 </div>
                 
+                <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Home</a>
-                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Over Ons</a>
-                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Menu</a>
-                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Openingstijden</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Contact</a>
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-red transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium relative group">
+                        Over Ons
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-red transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium relative group">
+                        Menu
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-red transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium relative group">
+                        Openingstijden
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-red transition-all group-hover:w-full"></span>
+                    </a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium relative group">
+                        Contact
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-red transition-all group-hover:w-full"></span>
+                    </a>
                 </nav>
 
-                <button id="mobile-menu-btn" class="md:hidden text-primary-red text-2xl">
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-primary-red text-2xl p-2 rounded-lg hover:bg-gray-100 transition-colors focus:ring-red">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
 
             <!-- Mobile Menu -->
-            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 border-t border-gray-200 pt-4">
                 <div class="flex flex-col space-y-3">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Home</a>
-                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Over Ons</a>
-                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Menu</a>
-                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Openingstijden</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Contact</a>
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium py-2">
+                        <i class="fas fa-home mr-2"></i>Home
+                    </a>
+                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium py-2">
+                        <i class="fas fa-info-circle mr-2"></i>Over Ons
+                    </a>
+                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium py-2">
+                        <i class="fas fa-utensils mr-2"></i>Menu
+                    </a>
+                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium py-2">
+                        <i class="fas fa-clock mr-2"></i>Openingstijden
+                    </a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium py-2">
+                        <i class="fas fa-phone mr-2"></i>Contact
+                    </a>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white">
-        <div class="container mx-auto px-4 text-center">
-            <div class="fade-in">
-                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg">
-                    Welkom bij Abi Abi Döner
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white relative">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="container mx-auto px-4 text-center relative z-10">
+            <div class="fade-in max-w-4xl mx-auto">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                    Welkom bij <span class="text-accent-gold">Abi Abi Döner</span>
                 </h2>
-                <p class="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
+                <p class="text-xl md:text-2xl mb-4 font-medium">
                     Authentiek, snel en overheerlijk eten!
                 </p>
-                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
-                    Wij serveren de lekkerste broodjes, pizza's en kapsalons van de stad.
+                <p class="text-lg md:text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                    Wij serveren de lekkerste broodjes, pizza's en kapsalons van Amsterdam. 
+                    Elke dag vers bereid met de beste ingrediënten.
                 </p>
-                <div class="space-y-4 md:space-y-0 md:space-x-4 md:flex md:justify-center">
-                    <button onclick="scrollToSection('menu')" class="bg-accent-gold hover:bg-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-                        Bekijk ons menu
+                
+                <!-- CTA Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+                    <button onclick="scrollToSection('menu')" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+                        <i class="fas fa-utensils mr-2"></i>Bekijk ons menu
                     </button>
-                    <button onclick="orderOnline()" class="bg-warm-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
-                        Bestel Nu
+                    <button onclick="orderOnline()" class="btn-secondary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+                        <i class="fas fa-shopping-cart mr-2"></i>Bestel Nu
                     </button>
                 </div>
-                <p class="text-lg mt-8 opacity-90">
-                    Gezellig terras, patisserie én café – je bent altijd welkom.
-                </p>
+
+                <!-- Features -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 text-center">
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6">
+                        <i class="fas fa-leaf text-3xl text-accent-gold mb-3"></i>
+                        <h3 class="font-semibold mb-2">Verse Ingrediënten</h3>
+                        <p class="text-sm opacity-90">Dagelijks vers bereid</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6">
+                        <i class="fas fa-clock text-3xl text-accent-gold mb-3"></i>
+                        <h3 class="font-semibold mb-2">Snelle Service</h3>
+                        <p class="text-sm opacity-90">Binnen 15 minuten klaar</p>
+                    </div>
+                    <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6">
+                        <i class="fas fa-heart text-3xl text-accent-gold mb-3"></i>
+                        <h3 class="font-semibold mb-2">Met Liefde Gemaakt</h3>
+                        <p class="text-sm opacity-90">Traditionele recepten</p>
+                    </div>
+                </div>
             </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <i class="fas fa-chevron-down text-2xl text-white opacity-70"></i>
         </div>
     </section>
 
@@ -308,11 +532,29 @@
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Over Ons</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Ontdek het verhaal achter onze passie voor authentieke Turkse keuken
+                </p>
             </div>
             
-            <div class="fade-in max-w-4xl mx-auto">
-                <div id="about-content" class="text-lg leading-relaxed text-gray-700 text-center">
-                    <div class="loading-spinner mx-auto"></div>
+            <div class="fade-in max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div id="about-content" class="text-lg leading-relaxed text-gray-700">
+                            <div class="flex justify-center">
+                                <div class="loading-spinner"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="Restaurant interieur" 
+                             class="rounded-lg shadow-xl w-full h-96 object-cover">
+                        <div class="absolute -bottom-6 -right-6 bg-primary-red text-white p-6 rounded-lg shadow-lg">
+                            <div class="text-3xl font-bold">10+</div>
+                            <div class="text-sm">Jaar ervaring</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -324,20 +566,28 @@
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Ons Menu</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Ontdek onze selectie van authentieke Turkse gerechten, vers bereid met de beste ingrediënten
+                </p>
             </div>
 
             <!-- Category Filters -->
             <div class="fade-in mb-12">
                 <div id="menu-categories" class="flex flex-wrap justify-center gap-3">
-                    <div class="loading-spinner mx-auto"></div>
+                    <div class="flex justify-center">
+                        <div class="loading-spinner"></div>
+                    </div>
                 </div>
             </div>
 
             <!-- Menu Items -->
             <div class="fade-in">
                 <div id="menu-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="col-span-full flex justify-center">
-                        <div class="loading-spinner"></div>
+                    <div class="col-span-full flex justify-center py-12">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-gray-600">Menu wordt geladen...</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -350,11 +600,19 @@
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Sfeer & Ambiance</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Ervaar de warme, gezellige sfeer van ons restaurant
+                </p>
             </div>
 
             <div class="fade-in">
-                <div id="atmosphere-images" class="carousel-container rounded-lg overflow-hidden shadow-xl">
-                    <div class="loading-spinner mx-auto my-20"></div>
+                <div id="atmosphere-images" class="carousel-container shadow-2xl">
+                    <div class="flex justify-center py-20">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-gray-600">Afbeeldingen worden geladen...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -366,17 +624,27 @@
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Openingstijden</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Wij zijn er voor je wanneer je trek hebt in lekker eten
+                </p>
             </div>
 
             <div class="fade-in max-w-2xl mx-auto">
                 <!-- Current Status -->
-                <div id="current-status" class="opening-hours-today text-center mb-6">
-                    <div class="loading-spinner mx-auto"></div>
+                <div id="current-status" class="opening-hours-today mb-6">
+                    <div class="flex justify-center">
+                        <div class="loading-spinner"></div>
+                    </div>
                 </div>
                 
                 <!-- Opening Hours -->
                 <div id="opening-hours" class="bg-white rounded-lg shadow-lg p-6">
-                    <div class="loading-spinner mx-auto"></div>
+                    <div class="flex justify-center py-8">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-gray-600">Openingstijden worden geladen...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -388,74 +656,122 @@
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Contact</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Neem contact met ons op voor vragen, reserveringen of bestellingen
+                </p>
             </div>
 
-            <div class="fade-in max-w-4xl mx-auto">
+            <div class="fade-in max-w-6xl mx-auto">
                 <div id="contact-info" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <div class="col-span-full flex justify-center">
-                        <div class="loading-spinner"></div>
+                    <div class="col-span-full flex justify-center py-12">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-gray-600">Contactgegevens worden geladen...</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Legal Pages Section -->
+    <!-- Wettelijke Pagina's Section -->
     <section id="wettelijke-paginas" class="py-20 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="fade-in text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Wettelijke Informatie</h2>
                 <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Alle belangrijke informatie over onze voorwaarden en beleid
+                </p>
             </div>
 
             <div class="fade-in max-w-4xl mx-auto">
                 <div id="legal-sections">
-                    <div class="loading-spinner mx-auto"></div>
+                    <div class="flex justify-center py-12">
+                        <div class="text-center">
+                            <div class="loading-spinner mx-auto mb-4"></div>
+                            <p class="text-gray-600">Wettelijke informatie wordt geladen...</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-gray-900 text-white py-16">
         <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <div class="flex items-center space-x-3 mb-4 home-button" onclick="goToHome()">
-                        <img src="https://i.postimg.cc/SRD09bpt/ABI-LOGO.png" alt="Abi Abi Döner Logo" class="h-10 w-10 rounded-full">
-                        <h3 class="text-xl font-bold">Abi Abi Döner</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Restaurant Info -->
+                <div class="lg:col-span-2">
+                    <div class="flex items-center space-x-3 mb-6 cursor-pointer transition-transform hover:scale-105" onclick="goToHome()">
+                        <img src="https://i.postimg.cc/SRD09bpt/ABI-LOGO.png" alt="Abi Abi Döner Logo" class="h-12 w-12 rounded-full">
+                        <div>
+                            <h3 class="text-2xl font-bold">Abi Abi Döner</h3>
+                            <p class="text-gray-400 text-sm">Authentiek • Vers • Snel</p>
+                        </div>
                     </div>
-                    <p class="text-gray-300 mb-4">
-                        Authentieke Turkse gerechten, vers bereid, snel geleverd
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Al meer dan 10 jaar serveren wij de lekkerste Turkse gerechten in Amsterdam. 
+                        Van traditionele döner tot moderne interpretaties - altijd vers en met liefde bereid.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors">📷</a>
-                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors">🎵</a>
+                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
                     </div>
                 </div>
 
+                <!-- Contact Info -->
                 <div>
-                    <h3 class="text-xl font-semibold mb-4">Contact</h3>
-                    <div id="footer-contact" class="space-y-2 text-gray-300">
-                        <div class="loading-spinner"></div>
+                    <h3 class="text-xl font-semibold mb-6 text-accent-gold">Contact</h3>
+                    <div id="footer-contact" class="space-y-3 text-gray-300">
+                        <div class="flex justify-center">
+                            <div class="loading-spinner"></div>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Legal Links -->
                 <div>
-                    <h3 class="text-xl font-semibold mb-4">Wettelijke Info</h3>
-                    <div id="footer-legal-links" class="space-y-2 text-gray-300">
-                        <div class="loading-spinner"></div>
+                    <h3 class="text-xl font-semibold mb-6 text-accent-gold">Informatie</h3>
+                    <div id="footer-legal-links" class="space-y-3 text-gray-300">
+                        <div class="flex justify-center">
+                            <div class="loading-spinner"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-                <p>&copy; 2024 Abi Abi Döner. Alle rechten voorbehouden.</p>
-                <p class="mt-2">Powered by <a href="https://vanappiah.com/" target="_blank" class="text-accent-gold hover:underline">Van Appiah</a></p>
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-700 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-center md:text-left mb-4 md:mb-0">
+                        &copy; 2024 Abi Abi Döner. Alle rechten voorbehouden.
+                    </p>
+                    <p class="text-gray-400 text-center md:text-right">
+                        Website ontwikkeld door 
+                        <a href="https://vanappiah.com/" target="_blank" class="text-accent-gold hover:underline transition-colors">
+                            Van Appiah
+                        </a>
+                    </p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Floating WhatsApp Button -->
+    <a href="#" id="whatsapp-float" class="whatsapp-btn" onclick="openWhatsApp()" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp text-2xl text-white"></i>
+    </a>
+
+    <!-- JavaScript -->
     <script>
         // Global variables
         let siteData = {
@@ -465,19 +781,33 @@
             afbeeldingen: [],
             seo_meta: [],
             contactgegevens: [],
+            extra_informatie: [],
             wettelijke_paginas: []
         };
 
         let currentMenuFilter = 'alle';
         let currentCarouselIndex = 0;
         let statusUpdateInterval;
+        let carouselInterval;
 
         // Initialize website
         document.addEventListener('DOMContentLoaded', function() {
             initializeNavigation();
             initializeFadeInAnimation();
             loadSiteData();
+            initializeErrorHandling();
         });
+
+        // Error handling
+        function initializeErrorHandling() {
+            window.addEventListener('error', function(e) {
+                console.error('JavaScript Error:', e.error);
+            });
+
+            window.addEventListener('unhandledrejection', function(e) {
+                console.error('Unhandled Promise Rejection:', e.reason);
+            });
+        }
 
         // Home button functionality
         function goToHome() {
@@ -486,28 +816,44 @@
 
         // Navigation functionality
         function initializeNavigation() {
-            // Smooth scrolling
+            // Smooth scrolling for navigation links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     scrollToSection(targetId);
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 });
             });
 
             // Mobile menu toggle
             document.getElementById('mobile-menu-btn').addEventListener('click', function() {
                 const mobileMenu = document.getElementById('mobile-menu');
+                const icon = this.querySelector('i');
+                
                 mobileMenu.classList.toggle('hidden');
+                
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                }
             });
 
             // Header background on scroll
             window.addEventListener('scroll', function() {
                 const header = document.getElementById('header');
                 if (window.scrollY > 100) {
-                    header.classList.add('sticky-header');
+                    header.classList.add('header-blur');
                 } else {
-                    header.classList.remove('sticky-header');
+                    header.classList.remove('header-blur');
                 }
             });
         }
@@ -548,6 +894,7 @@
         // Load data from Google Sheets
         async function loadSiteData() {
             try {
+                // Replace with your actual Google Sheets ID
                 const sheetId = '1vT6MKhUnm7HhAX8slifKw0G0uNl7IUNC-PiJOyQspKsX6jpe0zWz7VL-dvQFaGlF5Rtk88dulil4uEr';
                 const baseUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-${sheetId}/pub?output=csv&gid=`;
                 
@@ -558,14 +905,23 @@
                     afbeeldingen: '3',
                     seo_meta: '4',
                     contactgegevens: '5',
-                    wettelijke_paginas: '6'
+                    extra_informatie: '6',
+                    wettelijke_paginas: '7'
                 };
 
                 const loadPromises = Object.entries(sheets).map(async ([sheetName, gid]) => {
                     try {
-                        const response = await fetch(`${baseUrl}${gid}`);
+                        const response = await fetch(`${baseUrl}${gid}`, {
+                            cache: 'no-cache'
+                        });
+                        
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                        
                         const csvText = await response.text();
                         siteData[sheetName] = parseCSV(csvText);
+                        console.log(`Loaded ${sheetName}:`, siteData[sheetName]);
                     } catch (error) {
                         console.error(`Error loading ${sheetName}:`, error);
                         siteData[sheetName] = [];
@@ -590,25 +946,34 @@
             }
         }
 
-        // Parse CSV data
+        // Parse CSV data with improved error handling
         function parseCSV(csvText) {
-            const lines = csvText.split('\n').filter(line => line.trim());
-            if (lines.length === 0) return [];
-            
-            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-            const data = [];
+            try {
+                const lines = csvText.split('\n').filter(line => line.trim());
+                if (lines.length === 0) return [];
+                
+                const headers = parseCSVLine(lines[0]).map(h => h.trim().replace(/"/g, ''));
+                const data = [];
 
-            for (let i = 1; i < lines.length; i++) {
-                const values = parseCSVLine(lines[i]);
-                const row = {};
-                headers.forEach((header, index) => {
-                    row[header] = values[index] ? values[index].replace(/"/g, '') : '';
-                });
-                if (Object.values(row).some(val => val && val.trim())) {
-                    data.push(row);
+                for (let i = 1; i < lines.length; i++) {
+                    const values = parseCSVLine(lines[i]);
+                    const row = {};
+                    
+                    headers.forEach((header, index) => {
+                        row[header] = values[index] ? values[index].replace(/"/g, '').trim() : '';
+                    });
+                    
+                    // Only add rows that have some content
+                    if (Object.values(row).some(val => val && val.trim())) {
+                        data.push(row);
+                    }
                 }
+                
+                return data;
+            } catch (error) {
+                console.error('Error parsing CSV:', error);
+                return [];
             }
-            return data;
         }
 
         function parseCSVLine(line) {
@@ -620,55 +985,150 @@
                 const char = line[i];
                 
                 if (char === '"') {
-                    inQuotes = !inQuotes;
+                    if (inQuotes && line[i + 1] === '"') {
+                        current += '"';
+                        i++; // Skip next quote
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
                 } else if (char === ',' && !inQuotes) {
-                    result.push(current.trim());
+                    result.push(current);
                     current = '';
                 } else {
                     current += char;
                 }
             }
             
-            result.push(current.trim());
+            result.push(current);
             return result;
         }
 
         // Initialize SEO
         function initializeSEO() {
-            const seoData = siteData.seo_meta.find(item => item.page === 'home' || item.page === 'homepage');
+            const seoData = siteData.seo_meta.find(item => 
+                item.page === 'home' || item.page === 'homepage' || item.pagina === 'home'
+            );
             
             if (seoData) {
-                if (seoData.meta_title) {
-                    document.getElementById('page-title').textContent = seoData.meta_title;
-                    document.getElementById('og-title').setAttribute('content', seoData.meta_title);
+                if (seoData.meta_title || seoData.titel) {
+                    const title = seoData.meta_title || seoData.titel;
+                    document.getElementById('page-title').textContent = title;
+                    document.getElementById('og-title').setAttribute('content', title);
                 }
-                if (seoData.meta_description) {
-                    document.getElementById('page-description').setAttribute('content', seoData.meta_description);
-                    document.getElementById('og-description').setAttribute('content', seoData.meta_description);
+                
+                if (seoData.meta_description || seoData.beschrijving) {
+                    const description = seoData.meta_description || seoData.beschrijving;
+                    document.getElementById('page-description').setAttribute('content', description);
+                    document.getElementById('og-description').setAttribute('content', description);
                 }
-                if (seoData.og_image_url) {
-                    document.getElementById('og-image').setAttribute('content', seoData.og_image_url);
+                
+                if (seoData.og_image_url || seoData.afbeelding_url) {
+                    const imageUrl = seoData.og_image_url || seoData.afbeelding_url;
+                    document.getElementById('og-image').setAttribute('content', imageUrl);
                 }
             }
+
+            // Update structured data
+            updateStructuredData();
+        }
+
+        function updateStructuredData() {
+            const contactData = siteData.contactgegevens || [];
+            const hoursData = siteData.openingstijden || [];
+            
+            const address = contactData.find(item => 
+                item.type === 'adres' || item.type === 'address'
+            )?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
+            
+            const phone = contactData.find(item => 
+                item.type === 'telefoon' || item.type === 'phone'
+            )?.waarde || '+31-20-1234567';
+
+            const structuredData = {
+                "@context": "https://schema.org",
+                "@type": "Restaurant",
+                "name": "Abi Abi Döner",
+                "image": "https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg",
+                "description": "Authentieke Turkse gerechten, vers bereid in Amsterdam",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": address.split(',')[0] || "Zuidermolenweg 24",
+                    "addressLocality": "Amsterdam",
+                    "postalCode": "1069 CG",
+                    "addressCountry": "NL"
+                },
+                "telephone": phone,
+                "servesCuisine": "Turkish",
+                "priceRange": "€€"
+            };
+
+            if (hoursData.length > 0) {
+                structuredData.openingHours = hoursData.map(hour => {
+                    const dayMap = {
+                        'maandag': 'Mo',
+                        'dinsdag': 'Tu', 
+                        'woensdag': 'We',
+                        'donderdag': 'Th',
+                        'vrijdag': 'Fr',
+                        'zaterdag': 'Sa',
+                        'zondag': 'Su'
+                    };
+                    
+                    const day = dayMap[hour.dag?.toLowerCase()] || 'Mo';
+                    return `${day} ${hour.tijd || '16:00-23:00'}`;
+                });
+            }
+
+            document.getElementById('structured-data').textContent = JSON.stringify(structuredData, null, 2);
         }
 
         // Initialize About Section
         function initializeAboutSection() {
             const aboutContent = document.getElementById('about-content');
             const aboutData = siteData.homepage_content.find(item => 
-                item.section === 'over_ons' || item.type === 'about'
+                item.section === 'over_ons' || item.type === 'about' || item.sectie === 'over_ons'
             );
 
-            if (aboutData && aboutData.content) {
-                aboutContent.innerHTML = `<p class="text-lg leading-relaxed">${aboutData.content}</p>`;
+            if (aboutData && (aboutData.content || aboutData.inhoud)) {
+                const content = aboutData.content || aboutData.inhoud;
+                aboutContent.innerHTML = `
+                    <div class="space-y-6">
+                        <p class="text-lg leading-relaxed">${content}</p>
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary-red">10+</div>
+                                <div class="text-sm text-gray-600">Jaar ervaring</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary-red">1000+</div>
+                                <div class="text-sm text-gray-600">Tevreden klanten</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
             } else {
                 aboutContent.innerHTML = `
-                    <p class="text-lg leading-relaxed mb-6">
-                        Bij Abi Abi Döner staan kwaliteit en authenticiteit voorop. Onze ervaren koks bereiden dagelijks verse gerechten volgens traditionele Turkse recepten. Van sappige döner kebab tot heerlijke lahmacun – elk gerecht wordt met zorg en passie gemaakt.
-                    </p>
-                    <p class="text-lg leading-relaxed">
-                        Wij gebruiken alleen de beste ingrediënten en zorgen ervoor dat elke maaltijd een culinaire ervaring wordt. Kom langs en proef zelf waarom wij de beste Turkse keuken in de buurt serveren!
-                    </p>
+                    <div class="space-y-6">
+                        <p class="text-lg leading-relaxed mb-6">
+                            Bij Abi Abi Döner staan kwaliteit en authenticiteit voorop. Onze ervaren koks bereiden dagelijks verse gerechten volgens traditionele Turkse recepten. Van sappige döner kebab tot heerlijke lahmacun – elk gerecht wordt met zorg en passie gemaakt.
+                        </p>
+                        <p class="text-lg leading-relaxed mb-6">
+                            Wij gebruiken alleen de beste ingrediënten en zorgen ervoor dat elke maaltijd een culinaire ervaring wordt. Ons team staat klaar om je te verwelkomen in onze warme, gezellige sfeer.
+                        </p>
+                        <p class="text-lg leading-relaxed">
+                            Kom langs en proef zelf waarom wij de beste Turkse keuken in Amsterdam serveren!
+                        </p>
+                        <div class="grid grid-cols-2 gap-4 mt-8">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary-red">10+</div>
+                                <div class="text-sm text-gray-600">Jaar ervaring</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="text-2xl font-bold text-primary-red">1000+</div>
+                                <div class="text-sm text-gray-600">Tevreden klanten</div>
+                            </div>
+                        </div>
+                    </div>
                 `;
             }
         }
@@ -683,47 +1143,108 @@
             }
 
             // Get unique categories
-            const categories = ['alle', ...new Set(menuData.map(item => item.categorie).filter(cat => cat))];
+            const categories = ['alle', ...new Set(menuData.map(item => 
+                item.categorie || item.category || 'overig'
+            ).filter(cat => cat))];
             
             // Create category buttons
             const categoriesContainer = document.getElementById('menu-categories');
-            categoriesContainer.innerHTML = categories.map(category => 
-                `<button onclick="filterMenu('${category}')" class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white">
-                    ${category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>`
-            ).join('');
+            categoriesContainer.innerHTML = categories.map(category => {
+                const displayName = category.charAt(0).toUpperCase() + category.slice(1);
+                const emoji = getCategoryEmoji(category);
+                
+                return `
+                    <button onclick="filterMenu('${category}')" 
+                            class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white focus:ring-red transition-all duration-300">
+                        ${emoji} ${displayName}
+                    </button>
+                `;
+            }).join('');
             
             // Display menu items
             displayMenuItems(menuData);
         }
 
+        function getCategoryEmoji(category) {
+            const emojis = {
+                'alle': '🍽️',
+                'broodjes': '🥙',
+                'pizza': '🍕',
+                'wraps': '🌯',
+                'schotels': '🍛',
+                'snacks': '🍟',
+                'drank': '🥤',
+                'dessert': '🍰',
+                'overig': '🍴'
+            };
+            
+            return emojis[category.toLowerCase()] || '🍴';
+        }
+
         function displayMenuItems(items) {
             const menuContainer = document.getElementById('menu-items');
             
+            if (items.length === 0) {
+                menuContainer.innerHTML = `
+                    <div class="col-span-full text-center py-12">
+                        <div class="error-message max-w-md mx-auto">
+                            <i class="fas fa-exclamation-triangle text-2xl mb-4"></i>
+                            <p class="font-semibold mb-2">Menu tijdelijk niet beschikbaar</p>
+                            <p class="text-sm">Neem contact op voor actuele menukaart</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
             const menuHtml = items.map(item => {
-                const imageUrl = item.afbeelding_url || getDefaultMenuImage(item.categorie);
+                const name = item.naam || item.name || 'Naam niet beschikbaar';
+                const description = item.beschrijving || item.description || 'Heerlijk gerecht, vers bereid';
+                const price = item.prijs || item.price || '0.00';
+                const category = item.categorie || item.category || 'overig';
+                const ingredients = item.ingredienten || item.ingredients || '';
+                const imageUrl = item.afbeelding_url || item.image_url || getDefaultMenuImage(category);
+                const orderUrl = item.thuisbezorgd_url || item.order_url || '';
                 
                 return `
-                    <div class="menu-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="${item.categorie || 'overig'}">
-                        <div class="relative">
-                            <img src="${imageUrl}" alt="${item.naam || 'Menu item'}" class="w-full h-48 object-cover lazy-load" 
-                                 onerror="this.src='https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
-                            <div class="absolute top-4 right-4 bg-accent-gold text-white px-3 py-1 rounded-full font-bold">
-                                €${item.prijs || '0.00'}
+                    <div class="menu-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300" data-category="${category}">
+                        <div class="relative overflow-hidden">
+                            <img src="${imageUrl}" 
+                                 alt="${name}" 
+                                 class="w-full h-48 object-cover lazy-load transition-transform duration-300" 
+                                 onerror="this.src='${getDefaultMenuImage(category)}'">
+                            <div class="absolute top-4 right-4 bg-accent-gold text-white px-3 py-1 rounded-full font-bold shadow-lg">
+                                €${price}
+                            </div>
+                            <div class="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                                ${getCategoryEmoji(category)} ${category}
                             </div>
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-bold text-primary-red mb-2">${item.naam || 'Naam niet beschikbaar'}</h3>
-                            <p class="text-gray-600 mb-3">${item.beschrijving || 'Heerlijk gerecht, vers bereid'}</p>
-                            ${item.ingredienten ? `<p class="text-sm text-gray-500 mb-4"><strong>Ingrediënten:</strong> ${item.ingredienten}</p>` : ''}
-                            ${item.thuisbezorgd_url ? 
-                                `<button onclick="window.open('${item.thuisbezorgd_url}', '_blank')" class="w-full bg-primary-red hover:bg-secondary-red text-white py-2 px-4 rounded-lg transition-colors font-medium">
-                                    Bestel Nu
-                                </button>` : 
-                                `<button onclick="orderOnline()" class="w-full bg-primary-red hover:bg-secondary-red text-white py-2 px-4 rounded-lg transition-colors font-medium">
-                                    Bestel Nu
-                                </button>`
-                            }
+                            <h3 class="text-xl font-bold text-primary-red mb-2 line-clamp-1">${name}</h3>
+                            <p class="text-gray-600 mb-3 line-clamp-2">${description}</p>
+                            ${ingredients ? `
+                                <div class="mb-4">
+                                    <p class="text-xs text-gray-500 font-medium mb-1">Ingrediënten:</p>
+                                    <p class="text-sm text-gray-600 line-clamp-2">${ingredients}</p>
+                                </div>
+                            ` : ''}
+                            <div class="flex gap-2">
+                                ${orderUrl ? 
+                                    `<button onclick="window.open('${orderUrl}', '_blank')" 
+                                             class="flex-1 btn-primary text-white py-3 px-4 rounded-lg transition-all duration-300 font-medium hover:shadow-lg">
+                                        <i class="fas fa-shopping-cart mr-2"></i>Bestel Nu
+                                    </button>` : 
+                                    `<button onclick="orderOnline()" 
+                                             class="flex-1 btn-primary text-white py-3 px-4 rounded-lg transition-all duration-300 font-medium hover:shadow-lg">
+                                        <i class="fas fa-phone mr-2"></i>Bestel Nu
+                                    </button>`
+                                }
+                                <button onclick="shareMenuItem('${name}', '${description}', '${imageUrl}')" 
+                                        class="px-4 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                                    <i class="fas fa-share-alt text-gray-600"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -742,7 +1263,8 @@
                 'wraps': 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
                 'schotels': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
                 'snacks': 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
-                'drank': 'https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+                'drank': 'https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'dessert': 'https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
             };
             
             return defaultImages[category?.toLowerCase()] || 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
@@ -757,21 +1279,38 @@
             });
             event.target.classList.add('active');
             
-            // Filter items
+            // Filter items with animation
             const menuItems = document.querySelectorAll('.menu-card');
-            menuItems.forEach(item => {
+            menuItems.forEach((item, index) => {
                 if (category === 'alle' || item.dataset.category === category) {
                     item.style.display = 'block';
+                    item.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s both`;
                 } else {
                     item.style.display = 'none';
                 }
             });
         }
 
+        function shareMenuItem(name, description, imageUrl) {
+            if (navigator.share) {
+                navigator.share({
+                    title: `${name} - Abi Abi Döner`,
+                    text: description,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback: copy to clipboard
+                const text = `${name} - ${description}\n\nBestel bij Abi Abi Döner: ${window.location.href}`;
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('Link gekopieerd naar klembord!');
+                });
+            }
+        }
+
         // Initialize Atmosphere Section
         function initializeAtmosphereSection() {
             const atmosphereData = siteData.afbeeldingen.filter(img => 
-                img.type === 'sfeer' || img.type === 'atmosphere'
+                img.type === 'sfeer' || img.type === 'atmosphere' || img.categorie === 'sfeer'
             );
             
             const container = document.getElementById('atmosphere-images');
@@ -779,40 +1318,84 @@
             if (atmosphereData.length === 0) {
                 // Load default atmosphere images
                 const defaultImages = [
-                    { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Restaurant interieur' },
-                    { url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Gezellige sfeer' },
-                    { url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Terras' }
+                    { 
+                        url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 
+                        alt: 'Restaurant interieur',
+                        title: 'Gezellig interieur'
+                    },
+                    { 
+                        url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 
+                        alt: 'Warme sfeer',
+                        title: 'Warme, uitnodigende sfeer'
+                    },
+                    { 
+                        url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', 
+                        alt: 'Terras',
+                        title: 'Zonnig terras'
+                    }
                 ];
                 
                 createCarousel(defaultImages);
             } else {
-                createCarousel(atmosphereData);
+                const processedImages = atmosphereData.map(img => ({
+                    url: img.afbeelding_url || img.url,
+                    alt: img.alt_text || img.beschrijving || 'Sfeerbeeld',
+                    title: img.titel || img.title || 'Sfeerbeeld'
+                }));
+                
+                createCarousel(processedImages);
             }
         }
 
         function createCarousel(images) {
             const container = document.getElementById('atmosphere-images');
             
+            if (images.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-20">
+                        <div class="error-message max-w-md mx-auto">
+                            <i class="fas fa-image text-2xl mb-4"></i>
+                            <p class="font-semibold mb-2">Geen afbeeldingen beschikbaar</p>
+                            <p class="text-sm">Binnenkort voegen we sfeerbeelden toe</p>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+            
             const carouselHtml = `
                 <div class="carousel-track" id="carousel-track">
                     ${images.map((img, index) => `
                         <div class="carousel-slide">
-                            <img src="${img.url}" alt="${img.alt || 'Sfeerbeeld'}" class="lazy-load">
-                            <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded">
-                                ${img.alt || 'Sfeerbeeld'}
+                            <img src="${img.url}" 
+                                 alt="${img.alt}" 
+                                 class="lazy-load w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                            <div class="absolute bottom-6 left-6 text-white">
+                                <h3 class="text-xl font-semibold mb-2">${img.title}</h3>
+                                <p class="text-sm opacity-90">${img.alt}</p>
                             </div>
                         </div>
                     `).join('')}
                 </div>
-                <button onclick="previousSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all">
+                
+                <!-- Navigation Buttons -->
+                <button onclick="previousSlide()" 
+                        class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 focus:ring-red">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all">
+                <button onclick="nextSlide()" 
+                        class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-75 text-white p-3 rounded-full transition-all duration-300 hover:scale-110 focus:ring-red">
                     <i class="fas fa-chevron-right"></i>
                 </button>
+                
+                <!-- Indicators -->
                 <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
                     ${images.map((_, index) => `
-                        <button onclick="goToSlide(${index})" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all ${index === 0 ? 'bg-opacity-100' : ''}"></button>
+                        <button onclick="goToSlide(${index})" 
+                                class="carousel-indicator w-3 h-3 rounded-full bg-white transition-all duration-300 ${index === 0 ? 'bg-opacity-100 scale-110' : 'bg-opacity-50 hover:bg-opacity-75'}"
+                                aria-label="Ga naar slide ${index + 1}">
+                        </button>
                     `).join('')}
                 </div>
             `;
@@ -820,9 +1403,22 @@
             container.innerHTML = carouselHtml;
             
             // Auto-play carousel
-            setInterval(() => {
+            carouselInterval = setInterval(() => {
                 nextSlide();
             }, 5000);
+            
+            // Pause on hover
+            container.addEventListener('mouseenter', () => {
+                if (carouselInterval) {
+                    clearInterval(carouselInterval);
+                }
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                carouselInterval = setInterval(() => {
+                    nextSlide();
+                }, 5000);
+            });
             
             // Initialize lazy loading
             initializeLazyLoading();
@@ -830,22 +1426,18 @@
 
         function nextSlide() {
             const track = document.getElementById('carousel-track');
-            if (!track) return;
+            if (!track || !track.children.length) return;
             
-            const slides = track.children;
-            const totalSlides = slides.length;
-            
+            const totalSlides = track.children.length;
             currentCarouselIndex = (currentCarouselIndex + 1) % totalSlides;
             updateCarousel();
         }
 
         function previousSlide() {
             const track = document.getElementById('carousel-track');
-            if (!track) return;
+            if (!track || !track.children.length) return;
             
-            const slides = track.children;
-            const totalSlides = slides.length;
-            
+            const totalSlides = track.children.length;
             currentCarouselIndex = (currentCarouselIndex - 1 + totalSlides) % totalSlides;
             updateCarousel();
         }
@@ -863,23 +1455,21 @@
             track.style.transform = `translateX(-${currentCarouselIndex * slideWidth}px)`;
             
             // Update indicators
-            const indicators = document.querySelectorAll('.absolute.bottom-4 button');
+            const indicators = document.querySelectorAll('.carousel-indicator');
             indicators.forEach((indicator, index) => {
                 if (index === currentCarouselIndex) {
-                    indicator.classList.add('bg-opacity-100');
+                    indicator.classList.add('bg-opacity-100', 'scale-110');
                     indicator.classList.remove('bg-opacity-50');
                 } else {
                     indicator.classList.add('bg-opacity-50');
-                    indicator.classList.remove('bg-opacity-100');
+                    indicator.classList.remove('bg-opacity-100', 'scale-110');
                 }
             });
         }
 
-        // Initialize Opening Hours with Enhanced Logic
+        // Initialize Opening Hours
         function initializeOpeningHours() {
             const hoursData = siteData.openingstijden || [];
-            const hoursContainer = document.getElementById('opening-hours');
-            const statusContainer = document.getElementById('current-status');
             
             if (hoursData.length === 0) {
                 // Default opening hours
@@ -907,11 +1497,17 @@
             const today = new Date().toLocaleDateString('nl-NL', { weekday: 'long' });
             
             const hoursHtml = hours.map(hour => {
-                const isToday = hour.dag.toLowerCase() === today.toLowerCase();
+                const dayName = hour.dag || hour.day || '';
+                const timeRange = hour.tijd || hour.time || '';
+                const isToday = dayName.toLowerCase() === today.toLowerCase();
+                
                 return `
                     <div class="opening-hours-item ${isToday ? 'today' : ''}">
-                        <span class="font-medium text-gray-800">${hour.dag}</span>
-                        <span class="text-gray-600 ml-auto">${hour.tijd}</span>
+                        <div class="flex items-center">
+                            <span class="font-medium text-gray-800">${dayName}</span>
+                            ${isToday ? '<span class="ml-2 text-xs bg-primary-red text-white px-2 py-1 rounded-full">Vandaag</span>' : ''}
+                        </div>
+                        <span class="text-gray-600 font-medium">${timeRange}</span>
                     </div>
                 `;
             }).join('');
@@ -945,6 +1541,11 @@
                     <div class="text-lg opacity-90">
                         ${currentStatus.details}
                     </div>
+                    ${currentStatus.nextOpen ? `
+                        <div class="text-sm opacity-75 mt-2">
+                            ${currentStatus.nextOpen}
+                        </div>
+                    ` : ''}
                 </div>
             `;
         }
@@ -952,11 +1553,13 @@
         function getCurrentStatus(hours) {
             const now = new Date();
             const currentDay = now.toLocaleDateString('nl-NL', { weekday: 'long' });
-            const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes
+            const currentTime = now.getHours() * 60 + now.getMinutes();
             
-            const todayHours = hours.find(h => h.dag.toLowerCase() === currentDay.toLowerCase());
+            const todayHours = hours.find(h => 
+                (h.dag || h.day || '').toLowerCase() === currentDay.toLowerCase()
+            );
             
-            if (!todayHours || !todayHours.tijd) {
+            if (!todayHours || !(todayHours.tijd || todayHours.time)) {
                 return { 
                     text: 'Openingstijden onbekend', 
                     class: 'text-gray-500',
@@ -964,8 +1567,7 @@
                 };
             }
             
-            // Parse time range (e.g., "16:00-23:00" or "16:00 - 23:00")
-            const timeRange = todayHours.tijd.replace(/\s/g, '').split('-');
+            const timeRange = (todayHours.tijd || todayHours.time).replace(/\s/g, '').split('-');
             if (timeRange.length !== 2) {
                 return { 
                     text: 'Openingstijden onbekend', 
@@ -988,12 +1590,12 @@
             const openTime = parseInt(openTimeParts[0]) * 60 + parseInt(openTimeParts[1]);
             let closeTime = parseInt(closeTimeParts[0]) * 60 + parseInt(closeTimeParts[1]);
             
-            // Handle midnight crossing (e.g., 24:00 or times after midnight)
+            // Handle midnight crossing
             if (closeTime <= openTime) {
-                closeTime += 24 * 60; // Add 24 hours
+                closeTime += 24 * 60;
             }
             
-            const closingSoonThreshold = 30; // 30 minutes before closing
+            const closingSoonThreshold = 30; // 30 minutes
             
             if (currentTime >= openTime && currentTime < closeTime) {
                 const minutesUntilClose = closeTime - currentTime;
@@ -1012,7 +1614,7 @@
                     return { 
                         text: 'Sluit Binnenkort', 
                         class: 'status-closing-soon',
-                        details: `Nog ${timeText} open`
+                        details: `Nog ${timeText} open - Bestel snel!`
                     };
                 } else {
                     const closeHour = Math.floor(closeTime / 60) % 24;
@@ -1030,73 +1632,165 @@
                 const openMin = openTime % 60;
                 const openTimeFormatted = `${openHour.toString().padStart(2, '0')}:${openMin.toString().padStart(2, '0')}`;
                 
+                // Find next opening day
+                const nextOpen = getNextOpeningTime(hours, now);
+                
                 return { 
                     text: 'Gesloten', 
                     class: 'status-closed',
-                    details: `Opent om ${openTimeFormatted}`
+                    details: `Opent om ${openTimeFormatted}`,
+                    nextOpen: nextOpen
                 };
             }
         }
 
-        // Initialize Contact Section with Dynamic Data
+        function getNextOpeningTime(hours, currentDate) {
+            const dayNames = ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'];
+            const currentDayIndex = currentDate.getDay();
+            
+            for (let i = 1; i <= 7; i++) {
+                const nextDayIndex = (currentDayIndex + i) % 7;
+                const nextDayName = dayNames[nextDayIndex];
+                
+                const nextDayHours = hours.find(h => 
+                    (h.dag || h.day || '').toLowerCase() === nextDayName
+                );
+                
+                if (nextDayHours && (nextDayHours.tijd || nextDayHours.time)) {
+                    const timeRange = (nextDayHours.tijd || nextDayHours.time).split('-')[0];
+                    const dayName = nextDayName.charAt(0).toUpperCase() + nextDayName.slice(1);
+                    
+                    if (i === 1) {
+                        return `Morgen open om ${timeRange}`;
+                    } else {
+                        return `${dayName} open om ${timeRange}`;
+                    }
+                }
+            }
+            
+            return null;
+        }
+
+        // Initialize Contact Section
         function initializeContactSection() {
             const contactContainer = document.getElementById('contact-info');
             const contactData = siteData.contactgegevens || [];
             
             // Extract contact information
-            const address = contactData.find(item => item.type === 'adres' || item.type === 'address')?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
-            const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
-            const email = contactData.find(item => item.type === 'email')?.waarde || 'info@abidoner.nl';
-            const whatsapp = contactData.find(item => item.type === 'whatsapp')?.waarde || phone;
-            const orderUrl = contactData.find(item => item.type === 'bestellen' || item.type === 'thuisbezorgd')?.waarde || '';
+            const address = contactData.find(item => 
+                item.type === 'adres' || item.type === 'address'
+            )?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
             
-            contactContainer.innerHTML = `
-                <div class="text-center p-6 bg-gray-50 rounded-lg">
-                    <div class="text-4xl text-primary-red mb-4">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2">Adres</h3>
-                    <p class="text-gray-700">${address.replace(', ', '<br>')}</p>
-                </div>
+            const phone = contactData.find(item => 
+                item.type === 'telefoon' || item.type === 'phone'
+            )?.waarde || '020-1234567';
+            
+            const email = contactData.find(item => 
+                item.type === 'email'
+            )?.waarde || 'info@abidoner.nl';
+            
+            const whatsapp = contactData.find(item => 
+                item.type === 'whatsapp'
+            )?.waarde || phone;
+            
+            const instagram = contactData.find(item => 
+                item.type === 'instagram'
+            )?.waarde || '';
+            
+            const tiktok = contactData.find(item => 
+                item.type === 'tiktok'
+            )?.waarde || '';
 
-                <div class="text-center p-6 bg-gray-50 rounded-lg">
-                    <div class="text-4xl text-primary-red mb-4">
-                        <i class="fas fa-phone"></i>
+            contactContainer.innerHTML = `
+                <!-- Address Card -->
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-primary-red rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-map-marker-alt text-2xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Telefoon</h3>
-                    <p class="text-gray-700 mb-4">
-                        <a href="tel:${phone.replace(/\D/g, '')}" class="hover:text-primary-red transition-colors">${phone}</a>
-                    </p>
-                    <a href="https://wa.me/31${phone.replace(/\D/g, '').substring(1)}" target="_blank" class="whatsapp-btn text-white px-4 py-2 rounded-full inline-flex items-center space-x-2">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>WhatsApp</span>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Bezoek Ons</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">${address.replace(', ', '<br>')}</p>
+                    <a href="https://maps.google.com/?q=${encodeURIComponent(address)}" 
+                       target="_blank" 
+                       class="inline-flex items-center px-6 py-3 bg-primary-red text-white rounded-lg hover:bg-dark-red transition-colors">
+                        <i class="fas fa-directions mr-2"></i>
+                        Routebeschrijving
                     </a>
                 </div>
 
-                <div class="text-center p-6 bg-gray-50 rounded-lg">
-                    <div class="text-4xl text-primary-red mb-4">
-                        <i class="fas fa-envelope"></i>
+                <!-- Phone Card -->
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-accent-gold rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-phone text-2xl text-white"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-2">Email</h3>
-                    <p class="text-gray-700 mb-4">
-                        <a href="mailto:${email}" class="hover:text-primary-red transition-colors">${email}</a>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Bel Ons</h3>
+                    <p class="text-gray-600 mb-6">
+                        <a href="tel:${phone.replace(/\D/g, '')}" 
+                           class="text-2xl font-bold text-primary-red hover:text-dark-red transition-colors">
+                            ${phone}
+                        </a>
                     </p>
-                    <button onclick="orderOnline()" class="bg-primary-red hover:bg-secondary-red text-white px-6 py-2 rounded-full transition-colors">
-                        Bestel Online
-                    </button>
+                    <div class="space-y-3">
+                        <a href="tel:${phone.replace(/\D/g, '')}" 
+                           class="block w-full px-6 py-3 bg-primary-red text-white rounded-lg hover:bg-dark-red transition-colors">
+                            <i class="fas fa-phone mr-2"></i>Bel Nu
+                        </a>
+                        <a href="https://wa.me/31${phone.replace(/\D/g, '').substring(1)}" 
+                           target="_blank" 
+                           class="block w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors">
+                            <i class="fab fa-whatsapp mr-2"></i>WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Online Card -->
+                <div class="bg-white rounded-xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-warm-orange rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-globe text-2xl text-white"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Online</h3>
+                    <p class="text-gray-600 mb-6">
+                        <a href="mailto:${email}" 
+                           class="text-primary-red hover:text-dark-red transition-colors">
+                            ${email}
+                        </a>
+                    </p>
+                    <div class="space-y-3">
+                        <button onclick="orderOnline()" 
+                                class="block w-full px-6 py-3 bg-warm-orange text-white rounded-lg hover:bg-orange-600 transition-colors">
+                            <i class="fas fa-shopping-cart mr-2"></i>Bestel Online
+                        </button>
+                        <div class="flex gap-2">
+                            ${instagram ? `
+                                <a href="${instagram}" 
+                                   target="_blank" 
+                                   class="flex-1 px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            ` : ''}
+                            ${tiktok ? `
+                                <a href="${tiktok}" 
+                                   target="_blank" 
+                                   class="flex-1 px-4 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                            ` : ''}
+                        </div>
+                    </div>
                 </div>
             `;
         }
 
-        // Initialize Legal Pages with Dynamic Loading
+        // Initialize Legal Pages
         function initializeLegalPages() {
             const legalContainer = document.getElementById('legal-sections');
             const legalData = siteData.wettelijke_paginas || [];
             
             if (legalData.length === 0) {
                 legalContainer.innerHTML = `
-                    <div class="text-center p-8 bg-white rounded-lg shadow-lg">
-                        <p class="text-gray-600">Wettelijke informatie wordt binnenkort beschikbaar gesteld.</p>
+                    <div class="text-center p-12 bg-white rounded-lg shadow-lg">
+                        <i class="fas fa-file-alt text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600 text-lg">Wettelijke informatie wordt binnenkort beschikbaar gesteld.</p>
+                        <p class="text-gray-500 text-sm mt-2">Voor vragen kunt u contact met ons opnemen.</p>
                     </div>
                 `;
                 return;
@@ -1105,7 +1799,7 @@
             // Group legal data by page type
             const groupedLegal = {};
             legalData.forEach(item => {
-                const pageType = item.pagina_type || item.type || 'algemeen';
+                const pageType = item.pagina_type || item.type || item.categorie || 'algemeen';
                 if (!groupedLegal[pageType]) {
                     groupedLegal[pageType] = [];
                 }
@@ -1114,7 +1808,7 @@
 
             const legalTitles = {
                 'algemene_voorwaarden': 'Algemene Voorwaarden',
-                'privacyverklaring': 'Privacyverklaring',
+                'privacyverklaring': 'Privacyverklaring', 
                 'retourbeleid': 'Retourbeleid',
                 'klantenservice': 'Klantenservice',
                 'contact': 'Contact Informatie',
@@ -1122,19 +1816,35 @@
                 'algemeen': 'Algemene Informatie'
             };
 
+            const legalIcons = {
+                'algemene_voorwaarden': 'fas fa-file-contract',
+                'privacyverklaring': 'fas fa-shield-alt',
+                'retourbeleid': 'fas fa-undo-alt',
+                'klantenservice': 'fas fa-headset',
+                'contact': 'fas fa-phone',
+                'over_ons': 'fas fa-info-circle',
+                'algemeen': 'fas fa-file-alt'
+            };
+
             const legalHtml = Object.entries(groupedLegal).map(([pageType, items]) => {
                 const title = legalTitles[pageType] || pageType.charAt(0).toUpperCase() + pageType.slice(1).replace('_', ' ');
+                const icon = legalIcons[pageType] || 'fas fa-file-alt';
                 
                 const content = items.map(item => `
-                    ${item.sectie_titel ? `<h4>${item.sectie_titel}</h4>` : ''}
-                    <p>${item.inhoud || item.content || 'Inhoud wordt binnenkort beschikbaar gesteld.'}</p>
+                    ${item.sectie_titel || item.title ? `<h4 class="text-lg font-semibold text-primary-red mb-3">${item.sectie_titel || item.title}</h4>` : ''}
+                    <div class="prose prose-gray max-w-none">
+                        ${(item.inhoud || item.content || 'Inhoud wordt binnenkort beschikbaar gesteld.').replace(/\n/g, '</p><p class="mb-4">')}
+                    </div>
                 `).join('');
                 
                 return `
                     <div class="legal-section">
                         <div class="legal-header" onclick="toggleLegalSection(this)">
-                            <h3 class="text-lg font-semibold">${title}</h3>
-                            <span class="text-xl">+</span>
+                            <div class="flex items-center">
+                                <i class="${icon} mr-3"></i>
+                                <h3 class="text-lg font-semibold">${title}</h3>
+                            </div>
+                            <span class="text-xl transition-transform duration-300">+</span>
                         </div>
                         <div class="legal-content">
                             ${content}
@@ -1153,40 +1863,66 @@
             if (content.classList.contains('active')) {
                 content.classList.remove('active');
                 icon.textContent = '+';
+                icon.style.transform = 'rotate(0deg)';
             } else {
                 // Close all other sections
                 document.querySelectorAll('.legal-content.active').forEach(section => {
                     section.classList.remove('active');
-                    section.previousElementSibling.querySelector('span').textContent = '+';
+                    const otherIcon = section.previousElementSibling.querySelector('span');
+                    otherIcon.textContent = '+';
+                    otherIcon.style.transform = 'rotate(0deg)';
                 });
                 
                 // Open this section
                 content.classList.add('active');
                 icon.textContent = '−';
+                icon.style.transform = 'rotate(180deg)';
             }
         }
 
-        // Initialize Footer with Dynamic Data
+        // Initialize Footer
         function initializeFooter() {
             const footerContactContainer = document.getElementById('footer-contact');
             const footerLegalContainer = document.getElementById('footer-legal-links');
             
             // Footer contact info
             const contactData = siteData.contactgegevens || [];
-            const address = contactData.find(item => item.type === 'adres' || item.type === 'address')?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
-            const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
-            const email = contactData.find(item => item.type === 'email')?.waarde || 'info@abidoner.nl';
+            const address = contactData.find(item => 
+                item.type === 'adres' || item.type === 'address'
+            )?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
             
+            const phone = contactData.find(item => 
+                item.type === 'telefoon' || item.type === 'phone'
+            )?.waarde || '020-1234567';
+            
+            const email = contactData.find(item => 
+                item.type === 'email'
+            )?.waarde || 'info@abidoner.nl';
+
             footerContactContainer.innerHTML = `
-                <p>${address.replace(', ', '<br>')}</p>
-                <p>Tel: ${phone}</p>
-                <p>Email: ${email}</p>
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <i class="fas fa-map-marker-alt mr-3 text-accent-gold"></i>
+                        <span>${address.replace(', ', ', ')}</span>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-phone mr-3 text-accent-gold"></i>
+                        <a href="tel:${phone.replace(/\D/g, '')}" class="hover:text-accent-gold transition-colors">${phone}</a>
+                    </div>
+                    <div class="flex items-center">
+                        <i class="fas fa-envelope mr-3 text-accent-gold"></i>
+                        <a href="mailto:${email}" class="hover:text-accent-gold transition-colors">${email}</a>
+                    </div>
+                </div>
             `;
             
             // Footer legal links
             const legalData = siteData.wettelijke_paginas || [];
             if (legalData.length > 0) {
-                const uniquePageTypes = [...new Set(legalData.map(item => item.pagina_type || item.type))];
+                const uniquePageTypes = [...new Set(legalData.map(item => 
+                    item.pagina_type || item.type || item.categorie
+                ))].filter(Boolean);
+                
                 const legalTitles = {
                     'algemene_voorwaarden': 'Algemene Voorwaarden',
                     'privacyverklaring': 'Privacyverklaring',
@@ -1196,27 +1932,54 @@
                 
                 const legalLinksHtml = uniquePageTypes.map(pageType => {
                     const title = legalTitles[pageType] || pageType.charAt(0).toUpperCase() + pageType.slice(1).replace('_', ' ');
-                    return `<a href="#wettelijke-paginas" class="hover:text-accent-gold transition-colors">${title}</a>`;
+                    return `
+                        <a href="#wettelijke-paginas" 
+                           class="block hover:text-accent-gold transition-colors py-1">
+                            ${title}
+                        </a>
+                    `;
                 }).join('');
                 
                 footerLegalContainer.innerHTML = legalLinksHtml;
             } else {
-                footerLegalContainer.innerHTML = '<p>Wettelijke informatie wordt binnenkort beschikbaar gesteld.</p>';
+                footerLegalContainer.innerHTML = `
+                    <div class="space-y-2">
+                        <a href="#wettelijke-paginas" class="block hover:text-accent-gold transition-colors py-1">Algemene Voorwaarden</a>
+                        <a href="#wettelijke-paginas" class="block hover:text-accent-gold transition-colors py-1">Privacyverklaring</a>
+                        <a href="#wettelijke-paginas" class="block hover:text-accent-gold transition-colors py-1">Retourbeleid</a>
+                    </div>
+                `;
             }
         }
 
         // Initialize Lazy Loading
         function initializeLazyLoading() {
-            const lazyImages = document.querySelectorAll('.lazy-load');
+            const lazyImages = document.querySelectorAll('.lazy-load:not(.loaded)');
             
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const img = entry.target;
-                        img.classList.add('loaded');
+                        
+                        // Create a new image to preload
+                        const newImg = new Image();
+                        newImg.onload = () => {
+                            img.classList.add('loaded');
+                        };
+                        newImg.onerror = () => {
+                            img.classList.add('loaded');
+                            // Set fallback image if original fails
+                            if (img.dataset.fallback) {
+                                img.src = img.dataset.fallback;
+                            }
+                        };
+                        newImg.src = img.src;
+                        
                         observer.unobserve(img);
                     }
                 });
+            }, {
+                rootMargin: '50px'
             });
             
             lazyImages.forEach(img => {
@@ -1229,16 +1992,59 @@
             // Try to get order URL from contact data
             const contactData = siteData.contactgegevens || [];
             const orderUrl = contactData.find(item => 
-                item.type === 'bestellen' || item.type === 'thuisbezorgd'
+                item.type === 'bestellen' || item.type === 'thuisbezorgd' || item.type === 'order'
             )?.waarde;
             
-            if (orderUrl) {
+            if (orderUrl && orderUrl.startsWith('http')) {
                 window.open(orderUrl, '_blank');
             } else {
                 // Fallback to phone call
-                const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
-                window.location.href = `tel:${phone.replace(/\D/g, '')}`;
+                const phone = contactData.find(item => 
+                    item.type === 'telefoon' || item.type === 'phone'
+                )?.waarde || '020-1234567';
+                
+                if (confirm('Wilt u bellen om te bestellen?')) {
+                    window.location.href = `tel:${phone.replace(/\D/g, '')}`;
+                }
             }
+        }
+
+        function openWhatsApp() {
+            const contactData = siteData.contactgegevens || [];
+            const phone = contactData.find(item => 
+                item.type === 'telefoon' || item.type === 'phone' || item.type === 'whatsapp'
+            )?.waarde || '020-1234567';
+            
+            const message = encodeURIComponent('Hallo! Ik wil graag bestellen bij Abi Abi Döner.');
+            const whatsappUrl = `https://wa.me/31${phone.replace(/\D/g, '').substring(1)}?text=${message}`;
+            
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function showNotification(message, type = 'success') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-lg shadow-lg text-white transition-all duration-300 transform translate-x-full ${
+                type === 'success' ? 'bg-green-500' : 
+                type === 'error' ? 'bg-red-500' : 
+                'bg-blue-500'
+            }`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
         }
 
         // Load fallback data
@@ -1246,31 +2052,45 @@
             const fallbackMenu = [
                 {
                     naam: 'Döner Broodje',
-                    beschrijving: 'Vers broodje met döner, salade en saus',
+                    beschrijving: 'Vers broodje met döner, salade en saus naar keuze',
                     prijs: '6.50',
                     categorie: 'broodjes',
-                    ingredienten: 'Döner, salade, tomaat, komkommer, ui, saus'
+                    ingredienten: 'Döner, salade, tomaat, komkommer, ui, saus naar keuze'
                 },
                 {
-                    naam: 'Kapsalon',
+                    naam: 'Kapsalon Döner',
                     beschrijving: 'Friet met döner, kaas, salade en saus',
                     prijs: '9.50',
                     categorie: 'schotels',
-                    ingredienten: 'Friet, döner, kaas, salade, saus'
+                    ingredienten: 'Friet, döner, gesmolten kaas, salade, saus'
                 },
                 {
                     naam: 'Lahmacun',
                     beschrijving: 'Turkse pizza met gehakt en verse kruiden',
                     prijs: '5.50',
                     categorie: 'pizza',
-                    ingredienten: 'Deeg, gehakt, tomaat, ui, peterselie'
+                    ingredienten: 'Dun deeg, gekruid gehakt, tomaat, ui, peterselie'
                 },
                 {
                     naam: 'Döner Wrap',
                     beschrijving: 'Wrap gevuld met döner en verse groenten',
                     prijs: '7.50',
                     categorie: 'wraps',
-                    ingredienten: 'Wrap, döner, salade, tomaat, saus'
+                    ingredienten: 'Tortilla wrap, döner, salade, tomaat, komkommer, saus'
+                },
+                {
+                    naam: 'Pide Kaas',
+                    beschrijving: 'Turkse pizza boot met kaas',
+                    prijs: '8.00',
+                    categorie: 'pizza',
+                    ingredienten: 'Pide deeg, Turkse kaas, ei'
+                },
+                {
+                    naam: 'Friet Speciaal',
+                    beschrijving: 'Friet met mayonaise, ketchup en ui',
+                    prijs: '4.50',
+                    categorie: 'snacks',
+                    ingredienten: 'Friet, mayonaise, ketchup, gesnipperde ui'
                 }
             ];
             
@@ -1281,17 +2101,25 @@
             
             // Create category buttons
             const categoriesContainer = document.getElementById('menu-categories');
-            categoriesContainer.innerHTML = categories.map(category => 
-                `<button onclick="filterMenu('${category}')" class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white">
-                    ${category.charAt(0).toUpperCase() + category.slice(1)}
-                </button>`
-            ).join('');
+            categoriesContainer.innerHTML = categories.map(category => {
+                const displayName = category.charAt(0).toUpperCase() + category.slice(1);
+                const emoji = getCategoryEmoji(category);
+                
+                return `
+                    <button onclick="filterMenu('${category}')" 
+                            class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white focus:ring-red transition-all duration-300">
+                        ${emoji} ${displayName}
+                    </button>
+                `;
+            }).join('');
             
             // Display menu items
             displayMenuItems(fallbackMenu);
         }
 
         function loadFallbackData() {
+            console.log('Loading fallback data...');
+            
             // Initialize with fallback data
             initializeAboutSection();
             loadFallbackMenu();
@@ -1300,6 +2128,8 @@
             initializeContactSection();
             initializeLegalPages();
             initializeFooter();
+            
+            showNotification('Gegevens worden geladen vanuit lokale fallback', 'info');
         }
 
         // Cleanup function
@@ -1307,7 +2137,23 @@
             if (statusUpdateInterval) {
                 clearInterval(statusUpdateInterval);
             }
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+            }
         });
+
+        // Handle window resize for carousel
+        window.addEventListener('resize', function() {
+            updateCarousel();
+        });
+
+        // Service Worker Registration (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // Uncomment to enable service worker
+                // navigator.serviceWorker.register('/sw.js');
+            });
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title">Abi Abi Döner - Authentieke Turkse Gerechten</title>
+    <meta name="description" id="page-description" content="Geniet van verse döner, kebab en andere Turkse specialiteiten bij Abi Abi Döner. Bestel online voor bezorging of afhaal.">
+    <meta property="og:title" id="og-title" content="Abi Abi Döner - Authentieke Turkse Gerechten">
+    <meta property="og:description" id="og-description" content="Geniet van verse döner, kebab en andere Turkse specialiteiten bij Abi Abi Döner. Bestel online voor bezorging of afhaal.">
+    <meta property="og:image" id="og-image" content="https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/KzwzkWnb/abi2.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        :root {
+            --primary-red: #8B0000;
+            --secondary-red: #B22222;
+            --accent-gold: #DAA520;
+            --warm-orange: #FF6B35;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.7), rgba(178, 34, 34, 0.5)), 
+                        url('https://i.postimg.cc/nzB82Syp/Whats-App-Image-2025-06-20-at-15-27-12-4.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .menu-card {
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .category-btn {
+            transition: all 0.3s ease;
+        }
+
+        .category-btn.active {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .status-open {
+            color: #10B981;
+        }
+
+        .status-closed {
+            color: #EF4444;
+        }
+
+        .status-closing-soon {
+            color: #F59E0B;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            position: relative;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+
+        @media (min-width: 768px) {
+            .carousel-slide {
+                min-width: 50%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .carousel-slide {
+                min-width: 33.333%;
+            }
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid var(--primary-red);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .sticky-header {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #128C7E;
+            transform: scale(1.05);
+        }
+
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        .home-button {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            transform: scale(1.05);
+        }
+
+        .legal-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .legal-header {
+            background: var(--primary-red);
+            color: white;
+            padding: 1rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .legal-header:hover {
+            background: var(--secondary-red);
+        }
+
+        .legal-content {
+            padding: 1.5rem;
+            display: none;
+            background: white;
+            line-height: 1.8;
+        }
+
+        .legal-content.active {
+            display: block;
+        }
+
+        .legal-content h4 {
+            color: var(--primary-red);
+            font-weight: 600;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .opening-hours-today {
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+            color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .opening-hours-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .opening-hours-item:last-child {
+            border-bottom: none;
+        }
+
+        .opening-hours-item.today {
+            background: rgba(139, 0, 0, 0.1);
+            border-radius: 4px;
+            padding: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-red': '#8B0000',
+                        'secondary-red': '#B22222',
+                        'accent-gold': '#DAA520',
+                        'warm-orange': '#FF6B35'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header id="header" class="fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo and Name as Home Button -->
+                <div class="flex items-center space-x-3 home-button" onclick="goToHome()">
+                    <img src="https://i.postimg.cc/SRD09bpt/ABI-LOGO.png" alt="Abi Abi Döner Logo" class="h-12 w-12 rounded-full shadow-lg">
+                    <h1 class="text-2xl font-bold text-primary-red">Abi Abi Döner</h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Home</a>
+                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Over Ons</a>
+                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Menu</a>
+                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Openingstijden</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Contact</a>
+                </nav>
+
+                <button id="mobile-menu-btn" class="md:hidden text-primary-red text-2xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Home</a>
+                    <a href="#over-ons" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Over Ons</a>
+                    <a href="#menu" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Menu</a>
+                    <a href="#openingstijden" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Openingstijden</a>
+                    <a href="#contact" class="nav-link text-gray-700 hover:text-primary-red transition-colors font-medium">Contact</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-white">
+        <div class="container mx-auto px-4 text-center">
+            <div class="fade-in">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 text-shadow-lg">
+                    Welkom bij Abi Abi Döner
+                </h2>
+                <p class="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
+                    Authentiek, snel en overheerlijk eten!
+                </p>
+                <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                    Wij serveren de lekkerste broodjes, pizza's en kapsalons van de stad.
+                </p>
+                <div class="space-y-4 md:space-y-0 md:space-x-4 md:flex md:justify-center">
+                    <button onclick="scrollToSection('menu')" class="bg-accent-gold hover:bg-yellow-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Bekijk ons menu
+                    </button>
+                    <button onclick="orderOnline()" class="bg-warm-orange hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Bestel Nu
+                    </button>
+                </div>
+                <p class="text-lg mt-8 opacity-90">
+                    Gezellig terras, patisserie én café – je bent altijd welkom.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Over Ons Section -->
+    <section id="over-ons" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Over Ons</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+            
+            <div class="fade-in max-w-4xl mx-auto">
+                <div id="about-content" class="text-lg leading-relaxed text-gray-700 text-center">
+                    <div class="loading-spinner mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Ons Menu</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="fade-in mb-12">
+                <div id="menu-categories" class="flex flex-wrap justify-center gap-3">
+                    <div class="loading-spinner mx-auto"></div>
+                </div>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="fade-in">
+                <div id="menu-items" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="col-span-full flex justify-center">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sfeerafbeeldingen Section -->
+    <section id="sfeer" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Sfeer & Ambiance</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+
+            <div class="fade-in">
+                <div id="atmosphere-images" class="carousel-container rounded-lg overflow-hidden shadow-xl">
+                    <div class="loading-spinner mx-auto my-20"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Openingstijden Section -->
+    <section id="openingstijden" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Openingstijden</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+
+            <div class="fade-in max-w-2xl mx-auto">
+                <!-- Current Status -->
+                <div id="current-status" class="opening-hours-today text-center mb-6">
+                    <div class="loading-spinner mx-auto"></div>
+                </div>
+                
+                <!-- Opening Hours -->
+                <div id="opening-hours" class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="loading-spinner mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Contact</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+
+            <div class="fade-in max-w-4xl mx-auto">
+                <div id="contact-info" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="col-span-full flex justify-center">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Legal Pages Section -->
+    <section id="wettelijke-paginas" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="fade-in text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-primary-red mb-6">Wettelijke Informatie</h2>
+                <div class="w-24 h-1 bg-accent-gold mx-auto mb-8"></div>
+            </div>
+
+            <div class="fade-in max-w-4xl mx-auto">
+                <div id="legal-sections">
+                    <div class="loading-spinner mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4 home-button" onclick="goToHome()">
+                        <img src="https://i.postimg.cc/SRD09bpt/ABI-LOGO.png" alt="Abi Abi Döner Logo" class="h-10 w-10 rounded-full">
+                        <h3 class="text-xl font-bold">Abi Abi Döner</h3>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Authentieke Turkse gerechten, vers bereid, snel geleverd
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors">📷</a>
+                        <a href="#" class="text-2xl hover:text-accent-gold transition-colors">🎵</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact</h3>
+                    <div id="footer-contact" class="space-y-2 text-gray-300">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Wettelijke Info</h3>
+                    <div id="footer-legal-links" class="space-y-2 text-gray-300">
+                        <div class="loading-spinner"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+                <p>&copy; 2024 Abi Abi Döner. Alle rechten voorbehouden.</p>
+                <p class="mt-2">Powered by <a href="https://vanappiah.com/" target="_blank" class="text-accent-gold hover:underline">Van Appiah</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Global variables
+        let siteData = {
+            menu_items: [],
+            homepage_content: [],
+            openingstijden: [],
+            afbeeldingen: [],
+            seo_meta: [],
+            contactgegevens: [],
+            wettelijke_paginas: []
+        };
+
+        let currentMenuFilter = 'alle';
+        let currentCarouselIndex = 0;
+        let statusUpdateInterval;
+
+        // Initialize website
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeNavigation();
+            initializeFadeInAnimation();
+            loadSiteData();
+        });
+
+        // Home button functionality
+        function goToHome() {
+            scrollToSection('home');
+        }
+
+        // Navigation functionality
+        function initializeNavigation() {
+            // Smooth scrolling
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    scrollToSection(targetId);
+                });
+            });
+
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Header background on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.getElementById('header');
+                if (window.scrollY > 100) {
+                    header.classList.add('sticky-header');
+                } else {
+                    header.classList.remove('sticky-header');
+                }
+            });
+        }
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const headerHeight = document.getElementById('header').offsetHeight;
+                const elementPosition = element.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: elementPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Fade in animation
+        function initializeFadeInAnimation() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Load data from Google Sheets
+        async function loadSiteData() {
+            try {
+                const sheetId = '1vT6MKhUnm7HhAX8slifKw0G0uNl7IUNC-PiJOyQspKsX6jpe0zWz7VL-dvQFaGlF5Rtk88dulil4uEr';
+                const baseUrl = `https://docs.google.com/spreadsheets/d/e/2PACX-${sheetId}/pub?output=csv&gid=`;
+                
+                const sheets = {
+                    menu_items: '0',
+                    homepage_content: '1',
+                    openingstijden: '2',
+                    afbeeldingen: '3',
+                    seo_meta: '4',
+                    contactgegevens: '5',
+                    wettelijke_paginas: '6'
+                };
+
+                const loadPromises = Object.entries(sheets).map(async ([sheetName, gid]) => {
+                    try {
+                        const response = await fetch(`${baseUrl}${gid}`);
+                        const csvText = await response.text();
+                        siteData[sheetName] = parseCSV(csvText);
+                    } catch (error) {
+                        console.error(`Error loading ${sheetName}:`, error);
+                        siteData[sheetName] = [];
+                    }
+                });
+
+                await Promise.all(loadPromises);
+
+                // Initialize all sections
+                initializeSEO();
+                initializeAboutSection();
+                initializeMenuSection();
+                initializeAtmosphereSection();
+                initializeOpeningHours();
+                initializeContactSection();
+                initializeLegalPages();
+                initializeFooter();
+
+            } catch (error) {
+                console.error('Error loading site data:', error);
+                loadFallbackData();
+            }
+        }
+
+        // Parse CSV data
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n').filter(line => line.trim());
+            if (lines.length === 0) return [];
+            
+            const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
+            const data = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const values = parseCSVLine(lines[i]);
+                const row = {};
+                headers.forEach((header, index) => {
+                    row[header] = values[index] ? values[index].replace(/"/g, '') : '';
+                });
+                if (Object.values(row).some(val => val && val.trim())) {
+                    data.push(row);
+                }
+            }
+            return data;
+        }
+
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            
+            result.push(current.trim());
+            return result;
+        }
+
+        // Initialize SEO
+        function initializeSEO() {
+            const seoData = siteData.seo_meta.find(item => item.page === 'home' || item.page === 'homepage');
+            
+            if (seoData) {
+                if (seoData.meta_title) {
+                    document.getElementById('page-title').textContent = seoData.meta_title;
+                    document.getElementById('og-title').setAttribute('content', seoData.meta_title);
+                }
+                if (seoData.meta_description) {
+                    document.getElementById('page-description').setAttribute('content', seoData.meta_description);
+                    document.getElementById('og-description').setAttribute('content', seoData.meta_description);
+                }
+                if (seoData.og_image_url) {
+                    document.getElementById('og-image').setAttribute('content', seoData.og_image_url);
+                }
+            }
+        }
+
+        // Initialize About Section
+        function initializeAboutSection() {
+            const aboutContent = document.getElementById('about-content');
+            const aboutData = siteData.homepage_content.find(item => 
+                item.section === 'over_ons' || item.type === 'about'
+            );
+
+            if (aboutData && aboutData.content) {
+                aboutContent.innerHTML = `<p class="text-lg leading-relaxed">${aboutData.content}</p>`;
+            } else {
+                aboutContent.innerHTML = `
+                    <p class="text-lg leading-relaxed mb-6">
+                        Bij Abi Abi Döner staan kwaliteit en authenticiteit voorop. Onze ervaren koks bereiden dagelijks verse gerechten volgens traditionele Turkse recepten. Van sappige döner kebab tot heerlijke lahmacun – elk gerecht wordt met zorg en passie gemaakt.
+                    </p>
+                    <p class="text-lg leading-relaxed">
+                        Wij gebruiken alleen de beste ingrediënten en zorgen ervoor dat elke maaltijd een culinaire ervaring wordt. Kom langs en proef zelf waarom wij de beste Turkse keuken in de buurt serveren!
+                    </p>
+                `;
+            }
+        }
+
+        // Initialize Menu Section
+        function initializeMenuSection() {
+            const menuData = siteData.menu_items || [];
+            
+            if (menuData.length === 0) {
+                loadFallbackMenu();
+                return;
+            }
+
+            // Get unique categories
+            const categories = ['alle', ...new Set(menuData.map(item => item.categorie).filter(cat => cat))];
+            
+            // Create category buttons
+            const categoriesContainer = document.getElementById('menu-categories');
+            categoriesContainer.innerHTML = categories.map(category => 
+                `<button onclick="filterMenu('${category}')" class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white">
+                    ${category.charAt(0).toUpperCase() + category.slice(1)}
+                </button>`
+            ).join('');
+            
+            // Display menu items
+            displayMenuItems(menuData);
+        }
+
+        function displayMenuItems(items) {
+            const menuContainer = document.getElementById('menu-items');
+            
+            const menuHtml = items.map(item => {
+                const imageUrl = item.afbeelding_url || getDefaultMenuImage(item.categorie);
+                
+                return `
+                    <div class="menu-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="${item.categorie || 'overig'}">
+                        <div class="relative">
+                            <img src="${imageUrl}" alt="${item.naam || 'Menu item'}" class="w-full h-48 object-cover lazy-load" 
+                                 onerror="this.src='https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'">
+                            <div class="absolute top-4 right-4 bg-accent-gold text-white px-3 py-1 rounded-full font-bold">
+                                €${item.prijs || '0.00'}
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-primary-red mb-2">${item.naam || 'Naam niet beschikbaar'}</h3>
+                            <p class="text-gray-600 mb-3">${item.beschrijving || 'Heerlijk gerecht, vers bereid'}</p>
+                            ${item.ingredienten ? `<p class="text-sm text-gray-500 mb-4"><strong>Ingrediënten:</strong> ${item.ingredienten}</p>` : ''}
+                            ${item.thuisbezorgd_url ? 
+                                `<button onclick="window.open('${item.thuisbezorgd_url}', '_blank')" class="w-full bg-primary-red hover:bg-secondary-red text-white py-2 px-4 rounded-lg transition-colors font-medium">
+                                    Bestel Nu
+                                </button>` : 
+                                `<button onclick="orderOnline()" class="w-full bg-primary-red hover:bg-secondary-red text-white py-2 px-4 rounded-lg transition-colors font-medium">
+                                    Bestel Nu
+                                </button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            menuContainer.innerHTML = menuHtml;
+            
+            // Initialize lazy loading for images
+            initializeLazyLoading();
+        }
+
+        function getDefaultMenuImage(category) {
+            const defaultImages = {
+                'broodjes': 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'pizza': 'https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'wraps': 'https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'schotels': 'https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'snacks': 'https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80',
+                'drank': 'https://images.unsplash.com/photo-1544145945-f90425340c7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80'
+            };
+            
+            return defaultImages[category?.toLowerCase()] || 'https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80';
+        }
+
+        function filterMenu(category) {
+            currentMenuFilter = category;
+            
+            // Update active button
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filter items
+            const menuItems = document.querySelectorAll('.menu-card');
+            menuItems.forEach(item => {
+                if (category === 'alle' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Initialize Atmosphere Section
+        function initializeAtmosphereSection() {
+            const atmosphereData = siteData.afbeeldingen.filter(img => 
+                img.type === 'sfeer' || img.type === 'atmosphere'
+            );
+            
+            const container = document.getElementById('atmosphere-images');
+            
+            if (atmosphereData.length === 0) {
+                // Load default atmosphere images
+                const defaultImages = [
+                    { url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Restaurant interieur' },
+                    { url: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Gezellige sfeer' },
+                    { url: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80', alt: 'Terras' }
+                ];
+                
+                createCarousel(defaultImages);
+            } else {
+                createCarousel(atmosphereData);
+            }
+        }
+
+        function createCarousel(images) {
+            const container = document.getElementById('atmosphere-images');
+            
+            const carouselHtml = `
+                <div class="carousel-track" id="carousel-track">
+                    ${images.map((img, index) => `
+                        <div class="carousel-slide">
+                            <img src="${img.url}" alt="${img.alt || 'Sfeerbeeld'}" class="lazy-load">
+                            <div class="absolute bottom-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded">
+                                ${img.alt || 'Sfeerbeeld'}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+                <button onclick="previousSlide()" class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-all">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    ${images.map((_, index) => `
+                        <button onclick="goToSlide(${index})" class="w-3 h-3 rounded-full bg-white bg-opacity-50 hover:bg-opacity-100 transition-all ${index === 0 ? 'bg-opacity-100' : ''}"></button>
+                    `).join('')}
+                </div>
+            `;
+            
+            container.innerHTML = carouselHtml;
+            
+            // Auto-play carousel
+            setInterval(() => {
+                nextSlide();
+            }, 5000);
+            
+            // Initialize lazy loading
+            initializeLazyLoading();
+        }
+
+        function nextSlide() {
+            const track = document.getElementById('carousel-track');
+            if (!track) return;
+            
+            const slides = track.children;
+            const totalSlides = slides.length;
+            
+            currentCarouselIndex = (currentCarouselIndex + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function previousSlide() {
+            const track = document.getElementById('carousel-track');
+            if (!track) return;
+            
+            const slides = track.children;
+            const totalSlides = slides.length;
+            
+            currentCarouselIndex = (currentCarouselIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentCarouselIndex = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            const track = document.getElementById('carousel-track');
+            if (!track || !track.children.length) return;
+            
+            const slideWidth = track.children[0].offsetWidth;
+            track.style.transform = `translateX(-${currentCarouselIndex * slideWidth}px)`;
+            
+            // Update indicators
+            const indicators = document.querySelectorAll('.absolute.bottom-4 button');
+            indicators.forEach((indicator, index) => {
+                if (index === currentCarouselIndex) {
+                    indicator.classList.add('bg-opacity-100');
+                    indicator.classList.remove('bg-opacity-50');
+                } else {
+                    indicator.classList.add('bg-opacity-50');
+                    indicator.classList.remove('bg-opacity-100');
+                }
+            });
+        }
+
+        // Initialize Opening Hours with Enhanced Logic
+        function initializeOpeningHours() {
+            const hoursData = siteData.openingstijden || [];
+            const hoursContainer = document.getElementById('opening-hours');
+            const statusContainer = document.getElementById('current-status');
+            
+            if (hoursData.length === 0) {
+                // Default opening hours
+                const defaultHours = [
+                    { dag: 'Maandag', tijd: '16:00-23:00' },
+                    { dag: 'Dinsdag', tijd: '16:00-23:00' },
+                    { dag: 'Woensdag', tijd: '16:00-23:00' },
+                    { dag: 'Donderdag', tijd: '16:00-23:00' },
+                    { dag: 'Vrijdag', tijd: '16:00-24:00' },
+                    { dag: 'Zaterdag', tijd: '16:00-24:00' },
+                    { dag: 'Zondag', tijd: '16:00-23:00' }
+                ];
+                
+                displayOpeningHours(defaultHours);
+            } else {
+                displayOpeningHours(hoursData);
+            }
+            
+            // Update status every minute
+            statusUpdateInterval = setInterval(updateCurrentStatus, 60000);
+        }
+
+        function displayOpeningHours(hours) {
+            const hoursContainer = document.getElementById('opening-hours');
+            const today = new Date().toLocaleDateString('nl-NL', { weekday: 'long' });
+            
+            const hoursHtml = hours.map(hour => {
+                const isToday = hour.dag.toLowerCase() === today.toLowerCase();
+                return `
+                    <div class="opening-hours-item ${isToday ? 'today' : ''}">
+                        <span class="font-medium text-gray-800">${hour.dag}</span>
+                        <span class="text-gray-600 ml-auto">${hour.tijd}</span>
+                    </div>
+                `;
+            }).join('');
+            
+            hoursContainer.innerHTML = hoursHtml;
+            
+            // Update current status
+            updateCurrentStatus();
+        }
+
+        function updateCurrentStatus() {
+            const hoursData = siteData.openingstijden.length > 0 ? siteData.openingstijden : [
+                { dag: 'Maandag', tijd: '16:00-23:00' },
+                { dag: 'Dinsdag', tijd: '16:00-23:00' },
+                { dag: 'Woensdag', tijd: '16:00-23:00' },
+                { dag: 'Donderdag', tijd: '16:00-23:00' },
+                { dag: 'Vrijdag', tijd: '16:00-24:00' },
+                { dag: 'Zaterdag', tijd: '16:00-24:00' },
+                { dag: 'Zondag', tijd: '16:00-23:00' }
+            ];
+            
+            const statusContainer = document.getElementById('current-status');
+            const currentStatus = getCurrentStatus(hoursData);
+            
+            statusContainer.innerHTML = `
+                <div class="text-center">
+                    <div class="text-3xl font-bold mb-2">
+                        <i class="fas fa-clock mr-2"></i>
+                        <span class="${currentStatus.class}">${currentStatus.text}</span>
+                    </div>
+                    <div class="text-lg opacity-90">
+                        ${currentStatus.details}
+                    </div>
+                </div>
+            `;
+        }
+
+        function getCurrentStatus(hours) {
+            const now = new Date();
+            const currentDay = now.toLocaleDateString('nl-NL', { weekday: 'long' });
+            const currentTime = now.getHours() * 60 + now.getMinutes(); // Convert to minutes
+            
+            const todayHours = hours.find(h => h.dag.toLowerCase() === currentDay.toLowerCase());
+            
+            if (!todayHours || !todayHours.tijd) {
+                return { 
+                    text: 'Openingstijden onbekend', 
+                    class: 'text-gray-500',
+                    details: 'Neem contact op voor actuele openingstijden'
+                };
+            }
+            
+            // Parse time range (e.g., "16:00-23:00" or "16:00 - 23:00")
+            const timeRange = todayHours.tijd.replace(/\s/g, '').split('-');
+            if (timeRange.length !== 2) {
+                return { 
+                    text: 'Openingstijden onbekend', 
+                    class: 'text-gray-500',
+                    details: 'Neem contact op voor actuele openingstijden'
+                };
+            }
+            
+            const openTimeParts = timeRange[0].split(':');
+            const closeTimeParts = timeRange[1].split(':');
+            
+            if (openTimeParts.length !== 2 || closeTimeParts.length !== 2) {
+                return { 
+                    text: 'Openingstijden onbekend', 
+                    class: 'text-gray-500',
+                    details: 'Neem contact op voor actuele openingstijden'
+                };
+            }
+            
+            const openTime = parseInt(openTimeParts[0]) * 60 + parseInt(openTimeParts[1]);
+            let closeTime = parseInt(closeTimeParts[0]) * 60 + parseInt(closeTimeParts[1]);
+            
+            // Handle midnight crossing (e.g., 24:00 or times after midnight)
+            if (closeTime <= openTime) {
+                closeTime += 24 * 60; // Add 24 hours
+            }
+            
+            const closingSoonThreshold = 30; // 30 minutes before closing
+            
+            if (currentTime >= openTime && currentTime < closeTime) {
+                const minutesUntilClose = closeTime - currentTime;
+                
+                if (minutesUntilClose <= closingSoonThreshold) {
+                    const hoursUntilClose = Math.floor(minutesUntilClose / 60);
+                    const minsUntilClose = minutesUntilClose % 60;
+                    
+                    let timeText = '';
+                    if (hoursUntilClose > 0) {
+                        timeText = `${hoursUntilClose} uur en ${minsUntilClose} minuten`;
+                    } else {
+                        timeText = `${minsUntilClose} minuten`;
+                    }
+                    
+                    return { 
+                        text: 'Sluit Binnenkort', 
+                        class: 'status-closing-soon',
+                        details: `Nog ${timeText} open`
+                    };
+                } else {
+                    const closeHour = Math.floor(closeTime / 60) % 24;
+                    const closeMin = closeTime % 60;
+                    const closeTimeFormatted = `${closeHour.toString().padStart(2, '0')}:${closeMin.toString().padStart(2, '0')}`;
+                    
+                    return { 
+                        text: 'Nu Open', 
+                        class: 'status-open',
+                        details: `Open tot ${closeTimeFormatted}`
+                    };
+                }
+            } else {
+                const openHour = Math.floor(openTime / 60);
+                const openMin = openTime % 60;
+                const openTimeFormatted = `${openHour.toString().padStart(2, '0')}:${openMin.toString().padStart(2, '0')}`;
+                
+                return { 
+                    text: 'Gesloten', 
+                    class: 'status-closed',
+                    details: `Opent om ${openTimeFormatted}`
+                };
+            }
+        }
+
+        // Initialize Contact Section with Dynamic Data
+        function initializeContactSection() {
+            const contactContainer = document.getElementById('contact-info');
+            const contactData = siteData.contactgegevens || [];
+            
+            // Extract contact information
+            const address = contactData.find(item => item.type === 'adres' || item.type === 'address')?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
+            const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
+            const email = contactData.find(item => item.type === 'email')?.waarde || 'info@abidoner.nl';
+            const whatsapp = contactData.find(item => item.type === 'whatsapp')?.waarde || phone;
+            const orderUrl = contactData.find(item => item.type === 'bestellen' || item.type === 'thuisbezorgd')?.waarde || '';
+            
+            contactContainer.innerHTML = `
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-primary-red mb-4">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Adres</h3>
+                    <p class="text-gray-700">${address.replace(', ', '<br>')}</p>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-primary-red mb-4">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Telefoon</h3>
+                    <p class="text-gray-700 mb-4">
+                        <a href="tel:${phone.replace(/\D/g, '')}" class="hover:text-primary-red transition-colors">${phone}</a>
+                    </p>
+                    <a href="https://wa.me/31${phone.replace(/\D/g, '').substring(1)}" target="_blank" class="whatsapp-btn text-white px-4 py-2 rounded-full inline-flex items-center space-x-2">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+
+                <div class="text-center p-6 bg-gray-50 rounded-lg">
+                    <div class="text-4xl text-primary-red mb-4">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Email</h3>
+                    <p class="text-gray-700 mb-4">
+                        <a href="mailto:${email}" class="hover:text-primary-red transition-colors">${email}</a>
+                    </p>
+                    <button onclick="orderOnline()" class="bg-primary-red hover:bg-secondary-red text-white px-6 py-2 rounded-full transition-colors">
+                        Bestel Online
+                    </button>
+                </div>
+            `;
+        }
+
+        // Initialize Legal Pages with Dynamic Loading
+        function initializeLegalPages() {
+            const legalContainer = document.getElementById('legal-sections');
+            const legalData = siteData.wettelijke_paginas || [];
+            
+            if (legalData.length === 0) {
+                legalContainer.innerHTML = `
+                    <div class="text-center p-8 bg-white rounded-lg shadow-lg">
+                        <p class="text-gray-600">Wettelijke informatie wordt binnenkort beschikbaar gesteld.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Group legal data by page type
+            const groupedLegal = {};
+            legalData.forEach(item => {
+                const pageType = item.pagina_type || item.type || 'algemeen';
+                if (!groupedLegal[pageType]) {
+                    groupedLegal[pageType] = [];
+                }
+                groupedLegal[pageType].push(item);
+            });
+
+            const legalTitles = {
+                'algemene_voorwaarden': 'Algemene Voorwaarden',
+                'privacyverklaring': 'Privacyverklaring',
+                'retourbeleid': 'Retourbeleid',
+                'klantenservice': 'Klantenservice',
+                'contact': 'Contact Informatie',
+                'over_ons': 'Over Ons',
+                'algemeen': 'Algemene Informatie'
+            };
+
+            const legalHtml = Object.entries(groupedLegal).map(([pageType, items]) => {
+                const title = legalTitles[pageType] || pageType.charAt(0).toUpperCase() + pageType.slice(1).replace('_', ' ');
+                
+                const content = items.map(item => `
+                    ${item.sectie_titel ? `<h4>${item.sectie_titel}</h4>` : ''}
+                    <p>${item.inhoud || item.content || 'Inhoud wordt binnenkort beschikbaar gesteld.'}</p>
+                `).join('');
+                
+                return `
+                    <div class="legal-section">
+                        <div class="legal-header" onclick="toggleLegalSection(this)">
+                            <h3 class="text-lg font-semibold">${title}</h3>
+                            <span class="text-xl">+</span>
+                        </div>
+                        <div class="legal-content">
+                            ${content}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            legalContainer.innerHTML = legalHtml;
+        }
+
+        function toggleLegalSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('span');
+            
+            if (content.classList.contains('active')) {
+                content.classList.remove('active');
+                icon.textContent = '+';
+            } else {
+                // Close all other sections
+                document.querySelectorAll('.legal-content.active').forEach(section => {
+                    section.classList.remove('active');
+                    section.previousElementSibling.querySelector('span').textContent = '+';
+                });
+                
+                // Open this section
+                content.classList.add('active');
+                icon.textContent = '−';
+            }
+        }
+
+        // Initialize Footer with Dynamic Data
+        function initializeFooter() {
+            const footerContactContainer = document.getElementById('footer-contact');
+            const footerLegalContainer = document.getElementById('footer-legal-links');
+            
+            // Footer contact info
+            const contactData = siteData.contactgegevens || [];
+            const address = contactData.find(item => item.type === 'adres' || item.type === 'address')?.waarde || 'Zuidermolenweg 24, 1069 CG Amsterdam';
+            const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
+            const email = contactData.find(item => item.type === 'email')?.waarde || 'info@abidoner.nl';
+            
+            footerContactContainer.innerHTML = `
+                <p>${address.replace(', ', '<br>')}</p>
+                <p>Tel: ${phone}</p>
+                <p>Email: ${email}</p>
+            `;
+            
+            // Footer legal links
+            const legalData = siteData.wettelijke_paginas || [];
+            if (legalData.length > 0) {
+                const uniquePageTypes = [...new Set(legalData.map(item => item.pagina_type || item.type))];
+                const legalTitles = {
+                    'algemene_voorwaarden': 'Algemene Voorwaarden',
+                    'privacyverklaring': 'Privacyverklaring',
+                    'retourbeleid': 'Retourbeleid',
+                    'klantenservice': 'Klantenservice'
+                };
+                
+                const legalLinksHtml = uniquePageTypes.map(pageType => {
+                    const title = legalTitles[pageType] || pageType.charAt(0).toUpperCase() + pageType.slice(1).replace('_', ' ');
+                    return `<a href="#wettelijke-paginas" class="hover:text-accent-gold transition-colors">${title}</a>`;
+                }).join('');
+                
+                footerLegalContainer.innerHTML = legalLinksHtml;
+            } else {
+                footerLegalContainer.innerHTML = '<p>Wettelijke informatie wordt binnenkort beschikbaar gesteld.</p>';
+            }
+        }
+
+        // Initialize Lazy Loading
+        function initializeLazyLoading() {
+            const lazyImages = document.querySelectorAll('.lazy-load');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Utility functions
+        function orderOnline() {
+            // Try to get order URL from contact data
+            const contactData = siteData.contactgegevens || [];
+            const orderUrl = contactData.find(item => 
+                item.type === 'bestellen' || item.type === 'thuisbezorgd'
+            )?.waarde;
+            
+            if (orderUrl) {
+                window.open(orderUrl, '_blank');
+            } else {
+                // Fallback to phone call
+                const phone = contactData.find(item => item.type === 'telefoon' || item.type === 'phone')?.waarde || '020-1234567';
+                window.location.href = `tel:${phone.replace(/\D/g, '')}`;
+            }
+        }
+
+        // Load fallback data
+        function loadFallbackMenu() {
+            const fallbackMenu = [
+                {
+                    naam: 'Döner Broodje',
+                    beschrijving: 'Vers broodje met döner, salade en saus',
+                    prijs: '6.50',
+                    categorie: 'broodjes',
+                    ingredienten: 'Döner, salade, tomaat, komkommer, ui, saus'
+                },
+                {
+                    naam: 'Kapsalon',
+                    beschrijving: 'Friet met döner, kaas, salade en saus',
+                    prijs: '9.50',
+                    categorie: 'schotels',
+                    ingredienten: 'Friet, döner, kaas, salade, saus'
+                },
+                {
+                    naam: 'Lahmacun',
+                    beschrijving: 'Turkse pizza met gehakt en verse kruiden',
+                    prijs: '5.50',
+                    categorie: 'pizza',
+                    ingredienten: 'Deeg, gehakt, tomaat, ui, peterselie'
+                },
+                {
+                    naam: 'Döner Wrap',
+                    beschrijving: 'Wrap gevuld met döner en verse groenten',
+                    prijs: '7.50',
+                    categorie: 'wraps',
+                    ingredienten: 'Wrap, döner, salade, tomaat, saus'
+                }
+            ];
+            
+            siteData.menu_items = fallbackMenu;
+            
+            // Get unique categories
+            const categories = ['alle', ...new Set(fallbackMenu.map(item => item.categorie))];
+            
+            // Create category buttons
+            const categoriesContainer = document.getElementById('menu-categories');
+            categoriesContainer.innerHTML = categories.map(category => 
+                `<button onclick="filterMenu('${category}')" class="category-btn px-6 py-3 rounded-full border-2 border-primary-red text-primary-red font-medium ${category === 'alle' ? 'active' : ''} hover:bg-primary-red hover:text-white">
+                    ${category.charAt(0).toUpperCase() + category.slice(1)}
+                </button>`
+            ).join('');
+            
+            // Display menu items
+            displayMenuItems(fallbackMenu);
+        }
+
+        function loadFallbackData() {
+            // Initialize with fallback data
+            initializeAboutSection();
+            loadFallbackMenu();
+            initializeAtmosphereSection();
+            initializeOpeningHours();
+            initializeContactSection();
+            initializeLegalPages();
+            initializeFooter();
+        }
+
+        // Cleanup function
+        window.addEventListener('beforeunload', function() {
+            if (statusUpdateInterval) {
+                clearInterval(statusUpdateInterval);
+            }
+        });
+    </script>
+</body>
+</html>

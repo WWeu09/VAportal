@@ -1,0 +1,1499 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Life Ministries Amsterdam - Geloof, Groei & Liefde</title>
+    <meta name="description" content="New Life Ministries Amsterdam - Een gemeenschap van geloof, groei en liefde die levens verandert. Building Great People Through Christ. Zondag diensten om 10:00.">
+    <meta name="keywords" content="kerk, amsterdam, new life ministries, christelijk, geloof, diensten, gemeenschap, pastor kingsley kusi">
+    <meta name="author" content="New Life Ministries Amsterdam">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="New Life Ministries Amsterdam - Geloof, Groei & Liefde">
+    <meta property="og:description" content="Een gemeenschap van geloof, groei en liefde die levens verandert. Building Great People Through Christ.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://newlifeministries.nl">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #f59e0b;
+            --accent-color: #fbbf24;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f9fafb;
+            --white: #ffffff;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.9), rgba(245, 158, 11, 0.8)), url('/images/church-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease 0.2s both;
+            font-weight: 600;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.4s both;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--secondary-color);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-donate {
+            background: #28a745;
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-donate:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layouts */
+        .grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+
+        /* Cards */
+        .card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid #e5e7eb;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .card p {
+            text-align: center;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Pastor Section */
+        .pastor-section {
+            background: var(--bg-light);
+        }
+
+        .pastor-card {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .pastor-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .pastor-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .pastor-info .title {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Forms */
+        .form-section {
+            background: var(--bg-light);
+            padding: 4rem 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .google-form-container {
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .google-form-container iframe {
+            width: 100%;
+            height: 1600px;
+            border: none;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+
+        /* Background Sections */
+        .bg-light {
+            background: var(--bg-light);
+        }
+
+        .bg-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .bg-primary .section-title h2 {
+            color: var(--white);
+        }
+
+        .bg-primary .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .bg-primary .card h3 {
+            color: var(--white);
+        }
+
+        .bg-primary .card p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 2rem auto 0;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .newsletter-form button {
+            padding: 14px 24px;
+            background: var(--white);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* Contact Info */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-item i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .contact-item a {
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+
+        .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #9ca3af;
+        }
+
+        .footer-bottom a {
+            color: #9ca3af;
+            text-decoration: none;
+            margin: 0 1rem;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: var(--shadow);
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .pastor-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                max-width: 300px;
+            }
+
+            .google-form-container iframe {
+                height: 1400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+
+            .pastor-card {
+                padding: 2rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mt-3 {
+            margin-top: 1.5rem;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#home" class="logo">New Life Ministries</a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">Over Ons</a></li>
+                <li><a href="#services">Diensten</a></li>
+                <li><a href="#ministries">Ministries</a></li>
+                <li><a href="#events">Evenementen</a></li>
+                <li><a href="#get-involved">Betrokken Raken</a></li>
+                <li><a href="#help">Hulp & Zorg</a></li>
+                <li><a href="#media">Media</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Building Great People Through Christ</h1>
+            <p class="subtitle">New Life Ministries Amsterdam</p>
+            <p>Welkom bij New Life Ministries Amsterdam - Een gemeenschap van geloof, groei en liefde die levens verandert</p>
+            <div class="cta-buttons">
+                <a href="#registration" class="btn btn-primary">Schrijf Je In</a>
+                <a href="#media" class="btn btn-outline">Watch Live</a>
+                <a href="https://www.paypal.com/donate/?hosted_button_id=2KFVJUBEPRDN4" target="_blank" class="btn btn-donate">
+                    <i class="fas fa-heart"></i> Doneer
+                </a>
+                <a href="#contact" class="btn btn-outline">Contact</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Welcome Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Welkom in Onze Gemeenschap</h2>
+                <p>Een plek waar geloof groeit, liefde bloeit en levens worden getransformeerd door de kracht van Jezus Christus</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Geloof</h3>
+                    <p>Groei in je relatie met God door Zijn Woord, gebed en gemeenschap met andere gelovigen.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Groei</h3>
+                    <p>Ontwikkel je geestelijke gaven en word de persoon die God bedoeld heeft dat je zou zijn.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Liefde</h3>
+                    <p>Ervaar Gods onvoorwaardelijke liefde en deel deze met anderen in onze gemeenschap en daarbuiten.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pastor Section -->
+    <section class="section pastor-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Onze Pastor</h2>
+                <p>Leer onze geestelijk leider kennen</p>
+            </div>
+            <div class="pastor-card fade-in">
+                <img src="/images/pastor.jpg" alt="Rev. Kingsley Kusi - Head Pastor" class="pastor-image">
+                <div class="pastor-info">
+                    <h3>Rev. Kingsley Kusi</h3>
+                    <p class="title">Head Pastor</p>
+                    <p>Pastor Kingsley Kusi leidt onze gemeenschap met wijsheid, compassie en een hart vol liefde voor God en mensen. Met jarenlange ervaring in het pastoraat, helpt hij mensen om hun bestemming in Christus te ontdekken en te leven volgens Gods plan voor hun leven.</p>
+                    <p class="mt-3"><strong>Visie:</strong> "Discipelen maken, mensen herstellen, Jezus centraal."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Over Ons</h2>
+                <p>Ontdek wie we zijn en waar we voor staan</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Onze Missie</h3>
+                    <p>Een gemeenschap van geloof, groei en liefde die levens verandert door de kracht van Jezus Christus. We streven ernaar om mensen te helpen groeien in hun relatie met God en elkaar, en om discipelen te maken die de wereld beïnvloeden.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Onze Visie</h3>
+                    <p>Discipelen maken, mensen herstellen, Jezus centraal. We geloven in transformatie door Gods liefde en willen een licht zijn in Amsterdam en daarbuiten, waar mensen hoop, genezing en een nieuw leven vinden.</p>
+                </div>
+            </div>
+            <div class="card fade-in mt-3">
+                <div class="card-icon">
+                    <i class="fas fa-bible"></i>
+                </div>
+                <h3>Wat We Geloven</h3>
+                <p>We geloven in de Bijbel als Gods onfeilbare Woord, de Drie-eenheid (Vader, Zoon en Heilige Geest), verlossing door Jezus Christus alleen, de kracht van gebed, de gaven van de Heilige Geest, en de roeping om het Evangelie te delen met de wereld. Onze geloofspunten zijn stevig gefundeerd op de fundamenten van het christelijk geloof zoals beschreven in de Schrift.</p>
+                <a href="#contact" class="btn btn-primary mt-3">Meer Informatie</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section bg-light">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Onze Diensten</h2>
+                <p>Sluit je aan bij onze wekelijkse diensten en activiteiten</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-church"></i>
+                    </div>
+                    <h3>Zondagsdienst</h3>
+                    <p><strong>Elke zondag om 10:00</strong><br>
+                    Aanbidding, prediking en gemeenschap. Kinderopvang en kinderkerk beschikbaar. Een tijd van inspiratie en verbinding met God en elkaar.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Bijbelstudie</h3>
+                    <p><strong>Dinsdag 19:00 (virtueel)</strong><br>
+                    Diepgaande studie van Gods Woord in kleine groepen. Ontdek de rijkdom van de Bijbel en pas het toe in je dagelijks leven.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <h3>Gebedsavond</h3>
+                    <p><strong>Donderdag 19:30 (op locatie)</strong><br>
+                    Samen bidden voor onze gemeenschap, families, Nederland en de wereld. Ervaar de kracht van gemeenschappelijk gebed.</p>
+                </div>
+            </div>
+            <div class="card fade-in mt-3 text-center">
+                <div class="card-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>Live Stream</h3>
+                <p>Kun je er niet bij zijn? Volg onze diensten live online via onze website en sociale media kanalen!</p>
+                <a href="#media" class="btn btn-primary">Watch Live</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ministries Section -->
+    <section id="ministries" class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Onze Ministries</h2>
+                <p>Vind jouw plek in onze diverse ministries en groei samen met anderen</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <h3>Kinderen (0-9)</h3>
+                    <p>Kinderkerk met creatieve lessen, spelletjes en verhalen die de liefde van Jezus op een leuke en begrijpelijke manier laten zien. Elke zondag tijdens de dienst.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Youth (10-18)</h3>
+                    <p>Jeugdavonden, conferenties en activiteiten speciaal voor tieners om te groeien in geloof, vriendschap en identiteit in Christus.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <h3>Young Adults (18+)</h3>
+                    <p>Connectgroepen voor jonge volwassenen om vriendschappen te bouwen, samen te groeien en Gods plan voor deze levensfase te ontdekken.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-male"></i>
+                    </div>
+                    <h3>Mannen & Vrouwen</h3>
+                    <p>Speciale events, gebedsgroepen en ondersteuning voor mannen en vrouwen apart, gericht op groei in hun specifieke rollen en uitdagingen.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <h3>Outreach</h3>
+                    <p>Evangelisatie, voedselprojecten en hulp aan de gemeenschap in Amsterdam. Wees Gods handen en voeten in de stad.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3>Muziekteam</h3>
+                    <p>Worship dienst, repetities en muzikale begeleiding van onze diensten. Gebruik je muzikale gaven om God te eren en anderen te inspireren.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="section bg-light">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Komende Evenementen</h2>
+                <p>Blijf op de hoogte van onze speciale evenementen en activiteiten</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <h3>Gebedsnachten</h3>
+                    <p>Maandelijkse gebedsnachten voor intensief gebed, aanbidding en zoeken van Gods aangezicht voor doorbraken en zegen.</p>
+                    <p><strong>Volgende: 15 februari 2025, 20:00-24:00</strong></p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>Retreats</h3>
+                    <p>Weekenden weg voor geestelijke verdieping, rust, reflectie en intensieve gemeenschap met God en elkaar.</p>
+                    <p><strong>Voorjaar Retreat: 21-23 maart 2025</strong></p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-campground"></i>
+                    </div>
+                    <h3>Jongerenkampen</h3>
+                    <p>Zomerkampen voor kinderen en jongeren vol avontuur, spelletjes, lessen en onvergetelijke momenten met God.</p>
+                    <p><strong>Zomerkamp 2025: Juli/Augustus</strong></p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h3>Zendingsreizen</h3>
+                    <p>Internationale missie trips om het Evangelie te delen, kerken te bouwen en gemeenschappen te helpen wereldwijd.</p>
+                    <p><strong>Info avond: 10 maart 2025</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Involved Section -->
+    <section id="get-involved" class="section bg-primary">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Betrokken Raken</h2>
+                <p>Er zijn vele manieren om deel uit te maken van onze gemeenschap en Gods werk</p>
+            </div>
+            <div class="grid grid-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-volunteer"></i>
+                    </div>
+                    <h3>Word Vrijwilliger</h3>
+                    <p>Help mee met diensten, evenementen en ministries. Gebruik je gaven om anderen te dienen en Gods koninkrijk te bouwen.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Sluit aan bij een Groep</h3>
+                    <p>Vind verbinding in een van onze kleine groepen voor gebed, bijbelstudie, fellowship en onderlinge steun.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <h3>Doop Aanmelding</h3>
+                    <p>Maak je geloof openbaar door de doop en toon je toewijding aan Jezus Christus voor de gemeenschap.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Outreach Projecten</h3>
+                    <p>Doe mee met onze outreach projecten in Amsterdam en help mensen in nood met praktische liefde.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>Zendingsreis</h3>
+                    <p>Ga mee op missie naar andere landen en deel het Evangelie met mensen die Jezus nog niet kennen.</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Doneren</h3>
+                    <p>Steun het werk van de kerk financieel en help ons om Gods koninkrijk uit te breiden in Amsterdam en wereldwijd.</p>
+                    <a href="https://www.paypal.com/donate/?hosted_button_id=2KFVJUBEPRDN4" target="_blank" class="btn btn-donate mt-3">
+                        <i class="fas fa-heart"></i> Doneer Nu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Help & Care Section -->
+    <section id="help" class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Hulp & Zorg</h2>
+                <p>We zijn er voor je in moeilijke tijden en willen je helpen groeien</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <h3>Gebedsverzoek</h3>
+                    <p>Deel je gebedsverzoeken met ons. Ons gebedsTeam bidt graag met je mee voor doorbraken, genezing en Gods zegen in je leven.</p>
+                    <a href="#contact" class="btn btn-primary mt-3">Deel Gebedsverzoek</a>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Counseling & Pastorale Zorg</h3>
+                    <p>Professionele christelijke counseling en pastorale zorg beschikbaar voor persoonlijke uitdagingen, relatieproblemen en geestelijke groei.</p>
+                    <a href="#contact" class="btn btn-primary mt-3">Maak Afspraak</a>
+                </div>
+            </div>
+            <div class="card fade-in mt-3 text-center">
+                <div class="card-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Mentorschap & Discipelschap</h3>
+                <p>Persoonlijke begeleiding in je geestelijke groei door ervaren mentoren die je helpen je bestemming in Christus te ontdekken en te leven.</p>
+                <a href="#contact" class="btn btn-primary mt-3">Meer Informatie</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Section -->
+    <section id="media" class="section bg-light">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Media & Resources</h2>
+                <p>Bekijk onze laatste preken, podcasts en geestelijke resources</p>
+            </div>
+            <div class="grid grid-2">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Laatste Preek</h3>
+                    <p>Bekijk onze meest recente preek en laat je inspireren door Gods Woord. Alle preken zijn beschikbaar op onze YouTube kanaal.</p>
+                    <a href="https://www.youtube.com/@newlifeministriesamsterdam" target="_blank" class="btn btn-primary mt-3">Bekijk Preken</a>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Live Stream</h3>
+                    <p><strong>Volgende Live Stream:</strong><br>
+                    Zondag 10:00 - Zondagsdienst<br>
+                    Volg ons live via YouTube en Facebook</p>
+                    <a href="https://www.youtube.com/@newlifeministriesamsterdam" target="_blank" class="btn btn-primary mt-3">Join Live Stream</a>
+                </div>
+            </div>
+            <div class="grid grid-2 mt-3">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-podcast"></i>
+                    </div>
+                    <h3>Podcast</h3>
+                    <p>Luister naar onze wekelijkse podcast met preken, interviews en inspirerende verhalen van transformatie.</p>
+                    <a href="#contact" class="btn btn-outline mt-3">Beluister Podcast</a>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3>Bijbelplan & Resources</h3>
+                    <p>Download ons jaarlijkse bijbelleesplan, devoties en andere geestelijke resources om te groeien in je relatie met God.</p>
+                    <a href="#contact" class="btn btn-outline mt-3">Download Resources</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="registration" class="form-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Inschrijving Kerkleden & Activiteiten</h2>
+                <p>Schrijf je in als kerklid of meld je aan voor onze activiteiten en evenementen. We horen graag van je!</p>
+            </div>
+            <div class="google-form-container fade-in">
+                <iframe 
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSdvVI2anIHeIWmMhjKAeqsFqsx7NOeTWX6OVtY_FVgxPBCGow/viewform?embedded=true"
+                    loading="lazy"
+                    title="Inschrijving Kerkleden & Activiteiten">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter">
+        <div class="container">
+            <h2>Blijf op de Hoogte</h2>
+            <p>Ontvang onze nieuwsbrief met updates, evenementen, inspiratie en gebedsverzoeken</p>
+            <form class="newsletter-form" id="newsletterForm">
+                <input type="email" placeholder="Je e-mailadres" required>
+                <button type="submit">
+                    <span class="btn-text">Aanmelden</span>
+                    <span class="loading" style="display: none;"></span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Contact</h2>
+                <p>Neem contact met ons op - we horen graag van je en helpen je graag verder</p>
+            </div>
+            
+            <div class="contact-info fade-in">
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Adres</h3>
+                    <p>Tt. Vasumweg 4b<br>1033 SC Amsterdam<br>Noord-Holland</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>E-mail</h3>
+                    <p><a href="mailto:info@newlifeministries.nl">info@newlifeministries.nl</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <h3>Telefoon</h3>
+                    <p><a href="tel:+31612345678">06 12345678</a></p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Openingstijden</h3>
+                    <p>Gesloten<br>Gaat open op zondag om 09:00</p>
+                </div>
+            </div>
+
+            <div class="form-container fade-in">
+                <h3 class="text-center mb-3">Stuur ons een Bericht</h3>
+                <form id="contactForm">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label for="contactName">Naam *</label>
+                            <input type="text" id="contactName" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contactEmail">E-mail *</label>
+                            <input type="email" id="contactEmail" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Onderwerp *</label>
+                        <select id="contactSubject" name="subject" required>
+                            <option value="">Selecteer een onderwerp</option>
+                            <option value="algemeen">Algemene vraag</option>
+                            <option value="gebedsverzoek">Gebedsverzoek</option>
+                            <option value="counseling">Counseling/Pastorale zorg</option>
+                            <option value="vrijwilliger">Vrijwilligerswerk</option>
+                            <option value="doop">Doop aanmelding</option>
+                            <option value="lidmaatschap">Lidmaatschap</option>
+                            <option value="evenement">Evenement informatie</option>
+                            <option value="anders">Anders</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Bericht *</label>
+                        <textarea id="contactMessage" name="message" rows="5" required placeholder="Deel je bericht, vraag of gebedsverzoek met ons..."></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text">Versturen</span>
+                            <span class="loading" style="display: none;"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>New Life Ministries Amsterdam</h3>
+                    <p>Building Great People Through Christ</p>
+                    <p>Een gemeenschap van geloof, groei en liefde in het hart van Amsterdam.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/NLministry/?locale=nl_NL" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@newlifeministriesamsterdam" target="_blank" aria-label="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://www.instagram.com/newlifeministriesamsterdam" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="mailto:info@newlifeministries.nl" aria-label="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Snelmenu</h3>
+                    <a href="#home">Home</a>
+                    <a href="#about">Over Ons</a>
+                    <a href="#services">Diensten</a>
+                    <a href="#ministries">Ministries</a>
+                    <a href="#events">Evenementen</a>
+                    <a href="#media">Media</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Betrokkenheid</h3>
+                    <a href="#get-involved">Vrijwilliger Worden</a>
+                    <a href="#registration">Inschrijven</a>
+                    <a href="#help">Gebedsverzoek</a>
+                    <a href="https://www.paypal.com/donate/?hosted_button_id=2KFVJUBEPRDN4" target="_blank">Doneren</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact & Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Tt. Vasumweg 4b<br>1033 SC Amsterdam</p>
+                    <p><i class="fas fa-envelope"></i> info@newlifeministries.nl</p>
+                    <p><i class="fas fa-phone"></i> 06 12345678</p>
+                    <a href="https://anbi.nl/publicatieverplichting/new-life-ministry/" target="_blank">ANBI Informatie</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 New Life Ministries Amsterdam. Alle rechten voorbehouden.</p>
+                <div>
+                    <a href="#privacy">Privacy Beleid</a>
+                    <a href="#algemene-voorwaarden">Algemene Voorwaarden</a>
+                    <a href="https://anbi.nl/publicatieverplichting/new-life-ministry/" target="_blank">ANBI Status</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu when clicking on a link
+        navMenu.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = document.querySelector('.header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header scroll effect
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--white)';
+                header.style.backdropFilter = 'none';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Form submissions with loading states
+        function showLoading(button) {
+            const btnText = button.querySelector('.btn-text');
+            const loading = button.querySelector('.loading');
+            btnText.style.display = 'none';
+            loading.style.display = 'inline-block';
+            button.disabled = true;
+        }
+
+        function hideLoading(button) {
+            const btnText = button.querySelector('.btn-text');
+            const loading = button.querySelector('.loading');
+            btnText.style.display = 'inline';
+            loading.style.display = 'none';
+            button.disabled = false;
+        }
+
+        // Contact Form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('button[type="submit"]');
+            showLoading(submitBtn);
+            
+            // Simulate form submission
+            setTimeout(() => {
+                hideLoading(submitBtn);
+                alert('Bedankt voor je bericht! We nemen zo snel mogelijk contact met je op.');
+                this.reset();
+            }, 2000);
+        });
+
+        // Newsletter Form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const submitBtn = this.querySelector('button[type="submit"]');
+            showLoading(submitBtn);
+            
+            // Simulate form submission
+            setTimeout(() => {
+                hideLoading(submitBtn);
+                alert('Je bent succesvol aangemeld voor onze nieuwsbrief!');
+                this.reset();
+            }, 1500);
+        });
+
+        // Add active class to current navigation item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Preload critical images
+        const criticalImages = [
+            '/images/pastor.jpg',
+            '/images/church-1.jpg'
+        ];
+
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
+        });
+
+        // Add error handling for external links
+        document.querySelectorAll('a[target="_blank"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                try {
+                    // Track external link clicks if analytics is available
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'click', {
+                            event_category: 'external_link',
+                            event_label: this.href
+                        });
+                    }
+                } catch (error) {
+                    console.log('Analytics not available');
+                }
+            });
+        });
+
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.classList.add('fa-bars');
+                icon.classList.remove('fa-times');
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add loaded class to body for CSS animations
+            document.body.classList.add('loaded');
+            
+            // Set current year in footer if needed
+            const currentYear = new Date().getFullYear();
+            document.querySelectorAll('.current-year').forEach(el => {
+                el.textContent = currentYear;
+            });
+        });
+    </script>
+</body>
+</html>

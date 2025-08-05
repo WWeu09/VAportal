@@ -3,12 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CCR - Car Center Rishi | Professioneel Auto-onderhoud Amsterdam-Noord</title>
-    <meta name="description" content="CCR Car Center Rishi - Uw betrouwbare partner voor APK, diagnose & onderhoud in Amsterdam-Noord. Transparantie & vakmanschap sinds dag één. Bel: 06 46102011">
-    <meta name="keywords" content="APK keuring, auto onderhoud, diagnose, reparatie, Amsterdam Noord, CCR, Car Center Rishi">
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/fbjBFcSP/download.png">
+    <title>CCR – APK, Diagnose & Onderhoud in Amsterdam-Noord</title>
+    <meta name="description" content="CCR biedt APK, diagnose en onderhoud in Amsterdam-Noord. Eerlijke prijzen, professioneel onderhoud en uitstekende klantenservice.">
+    <meta name="keywords" content="APK Amsterdam, Auto Onderhoud, Diagnose, Car Center Rishi, CCR, Amsterdam Noord Garage">
+    <meta name="author" content="Van Appiah">
+    <link rel="canonical" href="https://www.carcenterrishi.nl/">
+    <link rel="icon" href="https://i.postimg.cc/fbjBFcSP/download.png" type="image/png">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="CCR – Uw auto in professionele handen">
+    <meta property="og:description" content="APK, diagnose en onderhoud in Amsterdam-Noord. Transparantie en vakmanschap.">
+    <meta property="og:image" content="https://i.postimg.cc/fbjBFcSP/download.png">
+    <meta property="og:url" content="https://www.carcenterrishi.nl/">
+    <meta property="og:type" content="website">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- Load fonts and icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoRepair",
+        "name": "CCR – Car Center Rishi",
+        "image": "https://i.postimg.cc/fbjBFcSP/download.png",
+        "url": "https://www.carcenterrishi.nl",
+        "telephone": "+31646102011",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Meeuwenlaan 116",
+            "addressLocality": "Amsterdam",
+            "postalCode": "1021 JM",
+            "addressCountry": "NL"
+        },
+        "openingHours": [
+            "Mo-Fr 09:00-18:00",
+            "Sa 12:00-18:00"
+        ],
+        "priceRange": "€€",
+        "sameAs": [
+            "https://www.facebook.com/CCR",
+            "https://www.instagram.com/CCR"
+        ],
+        "description": "CCR biedt APK, diagnose en onderhoud in Amsterdam-Noord. Eerlijke prijzen, professioneel onderhoud en uitstekende klantenservice."
+    }
+    </script>
+    
     <style>
         :root {
             --primary-white: #ffffff;
@@ -34,10 +80,11 @@
 
         html {
             scroll-behavior: smooth;
+            font-size: 16px;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background-color: var(--primary-white);
             color: var(--dark-grey);
             line-height: 1.6;
@@ -48,6 +95,23 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Skip to main content for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--accent-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 10000;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 6px;
         }
 
         /* Header Styles */
@@ -87,6 +151,12 @@
             transform: scale(1.05);
         }
 
+        .logo:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
         .logo img {
             width: 45px;
             height: 45px;
@@ -115,6 +185,13 @@
             font-size: 0.95rem;
             transition: all 0.3s ease;
             position: relative;
+            padding: 8px 4px;
+        }
+
+        .nav-links a:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         .nav-links a::after {
@@ -122,17 +199,19 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
-            left: 0;
+            bottom: 2px;
+            left: 4px;
             background: var(--accent-blue);
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .nav-links a:hover::after,
+        .nav-links a:focus::after {
+            width: calc(100% - 8px);
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover,
+        .nav-links a:focus {
             color: var(--accent-blue);
         }
 
@@ -157,11 +236,20 @@
             align-items: center;
             gap: 8px;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            min-height: 44px;
+            min-width: 44px;
         }
 
-        .cta-button:hover {
+        .cta-button:hover,
+        .cta-button:focus {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            outline: none;
+        }
+
+        .cta-button:focus {
+            outline: 2px solid var(--primary-white);
+            outline-offset: 2px;
         }
 
         .cta-button.secondary {
@@ -171,7 +259,8 @@
             box-shadow: none;
         }
 
-        .cta-button.secondary:hover {
+        .cta-button.secondary:hover,
+        .cta-button.secondary:focus {
             background: var(--accent-blue);
             color: var(--primary-white);
             transform: translateY(-2px);
@@ -182,7 +271,8 @@
             box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
         }
 
-        .cta-button.yellow:hover {
+        .cta-button.yellow:hover,
+        .cta-button.yellow:focus {
             box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
         }
 
@@ -190,7 +280,19 @@
             display: none;
             flex-direction: column;
             cursor: pointer;
-            padding: 5px;
+            padding: 8px;
+            background: none;
+            border: none;
+            min-height: 44px;
+            min-width: 44px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         .mobile-menu span {
@@ -200,6 +302,18 @@
             margin: 3px 0;
             transition: 0.3s;
             border-radius: 2px;
+        }
+
+        .mobile-menu.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .mobile-menu.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         /* Hero Section */
@@ -233,7 +347,7 @@
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 1.5rem;
             color: var(--dark-grey);
@@ -242,7 +356,7 @@
         }
 
         .hero p {
-            font-size: 1.35rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
             color: var(--text-grey);
             margin-bottom: 2.5rem;
             font-weight: 400;
@@ -266,7 +380,7 @@
         }
 
         .section-title {
-            font-size: 2.75rem;
+            font-size: clamp(2rem, 4vw, 2.75rem);
             font-weight: 700;
             text-align: center;
             margin-bottom: 1rem;
@@ -277,7 +391,7 @@
         .section-subtitle {
             text-align: center;
             color: var(--text-grey);
-            font-size: 1.1rem;
+            font-size: clamp(1rem, 2vw, 1.1rem);
             margin-bottom: 4rem;
             max-width: 600px;
             margin-left: auto;
@@ -296,7 +410,7 @@
         }
 
         .transparency-text {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-grey);
             margin-bottom: 3rem;
             line-height: 1.8;
@@ -304,7 +418,7 @@
 
         .transparency-points {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -319,7 +433,8 @@
             box-shadow: 0 4px 15px var(--shadow-light);
         }
 
-        .transparency-point:hover {
+        .transparency-point:hover,
+        .transparency-point:focus-within {
             transform: translateY(-8px);
             border-color: var(--accent-blue);
             box-shadow: 0 20px 40px var(--shadow-medium);
@@ -349,7 +464,7 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2.5rem;
         }
 
@@ -377,11 +492,13 @@
             transition: transform 0.3s ease;
         }
 
-        .service-card:hover::before {
+        .service-card:hover::before,
+        .service-card:focus-within::before {
             transform: scaleX(1);
         }
 
-        .service-card:hover {
+        .service-card:hover,
+        .service-card:focus-within {
             transform: translateY(-12px);
             border-color: var(--accent-blue);
             box-shadow: 0 25px 50px var(--shadow-medium);
@@ -401,7 +518,8 @@
             transition: transform 0.3s ease;
         }
 
-        .service-card:hover .service-icon {
+        .service-card:hover .service-icon,
+        .service-card:focus-within .service-icon {
             transform: scale(1.1);
         }
 
@@ -418,48 +536,49 @@
             font-size: 1rem;
         }
 
-        /* Brands Section - More Compact */
+        /* Brands Section */
         .brands {
             background: var(--light-grey);
-            padding: 4rem 0; /* Reduced from 6rem */
+            padding: 4rem 0;
         }
 
         .brands .section-title {
-            font-size: 2.25rem; /* Slightly smaller */
-            margin-bottom: 0.5rem; /* Reduced margin */
+            font-size: clamp(1.75rem, 4vw, 2.25rem);
+            margin-bottom: 0.5rem;
         }
 
         .brands .section-subtitle {
-            font-size: 1rem; /* Slightly smaller */
-            margin-bottom: 2.5rem; /* Reduced margin */
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            margin-bottom: 2.5rem;
         }
 
         .brands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Smaller minimum width */
-            gap: 1.5rem; /* Reduced gap */
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
             align-items: center;
-            max-width: 800px; /* Constrain maximum width */
-            margin: 0 auto; /* Center the grid */
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .brand-item {
-            padding: 1rem 1.5rem; /* Reduced padding */
+            padding: 1rem 1.5rem;
             background: var(--primary-white);
-            border-radius: 12px; /* Slightly smaller radius */
+            border-radius: 12px;
             border: 1px solid var(--border-grey);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             font-weight: 600;
             color: var(--dark-grey);
             text-align: center;
-            font-size: 0.9rem; /* Slightly smaller font */
-            box-shadow: 0 2px 8px var(--shadow-light); /* Reduced shadow */
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px var(--shadow-light);
         }
 
-        .brand-item:hover {
+        .brand-item:hover,
+        .brand-item:focus {
             border-color: var(--accent-blue);
-            transform: scale(1.03); /* Reduced scale effect */
-            box-shadow: 0 6px 20px var(--shadow-medium); /* Reduced shadow */
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px var(--shadow-medium);
         }
 
         /* Why Choose Us Section */
@@ -483,7 +602,8 @@
             box-shadow: 0 4px 15px var(--shadow-light);
         }
 
-        .feature:hover {
+        .feature:hover,
+        .feature:focus-within {
             transform: translateY(-8px);
             border-color: var(--accent-blue);
             box-shadow: 0 20px 40px var(--shadow-medium);
@@ -536,7 +656,8 @@
             box-shadow: 0 4px 15px var(--shadow-light);
         }
 
-        .workshop-image:hover {
+        .workshop-image:hover,
+        .workshop-image:focus {
             border-color: var(--accent-blue);
             transform: scale(1.02);
             box-shadow: 0 8px 25px var(--shadow-medium);
@@ -567,7 +688,7 @@
         }
 
         .about-text {
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-grey);
             line-height: 1.8;
             margin-bottom: 2rem;
@@ -617,7 +738,8 @@
             transition: all 0.3s ease;
         }
 
-        .contact-item:hover {
+        .contact-item:hover,
+        .contact-item:focus-within {
             background: var(--medium-grey);
             transform: translateX(5px);
         }
@@ -627,6 +749,7 @@
             font-size: 1.25rem;
             width: 25px;
             text-align: center;
+            flex-shrink: 0;
         }
 
         .contact-item a {
@@ -636,8 +759,10 @@
             font-weight: 500;
         }
 
-        .contact-item a:hover {
+        .contact-item a:hover,
+        .contact-item a:focus {
             color: var(--accent-blue);
+            outline: none;
         }
 
         .opening-hours {
@@ -737,10 +862,15 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s ease;
+            padding: 4px 8px;
         }
 
-        .footer-links a:hover {
+        .footer-links a:hover,
+        .footer-links a:focus {
             color: var(--primary-white);
+            outline: 2px solid var(--primary-white);
+            outline-offset: 2px;
+            border-radius: 4px;
         }
 
         .google-review {
@@ -756,9 +886,11 @@
             margin: 1rem 0;
         }
 
-        .google-review:hover {
+        .google-review:hover,
+        .google-review:focus {
             transform: scale(1.05);
             border-color: var(--accent-blue);
+            outline: none;
         }
 
         .google-review .stars {
@@ -792,6 +924,41 @@
             box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
             font-size: 1rem;
             font-weight: 700;
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--accent-blue);
+            color: var(--primary-white);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover,
+        .back-to-top:focus {
+            background: var(--accent-blue-hover);
+            transform: translateY(-2px);
+            outline: 2px solid var(--primary-white);
+            outline-offset: 2px;
         }
 
         /* Animations */
@@ -830,6 +997,10 @@
 
         /* Mobile Responsive */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
             .nav-links {
                 display: none;
                 position: absolute;
@@ -841,6 +1012,7 @@
                 padding: 2rem;
                 border-top: 1px solid var(--border-grey);
                 box-shadow: 0 4px 20px var(--shadow-medium);
+                gap: 1.5rem;
             }
 
             .nav-links.active {
@@ -855,12 +1027,9 @@
                 display: none;
             }
 
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
+            .hero {
+                padding-top: 80px;
+                min-height: calc(100vh - 80px);
             }
 
             .hero-buttons {
@@ -868,8 +1037,9 @@
                 align-items: stretch;
             }
 
-            .section-title {
-                font-size: 2rem;
+            .hero-buttons .cta-button {
+                justify-content: center;
+                padding: 16px 24px;
             }
 
             .contact-grid,
@@ -880,38 +1050,27 @@
 
             .services-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .brands-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
 
             .why-choose-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .transparency-points {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
 
             .footer-links {
                 flex-direction: column;
                 gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
             }
 
             section {
@@ -921,7 +1080,7 @@
             .service-card,
             .feature,
             .transparency-point {
-                padding: 2rem;
+                padding: 2rem 1.5rem;
             }
 
             .contact-info,
@@ -929,23 +1088,109 @@
                 padding: 2rem;
             }
 
-            .brands-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 columns on small mobile */
+            .floating-cta {
+                bottom: 16px;
+                right: 16px;
             }
-    
+
+            .back-to-top {
+                bottom: 76px;
+                right: 16px;
+                width: 44px;
+                height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .brands-grid {
+                grid-template-columns: 1fr;
+                max-width: 300px;
+            }
+
             .brand-item {
                 padding: 0.8rem 1rem;
                 font-size: 0.85rem;
+            }
+
+            .service-card,
+            .feature,
+            .transparency-point {
+                padding: 1.5rem;
+            }
+
+            .contact-info,
+            .opening-hours {
+                padding: 1.5rem;
+            }
+
+            .hero-buttons .cta-button {
+                padding: 14px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --border-grey: #000000;
+                --text-grey: #000000;
+                --shadow-light: rgba(0, 0, 0, 0.3);
+                --shadow-medium: rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .floating-cta,
+            .back-to-top,
+            .mobile-menu,
+            .header-cta {
+                display: none !important;
+            }
+            
+            header {
+                position: static;
+                box-shadow: none;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 2rem 0;
+            }
+            
+            section {
+                padding: 2rem 0;
+                break-inside: avoid;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Ga naar hoofdinhoud</a>
+
     <!-- Header -->
-    <header>
-        <nav class="container">
-            <a href="#home" class="logo">
-                <img src="https://i.postimg.cc/fbjBFcSP/download.png" alt="CCR Logo">
+    <header role="banner">
+        <nav class="container" role="navigation" aria-label="Hoofdnavigatie">
+            <a href="#home" class="logo" aria-label="CCR Car Center Rishi - Ga naar homepage">
+                <img src="https://i.postimg.cc/fbjBFcSP/download.png" alt="CCR Logo" loading="lazy">
                 <span class="logo-text">CCR</span>
             </a>
             <ul class="nav-links">
@@ -955,292 +1200,302 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <div class="header-cta">
-              <a href="https://wa.me/31646102011" target="_blank" rel="noopener noreferrer" class="cta-button secondary whatsapp-button" aria-label="Start WhatsApp-gesprek met CCR" > <img src="/icons/whatsapp.svg" alt="" style="width: 16px; margin-right: 6px; vertical-align: middle;" /> WhatsApp ons </a>  
-              <a href="tel:0646102011" class="cta-button yellow">
-                    <i class="fas fa-phone"></i> Bel Nu
+                <a href="https://wa.me/31646102011" target="_blank" rel="noopener noreferrer" class="cta-button secondary" aria-label="Start WhatsApp-gesprek met CCR">
+                    <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp ons
+                </a>
+                <a href="tel:+31646102011" class="cta-button yellow" aria-label="Bel CCR direct">
+                    <i class="fas fa-phone" aria-hidden="true"></i> Bel Nu
                 </a>
             </div>
-            <div class="mobile-menu">
+            <button class="mobile-menu" aria-label="Open mobiel menu" aria-expanded="false">
                 <span></span>
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-content fade-in">
-                <h1>CCR – Uw auto in professionele handen</h1>
-                <p>APK, diagnose & onderhoud in Amsterdam-Noord</p>
-                <div class="hero-buttons">
-                   <a href="https://wa.me/31646102011" target="_blank" rel="noopener noreferrer" class="cta-button" aria-label="Start WhatsApp-gesprek met CCR" > <i class="fab fa-whatsapp"></i> WhatsApp ons </a>
-                    <a href="tel:0646102011" class="cta-button yellow">
-                        <i class="fas fa-phone"></i> Bel Nu
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Transparency Section -->
-    <section class="transparency">
-        <div class="container">
-            <div class="transparency-content">
-                <h2 class="section-title fade-in">Transparantie & vakmanschap</h2>
-                <p class="transparency-text fade-in">
-                    Bij CCR staat eerlijkheid voorop. We geloven in transparante communicatie en vakkundig werk.
-                    Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is. Met moderne apparatuur
-                    en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
-                </p>
-                <div class="transparency-points">
-                    <div class="transparency-point fade-in">
-                        <i class="fas fa-shield-alt"></i>
-                        <h3>Geen verrassingen</h3>
-                        <p>Vooraf duidelijke kostenraming en transparante communicatie over alle werkzaamheden.</p>
-                    </div>
-                    <div class="transparency-point fade-in">
-                        <i class="fas fa-euro-sign"></i>
-                        <h3>Geen onduidelijke kosten</h3>
-                        <p>Eerlijke prijzen zonder verborgen kosten. U weet precies waar u voor betaalt.</p>
-                    </div>
-                    <div class="transparency-point fade-in">
-                        <i class="fas fa-handshake"></i>
-                        <h3>Eerlijk advies</h3>
-                        <p>Alleen noodzakelijke reparaties en onderhoud. Geen onnodige werkzaamheden.</p>
-                    </div>
-                    <div class="transparency-point fade-in">
-                        <i class="fas fa-tools"></i>
-                        <h3>Professioneel onderhoud</h3>
-                        <p>Vakkundig werk volgens fabrieksspecificaties met moderne apparatuur.</p>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <h1>CCR – Uw auto in professionele handen</h1>
+                    <p>APK, diagnose & onderhoud in Amsterdam-Noord</p>
+                    <div class="hero-buttons">
+                        <a href="https://wa.me/31646102011" target="_blank" rel="noopener noreferrer" class="cta-button" aria-label="Start WhatsApp-gesprek met CCR">
+                            <i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp ons
+                        </a>
+                        <a href="tel:+31646102011" class="cta-button yellow" aria-label="Bel CCR direct">
+                            <i class="fas fa-phone" aria-hidden="true"></i> Bel Nu
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section id="diensten" class="services">
-        <div class="container">
-            <h2 class="section-title fade-in">Onze Diensten</h2>
-            <p class="section-subtitle fade-in">Professionele autoservice voor alle merken en modellen</p>
-            <div class="services-grid">
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-clipboard-check"></i>
-                    </div>
-                    <h3>APK Keuring</h3>
-                    <p>Officiële APK door gecertificeerde keurmeesters. Snel, voordelig en betrouwbaar.
-                    Wij zorgen ervoor dat uw auto voldoet aan alle veiligheidseisen.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Diagnose & Reparatie</h3>
-                    <p>Voor alle merken en modellen. Van klein tot groot onderhoud. Moderne diagnostiek
-                    en vakkundige reparaties door ervaren monteurs.</p>
-                </div>
-                <div class="service-card fade-in">
-                    <div class="service-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <h3>Onderhoud & Service</h3>
-                    <p>Volgens fabrieksspecificaties uitgevoerd. Uw garantie blijft intact.
-                    Preventief onderhoud voor optimale prestaties en veiligheid.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-   <!-- Brands Section -->
-<section class="brands">
-    <div class="container">
-        <h2 class="section-title fade-in">Merken die we dagelijks onderhouden</h2>
-        <p class="section-subtitle fade-in">Specialistische kennis voor alle grote automerken</p>
-        <div class="brands-grid">
-            <div class="brand-item fade-in">Volkswagen</div>
-            <div class="brand-item fade-in">Audi</div>
-            <div class="brand-item fade-in">BMW</div>
-            <div class="brand-item fade-in">Mercedes</div>
-            <div class="brand-item fade-in">Toyota</div>
-            <div class="brand-item fade-in">Ford</div>
-            <div class="brand-item fade-in">Opel</div>
-            <div class="brand-item fade-in">Peugeot</div>
-            <div class="brand-item fade-in">Renault</div> <!-- Toegevoegd -->
-            <div class="brand-item fade-in">Hyundai</div> <!-- Toegevoegd -->
-        </div>
-    </div>
-</section>
-
-
-    <!-- Why Choose Us Section -->
-    <section class="why-choose">
-        <div class="container">
-            <h2 class="section-title fade-in">Waarom kiezen voor CCR?</h2>
-            <p class="section-subtitle fade-in">Ontdek wat CCR onderscheidt van andere autoservices</p>
-            <div class="why-choose-grid">
-                <div class="feature fade-in">
-                    <i class="fas fa-car"></i>
-                    <h3>Auto ophalen & terugbrengen</h3>
-                    <p>Gemak staat voorop. Wij halen uw auto op en brengen deze na de service weer netjes terug.</p>
-                </div>
-                <div class="feature fade-in">
-                    <i class="fas fa-clock"></i>
-                    <h3>Snelle service</h3>
-                    <p>Vaak klaar in 1 dag, zodat u snel weer veilig de weg op kunt. Efficiency zonder kwaliteitsverlies.</p>
-                </div>
-                <div class="feature fade-in">
-                    <i class="fas fa-heart"></i>
-                    <h3>Eerlijk advies</h3>
-                    <p>Geen verrassingen, alleen eerlijke en transparante communicatie over alle werkzaamheden.</p>
-                </div>
-                <div class="feature fade-in">
-                    <i class="fas fa-star"></i>
-                    <h3>Klantwaardering 4.9/5</h3>
-                    <p>Onze klanten waarderen onze service met gemiddeld 4.9 sterren. Kwaliteit die wordt erkend.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Workshop Section -->
-    <section class="workshop">
-        <div class="container">
-            <h2 class="section-title fade-in">Onze Werkplaats</h2>
-            <div class="workshop-content">
-                <div class="workshop-image slide-in-left">
-                    <i class="fas fa-tools" style="font-size: 3rem; color: var(--accent-blue);"></i>
-                    <br>CCR Car Center Gevel
-                </div>
-                <div class="workshop-text slide-in-right">
-                    <h3>Moderne faciliteiten</h3>
-                    <p>
-                        Onze moderne werkplaats is uitgerust met de nieuwste apparatuur en gereedschappen.
-                        Hierdoor kunnen we uw auto snel en efficiënt onderhouden volgens de hoogste kwaliteitsnormen.
-                        Van diagnostiek tot reparatie, alles onder één dak met de professionele service die u verdient.
+        <!-- Transparency Section -->
+        <section class="transparency">
+            <div class="container">
+                <div class="transparency-content">
+                    <h2 class="section-title fade-in">Transparantie & vakmanschap</h2>
+                    <p class="transparency-text fade-in">
+                        Bij CCR staat eerlijkheid voorop. We geloven in transparante communicatie en vakkundig werk.
+                        Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is. Met moderne apparatuur
+                        en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
                     </p>
+                    <div class="transparency-points">
+                        <div class="transparency-point fade-in">
+                            <i class="fas fa-shield-alt" aria-hidden="true"></i>
+                            <h3>Geen verrassingen</h3>
+                            <p>Vooraf duidelijke kostenraming en transparante communicatie over alle werkzaamheden.</p>
+                        </div>
+                        <div class="transparency-point fade-in">
+                            <i class="fas fa-euro-sign" aria-hidden="true"></i>
+                            <h3>Geen onduidelijke kosten</h3>
+                            <p>Eerlijke prijzen zonder verborgen kosten. U weet precies waar u voor betaalt.</p>
+                        </div>
+                        <div class="transparency-point fade-in">
+                            <i class="fas fa-handshake" aria-hidden="true"></i>
+                            <h3>Eerlijk advies</h3>
+                            <p>Alleen noodzakelijke reparaties en onderhoud. Geen onnodige werkzaamheden.</p>
+                        </div>
+                        <div class="transparency-point fade-in">
+                            <i class="fas fa-tools" aria-hidden="true"></i>
+                            <h3>Professioneel onderhoud</h3>
+                            <p>Vakkundig werk volgens fabrieksspecificaties met moderne apparatuur.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="over-ons" class="about">
-        <div class="container">
-            <h2 class="section-title fade-in">Over CCR</h2>
-            <div class="about-content">
-                <p class="about-text fade-in">
-                    Bij CCR staat eerlijkheid voorop. Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is.
-                    Met moderne apparatuur en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
-                    Wij geloven in transparante communicatie, vakkundig werk en een persoonlijke benadering die het verschil maakt.
-                </p>
-                <p class="director fade-in">Rishi Ramanand – Directeur</p>
+        <!-- Services Section -->
+        <section id="diensten" class="services">
+            <div class="container">
+                <h2 class="section-title fade-in">Onze Diensten</h2>
+                <p class="section-subtitle fade-in">Professionele autoservice voor alle merken en modellen</p>
+                <div class="services-grid">
+                    <article class="service-card fade-in">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-clipboard-check"></i>
+                        </div>
+                        <h3>APK Keuring</h3>
+                        <p>Officiële APK door gecertificeerde keurmeesters. Snel, voordelig en betrouwbaar.
+                        Wij zorgen ervoor dat uw auto voldoet aan alle veiligheidseisen.</p>
+                    </article>
+                    <article class="service-card fade-in">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Diagnose & Reparatie</h3>
+                        <p>Voor alle merken en modellen. Van klein tot groot onderhoud. Moderne diagnostiek
+                        en vakkundige reparaties door ervaren monteurs.</p>
+                    </article>
+                    <article class="service-card fade-in">
+                        <div class="service-icon" aria-hidden="true">
+                            <i class="fas fa-cog"></i>
+                        </div>
+                        <h3>Onderhoud & Service</h3>
+                        <p>Volgens fabrieksspecificaties uitgevoerd. Uw garantie blijft intact.
+                        Preventief onderhoud voor optimale prestaties en veiligheid.</p>
+                    </article>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title fade-in">Contact</h2>
-            <p class="section-subtitle fade-in">Neem contact op voor een afspraak of vraag</p>
-            <div class="contact-grid">
-                <div class="contact-info fade-in">
-                    <h3>Contactgegevens</h3>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span>Meeuwenlaan 116, 1021 JM Amsterdam</span>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:0646102011">06 46102011</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:0203370324">020 337 03 24</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:info@carcenterrishi.nl">info@carcenterrishi.nl</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-globe"></i>
-                        <a href="https://www.carcenterrishi.nl" target="_blank">www.carcenterrishi.nl</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map"></i>
-                        <a href="https://maps.google.com/?q=Meeuwenlaan+116,+1021+JM+Amsterdam" target="_blank">Google Maps</a>
-                    </div>
+        <!-- Brands Section -->
+        <section class="brands">
+            <div class="container">
+                <h2 class="section-title fade-in">Merken die we dagelijks onderhouden</h2>
+                <p class="section-subtitle fade-in">Specialistische kennis voor alle grote automerken</p>
+                <div class="brands-grid">
+                    <div class="brand-item fade-in">Volkswagen</div>
+                    <div class="brand-item fade-in">Audi</div>
+                    <div class="brand-item fade-in">BMW</div>
+                    <div class="brand-item fade-in">Mercedes</div>
+                    <div class="brand-item fade-in">Toyota</div>
+                    <div class="brand-item fade-in">Ford</div>
+                    <div class="brand-item fade-in">Opel</div>
+                    <div class="brand-item fade-in">Peugeot</div>
+                    <div class="brand-item fade-in">Renault</div>
+                    <div class="brand-item fade-in">Hyundai</div>
                 </div>
-                <div class="opening-hours fade-in">
-                    <h3>Openingstijden</h3>
-                    <table class="hours-table">
-                        <tr>
-                            <td>maandag</td>
-                            <td>09:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>dinsdag</td>
-                            <td>09:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>woensdag</td>
-                            <td>09:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>donderdag</td>
-                            <td>09:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>vrijdag</td>
-                            <td>09:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>zaterdag</td>
-                            <td>12:00–18:00</td>
-                        </tr>
-                        <tr>
-                            <td>zondag</td>
-                            <td>Gesloten</td>
-                        </tr>
-                    </table>
-                    <div class="hours-note">
-                        Afspraken ook buiten openingstijden mogelijk
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="why-choose">
+            <div class="container">
+                <h2 class="section-title fade-in">Waarom kiezen voor CCR?</h2>
+                <p class="section-subtitle fade-in">Ontdek wat CCR onderscheidt van andere autoservices</p>
+                <div class="why-choose-grid">
+                    <article class="feature fade-in">
+                        <i class="fas fa-car" aria-hidden="true"></i>
+                        <h3>Auto ophalen & terugbrengen</h3>
+                        <p>Gemak staat voorop. Wij halen uw auto op en brengen deze na de service weer netjes terug.</p>
+                    </article>
+                    <article class="feature fade-in">
+                        <i class="fas fa-clock" aria-hidden="true"></i>
+                        <h3>Snelle service</h3>
+                        <p>Vaak klaar in 1 dag, zodat u snel weer veilig de weg op kunt. Efficiency zonder kwaliteitsverlies.</p>
+                    </article>
+                    <article class="feature fade-in">
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                        <h3>Eerlijk advies</h3>
+                        <p>Geen verrassingen, alleen eerlijke en transparante communicatie over alle werkzaamheden.</p>
+                    </article>
+                    <article class="feature fade-in">
+                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <h3>Klantwaardering 4.9/5</h3>
+                        <p>Onze klanten waarderen onze service met gemiddeld 4.9 sterren. Kwaliteit die wordt erkend.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Section -->
+        <section class="workshop">
+            <div class="container">
+                <h2 class="section-title fade-in">Onze Werkplaats</h2>
+                <div class="workshop-content">
+                    <div class="workshop-image slide-in-left" tabindex="0">
+                        <i class="fas fa-tools" style="font-size: 3rem; color: var(--accent-blue);" aria-hidden="true"></i>
+                        <br>CCR Car Center Gevel
+                    </div>
+                    <div class="workshop-text slide-in-right">
+                        <h3>Moderne faciliteiten</h3>
+                        <p>
+                            Onze moderne werkplaats is uitgerust met de nieuwste apparatuur en gereedschappen.
+                            Hierdoor kunnen we uw auto snel en efficiënt onderhouden volgens de hoogste kwaliteitsnormen.
+                            Van diagnostiek tot reparatie, alles onder één dak met de professionele service die u verdient.
+                        </p>
                     </div>
                 </div>
             </div>
-            
-            <!-- Google Maps Section -->
-            <div class="map-container fade-in">
-                <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8234567890123!2d4.9123456789!3d52.3987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609c3c7654321%3A0x1234567890abcdef!2sMeeuwenlaan%20116%2C%201021%20JM%20Amsterdam%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890123!5m2!1sen!2snl"
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade"
-                    title="CCR Car Center Rishi Locatie">
-                </iframe>
+        </section>
+
+        <!-- About Section -->
+        <section id="over-ons" class="about">
+            <div class="container">
+                <h2 class="section-title fade-in">Over CCR</h2>
+                <div class="about-content">
+                    <p class="about-text fade-in">
+                        Bij CCR staat eerlijkheid voorop. Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is.
+                        Met moderne apparatuur en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
+                        Wij geloven in transparante communicatie, vakkundig werk en een persoonlijke benadering die het verschil maakt.
+                    </p>
+                    <p class="director fade-in">Rishi Ramanand – Directeur</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title fade-in">Contact</h2>
+                <p class="section-subtitle fade-in">Neem contact op voor een afspraak of vraag</p>
+                <div class="contact-grid">
+                    <div class="contact-info fade-in">
+                        <h3>Contactgegevens</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            <span>Meeuwenlaan 116, 1021 JM Amsterdam</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <a href="tel:+31646102011">06 46102011</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone" aria-hidden="true"></i>
+                            <a href="tel:+31203370324">020 337 03 24</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope" aria-hidden="true"></i>
+                            <a href="mailto:info@carcenterrishi.nl">info@carcenterrishi.nl</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-globe" aria-hidden="true"></i>
+                            <a href="https://www.carcenterrishi.nl" target="_blank" rel="noopener noreferrer">www.carcenterrishi.nl</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map" aria-hidden="true"></i>
+                            <a href="https://maps.google.com/?q=Meeuwenlaan+116,+1021+JM+Amsterdam" target="_blank" rel="noopener noreferrer">Google Maps</a>
+                        </div>
+                    </div>
+                    <div class="opening-hours fade-in">
+                        <h3>Openingstijden</h3>
+                        <table class="hours-table">
+                            <tbody>
+                                <tr>
+                                    <td>maandag</td>
+                                    <td>09:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>dinsdag</td>
+                                    <td>09:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>woensdag</td>
+                                    <td>09:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>donderdag</td>
+                                    <td>09:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>vrijdag</td>
+                                    <td>09:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>zaterdag</td>
+                                    <td>12:00–18:00</td>
+                                </tr>
+                                <tr>
+                                    <td>zondag</td>
+                                    <td>Gesloten</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="hours-note">
+                            Afspraken ook buiten openingstijden mogelijk
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Google Maps Section -->
+                <div class="map-container fade-in">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8234567890123!2d4.9123456789!3d52.3987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609c3c7654321%3A0x1234567890abcdef!2sMeeuwenlaan%20116%2C%201021%20JM%20Amsterdam%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890123!5m2!1sen!2snl"
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        title="CCR Car Center Rishi Locatie op Google Maps">
+                    </iframe>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
+    <footer role="contentinfo">
         <div class="container">
             <div class="footer-content">
                 <h3>Rishi Ramanand – Directeur</h3>
                 <div class="footer-links">
-                    <a href="https://vanappiah.com/" target="_blank">Powered by VA</a>
-                    <a href="tel:0646102011">06 46102011</a>
+                    <a href="tel:+31646102011">06 46102011</a>
                     <a href="mailto:info@carcenterrishi.nl">info@carcenterrishi.nl</a>
                 </div>
-                <a href="https://www.google.com/search?q=CCR+Car+Center+Rishi+reviews" target="_blank" class="google-review">
-                    <div class="stars">★★★★☆</div>
+                <a href="https://www.google.com/search?q=CCR+Car+Center+Rishi+reviews" target="_blank" rel="noopener noreferrer" class="google-review" aria-label="Bekijk Google reviews van CCR">
+                    <div class="stars" aria-label="4.4 van 5 sterren">★★★★☆</div>
                     <div class="review-text">Google reviews 4.4 sterren</div>
                 </a>
                 <p class="copyright">
-                    Copyright © 2024 CCR – Car Center Rishi. Alle rechten voorbehouden.
+                    © 2024 CCR – Car Center Rishi. Alle rechten voorbehouden.
+                </p>
+                <p class="copyright">
+                    Powered by <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer">Van Appiah</a>
                 </p>
             </div>
         </div>
@@ -1248,10 +1503,15 @@
 
     <!-- Floating CTA -->
     <div class="floating-cta">
-        <a href="tel:0646102011" class="cta-button yellow">
-            <i class="fas fa-phone"></i> Bel Nu
+        <a href="tel:+31646102011" class="cta-button yellow" aria-label="Bel CCR direct">
+            <i class="fas fa-phone" aria-hidden="true"></i> Bel Nu
         </a>
     </div>
+
+    <!-- Back to top button -->
+    <button class="back-to-top" aria-label="Terug naar boven" title="Terug naar boven">
+        <i class="fas fa-chevron-up" aria-hidden="true"></i>
+    </button>
 
     <script>
         // Smooth scrolling for navigation links
@@ -1291,10 +1551,14 @@
         // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
+            const backToTop = document.querySelector('.back-to-top');
+            
             if (window.scrollY > 100) {
                 header.classList.add('header-scrolled');
+                backToTop.classList.add('visible');
             } else {
                 header.classList.remove('header-scrolled');
+                backToTop.classList.remove('visible');
             }
         });
 
@@ -1303,8 +1567,10 @@
         const navLinks = document.querySelector('.nav-links');
 
         mobileMenu.addEventListener('click', () => {
+            const isExpanded = navLinks.classList.contains('active');
             navLinks.classList.toggle('active');
             mobileMenu.classList.toggle('active');
+            mobileMenu.setAttribute('aria-expanded', !isExpanded);
         });
 
         // Close mobile menu when clicking on a link
@@ -1312,18 +1578,58 @@
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-expanded', 'false');
             });
         });
 
-        // Add some additional interactivity
-        document.querySelectorAll('.service-card, .feature, .transparency-point').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-12px)';
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav')) {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Back to top functionality
+        document.querySelector('.back-to-top').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0)';
-            });
+        });
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                navLinks.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                mobileMenu.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        // Enhanced focus management
+        const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        
+        // Trap focus in mobile menu when open
+        navLinks.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab' && navLinks.classList.contains('active')) {
+                const focusableContent = navLinks.querySelectorAll(focusableElements);
+                const firstFocusableElement = focusableContent[0];
+                const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
         });
 
         // Lazy loading for better performance
@@ -1332,9 +1638,11 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
-                        lazyImageObserver.unobserve(img);
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                            lazyImageObserver.unobserve(img);
+                        }
                     }
                 });
             });
@@ -1343,6 +1651,79 @@
                 lazyImageObserver.observe(img);
             });
         }
+
+        // Performance optimization: Debounce scroll events
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Apply debouncing to scroll handler
+        const debouncedScrollHandler = debounce(() => {
+            const header = document.querySelector('header');
+            const backToTop = document.querySelector('.back-to-top');
+            
+            if (window.scrollY > 100) {
+                header.classList.add('header-scrolled');
+                backToTop.classList.add('visible');
+            } else {
+                header.classList.remove('header-scrolled');
+                backToTop.classList.remove('visible');
+            }
+        }, 10);
+
+        window.addEventListener('scroll', debouncedScrollHandler);
+
+        // Preload critical resources
+        const preloadLink = document.createElement('link');
+        preloadLink.rel = 'preload';
+        preloadLink.as = 'image';
+        preloadLink.href = 'https://i.postimg.cc/fbjBFcSP/download.png';
+        document.head.appendChild(preloadLink);
+
+        // Service Worker registration for caching (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+
+        // Analytics and performance monitoring
+        window.addEventListener('load', () => {
+            // Log page load time
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log('Page load time:', loadTime + 'ms');
+            
+            // Report Core Web Vitals
+            if ('web-vital' in window) {
+                getCLS(console.log);
+                getFID(console.log);
+                getLCP(console.log);
+            }
+        });
+
+        // Error handling
+        window.addEventListener('error', (e) => {
+            console.error('JavaScript error:', e.error);
+        });
+
+        // Unhandled promise rejection handling
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+        });
     </script>
 </body>
 </html>

@@ -25,6 +25,38 @@
     <!-- Load fonts and icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Basis SEO -->
+<meta name="description" content="CCR biedt betrouwbare APK-keuringen, diagnose en professioneel auto-onderhoud in Amsterdam-Noord. Transparantie, vakmanschap en eerlijke service. Bel of WhatsApp ons nu!">
+<meta name="keywords" content="APK Amsterdam, Auto onderhoud Amsterdam Noord, Diagnose auto, CCR autoservice, Car Center Rishi, betrouwbare garage Amsterdam, auto reparatie, eerlijke garage, monteurs Amsterdam">
+<meta name="author" content="Car Center Rishi - CCR">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://carcenterrishi.nl">
+
+<!-- Open Graph voor Facebook en LinkedIn -->
+<meta property="og:title" content="CCR – Uw auto in professionele handen | APK & Onderhoud in Amsterdam-Noord">
+<meta property="og:description" content="Transparantie, vakmanschap en snelle service. CCR is uw betrouwbare partner voor APK, diagnose en auto-onderhoud. Neem vandaag nog contact op.">
+<meta property="og:url" content="https://carcenterrishi.nl">
+<meta property="og:site_name" content="Car Center Rishi - CCR">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://i.postimg.cc/fbjBFcSP/download.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CCR – APK & Onderhoud in Amsterdam-Noord">
+<meta name="twitter:description" content="Professionele autoservice, eerlijke communicatie en snelle reparatie. WhatsApp of bel ons voor een afspraak.">
+<meta name="twitter:image" content="https://i.postimg.cc/fbjBFcSP/download.png">
+
+<!-- Geo / lokale SEO -->
+<meta name="geo.region" content="NL-NH">
+<meta name="geo.placename" content="Amsterdam">
+<meta name="geo.position" content="52.3890;4.9384">
+<meta name="ICBM" content="52.3890, 4.9384">
+
+<!-- Favicon -->
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
@@ -70,6 +102,8 @@
             --success-green: #10b981;
             --shadow-light: rgba(0, 0, 0, 0.1);
             --shadow-medium: rgba(0, 0, 0, 0.15);
+            --footer-link-color: #999;
+            --footer-link-hover: #FFD700;
         }
 
         * {
@@ -95,6 +129,51 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Fade-in animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         /* Skip to main content for accessibility */
@@ -144,7 +223,7 @@
             align-items: center;
             gap: 12px;
             text-decoration: none;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
         }
 
         .logo:hover {
@@ -183,7 +262,7 @@
             text-decoration: none;
             font-weight: 500;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
             position: relative;
             padding: 8px 4px;
         }
@@ -202,7 +281,7 @@
             bottom: 2px;
             left: 4px;
             background: var(--accent-blue);
-            transition: width 0.3s ease;
+            transition: width 0.3s ease-in-out;
         }
 
         .nav-links a:hover::after,
@@ -230,7 +309,7 @@
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -242,7 +321,7 @@
 
         .cta-button:hover,
         .cta-button:focus {
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
             box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
             outline: none;
         }
@@ -263,7 +342,7 @@
         .cta-button.secondary:focus {
             background: var(--accent-blue);
             color: var(--primary-white);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.05);
         }
 
         .cta-button.yellow {
@@ -274,6 +353,7 @@
         .cta-button.yellow:hover,
         .cta-button.yellow:focus {
             box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+            transform: translateY(-2px) scale(1.05);
         }
 
         .mobile-menu {
@@ -287,6 +367,7 @@
             min-width: 44px;
             justify-content: center;
             align-items: center;
+            transition: all 0.3s ease-in-out;
         }
 
         .mobile-menu:focus {
@@ -295,12 +376,16 @@
             border-radius: 4px;
         }
 
+        .mobile-menu:hover {
+            transform: scale(1.1);
+        }
+
         .mobile-menu span {
             width: 25px;
             height: 3px;
             background: var(--dark-grey);
             margin: 3px 0;
-            transition: 0.3s;
+            transition: 0.3s ease-in-out;
             border-radius: 2px;
         }
 
@@ -344,6 +429,7 @@
             position: relative;
             z-index: 2;
             max-width: 700px;
+            animation: fadeIn 1s ease-out;
         }
 
         .hero h1 {
@@ -360,6 +446,7 @@
             color: var(--text-grey);
             margin-bottom: 2.5rem;
             font-weight: 400;
+            line-height: 1.6;
         }
 
         .hero-buttons {
@@ -371,12 +458,22 @@
         .hero-buttons .cta-button {
             padding: 16px 32px;
             font-size: 1.1rem;
+            animation: scaleIn 0.8s ease-out 0.3s both;
         }
 
-        /* Section Styles */
+        .hero-buttons .cta-button:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        /* Section Styles with improved mobile spacing */
         section {
             padding: 6rem 0;
             position: relative;
+            border-bottom: 1px solid rgba(209, 213, 219, 0.3);
+        }
+
+        section:last-of-type {
+            border-bottom: none;
         }
 
         .section-title {
@@ -386,6 +483,7 @@
             margin-bottom: 1rem;
             color: var(--dark-grey);
             letter-spacing: -1px;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .section-subtitle {
@@ -396,6 +494,8 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
+            animation: fadeIn 0.8s ease-out 0.2s both;
         }
 
         /* Transparency Section */
@@ -405,7 +505,7 @@
 
         .transparency-content {
             text-align: center;
-            max-width: 900px;
+            max-width: 90%;
             margin: 0 auto;
         }
 
@@ -413,7 +513,8 @@
             font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-grey);
             margin-bottom: 3rem;
-            line-height: 1.8;
+            line-height: 1.7;
+            animation: fadeIn 0.8s ease-out 0.3s both;
         }
 
         .transparency-points {
@@ -428,14 +529,20 @@
             padding: 2rem;
             border-radius: 16px;
             border: 1px solid var(--border-grey);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             text-align: center;
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: scaleIn 0.6s ease-out both;
         }
+
+        .transparency-point:nth-child(1) { animation-delay: 0.1s; }
+        .transparency-point:nth-child(2) { animation-delay: 0.2s; }
+        .transparency-point:nth-child(3) { animation-delay: 0.3s; }
+        .transparency-point:nth-child(4) { animation-delay: 0.4s; }
 
         .transparency-point:hover,
         .transparency-point:focus-within {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 20px 40px var(--shadow-medium);
         }
@@ -455,6 +562,7 @@
         .transparency-point p {
             color: var(--text-grey);
             font-size: 0.95rem;
+            line-height: 1.6;
         }
 
         /* Services Section */
@@ -466,6 +574,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2.5rem;
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         .service-card {
@@ -473,12 +583,17 @@
             padding: 2.5rem;
             border-radius: 20px;
             border: 1px solid var(--border-grey);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             text-align: center;
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: slideInLeft 0.8s ease-out both;
         }
+
+        .service-card:nth-child(1) { animation-delay: 0.1s; }
+        .service-card:nth-child(2) { animation-delay: 0.2s; }
+        .service-card:nth-child(3) { animation-delay: 0.3s; }
 
         .service-card::before {
             content: '';
@@ -489,7 +604,7 @@
             height: 4px;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-hover));
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
         }
 
         .service-card:hover::before,
@@ -499,7 +614,7 @@
 
         .service-card:hover,
         .service-card:focus-within {
-            transform: translateY(-12px);
+            transform: translateY(-12px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 25px 50px var(--shadow-medium);
         }
@@ -515,12 +630,12 @@
             margin: 0 auto 2rem;
             font-size: 2rem;
             color: var(--primary-white);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease-in-out;
         }
 
         .service-card:hover .service-icon,
         .service-card:focus-within .service-icon {
-            transform: scale(1.1);
+            transform: scale(1.15) rotate(5deg);
         }
 
         .service-card h3 {
@@ -539,7 +654,7 @@
         /* Brands Section */
         .brands {
             background: var(--light-grey);
-            padding: 4rem 0;
+            padding: 5rem 0;
         }
 
         .brands .section-title {
@@ -557,7 +672,7 @@
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 1.5rem;
             align-items: center;
-            max-width: 900px;
+            max-width: 90%;
             margin: 0 auto;
         }
 
@@ -566,18 +681,30 @@
             background: var(--primary-white);
             border-radius: 12px;
             border: 1px solid var(--border-grey);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             font-weight: 600;
             color: var(--dark-grey);
             text-align: center;
             font-size: 0.9rem;
             box-shadow: 0 2px 8px var(--shadow-light);
+            animation: scaleIn 0.5s ease-out both;
         }
+
+        .brand-item:nth-child(1) { animation-delay: 0.1s; }
+        .brand-item:nth-child(2) { animation-delay: 0.15s; }
+        .brand-item:nth-child(3) { animation-delay: 0.2s; }
+        .brand-item:nth-child(4) { animation-delay: 0.25s; }
+        .brand-item:nth-child(5) { animation-delay: 0.3s; }
+        .brand-item:nth-child(6) { animation-delay: 0.35s; }
+        .brand-item:nth-child(7) { animation-delay: 0.4s; }
+        .brand-item:nth-child(8) { animation-delay: 0.45s; }
+        .brand-item:nth-child(9) { animation-delay: 0.5s; }
+        .brand-item:nth-child(10) { animation-delay: 0.55s; }
 
         .brand-item:hover,
         .brand-item:focus {
             border-color: var(--accent-blue);
-            transform: scale(1.03);
+            transform: scale(1.05) translateY(-2px);
             box-shadow: 0 6px 20px var(--shadow-medium);
         }
 
@@ -590,6 +717,8 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         .feature {
@@ -597,14 +726,20 @@
             padding: 2.5rem;
             border-radius: 20px;
             border: 1px solid var(--border-grey);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s ease-in-out;
             text-align: center;
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: slideInRight 0.8s ease-out both;
         }
+
+        .feature:nth-child(1) { animation-delay: 0.1s; }
+        .feature:nth-child(2) { animation-delay: 0.2s; }
+        .feature:nth-child(3) { animation-delay: 0.3s; }
+        .feature:nth-child(4) { animation-delay: 0.4s; }
 
         .feature:hover,
         .feature:focus-within {
-            transform: translateY(-8px);
+            transform: translateY(-8px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 20px 40px var(--shadow-medium);
         }
@@ -613,6 +748,11 @@
             color: var(--accent-blue);
             font-size: 2.5rem;
             margin-bottom: 1.5rem;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature:hover i {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .feature h3 {
@@ -637,6 +777,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+            max-width: 90%;
+            margin: 0 auto;
         }
 
         .workshop-image {
@@ -650,10 +792,11 @@
             justify-content: center;
             font-size: 1.1rem;
             color: var(--text-grey);
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
             flex-direction: column;
             text-align: center;
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: slideInLeft 0.8s ease-out;
         }
 
         .workshop-image:hover,
@@ -661,6 +804,10 @@
             border-color: var(--accent-blue);
             transform: scale(1.02);
             box-shadow: 0 8px 25px var(--shadow-medium);
+        }
+
+        .workshop-text {
+            animation: slideInRight 0.8s ease-out 0.2s both;
         }
 
         .workshop-text h3 {
@@ -673,7 +820,7 @@
         .workshop-text p {
             color: var(--text-grey);
             font-size: 1.1rem;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         /* About Section */
@@ -682,7 +829,7 @@
         }
 
         .about-content {
-            max-width: 800px;
+            max-width: 90%;
             margin: 0 auto;
             text-align: center;
         }
@@ -690,14 +837,16 @@
         .about-text {
             font-size: clamp(1rem, 2.5vw, 1.2rem);
             color: var(--text-grey);
-            line-height: 1.8;
+            line-height: 1.7;
             margin-bottom: 2rem;
+            animation: fadeIn 0.8s ease-out;
         }
 
         .director {
             font-size: 1.1rem;
             color: var(--accent-blue);
             font-weight: 600;
+            animation: fadeIn 0.8s ease-out 0.3s both;
         }
 
         /* Contact Section */
@@ -710,6 +859,9 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             margin-bottom: 4rem;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .contact-info {
@@ -718,6 +870,7 @@
             border-radius: 20px;
             border: 1px solid var(--border-grey);
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: slideInLeft 0.8s ease-out;
         }
 
         .contact-info h3 {
@@ -735,13 +888,13 @@
             padding: 1rem;
             background: var(--light-grey);
             border-radius: 12px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
         }
 
         .contact-item:hover,
         .contact-item:focus-within {
             background: var(--medium-grey);
-            transform: translateX(5px);
+            transform: translateX(5px) scale(1.02);
         }
 
         .contact-item i {
@@ -755,7 +908,7 @@
         .contact-item a {
             color: var(--dark-grey);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease-in-out;
             font-weight: 500;
         }
 
@@ -771,6 +924,7 @@
             border-radius: 20px;
             border: 1px solid var(--border-grey);
             box-shadow: 0 4px 15px var(--shadow-light);
+            animation: slideInRight 0.8s ease-out 0.2s both;
         }
 
         .opening-hours h3 {
@@ -787,6 +941,11 @@
 
         .hours-table tr {
             border-bottom: 1px solid var(--border-grey);
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .hours-table tr:hover {
+            background-color: var(--light-grey);
         }
 
         .hours-table td {
@@ -815,11 +974,14 @@
         /* Google Maps Section */
         .map-container {
             width: 100%;
+            max-width: 90%;
+            margin: 0 auto;
             height: 400px;
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-grey);
             box-shadow: 0 10px 30px var(--shadow-medium);
+            animation: scaleIn 0.8s ease-out 0.4s both;
         }
 
         .map-container iframe {
@@ -827,9 +989,14 @@
             height: 100%;
             border: none;
             filter: grayscale(20%) contrast(1.1);
+            transition: filter 0.3s ease-in-out;
         }
 
-        /* Footer */
+        .map-container:hover iframe {
+            filter: grayscale(0%) contrast(1.2);
+        }
+
+        /* Footer with improved styling */
         footer {
             background: var(--dark-grey);
             padding: 4rem 0 2rem;
@@ -838,7 +1005,7 @@
 
         .footer-content {
             text-align: center;
-            max-width: 600px;
+            max-width: 90%;
             margin: 0 auto;
         }
 
@@ -858,19 +1025,34 @@
         }
 
         .footer-links a {
-            color: var(--accent-blue);
+            color: var(--footer-link-color);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease-in-out;
             padding: 4px 8px;
+            border-radius: 4px;
         }
 
         .footer-links a:hover,
         .footer-links a:focus {
-            color: var(--primary-white);
-            outline: 2px solid var(--primary-white);
-            outline-offset: 2px;
-            border-radius: 4px;
+            color: var(--footer-link-hover);
+            text-decoration: underline;
+            transform: translateY(-2px);
+            outline: none;
+        }
+
+        /* Special styling for "Powered by Van Appiah" link */
+        .footer-links a[href*="vanappiah"] {
+            color: var(--footer-link-color);
+            text-decoration: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .footer-links a[href*="vanappiah"]:hover,
+        .footer-links a[href*="vanappiah"]:focus {
+            color: var(--footer-link-hover);
+            text-decoration: underline;
+            transform: translateY(-2px) scale(1.05);
         }
 
         .google-review {
@@ -882,15 +1064,16 @@
             border-radius: 50px;
             border: 1px solid rgba(255, 255, 255, 0.2);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
             margin: 1rem 0;
         }
 
         .google-review:hover,
         .google-review:focus {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-2px);
             border-color: var(--accent-blue);
             outline: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
         }
 
         .google-review .stars {
@@ -908,6 +1091,7 @@
             color: var(--medium-grey);
             font-size: 0.9rem;
             margin-top: 2rem;
+            line-height: 1.6;
         }
 
         /* Floating CTA */
@@ -924,6 +1108,7 @@
             box-shadow: 0 10px 30px rgba(251, 191, 36, 0.4);
             font-size: 1rem;
             font-weight: 700;
+            animation: scaleIn 1s ease-out 2s both;
         }
 
         /* Back to top button */
@@ -940,7 +1125,7 @@
             cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
             z-index: 998;
             display: flex;
             align-items: center;
@@ -956,12 +1141,12 @@
         .back-to-top:hover,
         .back-to-top:focus {
             background: var(--accent-blue-hover);
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.1);
             outline: 2px solid var(--primary-white);
             outline-offset: 2px;
         }
 
-        /* Animations */
+        /* Animations for scroll-triggered elements */
         .fade-in {
             opacity: 0;
             transform: translateY(40px);
@@ -995,10 +1180,16 @@
             transform: translateX(0);
         }
 
-        /* Mobile Responsive */
+        /* Mobile Responsive with improved spacing */
         @media (max-width: 768px) {
             .container {
                 padding: 0 16px;
+            }
+
+            /* Improved mobile section spacing */
+            section {
+                padding: 4rem 0;
+                margin-bottom: 2rem;
             }
 
             .nav-links {
@@ -1013,6 +1204,7 @@
                 border-top: 1px solid var(--border-grey);
                 box-shadow: 0 4px 20px var(--shadow-medium);
                 gap: 1.5rem;
+                animation: slideInLeft 0.3s ease-out;
             }
 
             .nav-links.active {
@@ -1030,16 +1222,37 @@
             .hero {
                 padding-top: 80px;
                 min-height: calc(100vh - 80px);
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            .hero-content {
+                max-width: 90%;
             }
 
             .hero-buttons {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 1rem;
             }
 
             .hero-buttons .cta-button {
                 justify-content: center;
                 padding: 16px 24px;
+                width: 100%;
+            }
+
+            /* Mobile content containers */
+            .transparency-content,
+            .services-grid,
+            .brands-grid,
+            .why-choose-grid,
+            .workshop-content,
+            .about-content,
+            .contact-grid,
+            .map-container {
+                max-width: 95%;
+                margin: 0 auto;
             }
 
             .contact-grid,
@@ -1073,14 +1286,11 @@
                 gap: 1rem;
             }
 
-            section {
-                padding: 4rem 0;
-            }
-
             .service-card,
             .feature,
             .transparency-point {
                 padding: 2rem 1.5rem;
+                margin-bottom: 1rem;
             }
 
             .contact-info,
@@ -1099,11 +1309,32 @@
                 width: 44px;
                 height: 44px;
             }
+
+            /* Improved mobile typography */
+            .section-title {
+                margin-bottom: 1.5rem;
+            }
+
+            .section-subtitle {
+                margin-bottom: 3rem;
+                padding: 0 1rem;
+            }
+
+            .transparency-text,
+            .about-text {
+                padding: 0 1rem;
+                margin-bottom: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
             .container {
                 padding: 0 12px;
+            }
+
+            section {
+                padding: 3rem 0;
+                margin-bottom: 1.5rem;
             }
 
             .brands-grid {
@@ -1130,6 +1361,21 @@
             .hero-buttons .cta-button {
                 padding: 14px 20px;
                 font-size: 1rem;
+            }
+
+            .hero {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+
+            .transparency-content,
+            .services-grid,
+            .brands-grid,
+            .why-choose-grid,
+            .about-content,
+            .contact-grid,
+            .map-container {
+                max-width: 98%;
             }
         }
 
@@ -1180,6 +1426,49 @@
                 break-inside: avoid;
             }
         }
+   .GoogleForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: #f4f4f4;
+}
+
+.GoogleForm .container {
+    width: 100%;
+    max-width: 700px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ddd;
+    background-color: #fff;
+}
+
+/* Responsive iframe */
+.GoogleForm iframe {
+    display: block;
+    width: 100%;
+    height: 1849px;
+    border: none;
+}
+
+/* Extra kleine schermen fix (optioneel) */
+@media (max-width: 480px) {
+    .GoogleForm {
+        padding: 20px 10px;
+    }
+
+    .GoogleForm .container {
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .GoogleForm iframe {
+        height: 1900px; /* iets ruimer op mobiel */
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -1220,7 +1509,7 @@
         <!-- Hero Section -->
         <section id="home" class="hero">
             <div class="container">
-                <div class="hero-content fade-in">
+                <div class="hero-content">
                     <h1>CCR – Uw auto in professionele handen</h1>
                     <p>APK, diagnose & onderhoud in Amsterdam-Noord</p>
                     <div class="hero-buttons">
@@ -1239,29 +1528,29 @@
         <section class="transparency">
             <div class="container">
                 <div class="transparency-content">
-                    <h2 class="section-title fade-in">Transparantie & vakmanschap</h2>
-                    <p class="transparency-text fade-in">
+                    <h2 class="section-title">Transparantie & vakmanschap</h2>
+                    <p class="transparency-text">
                         Bij CCR staat eerlijkheid voorop. We geloven in transparante communicatie en vakkundig werk.
                         Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is. Met moderne apparatuur
                         en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
                     </p>
                     <div class="transparency-points">
-                        <div class="transparency-point fade-in">
+                        <div class="transparency-point">
                             <i class="fas fa-shield-alt" aria-hidden="true"></i>
                             <h3>Geen verrassingen</h3>
                             <p>Vooraf duidelijke kostenraming en transparante communicatie over alle werkzaamheden.</p>
                         </div>
-                        <div class="transparency-point fade-in">
+                        <div class="transparency-point">
                             <i class="fas fa-euro-sign" aria-hidden="true"></i>
                             <h3>Geen onduidelijke kosten</h3>
                             <p>Eerlijke prijzen zonder verborgen kosten. U weet precies waar u voor betaalt.</p>
                         </div>
-                        <div class="transparency-point fade-in">
+                        <div class="transparency-point">
                             <i class="fas fa-handshake" aria-hidden="true"></i>
                             <h3>Eerlijk advies</h3>
                             <p>Alleen noodzakelijke reparaties en onderhoud. Geen onnodige werkzaamheden.</p>
                         </div>
-                        <div class="transparency-point fade-in">
+                        <div class="transparency-point">
                             <i class="fas fa-tools" aria-hidden="true"></i>
                             <h3>Professioneel onderhoud</h3>
                             <p>Vakkundig werk volgens fabrieksspecificaties met moderne apparatuur.</p>
@@ -1274,10 +1563,10 @@
         <!-- Services Section -->
         <section id="diensten" class="services">
             <div class="container">
-                <h2 class="section-title fade-in">Onze Diensten</h2>
-                <p class="section-subtitle fade-in">Professionele autoservice voor alle merken en modellen</p>
+                <h2 class="section-title">Onze Diensten</h2>
+                <p class="section-subtitle">Professionele autoservice voor alle merken en modellen</p>
                 <div class="services-grid">
-                    <article class="service-card fade-in">
+                    <article class="service-card">
                         <div class="service-icon" aria-hidden="true">
                             <i class="fas fa-clipboard-check"></i>
                         </div>
@@ -1285,7 +1574,7 @@
                         <p>Officiële APK door gecertificeerde keurmeesters. Snel, voordelig en betrouwbaar.
                         Wij zorgen ervoor dat uw auto voldoet aan alle veiligheidseisen.</p>
                     </article>
-                    <article class="service-card fade-in">
+                    <article class="service-card">
                         <div class="service-icon" aria-hidden="true">
                             <i class="fas fa-search"></i>
                         </div>
@@ -1293,7 +1582,7 @@
                         <p>Voor alle merken en modellen. Van klein tot groot onderhoud. Moderne diagnostiek
                         en vakkundige reparaties door ervaren monteurs.</p>
                     </article>
-                    <article class="service-card fade-in">
+                    <article class="service-card">
                         <div class="service-icon" aria-hidden="true">
                             <i class="fas fa-cog"></i>
                         </div>
@@ -1305,22 +1594,28 @@
             </div>
         </section>
 
+       <section class="GoogleForm">
+    <div class="container">
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdmFqzCj_ZbPdaf3sYfG_lkpN__NyC4o-eIPBVB35OVeia3uw/viewform?embedded=true" width="640" height="1849" frameborder="0" marginheight="0" marginwidth="0">Laden…</iframe>
+    </div>
+</section>
+
         <!-- Brands Section -->
         <section class="brands">
             <div class="container">
-                <h2 class="section-title fade-in">Merken die we dagelijks onderhouden</h2>
-                <p class="section-subtitle fade-in">Specialistische kennis voor alle grote automerken</p>
+                <h2 class="section-title">Merken die we dagelijks onderhouden</h2>
+                <p class="section-subtitle">Specialistische kennis voor alle grote automerken</p>
                 <div class="brands-grid">
-                    <div class="brand-item fade-in">Volkswagen</div>
-                    <div class="brand-item fade-in">Audi</div>
-                    <div class="brand-item fade-in">BMW</div>
-                    <div class="brand-item fade-in">Mercedes</div>
-                    <div class="brand-item fade-in">Toyota</div>
-                    <div class="brand-item fade-in">Ford</div>
-                    <div class="brand-item fade-in">Opel</div>
-                    <div class="brand-item fade-in">Peugeot</div>
-                    <div class="brand-item fade-in">Renault</div>
-                    <div class="brand-item fade-in">Hyundai</div>
+                    <div class="brand-item">Volkswagen</div>
+                    <div class="brand-item">Audi</div>
+                    <div class="brand-item">BMW</div>
+                    <div class="brand-item">Mercedes</div>
+                    <div class="brand-item">Toyota</div>
+                    <div class="brand-item">Ford</div>
+                    <div class="brand-item">Opel</div>
+                    <div class="brand-item">Peugeot</div>
+                    <div class="brand-item">Renault</div>
+                    <div class="brand-item">Hyundai</div>
                 </div>
             </div>
         </section>
@@ -1328,28 +1623,28 @@
         <!-- Why Choose Us Section -->
         <section class="why-choose">
             <div class="container">
-                <h2 class="section-title fade-in">Waarom kiezen voor CCR?</h2>
-                <p class="section-subtitle fade-in">Ontdek wat CCR onderscheidt van andere autoservices</p>
+                <h2 class="section-title">Waarom kiezen voor CCR?</h2>
+                <p class="section-subtitle">Ontdek wat CCR onderscheidt van andere autoservices</p>
                 <div class="why-choose-grid">
-                    <article class="feature fade-in">
+                    <article class="feature">
                         <i class="fas fa-car" aria-hidden="true"></i>
                         <h3>Auto ophalen & terugbrengen</h3>
                         <p>Gemak staat voorop. Wij halen uw auto op en brengen deze na de service weer netjes terug.</p>
                     </article>
-                    <article class="feature fade-in">
+                    <article class="feature">
                         <i class="fas fa-clock" aria-hidden="true"></i>
                         <h3>Snelle service</h3>
                         <p>Vaak klaar in 1 dag, zodat u snel weer veilig de weg op kunt. Efficiency zonder kwaliteitsverlies.</p>
                     </article>
-                    <article class="feature fade-in">
+                    <article class="feature">
                         <i class="fas fa-heart" aria-hidden="true"></i>
                         <h3>Eerlijk advies</h3>
                         <p>Geen verrassingen, alleen eerlijke en transparante communicatie over alle werkzaamheden.</p>
                     </article>
-                    <article class="feature fade-in">
+                    <article class="feature">
                         <i class="fas fa-star" aria-hidden="true"></i>
-                        <h3>Klantwaardering 4.9/5</h3>
-                        <p>Onze klanten waarderen onze service met gemiddeld 4.9 sterren. Kwaliteit die wordt erkend.</p>
+                        <h3>Klantwaardering 4.4/5</h3>
+                        <p>Onze klanten waarderen onze service met gemiddeld 4.4 sterren. Kwaliteit die wordt erkend.</p>
                     </article>
                 </div>
             </div>
@@ -1358,13 +1653,13 @@
         <!-- Workshop Section -->
         <section class="workshop">
             <div class="container">
-                <h2 class="section-title fade-in">Onze Werkplaats</h2>
+                <h2 class="section-title">Onze Werkplaats</h2>
                 <div class="workshop-content">
-                    <div class="workshop-image slide-in-left" tabindex="0">
+                    <div class="workshop-image" tabindex="0">
                         <i class="fas fa-tools" style="font-size: 3rem; color: var(--accent-blue);" aria-hidden="true"></i>
                         <br>CCR Car Center Gevel
                     </div>
-                    <div class="workshop-text slide-in-right">
+                    <div class="workshop-text">
                         <h3>Moderne faciliteiten</h3>
                         <p>
                             Onze moderne werkplaats is uitgerust met de nieuwste apparatuur en gereedschappen.
@@ -1379,14 +1674,14 @@
         <!-- About Section -->
         <section id="over-ons" class="about">
             <div class="container">
-                <h2 class="section-title fade-in">Over CCR</h2>
+                <h2 class="section-title">Over CCR</h2>
                 <div class="about-content">
-                    <p class="about-text fade-in">
+                    <p class="about-text">
                         Bij CCR staat eerlijkheid voorop. Onze ervaren monteurs behandelen uw auto alsof het hun eigen auto is.
                         Met moderne apparatuur en jarenlange ervaring zorgen we ervoor dat u veilig de weg op kunt.
                         Wij geloven in transparante communicatie, vakkundig werk en een persoonlijke benadering die het verschil maakt.
                     </p>
-                    <p class="director fade-in">Rishi Ramanand – Directeur</p>
+                    <p class="director">Rishi Ramanand – Directeur</p>
                 </div>
             </div>
         </section>
@@ -1394,10 +1689,10 @@
         <!-- Contact Section -->
         <section id="contact" class="contact">
             <div class="container">
-                <h2 class="section-title fade-in">Contact</h2>
-                <p class="section-subtitle fade-in">Neem contact op voor een afspraak of vraag</p>
+                <h2 class="section-title">Contact</h2>
+                <p class="section-subtitle">Neem contact op voor een afspraak of vraag</p>
                 <div class="contact-grid">
-                    <div class="contact-info fade-in">
+                    <div class="contact-info">
                         <h3>Contactgegevens</h3>
                         <div class="contact-item">
                             <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
@@ -1424,7 +1719,7 @@
                             <a href="https://maps.google.com/?q=Meeuwenlaan+116,+1021+JM+Amsterdam" target="_blank" rel="noopener noreferrer">Google Maps</a>
                         </div>
                     </div>
-                    <div class="opening-hours fade-in">
+                    <div class="opening-hours">
                         <h3>Openingstijden</h3>
                         <table class="hours-table">
                             <tbody>
@@ -1465,7 +1760,7 @@
                 </div>
                 
                 <!-- Google Maps Section -->
-                <div class="map-container fade-in">
+                <div class="map-container">
                     <iframe 
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2434.8234567890123!2d4.9123456789!3d52.3987654321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c609c3c7654321%3A0x1234567890abcdef!2sMeeuwenlaan%20116%2C%201021%20JM%20Amsterdam%2C%20Netherlands!5e0!3m2!1sen!2snl!4v1234567890123!5m2!1sen!2snl"
                         allowfullscreen="" 
@@ -1494,9 +1789,18 @@
                 <p class="copyright">
                     © 2024 CCR – Car Center Rishi. Alle rechten voorbehouden.
                 </p>
-                <p class="copyright">
-                    Powered by <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer">Van Appiah</a>
-                </p>
+               <p class="copyright" style="font-size: 14px; color: #666; line-height: 1.5; text-align: center; padding: 10px;">
+    Powered by 
+    <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer"
+       style="color: #666; text-decoration: none; transition: color 0.3s ease;"
+       onmouseover="this.style.color='#aaa';"
+       onmouseout="this.style.color='#666';"
+       ontouchstart="this.style.color='#aaa';"
+       ontouchend="this.style.color='#666';">
+        Van Appiah
+    </a>
+</p>
+
             </div>
         </div>
     </footer>
@@ -1632,26 +1936,6 @@
             }
         });
 
-        // Lazy loading for better performance
-        if ('IntersectionObserver' in window) {
-            const lazyImageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        if (img.dataset.src) {
-                            img.src = img.dataset.src;
-                            img.classList.remove('lazy');
-                            lazyImageObserver.unobserve(img);
-                        }
-                    }
-                });
-            });
-
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                lazyImageObserver.observe(img);
-            });
-        }
-
         // Performance optimization: Debounce scroll events
         function debounce(func, wait) {
             let timeout;
@@ -1681,40 +1965,6 @@
 
         window.addEventListener('scroll', debouncedScrollHandler);
 
-        // Preload critical resources
-        const preloadLink = document.createElement('link');
-        preloadLink.rel = 'preload';
-        preloadLink.as = 'image';
-        preloadLink.href = 'https://i.postimg.cc/fbjBFcSP/download.png';
-        document.head.appendChild(preloadLink);
-
-        // Service Worker registration for caching (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-
-        // Analytics and performance monitoring
-        window.addEventListener('load', () => {
-            // Log page load time
-            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
-            console.log('Page load time:', loadTime + 'ms');
-            
-            // Report Core Web Vitals
-            if ('web-vital' in window) {
-                getCLS(console.log);
-                getFID(console.log);
-                getLCP(console.log);
-            }
-        });
-
         // Error handling
         window.addEventListener('error', (e) => {
             console.error('JavaScript error:', e.error);
@@ -1723,6 +1973,12 @@
         // Unhandled promise rejection handling
         window.addEventListener('unhandledrejection', (e) => {
             console.error('Unhandled promise rejection:', e.reason);
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', () => {
+            const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+            console.log('Page load time:', loadTime + 'ms');
         });
     </script>
 </body>

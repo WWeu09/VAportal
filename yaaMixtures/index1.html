@@ -1,0 +1,1246 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YAA Mixtures — Luxe Cocktails • Take‑away & Op Locatie</title>
+  <meta name="description" content="Bestel jouw favoriete cocktails direct via onze website. Grote bestellingen of evenementen? Dat regelen we persoonlijk met je. YAA Mixtures — luxe cocktailservice, take-away en op locatie.">
+  <meta name="keywords" content="cocktails, mixology, Amsterdam, bezorging, events, luxe cocktails, mocktails">
+  <meta name="author" content="YAA Mixtures">
+  
+  <!-- Preload critical resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+      :root {
+  --bg: #0a0a0d;
+  --bg2: #0f0f15;
+  --panel: #13131a;
+  --card: #16161f;
+  --border: #252536;
+  --text: #f7f7fb;
+  --muted: #b8b8c6;
+  --accent: #ff4d9a;
+  --accent-2: #ff8dbf;
+  --ok: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;
+  --radius: 14px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, .2);
+  --gap: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+  color: var(--text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  height: auto;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color .2s ease, text-decoration-color .2s ease;
+}
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--gap);
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(15,15,22,0.72);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap);
+  min-height: 64px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand img {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+}
+.brand-name {
+  font-weight: 800;
+  letter-spacing: .3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--gap);
+  flex-wrap: wrap;
+}
+.nav-links a {
+  color: #ececf4;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: background .2s ease, border-color .2s ease;
+}
+.nav-links a:hover,
+.nav-links a:focus {
+  border-color: var(--border);
+  background: rgba(20,20,29,.9);
+  text-decoration: none;
+}
+
+/* Sections */
+section {
+  padding: 36px 0;
+}
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-size: clamp(22px, 2.6vw, 32px);
+  margin: 0;
+}
+.section-sub {
+  color: var(--muted);
+  margin: 6px 0 0;
+}
+
+/* Hero */
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 28px;
+  align-items: center;
+  padding: 48px 0 24px;
+}
+@media (max-width:980px) {
+  .hero { grid-template-columns: 1fr; }
+}
+
+.pill {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255,77,154,.12);
+  border: 1px solid rgba(255,77,154,.35);
+  color: #ffd7ea;
+  font-size: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1.1;
+  margin: 10px 0 12px;
+}
+.hero p {
+  color: #e8e8f1;
+  margin: 0 0 14px;
+}
+
+.hero-card {
+  background: linear-gradient(180deg, #15151c, #121219);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.hero-card img {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: transform .3s ease;
+}
+.hero-card img:hover {
+  transform: scale(1.02);
+}
+
+/* Grid & Cards */
+.grid {
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width:1000px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width:640px) { .grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0,0,0,.2);
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+
+.thumb {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #1b1b23;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 160px;
+  text-align: center;
+  color: #d8d8e3;
+  padding: 18px;
+}
+
+/* Buttons */
+.btn, .btn-secondary, .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, filter .2s ease;
+}
+
+.btn {
+  border: 1px solid transparent;
+  padding: 11px 16px;
+  background: var(--accent);
+  color: #0b0b0c;
+}
+.btn:hover { filter: brightness(1.06); }
+
+.btn-secondary {
+  border: 1px solid var(--border);
+  padding: 11px 16px;
+  background: #171720;
+  color: #fff;
+}
+.btn-secondary:hover { background: #1b1b26; }
+
+.btn-ghost {
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  background: transparent;
+  color: #fff;
+}
+.btn-ghost:hover { background: #14141d; }
+
+.btn:disabled, .btn-secondary:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="sr-only">Ga naar hoofdinhoud</a>
+
+  <header>
+    <div class="container nav" role="navigation" aria-label="Hoofdnavigatie">
+      <div class="brand">
+        <img src="https://i.postimg.cc/hvjVd20z/Whats-App-Image-2025-08-07-at-15-32-32.jpg" alt="YAA Mixtures logo — wit/roze merkbeeld" loading="lazy">
+        <div class="brand-name">YAA Mixtures</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#menu">Menu</a>
+        <a href="#diensten">Diensten</a>
+        <a href="#levering">Levering</a>
+        <a href="#events">Events & Bedrijven</a>
+        <a href="#bestellen">Bestellen</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section aria-labelledby="welkom" class="reveal in">
+      <div class="hero">
+        <div>
+          <span class="pill">Luxe cocktailservice • Take-away • Op locatie</span>
+          <h1 id="welkom">Bestel jouw favoriete cocktails direct via onze website.</h1>
+          <p>Grote bestellingen of evenementen? Dat regelen we persoonlijk met je.</p>
+          <div class="row" style="margin-top: 16px;">
+            <a class="btn" href="#menu" aria-label="Bekijk menu">📜 Bekijk menu</a>
+            <a class="btn-secondary" href="#bestellen" aria-label="Bestel nu">🛒 Bestel nu</a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="Banner met cocktailglas">
+          <img src="https://i.postimg.cc/TPMj4qTF/Whats-App-Image-2025-08-07-at-15-32-32-4.jpg" alt="Sfeervolle banner: close-up van een luxe cocktailglas" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <section class="reveal" aria-labelledby="regels-title">
+      <div class="panel">
+        <h2 id="regels-title" class="section-title" style="font-size: 20px; margin: 0 0 8px;">Bestelregels</h2>
+        <ul class="tiny" style="margin: 0 0 0 16px; line-height: 1.6;">
+          <li>Bestellingen tot en met <strong>99 cocktails</strong> bestel je direct via de website (demo checkout).</li>
+          <li>Vanaf <strong>100 cocktails</strong> of <strong>op locatie</strong> → <strong>persoonlijk contact via telefoon of e‑mail</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="menu" aria-labelledby="menu-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="menu-title">Menu / Producten</h2>
+          <p class="section-sub">Kies jouw cocktails, voeg toe aan de winkelwagen en reken af.</p>
+          <p class="tiny muted" style="margin-top: 6px;">Prijzen van cocktails & mocktails zijn gebaseerd op <strong>250ml</strong>. 500ml: cocktails +€6, mocktails +€5.</p>
+        </div>
+        <a class="badge" href="https://postimg.cc/gallery/nHk3Tvq" target="_blank" rel="noopener">Gallery openen</a>
+      </div>
+
+      <div class="panel" style="margin-bottom: 16px;">
+        <div class="row" style="justify-content: space-between; align-items: center;">
+          <div class="muted">Voor 100+ cocktails of op locatie: bel of mail ons (niet via de site afrekenen).</div>
+          <a class="btn-ghost" href="#bestellen">Naar checkout</a>
+        </div>
+      </div>
+
+      <h3 style="margin: 12px 0 8px;">Cocktails (250ml basis)</h3>
+      <div class="grid" id="grid-cocktails"></div>
+
+      <h3 style="margin: 24px 0 8px;">Mocktails (250ml basis)</h3>
+      <div class="grid" id="grid-mocktails"></div>
+
+      <h3 style="margin: 24px 0 8px;">Dispenser & Taps</h3>
+      <div class="grid" id="grid-dispensers"></div>
+
+      <h3 style="margin: 24px 0 8px;">Extras</h3>
+      <div class="grid" id="grid-extras"></div>
+    </section>
+
+    <section id="diensten" aria-labelledby="diensten-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="diensten-title">Diensten</h2>
+          <p class="section-sub">Afhalen, bezorging en cocktails op locatie.</p>
+        </div>
+        <a class="btn-ghost" href="#bestellen">Bestel nu</a>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Afhalen</h3>
+          <p class="muted">Bestel vooraf en haal op een afgesproken tijd op.</p>
+        </div>
+        <div class="card">
+          <h3>Bezorging</h3>
+          <p class="muted">Op maandag, woensdag en vrijdag. Leveringstijd ontvang je in de bevestiging.</p>
+        </div>
+        <div class="card">
+          <h3>Cocktails op locatie</h3>
+          <p class="muted">Wij shaken live op jouw event met professionele bar‑opstelling.<br><strong>📞 Alleen te boeken via persoonlijk contact (mail of telefoon).</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="levering" aria-labelledby="levering-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="levering-title">Leveringskosten</h2>
+          <p class="section-sub">Indicatief; exacte prijs en tijd bevestigen we na je bestelling.</p>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="card"><strong>Zuidoost (1101/1108)</strong><div class="muted">€7,50</div></div>
+        <div class="card"><strong>Amsterdam tot 10KM</strong><div class="muted">€12,50</div></div>
+        <div class="card"><strong>Amsterdam 11–15KM</strong><div class="muted">€17,50</div></div>
+        <div class="card"><strong>Amsterdam 16–20KM</strong><div class="muted">€22,50</div></div>
+        <div class="card"><strong>Weesp / Abcoude</strong><div class="muted">€15,00</div></div>
+        <div class="card"><strong>21–35KM</strong><div class="muted">€27,50</div></div>
+        <div class="card"><strong>35KM+ vanaf</strong><div class="muted">€50,00</div></div>
+        <div class="card"><strong>Op locatie vóór 10:00 of na 22:00</strong><div class="muted">+€75,00</div></div>
+      </div>
+    </section>
+
+    <section id="events" aria-labelledby="events-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="events-title">Events & Bedrijven</h2>
+          <p class="section-sub">Altijd persoonlijk contact. Inclusief garnering, gepersonaliseerde logo's/stickers en bekers waar aangegeven.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Unlimited Cocktail</h3>
+          <ul class="tiny" style="margin: 0 0 0 16px; line-height: 1.6;">
+            <li>2–2.5 uur — €450</li>
+            <li>2.5–3 uur — €550</li>
+            <li>3–3.5 uur — €650</li>
+            <li>3.5–4 uur — €750</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Unlimited Mocktail</h3>
+          <ul class="tiny" style="margin: 0 0 0 16px; line-height: 1.6;">
+            <li>2–2.5 uur — €300</li>
+            <li>2.5–3 uur — €400</li>
+            <li>3–3.5 uur — €500</li>
+            <li>3.5–4 uur — €550</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Add‑ons</h3>
+          <ul class="tiny" style="margin: 0 0 0 16px; line-height: 1.6;">
+            <li>4L Dispenser Cocktail — €35,00</li>
+            <li>4L Dispenser Mocktail — €35,00</li>
+            <li>3L Booze Tap Cocktail — €25,00</li>
+            <li>3L Booze Tap Mocktail — €20,00</li>
+            <li>Gepersonaliseerde menu's — €15,00</li>
+            <li>Glaswerk (unlimited) — €15,00</li>
+            <li>Stickers (100) — €100,00</li>
+            <li>Cocktail Wall (only) — €50,00 · met setup — €120,00</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="notice" style="margin-top: 16px;">
+        <div>📞</div>
+        <div>
+          Vanaf <strong>100 cocktails</strong> of voor <strong>op‑locatie</strong> plannen we altijd persoonlijk en spreken we de <strong>aanbetaling</strong> af.
+          <div class="row" style="margin-top: 8px;">
+            <a class="btn" href="tel:+31684087779">Bel: +31 6 84087779</a>
+            <a class="btn-secondary" href="mailto:yaa.mixtures@gmail.com?subject=Offerte%20Events%20%26%20Bedrijven">E‑mail</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="bestellen" aria-labelledby="bestellen-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="bestellen-title">Bestellen</h2>
+          <p class="section-sub">Kies je cocktails → voeg toe aan de winkelwagen → reken af via de website. Je ontvangt direct een bevestiging met ophaal‑ of bezorginformatie.</p>
+        </div>
+        <a class="btn-ghost" href="#menu">Nog iets toevoegen</a>
+      </div>
+
+      <div class="two-col">
+        <div class="panel" aria-labelledby="cart-title">
+          <h3 id="cart-title" style="margin: 0 0 12px;">Winkelwagen</h3>
+          <div id="cart-list"></div>
+          <div class="hr"></div>
+          <div class="totals"><div class="muted">Subtotaal</div><div><strong id="cart-subtotal">€0,00</strong></div></div>
+          <div class="totals"><div class="muted">Totaal items</div><div><strong id="cart-qty">0</strong></div></div>
+
+          <div id="big-order-hint" class="notice" style="display: none; margin-top: 12px;">
+            <div>ℹ️</div>
+            <div>Voor 100+ cocktails of op‑locatie: afronden via telefoon of e‑mail. Website checkout is alleen voor t/m 99 stuks.</div>
+          </div>
+        </div>
+
+        <div class="panel" aria-labelledby="checkout-title">
+          <h3 id="checkout-title" style="margin: 0 0 12px;">Checkout (Demo)</h3>
+          <p class="tiny" style="margin: 0 0 12px;">Geen live betaling; dit is een demo.</p>
+
+          <form id="checkout-form" novalidate>
+            <div class="row" style="gap: 12px;">
+              <div style="flex: 1;">
+                <label for="name">Naam</label>
+                <input id="name" name="name" type="text" placeholder="Voor- en achternaam" required>
+                <div class="field-err" id="err-name">Vul je naam in.</div>
+              </div>
+              <div style="flex: 1;">
+                <label for="phone">Telefoon</label>
+                <input id="phone" name="phone" type="tel" placeholder="06-..." required>
+                <div class="field-err" id="err-phone">Vul een geldig 06-nummer in.</div>
+              </div>
+            </div>
+            <div class="row" style="gap: 12px;">
+              <div style="flex: 1;">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" placeholder="naam@voorbeeld.nl" required>
+                <div class="field-err" id="err-email">Vul een geldig e-mailadres in.</div>
+              </div>
+              <div style="flex: 1;">
+                <label for="method">Afleverwijze</label>
+                <select id="method" name="method" required>
+                  <option value="">Kies een optie</option>
+                  <option>Afhalen</option>
+                  <option>Bezorging</option>
+                  <option>Op locatie</option>
+                </select>
+                <div class="field-err" id="err-method">Selecteer een afleverwijze.</div>
+              </div>
+            </div>
+            <div class="row" style="gap: 12px;">
+              <div style="flex: 1;">
+                <label for="time">Gewenste tijd</label>
+                <input id="time" name="time" type="datetime-local">
+              </div>
+              <div style="flex: 1;">
+                <label for="notes">Opmerkingen</label>
+                <input id="notes" name="notes" type="text" placeholder="Allergieën, voorkeuren, etc.">
+              </div>
+            </div>
+
+            <div id="contact-required" class="notice" style="display: none; margin-top: 12px;">
+              <div>📞</div>
+              <div>
+                <strong>Persoonlijk contact vereist.</strong> Voor 100+ stuks of op‑locatie kun je niet via de site afrekenen.
+                <div class="row" style="margin-top: 8px;">
+                  <a class="btn" href="tel:+31684087779">Bel ons</a>
+                  <a class="btn-secondary" href="mailto:yaa.mixtures@gmail.com?subject=Grote%20bestelling%20of%20op%20locatie">E‑mail</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr"></div>
+            <div class="row" style="justify-content: space-between;">
+              <button id="place-order" class="btn" type="submit">Bestelling plaatsen</button>
+              <a class="btn-ghost" href="#contact">Vragen? Neem contact op</a>
+            </div>
+          </form>
+
+          <div id="confirmation" style="display: none; margin-top: 16px;">
+            <div class="success" role="status" aria-live="polite">
+              <strong>Bedankt! Je demo-bestelling is ontvangen.</strong>
+              <div id="order-number" class="tiny" style="margin-top: 8px;"></div>
+            </div>
+            <div class="card" style="margin-top: 12px;">
+              <h4 style="margin: 0 0 8px;">Ophaal-/bezorginformatie</h4>
+              <ul style="margin: 0 0 8px 18px; line-height: 1.55;">
+                <li>Afhalen (voorbeeld): Cocktailstraat 12, 1234 AB Amsterdam.</li>
+                <li>Levering op <strong>ma/wo/vr</strong> in overleg; tijden zijn indicatief.</li>
+                <li>Voor 100+ cocktails: altijd eerst persoonlijk contact en aanbetaling.</li>
+              </ul>
+            </div>
+            <div id="order-summary" class="review" style="margin-top: 12px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" aria-labelledby="reviews-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="reviews-title">Reviews</h2>
+          <p class="section-sub">Social proof van echte gasten.</p>
+        </div>
+        <a class="badge" href="https://www.google.com/search?q=YAA+Mixtures#lrd" target="_blank" rel="noopener">Bekijk op Google</a>
+      </div>
+      <div class="grid">
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>"Signature cocktails met perfecte balans. Service is snel en super vriendelijk."</p>
+          <div class="tiny">— Kim V.</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★★</div>
+          <p>"Op locatie geboekt voor ons bedrijfsfeest: strak geregeld en enorme sfeerboost."</p>
+          <div class="tiny">— Daan R.</div>
+        </div>
+        <div class="review">
+          <div class="stars">★★★★☆</div>
+          <p>"Bezorging was keurig op tijd en gekoeld. Cosmo's vielen bij iedereen in de smaak."</p>
+          <div class="tiny">— Sara L.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-title" class="reveal">
+      <div class="section-head">
+        <div>
+          <h2 class="section-title" id="contact-title">Contact & Social</h2>
+          <p class="section-sub">Grote bestellingen of op‑locatie? Neem contact op voor een offerte.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Direct contact</h3>
+          <p class="muted">Wij reageren snel op werkdagen.</p>
+          <div class="row">
+            <a class="btn" href="tel:+31684087779">📞 +31 6 84087779</a>
+            <a class="btn-secondary" href="mailto:yaa.mixtures@gmail.com?subject=Contact%20YAA%20Mixtures">📧 yaa.mixtures@gmail.com</a>
+          </div>
+          <div class="tiny" style="margin-top: 8px;">Instagram: <a href="https://www.instagram.com/yaa.mixtures?igsh=dGNkOG5uYW9hbjZ2" target="_blank" rel="noopener">@Yaa.mixtures</a></div>
+        </div>
+
+        <div class="card">
+          <h3>Instagram</h3>
+          <p class="muted"><a href="https://www.instagram.com/yaa.mixtures?igsh=dGNkOG5uYW9hbjZ2" target="_blank" rel="noopener">Volg @yaa.mixtures</a></p>
+          <div class="thumb">
+            <div>
+              <div style="font-weight: 700; margin-bottom: 6px;">Instagram feed mockup</div>
+              <img src="https://i.postimg.cc/pdfQbhTT/Whats-App-Image-2025-08-07-at-15-32-32-7.jpg" alt="Mockup van Instagram feed van YAA Mixtures" loading="lazy">
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>TikTok</h3>
+          <p class="muted"><a href="https://www.tiktok.com/@yaa.mixtures?_t=ZG-8ygCz54LsXJ&_r=1" target="_blank" rel="noopener">Bekijk video's op TikTok</a></p>
+          <div class="thumb">
+            <div>
+              <strong>Video‑reviews of sfeerimpressies</strong><br>
+              <span class="tiny">Plaats hier een video of link door naar TikTok.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container foot">
+      <div class="row" style="align-items: center;">
+        <img src="https://i.postimg.cc/hvjVd20z/Whats-App-Image-2025-08-07-at-15-32-32.jpg" alt="YAA Mixtures logo klein" style="width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--border);" loading="lazy">
+        <div class="tiny">© <span id="year"></span> YAA Mixtures. Alle rechten voorbehouden.</div>
+      </div>
+      <div class="row" style="align-items: center; gap: 18px;">
+        <nav class="foot-nav">
+          <a href="#menu">Menu</a>
+          <a href="#diensten">Diensten</a>
+          <a href="#levering">Levering</a>
+          <a href="#events">Events</a>
+          <a href="#bestellen">Bestellen</a>
+          <a href="#reviews">Reviews</a>
+          <a href="#contact">Contact</a>
+          <a href="#voorwaarden">Voorwaarden</a>
+        </nav>
+        <div class="tiny">powered or made by <a href="https://vanappiah.com" target="_blank" rel="noopener">vanappiah.com</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Application State and Constants
+    const APP_CONFIG = {
+      PHONE_NUMBER: "+31684087779",
+      EMAIL: "yaa.mixtures@gmail.com",
+      MAX_ONLINE_ORDER: 99,
+      ANIMATION_DURATION: 300,
+      TOAST_DURATION: 1700
+    };
+
+    // Utility Functions
+    const formatCurrency = (amount) => amount.toLocaleString('nl-NL', {
+      style: 'currency',
+      currency: 'EUR'
+    });
+
+    const getElementById = (id) => document.getElementById(id);
+
+    const debounce = (func, wait) => {
+      let timeout;
+      return function executedFunction(...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    };
+
+    // Product Catalogs
+    const PRODUCTS = {
+      cocktails: [
+        { id: 'c-peachy', name: 'Something Peachy', price: 7.5, taste: 'Fruitig • perzik', type: 'cocktail' },
+        { id: 'c-redberry', name: 'Red Berry Explosion', price: 7.5, taste: 'Fruitig • rode bessen', type: 'cocktail' },
+        { id: 'c-passion', name: 'Passion Delight', price: 7.5, taste: 'Exotisch • passievrucht', type: 'cocktail' },
+        { id: 'c-henny', name: 'Hennything Exotic', price: 8.5, taste: 'Vol & rijk', type: 'cocktail' },
+        { id: 'c-pornstar', name: 'Pornstar Martini', price: 7.5, taste: 'Tropisch • vanille', type: 'cocktail' },
+        { id: 'c-sunblue', name: 'Sunshine & Blue Skies', price: 7.5, taste: 'Fris & zomers', type: 'cocktail' },
+        { id: 'c-pina', name: 'Piña Colada', price: 7.5, taste: 'Tropisch • ananas & kokos', type: 'cocktail' },
+        { id: 'c-mango-colada', name: 'Mango Colada', price: 7.5, taste: 'Tropisch • mango & kokos', type: 'cocktail' },
+        { id: 'c-amaretto', name: 'Amaretto Sour', price: 7.5, taste: 'Zoet-zuur • amandel', type: 'cocktail' },
+        { id: 'c-watermelon', name: 'Watermelon Vibes', price: 6.0, taste: 'Fris & fruitig • watermeloen', type: 'cocktail' }
+      ],
+      mocktails: [
+        { id: 'm-peachy', name: 'Something Peachy', price: 6.0, taste: 'Fruitig • perzik', type: 'mocktail' },
+        { id: 'm-passion', name: 'Passion Delight', price: 6.0, taste: 'Exotisch • passievrucht', type: 'mocktail' },
+        { id: 'm-pina', name: 'Piña Colada', price: 6.0, taste: 'Tropisch • ananas & kokos', type: 'mocktail' },
+        { id: 'm-mango-colada', name: 'Mango Colada', price: 6.0, taste: 'Tropisch • mango & kokos', type: 'mocktail' },
+        { id: 'm-sunblue', name: 'Sunshine & Blue Skies', price: 6.0, taste: 'Fris & zomers', type: 'mocktail' },
+        { id: 'm-mango-mojito', name: 'Mango Mojito', price: 6.0, taste: 'Fris • mango & munt', type: 'mocktail' },
+        { id: 'm-straw-mojito', name: 'Strawberry Mojito', price: 6.0, taste: 'Fris • aardbei & munt', type: 'mocktail' }
+      ],
+      dispensers: [
+        { id: 'd-4l-only', name: '4L Dispenser ONLY', price: 17.5, desc: 'Alleen de dispenser (zonder drank)' },
+        { id: 'd-4l-cocktail', name: '4L Dispenser Cocktail', price: 90.0, desc: 'Cocktailvulling inbegrepen' },
+        { id: 'd-4l-mocktail', name: '4L Dispenser Mocktail', price: 80.0, desc: 'Mocktailvulling inbegrepen' },
+        { id: 'd-3l-only', name: '3L Booze Tap ONLY', price: 15.0, desc: 'Alleen de tap (zonder drank)' },
+        { id: 'd-3l-cocktail', name: '3L Booze Tap Cocktail', price: 75.0, desc: 'Cocktailvulling inbegrepen' },
+        { id: 'd-3l-mocktail', name: '3L Booze Tap Mocktail', price: 65.0, desc: 'Mocktailvulling inbegrepen' },
+        { id: 'd-shot', name: 'Shots (min. 3)', price: 1.5, desc: 'Prijs per shot — min. 3 stuks', minQty: 3 }
+      ],
+      extras: [
+        { id: 'x-sticker', name: 'Gepersonaliseerde Stickers', price: 0.20, desc: 'Prijs per stuk' },
+        { id: 'x-logos', name: 'Gepersonaliseerde Logos', price: 0.30, desc: 'Prijs per stuk' },
+        { id: 'x-menus', name: 'Gepersonaliseerde Menu's', price: 15.0, desc: 'Pakketprijs' },
+        { id: 'x-dryice', name: 'Dry Ice', price: 20.0, desc: 'Vanaf-prijs' },
+        { id: 'x-glass', name: 'Glaswerk', price: 3.5, desc: 'Prijs per glas' },
+        { id: 'x-glass-unl', name: 'Glaswerk (Unlimited)', price: 15.0, desc: 'Pakketprijs' },
+        { id: 'x-stickers-100', name: 'Stickers (100)', price: 100.0, desc: 'Pakketprijs' },
+        { id: 'x-wall-only', name: 'Cocktail Wall (ONLY)', price: 50.0, desc: 'Zonder setup' },
+        { id: 'x-wall-setup', name: 'Cocktail Wall (met setup)', price: 120.0, desc: 'Met setup' }
+      ]
+    };
+
+    // Price calculation for size upgrades
+    const calculateSizeAdder = (type, size) => {
+      if (size === '500ml') {
+        return type === 'cocktail' ? 6.0 : type === 'mocktail' ? 5.0 : 0;
+      }
+      return 0;
+    };
+
+    // Shopping Cart Management
+    class ShoppingCart {
+      constructor() {
+        this.items = [];
+        this.listeners = [];
+      }
+
+      addItem(item) {
+        const existingItem = this.items.find(i => 
+          i.id === item.id && 
+          i.variant === item.variant && 
+          i.unitPrice === item.unitPrice
+        );
+
+        if (existingItem) {
+          existingItem.qty += item.qty;
+        } else {
+          this.items.push({ ...item });
+        }
+
+        this.notifyListeners();
+      }
+
+      removeItem(index) {
+        if (index >= 0 && index < this.items.length) {
+          this.items.splice(index, 1);
+          this.notifyListeners();
+        }
+      }
+
+      updateQuantity(index, delta) {
+        if (index >= 0 && index < this.items.length) {
+          const item = this.items[index];
+          const newQty = Math.max(1, item.qty + delta);
+          item.qty = newQty;
+          this.notifyListeners();
+        }
+      }
+
+      getTotals() {
+        const qty = this.items.reduce((sum, item) => sum + item.qty, 0);
+        const subtotal = this.items.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
+        return { qty, subtotal };
+      }
+
+      clear() {
+        this.items = [];
+        this.notifyListeners();
+      }
+
+      isEmpty() {
+        return this.items.length === 0;
+      }
+
+      addListener(callback) {
+        this.listeners.push(callback);
+      }
+
+      notifyListeners() {
+        this.listeners.forEach(callback => callback());
+      }
+    }
+
+    // Initialize shopping cart
+    const cart = new ShoppingCart();
+
+    // Product Rendering
+    class ProductRenderer {
+      static renderProducts(products, containerId) {
+        const container = getElementById(containerId);
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        products.forEach(product => {
+          const card = this.createProductCard(product);
+          container.appendChild(card);
+        });
+      }
+
+      static createProductCard(product) {
+        const isDrink = product.type === 'cocktail' || product.type === 'mocktail';
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        card.innerHTML = `
+          <div class="thumb" aria-label="Afbeelding placeholder voor ${product.name}">
+            <div>
+              <strong>${product.name}</strong><br>
+              <span class="tiny">Vervang door productfoto • <a href="https://postimg.cc/gallery/nHk3Tvq" target="_blank" rel="noopener">gallery</a></span>
+            </div>
+          </div>
+          <div class="row" style="justify-content: space-between;">
+            <div>
+              <div style="font-weight: 800;">${product.name}</div>
+              <div class="muted" style="font-size: 14px;">${product.taste || product.desc || ''}</div>
+            </div>
+            <div class="price">${formatCurrency(product.price)}</div>
+          </div>
+          <div class="row">
+            ${isDrink ? `
+              <div style="flex: 1; min-width: 160px;">
+                <label for="s-${product.id}">Formaat</label>
+                <select id="s-${product.id}" aria-label="Formaat voor ${product.name}">
+                  <option value="250ml">250ml</option>
+                  <option value="500ml">500ml ${product.type === 'cocktail' ? '(+' + formatCurrency(6.0) + ')' : '(+' + formatCurrency(5.0) + ')'}</option>
+                </select>
+              </div>
+            ` : '<div style="flex: 1;"></div>'}
+            <div>
+              <label for="q-${product.id}">Aantal</label>
+              <div class="qty">
+                <button type="button" aria-label="Minder" data-dec="${product.id}">−</button>
+                <input id="q-${product.id}" type="text" inputmode="numeric" value="${product.minQty || 1}" min="${product.minQty || 1}">
+                <button type="button" aria-label="Meer" data-inc="${product.id}">+</button>
+              </div>
+              ${product.minQty ? `<div class="tiny muted" style="margin-top: 4px;">Min. ${product.minQty}</div>` : ''}
+            </div>
+          </div>
+          <div class="row" style="justify-content: space-between;">
+            <button class="btn" data-add="${product.id}">Toevoegen</button>
+            <a class="btn-ghost" href="#bestellen">Naar checkout</a>
+          </div>
+        `;
+
+        this.attachProductEventListeners(card, product);
+        return card;
+      }
+
+      static attachProductEventListeners(card, product) {
+        const incButton = card.querySelector(`[data-inc="${product.id}"]`);
+        const decButton = card.querySelector(`[data-dec="${product.id}"]`);
+        const addButton = card.querySelector(`[data-add="${product.id}"]`);
+        const qtyInput = getElementById(`q-${product.id}`);
+
+        if (incButton && qtyInput) {
+          incButton.addEventListener('click', () => {
+            const currentValue = parseInt(qtyInput.value) || product.minQty || 1;
+            qtyInput.value = currentValue + 1;
+          });
+        }
+
+        if (decButton && qtyInput) {
+          decButton.addEventListener('click', () => {
+            const currentValue = parseInt(qtyInput.value) || product.minQty || 1;
+            const minValue = product.minQty || 1;
+            qtyInput.value = Math.max(minValue, currentValue - 1);
+          });
+        }
+
+        if (addButton) {
+          addButton.addEventListener('click', () => {
+            this.addProductToCart(product);
+          });
+        }
+      }
+
+      static addProductToCart(product) {
+        const qtyInput = getElementById(`q-${product.id}`);
+        const sizeSelect = getElementById(`s-${product.id}`);
+        
+        const qty = Math.max(product.minQty || 1, parseInt(qtyInput.value) || 1);
+        const size = sizeSelect?.value || '—';
+        const sizeAdder = calculateSizeAdder(product.type, size);
+        const unitPrice = product.price + sizeAdder;
+        const variant = (product.type === 'cocktail' || product.type === 'mocktail') ? size : (product.desc || 'Standaard');
+
+        const cartItem = {
+          id: product.id,
+          name: product.name,
+          basePrice: product.price,
+          unitPrice,
+          variant,
+          qty
+        };
+
+        cart.addItem(cartItem);
+        showToast(`${qty}× ${product.name} toegevoegd`);
+      }
+    }
+
+    // Cart UI Management
+    class CartUI {
+      static render() {
+        const cartList = getElementById('cart-list');
+        const cartQty = getElementById('cart-qty');
+        const cartSubtotal = getElementById('cart-subtotal');
+
+        if (!cartList || !cartQty || !cartSubtotal) return;
+
+        if (cart.isEmpty()) {
+          cartList.innerHTML = '<div class="cart-empty">Je winkelwagen is leeg. Voeg producten toe vanuit het menu.</div>';
+        } else {
+          cartList.innerHTML = cart.items.map((item, index) => {
+            const lineTotal = item.unitPrice * item.qty;
+            return `
+              <div class="cart-item">
+                <div>
+                  <div style="font-weight: 700;">${item.name} <span class="muted">(${item.variant})</span></div>
+                  <div class="tiny">${formatCurrency(item.unitPrice)} p/st</div>
+                </div>
+                <div class="row">
+                  <div class="qty">
+                    <button type="button" aria-label="Minder" data-cdec="${index}">−</button>
+                    <input type="text" value="${item.qty}" aria-label="Aantal ${item.name}" readonly>
+                    <button type="button" aria-label="Meer" data-cinc="${index}">+</button>
+                  </div>
+                  <div style="min-width: 90px; text-align: right; font-weight: 700;">${formatCurrency(lineTotal)}</div>
+                  <button class="btn-ghost" data-remove="${index}" style="font-size: 12px; padding: 6px 8px;">×</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          this.attachCartEventListeners();
+        }
+
+        const totals = cart.getTotals();
+        cartQty.textContent = totals.qty.toString();
+        cartSubtotal.textContent = formatCurrency(totals.subtotal);
+
+        this.updateOrderGates();
+      }
+
+      static attachCartEventListeners() {
+        cart.items.forEach((_, index) => {
+          const decButton = document.querySelector(`[data-cdec="${index}"]`);
+          const incButton = document.querySelector(`[data-cinc="${index}"]`);
+          const removeButton = document.querySelector(`[data-remove="${index}"]`);
+
+          if (decButton) {
+            decButton.addEventListener('click', () => cart.updateQuantity(index, -1));
+          }
+
+          if (incButton) {
+            incButton.addEventListener('click', () => cart.updateQuantity(index, 1));
+          }
+
+          if (removeButton) {
+            removeButton.addEventListener('click', () => cart.removeItem(index));
+          }
+        });
+      }
+
+      static updateOrderGates() {
+        const totals = cart.getTotals();
+        const method = getElementById('method')?.value || '';
+        const requiresPersonalContact = totals.qty >= APP_CONFIG.MAX_ONLINE_ORDER || method === 'Op locatie';
+
+        const bigOrderHint = getElementById('big-order-hint');
+        const contactRequired = getElementById('contact-required');
+        const placeOrderButton = getElementById('place-order');
+
+        if (bigOrderHint) {
+          bigOrderHint.style.display = requiresPersonalContact ? 'flex' : 'none';
+        }
+
+        if (contactRequired) {
+          contactRequired.style.display = requiresPersonalContact ? 'flex' : 'none';
+        }
+
+        if (placeOrderButton) {
+          placeOrderButton.disabled = requiresPersonalContact || cart.isEmpty();
+        }
+      }
+    }
+
+    // Form Validation
+    class FormValidator {
+      static validate() {
+        let isValid = true;
+        const fields = [
+          { id: 'name', errorId: 'err-name', validator: (value) => value.trim().length > 0 },
+          { id: 'phone', errorId: 'err-phone', validator: (value) => /^0?6[\s-]?\d{8}$/.test(value.trim()) },
+          { id: 'email', errorId: 'err-email', validator: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()) },
+          { id: 'method', errorId: 'err-method', validator: (value) => value.length > 0 }
+        ];
+
+        // Clear previous errors
+        fields.forEach(field => {
+          const input = getElementById(field.id);
+          const error = getElementById(field.errorId);
+          if (input) input.classList.remove('is-invalid');
+          if (error) error.style.display = 'none';
+        });
+
+        // Validate each field
+        fields.forEach(field => {
+          const input = getElementById(field.id);
+          const error = getElementById(field.errorId);
+          
+          if (input && !field.validator(input.value)) {
+            input.classList.add('is-invalid');
+            if (error) error.style.display = 'block';
+            isValid = false;
+          }
+        });
+
+        return isValid;
+      }
+    }
+
+    // Toast Notifications
+    function showToast(message) {
+      const toast = getElementById('toast');
+      if (!toast) return;
+
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, APP_CONFIG.TOAST_DURATION);
+    }
+
+    // Scroll Animations
+    class ScrollAnimations {
+      static init() {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+            }
+          });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(element => {
+          observer.observe(element);
+        });
+      }
+    }
+
+    // Smooth Scrolling
+    class SmoothScrolling {
+      static init() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', (e) => {
+            const href = anchor.getAttribute('href');
+            if (href && href.length > 1) {
+              const target = document.querySelector(href);
+              if (target) {
+                e.preventDefault();
+                target.scrollIntoView({
+                  behavior: 'smooth',
+                  block: 'start'
+                });
+              }
+            }
+          });
+        });
+      }
+    }
+
+    // Application Initialization
+    class App {
+      static init() {
+        this.renderProducts();
+        this.setupEventListeners();
+        this.initializeComponents();
+        this.setCurrentYear();
+      }
+
+      static renderProducts() {
+        ProductRenderer.renderProducts(PRODUCTS.cocktails, 'grid-cocktails');
+        ProductRenderer.renderProducts(PRODUCTS.mocktails, 'grid-mocktails');
+        ProductRenderer.renderProducts(PRODUCTS.dispensers, 'grid-dispensers');
+        ProductRenderer.renderProducts(PRODUCTS.extras, 'grid-extras');
+      }
+
+      static setupEventListeners() {
+        // Cart updates
+        cart.addListener(() => {
+          CartUI.render();
+        });
+
+        // Method change for order gates
+        const methodSelect = getElementById('method');
+        if (methodSelect) {
+          methodSelect.addEventListener('change', () => {
+            CartUI.updateOrderGates();
+          });
+        }
+
+        // Form submission
+        const checkoutForm = getElementById('checkout-form');
+        if (checkoutForm) {
+          checkoutForm.addEventListener('submit', this.handleFormSubmission.bind(this));
+        }
+      }
+
+      static handleFormSubmission(e) {
+        e.preventDefault();
+
+        const totals = cart.getTotals();
+        const method = getElementById('method')?.value || '';
+        const requiresPersonalContact = totals.qty >= APP_CONFIG.MAX_ONLINE_ORDER || method === 'Op locatie';
+
+        if (requiresPersonalContact) {
+          showToast('Voor 100+ of op locatie: neem persoonlijk contact op.');
+          CartUI.updateOrderGates();
+          return;
+        }
+
+        if (cart.isEmpty()) {
+          showToast('Winkelwagen is leeg');
+          return;
+        }
+
+        if (!FormValidator.validate()) {
+          showToast('Controleer je gegevens');
+          return;
+        }
+
+        this.processOrder(e.currentTarget);
+      }
+
+      static processOrder(form) {
+        const formData = new FormData(form);
+        const orderData = {
+          name: formData.get('name')?.toString().trim() || '',
+          phone: formData.get('phone')?.toString().trim() || '',
+          email: formData.get('email')?.toString().trim() || '',
+          method: formData.get('method')?.toString() || '',
+          time: formData.get('time')?.toString() || '',
+          notes: formData.get('notes')?.toString() || ''
+        };
+
+        // Hide form and show confirmation
+        form.style.display = 'none';
+        const confirmation = getElementById('confirmation');
+        if (confirmation) {
+          confirmation.style.display = 'block';
+        }
+
+        // Generate order number
+        const orderNumber = getElementById('order-number');
+        if (orderNumber) {
+          orderNumber.textContent = 'Referentie: DEMO-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+        }
+
+        // Render order summary
+        this.renderOrderSummary(orderData);
+
+        // Scroll to confirmation
+        if (confirmation) {
+          confirmation.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        showToast('Bestelling geplaatst (demo)');
+      }
+
+      static renderOrderSummary(orderData) {
+        const orderSummary = getElementById('order-summary');
+        if (!orderSummary) return;
+
+        const totals = cart.getTotals();
+        const itemsHtml = cart.items.map(item => 
+          `• ${item.qty}× ${item.name} (${item.variant}) — ${formatCurrency(item.unitPrice * item.qty)}`
+        ).join('<br>');
+
+        orderSummary.innerHTML = `
+          <h4 style="margin: 0 0 8px;">Samenvatting</h4>
+          <div class="tiny">Naam: <strong>${orderData.name}</strong> · Tel: ${orderData.phone} · E‑mail: ${orderData.email}</div>
+          <div class="tiny">Afleverwijze: ${orderData.method} · Tijd: ${orderData.time || '-'}</div>
+          <div class="hr"></div>
+          <div>${itemsHtml || 'Geen items'}</div>
+          <div class="totals" style="margin-top: 8px;">
+            <div class="muted">Totaal</div>
+            <div><strong>${formatCurrency(totals.subtotal)}</strong> · <span class="muted">${totals.qty} stuks</span></div>
+          </div>
+        `;
+      }
+
+      static initializeComponents() {
+        ScrollAnimations.init();
+        SmoothScrolling.init();
+        CartUI.render();
+      }
+
+      static setCurrentYear() {
+        const yearElement = getElementById('year');
+        if (yearElement) {
+          yearElement.textContent = new Date().getFullYear().toString();
+        }
+      }
+    }
+
+    // Initialize application when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => App.init());
+    } else {
+      App.init();
+    }
+  </script>
+</body>
+</html>

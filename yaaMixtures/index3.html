@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAA Mixtures - Luxe Cocktailservice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #f7b0d6;
+            --dark-gray: #2c2c2c;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-pink);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--dark-gray);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(247, 176, 214, 0.1) 0%, rgba(255, 255, 255, 1) 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: var(--primary-pink);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: #666;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #e89cc4;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--dark-gray);
+            border: 2px solid var(--primary-pink);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-pink);
+            color: var(--white);
+        }
+
+        /* Menu Section */
+        .menu-section {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark-gray);
+        }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-category {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-pink);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: var(--primary-pink);
+        }
+
+        .menu-note {
+            font-style: italic;
+            color: #666;
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: var(--white);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-pink);
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+
+        /* Order Section */
+        .order-section {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .order-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-gray);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 80px 0;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #666;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--dark-gray);
+        }
+
+        /* Delivery Costs */
+        .delivery-costs {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .delivery-table {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .delivery-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .delivery-table th,
+        .delivery-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .delivery-table th {
+            background: var(--primary-pink);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .contact-item {
+            padding: 2rem;
+        }
+
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--primary-pink);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-pink);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background: #25d366;
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 1000;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128c7e;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Terms Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: var(--dark-gray);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <img src="https://i.postimg.cc/hvjVd20z/Whats-App-Image-2025-08-07-at-15-32-32.jpg" alt="YAA Mixtures Logo" class="logo">
+            <ul class="nav-links">
+                <li><a href="#diensten">Diensten</a></li>
+                <li><a href="#bestellen">Bestellen</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" onclick="openModal()">Voorwaarden</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="subtitle">Luxe cocktailservice • Take-away • Op locatie</div>
+            <h1>Bestel jouw favoriete cocktails in 3 klikken</h1>
+            <p>App ons direct via WhatsApp of bestel hier op de site. Afhalen, bezorging op geselecteerde dagen en cocktails shaken op locatie — stijlvol en zorgeloos geregeld.</p>
+            <div class="cta-buttons">
+                <a href="#menu" class="btn btn-primary">Bekijk menu</a>
+                <a href="#bestellen" class="btn btn-outline">Bestel nu</a>
+                <a href="https://wa.me/31684087779?text=Hallo!%20Ik%20wil%20graag%20contact%20opnemen" class="btn btn-outline">Neem contact op</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <h2 class="section-title">Ons Menu</h2>
+            <div class="menu-categories">
+                <!-- Cocktails -->
+                <div class="menu-category">
+                    <h3 class="category-title">🍸 Cocktails (250ml)</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Something Peachy</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Red Berry Explosion</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Passion Delight</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Hennything Exotic</span>
+                        <span class="item-price">€8,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pornstar Martini</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Sunshine & Blue Skies</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pina Colada</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Mango Colada</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Amaretto Sour</span>
+                        <span class="item-price">€7,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Watermelon Vibes</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <p class="menu-note">Voor 500ml cocktail, voeg €6,00 toe</p>
+                </div>
+
+                <!-- Mocktails -->
+                <div class="menu-category">
+                    <h3 class="category-title">🥤 Mocktails (250ml)</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Something Peachy</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Passion Delight</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pina Colada</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Mango Colada</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Sunshine & Blue Skies</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Mango Mojito</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Strawberry Mojito</span>
+                        <span class="item-price">€6,00</span>
+                    </div>
+                    <p class="menu-note">Voor 500ml mocktail, voeg €5,00 toe</p>
+                </div>
+
+                <!-- Dispensers & Extras -->
+                <div class="menu-category">
+                    <h3 class="category-title">🍺 Dispensers & Extras</h3>
+                    <div class="menu-item">
+                        <span class="item-name">4L Dispenser ONLY</span>
+                        <span class="item-price">€17,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">4L Dispenser Cocktail</span>
+                        <span class="item-price">€90,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">4L Dispenser Mocktail</span>
+                        <span class="item-price">€80,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">3L Booze Tap ONLY</span>
+                        <span class="item-price">€15,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">3L Booze Tap Cocktail</span>
+                        <span class="item-price">€75,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">3L Booze Tap Mocktail</span>
+                        <span class="item-price">€65,00</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Shot (Min Order, 3)</span>
+                        <span class="item-price">€1,50</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Personalized Stickers</span>
+                        <span class="item-price">€0,20</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="diensten" class="services">
+        <div class="container">
+            <h2 class="section-title">Onze Diensten</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Afhalen</h3>
+                    <p>Snel en makkelijk op afgesproken tijd. Bestel vooraf en haal op wanneer het jou uitkomt.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Bezorging</h3>
+                    <p>Ma/wo/vrij (in overleg). Wij bezorgen jouw cocktails fris en klaar om te serveren.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cocktail"></i>
+                    </div>
+                    <h3>Op Locatie</h3>
+                    <p>Luxe barervaring op jouw event, vanaf €250 inclusief bartender, glazen, decoratie en basisvoorraad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Costs Section -->
+    <section class="delivery-costs">
+        <div class="container">
+            <h2 class="section-title">Bezorgkosten</h2>
+            <div class="delivery-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Gebied</th>
+                            <th>Kosten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Zuidoost (1101/1108)</td>
+                            <td>€7,50</td>
+                        </tr>
+                        <tr>
+                            <td>Amsterdam tot 10KM</td>
+                            <td>€12,50</td>
+                        </tr>
+                        <tr>
+                            <td>Amsterdam 11-15KM</td>
+                            <td>€17,50</td>
+                        </tr>
+                        <tr>
+                            <td>Amsterdam 16-20KM</td>
+                            <td>€22,50</td>
+                        </tr>
+                        <tr>
+                            <td>Weesp/Amsterdam/Abcoude</td>
+                            <td>€15,00</td>
+                        </tr>
+                        <tr>
+                            <td>21KM-35KM</td>
+                            <td>€27,50</td>
+                        </tr>
+                        <tr>
+                            <td>35KM & Above</td>
+                            <td>Vanaf €50,00</td>
+                        </tr>
+                        <tr>
+                            <td>Op locatie voor 10:00 of na 22:00</td>
+                            <td>€75,00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="bestellen" class="order-section">
+        <div class="container">
+            <h2 class="section-title">Bestellen</h2>
+            <div class="order-form">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Naam *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefoon *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery">Afleverwijze *</label>
+                        <select id="delivery" name="delivery" required>
+                            <option value="">Kies afleverwijze</option>
+                            <option value="afhalen">Afhalen</option>
+                            <option value="bezorging">Bezorging</option>
+                            <option value="locatie">Op locatie</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="datetime">Gewenste tijd *</label>
+                        <input type="datetime-local" id="datetime" name="datetime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Opmerkingen</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Vertel ons over je bestelling..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Bestel via WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <h2 class="section-title">Wat Onze Klanten Zeggen</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Perfecte mojito's en super service. Onze tuinborrel was een hit!"</p>
+                    <p class="reviewer-name">- Kim V.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"De bartender op locatie maakte het helemaal af. Professioneel en gezellig."</p>
+                    <p class="reviewer-name">- Daan R.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Cosmo's waren top, levering precies op tijd. Aanrader!"</p>
+                    <p class="reviewer-name">- Sara L.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact & Social Media</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>+31 6 84087779</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3>E-mail</h3>
+                    <p>yaa.mixtures@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Locatie</h3>
+                    <p>Amsterdam & Omgeving</p>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/yaa.mixtures" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.tiktok.com/@yaa.mixtures" target="_blank" aria-label="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+                <a href="https://wa.me/31684087779" target="_blank" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 YAA Mixtures. Alle rechten voorbehouden.</p>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/31684087779?text=Hallo!%20Ik%20wil%20graag%20contact%20opnemen" class="whatsapp-float" target="_blank" aria-label="WhatsApp Contact">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Terms Modal -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Algemene Voorwaarden</h2>
+            <h3>Bestellingen & Betalingen</h3>
+            <p>• Aanbetaling vereist bij grote bestellingen (>€100)</p>
+            <p>• Betaling via iDEAL, contant of pin bij levering</p>
+            <p>• Prijzen zijn inclusief BTW</p>
+            
+            <h3>Levering & Afhalen</h3>
+            <p>• Bezorging op ma/wo/vrij (in overleg)</p>
+            <p>• Afhalen op afgesproken tijden</p>
+            <p>• Bezorgkosten volgens tarieflijst</p>
+            
+            <h3>Annulering</h3>
+            <p>• Annuleren tot 72 uur vooraf kosteloos</p>
+            <p>• Binnen 72 uur: 50% van bestelbedrag</p>
+            <p>• Op de dag zelf: volledige betaling</p>
+            
+            <h3>Privacy</h3>
+            <p>• Gegevens alleen voor bestelling & communicatie</p>
+            <p>• Geen doorverkoop aan derden</p>
+            <p>• Gegevens worden veilig bewaard</p>
+            
+            <h3>Aansprakelijkheid</h3>
+            <p>• YAA Mixtures is niet aansprakelijk voor schade door overconsumptie</p>
+            <p>• Klant is verantwoordelijk voor verantwoord alcoholgebruik</p>
+            <p>• Minimumleeftijd 18 jaar voor alcoholische dranken</p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Order form submission
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const email = formData.get('email');
+            const delivery = formData.get('delivery');
+            const datetime = formData.get('datetime');
+            const comments = formData.get('comments');
+            
+            const message = `Hallo! Ik wil graag een bestelling plaatsen:
+
+Naam: ${name}
+Telefoon: ${phone}
+E-mail: ${email}
+Afleverwijze: ${delivery}
+Gewenste tijd: ${datetime}
+Opmerkingen: ${comments || 'Geen opmerkingen'}
+
+Graag hoor ik van jullie!`;
+            
+            const whatsappUrl = `https://wa.me/31684087779?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+
+        // Terms modal functions
+        function openModal() {
+            document.getElementById('termsModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('termsModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('termsModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Mobile menu toggle (basic implementation)
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'var(--white)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

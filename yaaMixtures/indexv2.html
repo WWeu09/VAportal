@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAA Mixtures - Luxe Cocktailservice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #f7b0d6;
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #f7b0d6;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: #333;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(247, 176, 214, 0.1) 0%, rgba(255, 255, 255, 0.9) 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: #f7b0d6;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: #f7b0d6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #e89cc4;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .btn-secondary:hover {
+            background: #333;
+            color: white;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Menu Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-category {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .menu-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #f7b0d6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .item-price {
+            font-weight: 600;
+            color: #f7b0d6;
+            font-size: 1.1rem;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .service-description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Order Form */
+        .order-form {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #f7b0d6;
+        }
+
+        /* Reviews */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .review-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: #666;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .reviewer-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-float:hover {
+            background-color: #128c7e;
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #f7b0d6;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #f7b0d6;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #999;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .order-form {
+                padding: 2rem 1rem;
+            }
+
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 24px;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background: #f7b0d6;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .quantity-btn:hover {
+            background: #e89cc4;
+        }
+
+        #cart-total {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f7b0d6;
+            text-align: center;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">YAA Mixtures</a>
+            <ul class="nav-menu">
+                <li><a href="#diensten">Diensten</a></li>
+                <li><a href="#menu">Bestellen</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#voorwaarden">Voorwaarden</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-subtitle">Luxe cocktailservice • Take-away • Op locatie</div>
+                <h1>Bestel jouw favoriete cocktails in 3 klikken</h1>
+                <p class="hero-description">
+                    App ons direct via WhatsApp of bestel hier op de site. Afhalen, bezorging op geselecteerde dagen en cocktails shaken op locatie — stijlvol en zorgeloos geregeld.
+                </p>
+                <div class="cta-buttons">
+                    <a href="#menu" class="btn btn-primary">Bekijk menu</a>
+                    <a href="#bestellen" class="btn btn-secondary">Bestel nu</a>
+                    <a href="https://wa.me/31684087779?text=Hallo!%20Ik%20wil%20een%20bestelling%20plaatsen." class="btn btn-primary">Neem contact op</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">Ons Menu</h2>
+            <p class="section-subtitle">Ontdek onze selectie van premium cocktails, mocktails en extras</p>
+            
+            <div class="menu-grid">
+                <!-- Cocktails -->
+                <div class="menu-category">
+                    <h3 class="category-title">🍸 Cocktails</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Mojito</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Mojito', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Strawberry Daiquiri</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Strawberry Daiquiri', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Pornstar Martini</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Pornstar Martini', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Piña Colada</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Piña Colada', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Blue Lagoon</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Blue Lagoon', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Cosmopolitan</span>
+                        <div>
+                            <span class="item-price">€6,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Cosmopolitan', 6.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mocktails -->
+                <div class="menu-category">
+                    <h3 class="category-title">🥤 Mocktails</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Virgin Mojito</span>
+                        <div>
+                            <span class="item-price">€5,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Virgin Mojito', 5.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Strawberry Virgin</span>
+                        <div>
+                            <span class="item-price">€5,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Strawberry Virgin', 5.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Virgin Colada</span>
+                        <div>
+                            <span class="item-price">€5,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Virgin Colada', 5.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dispensers & Extras -->
+                <div class="menu-category">
+                    <h3 class="category-title">🥃 Dispensers & Extras</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Cocktail Dispenser (5L)</span>
+                        <div>
+                            <span class="item-price">€50,00</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Cocktail Dispenser (5L)', 50.00)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Mocktail Dispenser (5L)</span>
+                        <div>
+                            <span class="item-price">€40,00</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Mocktail Dispenser (5L)', 40.00)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Gouden rietjes (10 stuks)</span>
+                        <div>
+                            <span class="item-price">€3,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Gouden rietjes (10 stuks)', 3.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Zwarte rietjes (10 stuks)</span>
+                        <div>
+                            <span class="item-price">€2,50</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Zwarte rietjes (10 stuks)', 2.50)">Toevoegen</button>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Vers fruit decoratie</span>
+                        <div>
+                            <span class="item-price">€4,00</span>
+                            <button class="btn btn-primary" style="margin-left: 10px; padding: 5px 15px; font-size: 0.8rem;" onclick="addToCart('Vers fruit decoratie', 4.00)">Toevoegen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div id="cart-summary" class="hidden" style="background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 2rem;">
+                <h3 style="text-align: center; color: #f7b0d6; margin-bottom: 1rem;">🛒 Jouw Bestelling</h3>
+                <div id="cart-items"></div>
+                <div id="cart-total"></div>
+                <div style="text-align: center; margin-top: 1rem;">
+                    <button class="btn btn-primary" onclick="proceedToCheckout()">Verder naar bestellen</button>
+                    <button class="btn btn-secondary" onclick="clearCart()" style="margin-left: 1rem;">Winkelmand legen</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="diensten" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Onze Diensten</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🥤</div>
+                    <h3 class="service-title">Afhalen</h3>
+                    <p class="service-description">Snel en makkelijk op afgesproken tijd. Bestel vooraf en haal op wanneer het jou uitkomt.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🚚</div>
+                    <h3 class="service-title">Bezorging</h3>
+                    <p class="service-description">Ma/wo/vrij (in overleg). Binnenstad €4,00, buiten centrum in overleg.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🍸</div>
+                    <h3 class="service-title">Op locatie</h3>
+                    <p class="service-description">Luxe barervaring op jouw event. Vanaf €250 inclusief bartender, glazen, decoratie en basis voorraad.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Section -->
+    <section id="bestellen">
+        <div class="container">
+            <h2 class="section-title">Bestellen</h2>
+            <div class="order-form">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="name">Naam *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefoon *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery">Afleverwijze *</label>
+                        <select id="delivery" name="delivery" required>
+                            <option value="">Kies afleverwijze</option>
+                            <option value="afhalen">Afhalen</option>
+                            <option value="bezorging">Bezorging</option>
+                            <option value="locatie">Op locatie</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Gewenste tijd</label>
+                        <input type="datetime-local" id="time" name="time">
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Opmerkingen</label>
+                        <textarea id="comments" name="comments" rows="4" placeholder="Bijzondere wensen, adres voor bezorging, etc."></textarea>
+                    </div>
+                    <div style="text-align: center;">
+                        <button type="submit" class="btn btn-primary">Demo Bestelling Plaatsen</button>
+                        <a href="#" id="whatsapp-order" class="btn btn-secondary" style="margin-left: 1rem;">Bestel via WhatsApp</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Wat onze klanten zeggen</h2>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"Perfecte mojito's en super service. Onze tuinborrel was een hit!"</p>
+                    <p class="reviewer-name">- Kim V.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="review-text">"De bartender op locatie maakte het helemaal af. Professioneel en gezellig."</p>
+                    <p class="reviewer-name">- Daan R.</p>
+                </div>
+                <div class="review-card">
+                    <div class="stars">★★★★☆</div>
+                    <p class="review-text">"Cosmo's waren top, levering precies op tijd. Aanrader!"</p>
+                    <p class="reviewer-name">- Sara L.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms Section -->
+    <section id="voorwaarden">
+        <div class="container">
+            <h2 class="section-title">Algemene Voorwaarden</h2>
+            <div style="max-width: 800px; margin: 0 auto; text-align: left;">
+                <h3 style="color: #f7b0d6; margin-bottom: 1rem;">Bestellingen & Betaling</h3>
+                <p style="margin-bottom: 1rem;">• Aanbetaling vereist bij grote bestellingen</p>
+                <p style="margin-bottom: 1rem;">• Betaling mogelijk via iDEAL, contant of pin</p>
+                
+                <h3 style="color: #f7b0d6; margin-bottom: 1rem; margin-top: 2rem;">Annulering</h3>
+                <p style="margin-bottom: 1rem;">• Annuleren tot 72 uur vooraf kosteloos mogelijk</p>
+                <p style="margin-bottom: 1rem;">• Bij latere annulering kunnen kosten in rekening worden gebracht</p>
+                
+                <h3 style="color: #f7b0d6; margin-bottom: 1rem; margin-top: 2rem;">Bezorging</h3>
+                <p style="margin-bottom: 1rem;">• Bezorging op afgesproken dagen en tijden</p>
+                <p style="margin-bottom: 1rem;">• Bezorgkosten: Binnenstad €4,00, buiten centrum in overleg</p>
+                
+                <h3 style="color: #f7b0d6; margin-bottom: 1rem; margin-top: 2rem;">Privacy</h3>
+                <p style="margin-bottom: 1rem;">• Gegevens worden alleen gebruikt voor bestelling en communicatie</p>
+                <p style="margin-bottom: 1rem;">• Geen doorverkoop aan derden</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📱 WhatsApp: +31 6 84087779</p>
+                    <p>📧 E-mail: yaa.mixtures@gmail.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Social Media</h3>
+                    <a href="https://instagram.com/yaa.mixtures" target="_blank">📸 Instagram: @yaa.mixtures</a>
+                    <a href="https://tiktok.com/@yaa.mixtures" target="_blank">🎵 TikTok: @yaa.mixtures</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Diensten</h3>
+                    <p>🥤 Afhalen</p>
+                    <p>🚚 Bezorging</p>
+                    <p>🍸 Op locatie</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 YAA Mixtures. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/31684087779?text=Hallo!%20Ik%20wil%20een%20bestelling%20plaatsen." class="whatsapp-float" target="_blank">
+        💬
+    </a>
+
+    <script>
+        // Cart functionality
+        let cart = [];
+        let cartTotal = 0;
+
+        function addToCart(itemName, price) {
+            const existingItem = cart.find(item => item.name === itemName);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name: itemName, price: price, quantity: 1 });
+            }
+            updateCartDisplay();
+        }
+
+        function removeFromCart(itemName) {
+            cart = cart.filter(item => item.name !== itemName);
+            updateCartDisplay();
+        }
+
+        function updateQuantity(itemName, change) {
+            const item = cart.find(item => item.name === itemName);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(itemName);
+                } else {
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartSummary = document.getElementById('cart-summary');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                cartSummary.classList.add('hidden');
+                return;
+            }
+
+            cartSummary.classList.remove('hidden');
+            cartItems.innerHTML = '';
+            cartTotal = 0;
+
+            cart.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                cartTotal += itemTotal;
+
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <small>€${item.price.toFixed(2)} per stuk</small>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                        <span style="margin: 0 10px; font-weight: bold;">${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                        <span style="margin-left: 15px; font-weight: bold; color: #f7b0d6;">€${itemTotal.toFixed(2)}</span>
+                    </div>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+
+            cartTotalElement.innerHTML = `Totaal: €${cartTotal.toFixed(2)}`;
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartDisplay();
+        }
+
+        function proceedToCheckout() {
+            document.getElementById('bestellen').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Form handling
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let orderSummary = 'DEMO BESTELLING - Niet daadwerkelijk geplaatst\n\n';
+            orderSummary += `Naam: ${formData.get('name')}\n`;
+            orderSummary += `Telefoon: ${formData.get('phone')}\n`;
+            orderSummary += `E-mail: ${formData.get('email')}\n`;
+            orderSummary += `Afleverwijze: ${formData.get('delivery')}\n`;
+            orderSummary += `Gewenste tijd: ${formData.get('time')}\n`;
+            orderSummary += `Opmerkingen: ${formData.get('comments')}\n\n`;
+            
+            if (cart.length > 0) {
+                orderSummary += 'Bestelde items:\n';
+                cart.forEach(item => {
+                    orderSummary += `- ${item.name} x${item.quantity} = €${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+                orderSummary += `\nTotaal: €${cartTotal.toFixed(2)}`;
+            }
+            
+            alert(orderSummary);
+        });
+
+        // WhatsApp order
+        function updateWhatsAppLink() {
+            const whatsappLink = document.getElementById('whatsapp-order');
+            let message = 'Hallo! Ik wil een bestelling plaatsen.\n\n';
+            
+            if (cart.length > 0) {
+                message += 'Mijn bestelling:\n';
+                cart.forEach(item => {
+                    message += `- ${item.name} x${item.quantity} = €${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+                message += `\nTotaal: €${cartTotal.toFixed(2)}\n\n`;
+            }
+            
+            message += 'Graag contact opnemen voor verdere details!';
+            
+            whatsappLink.href = `https://wa.me/31684087779?text=${encodeURIComponent(message)}`;
+        }
+
+        // Update WhatsApp link when cart changes
+        const originalUpdateCartDisplay = updateCartDisplay;
+        updateCartDisplay = function() {
+            originalUpdateCartDisplay();
+            updateWhatsAppLink();
+        };
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navMenu = document.querySelector('.nav-menu');
+
+        mobileMenu.addEventListener('click', function() {
+            navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Initialize WhatsApp link
+        updateWhatsAppLink();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96e8f2e952153d63',t:'MTc1NTA5NTgzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

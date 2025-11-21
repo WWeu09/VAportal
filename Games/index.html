@@ -1,0 +1,961 @@
+<!doctype html>
+<html lang="nl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Imposter – Van Appiah</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes slideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+    
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .slide-up {
+      animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    .slide-down {
+      animation: slideDown 0.5s ease-out;
+    }
+    
+    .pulse-slow {
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    .shake {
+      animation: shake 0.4s ease-in-out;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .shimmer {
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+    
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .card-shadow {
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.03);
+    }
+    
+    .touch-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    
+    .touch-card:active {
+      transform: scale(0.97);
+    }
+    
+    input, textarea {
+      outline: none;
+    }
+    
+    input::placeholder, textarea::placeholder {
+      opacity: 0.4;
+    }
+    
+    .scroll-container {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .scroll-container::-webkit-scrollbar {
+      width: 3px;
+    }
+    
+    .scroll-container::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .scroll-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 2px;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <main id="app" class="h-full"></main>
+  <script>
+    const WORD_BANK = {
+      "Voedsel": [
+        { main: "Pizza", burger: "Pasta" },
+        { main: "Sushi", burger: "Rijst" },
+        { main: "Hamburger", burger: "Friet" },
+        { main: "Taart", burger: "Gebak" },
+        { main: "Soep", burger: "Bouillon" },
+        { main: "Salade", burger: "Sla" },
+        { main: "Brood", burger: "Boter" },
+        { main: "Kaas", burger: "Melk" },
+        { main: "Appel", burger: "Fruit" },
+        { main: "Chocolade", burger: "Snoep" }
+      ],
+      "Dieren": [
+        { main: "Hond", burger: "Kat" },
+        { main: "Olifant", burger: "Savanne" },
+        { main: "Dolfijn", burger: "Oceaan" },
+        { main: "Adelaar", burger: "Vogel" },
+        { main: "Leeuw", burger: "Koning" },
+        { main: "Beer", burger: "Bos" },
+        { main: "Paard", burger: "Stal" },
+        { main: "Koe", burger: "Boerderij" },
+        { main: "Vis", burger: "Water" },
+        { main: "Vlinder", burger: "Bloem" }
+      ],
+      "Sport": [
+        { main: "Voetbal", burger: "Bal" },
+        { main: "Tennis", burger: "Racket" },
+        { main: "Zwemmen", burger: "Water" },
+        { main: "Basketbal", burger: "Mand" },
+        { main: "Hardlopen", burger: "Schoenen" },
+        { main: "Fietsen", burger: "Fiets" },
+        { main: "Skiën", burger: "Sneeuw" },
+        { main: "Golf", burger: "Club" },
+        { main: "Schaken", burger: "Bord" },
+        { main: "Dansen", burger: "Muziek" }
+      ],
+      "Beroepen": [
+        { main: "Dokter", burger: "Ziekenhuis" },
+        { main: "Leraar", burger: "School" },
+        { main: "Kok", burger: "Keuken" },
+        { main: "Brandweerman", burger: "Brandweer" },
+        { main: "Politie", burger: "Agent" },
+        { main: "Piloot", burger: "Vliegtuig" },
+        { main: "Kunstenaar", burger: "Verf" },
+        { main: "Muzikant", burger: "Instrument" },
+        { main: "Architect", burger: "Gebouw" },
+        { main: "Tuinman", burger: "Planten" }
+      ],
+      "Vervoer": [
+        { main: "Auto", burger: "Weg" },
+        { main: "Trein", burger: "Station" },
+        { main: "Vliegtuig", burger: "Luchthaven" },
+        { main: "Boot", burger: "Haven" },
+        { main: "Fiets", burger: "Stuur" },
+        { main: "Motor", burger: "Helm" },
+        { main: "Bus", burger: "Halte" },
+        { main: "Taxi", burger: "Chauffeur" },
+        { main: "Metro", burger: "Tunnel" },
+        { main: "Tram", burger: "Rails" }
+      ],
+      "Natuur": [
+        { main: "Berg", burger: "Klimmen" },
+        { main: "Rivier", burger: "Water" },
+        { main: "Bos", burger: "Bomen" },
+        { main: "Zee", burger: "Strand" },
+        { main: "Woestijn", burger: "Zand" },
+        { main: "Vulkaan", burger: "Lava" },
+        { main: "Waterval", burger: "Stroom" },
+        { main: "Meer", burger: "Rustig" },
+        { main: "Grot", burger: "Donker" },
+        { main: "Eiland", burger: "Palmboom" }
+      ],
+      "Weer": [
+        { main: "Zon", burger: "Warm" },
+        { main: "Regen", burger: "Paraplu" },
+        { main: "Sneeuw", burger: "Koud" },
+        { main: "Wind", burger: "Storm" },
+        { main: "Onweer", burger: "Bliksem" },
+        { main: "Mist", burger: "Zicht" },
+        { main: "Hagel", burger: "IJs" },
+        { main: "Regenboog", burger: "Kleuren" },
+        { main: "Wolken", burger: "Lucht" },
+        { main: "Vorst", burger: "Vriezen" }
+      ],
+      "Hobbys": [
+        { main: "Lezen", burger: "Boek" },
+        { main: "Tuinieren", burger: "Plant" },
+        { main: "Koken", burger: "Recept" },
+        { main: "Fotograferen", burger: "Camera" },
+        { main: "Schilderen", burger: "Kwast" },
+        { main: "Breien", burger: "Wol" },
+        { main: "Gaming", burger: "Console" },
+        { main: "Puzzelen", burger: "Stukjes" },
+        { main: "Wandelen", burger: "Natuur" },
+        { main: "Zingen", burger: "Stem" }
+      ],
+      "Kleding": [
+        { main: "Jas", burger: "Koud" },
+        { main: "Broek", burger: "Benen" },
+        { main: "Schoenen", burger: "Voeten" },
+        { main: "Hoed", burger: "Hoofd" },
+        { main: "Sjaal", burger: "Nek" },
+        { main: "Handschoenen", burger: "Handen" },
+        { main: "Sokken", burger: "Tenen" },
+        { main: "Jurk", burger: "Elegant" },
+        { main: "Shirt", burger: "Casual" },
+        { main: "Riem", burger: "Taille" }
+      ],
+      "Technologie": [
+        { main: "Computer", burger: "Toetsenbord" },
+        { main: "Telefoon", burger: "Bellen" },
+        { main: "Tablet", burger: "Scherm" },
+        { main: "Robot", burger: "Automatisch" },
+        { main: "Drone", burger: "Vliegen" },
+        { main: "Printer", burger: "Papier" },
+        { main: "Camera", burger: "Foto" },
+        { main: "Headset", burger: "Audio" },
+        { main: "Smartwatch", burger: "Pols" },
+        { main: "Laptop", burger: "Draagbaar" }
+      ]
+    };
+
+    const AVATAR_EMOJIS = ['😀', '😎', '🤠', '🥳', '🤓', '😇', '🤩', '😺', '🦊', '🐼', '🦁', '🐯'];
+
+    const defaultConfig = {
+      app_title: "Imposter",
+      subtitle: "Van Appiah Edition",
+      imposter_text: "ik heb speciaal imposter gedaan want sabawun begrijpt niet wat bedrieger is.",
+      swipe_instruction: "Swipe omhoog om te onthullen",
+      pass_device: "Geef door aan volgende speler",
+      background_color: "#0a0a0a",
+      card_color: "#1a1a1a",
+      text_color: "#ffffff",
+      accent_color: "#6b7280",
+      imposter_color: "#dc2626"
+    };
+
+    let state = {
+      screen: 'home',
+      playerCount: 5,
+      playerNames: [],
+      playerAvatars: [],
+      timerMinutes: 5,
+      timerSeconds: 0,
+      timerInterval: null,
+      wordMode: null,
+      selectedTheme: null,
+      customWords: [],
+      hostWord: '',
+      selectedMainWord: null,
+      selectedBurgerWord: null,
+      imposterIndex: -1,
+      burgerIndex: -1,
+      currentPlayerIndex: 0,
+      revealed: false,
+      wordSetterIndex: -1
+    };
+
+    async function initApp() {
+      await window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const app = document.getElementById('app');
+          if (app) {
+            app.style.background = config.background_color || defaultConfig.background_color;
+          }
+          renderApp();
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.card_color || defaultConfig.card_color,
+              set: (value) => {
+                config.card_color = value;
+                window.elementSdk.setConfig({ card_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            },
+            {
+              get: () => config.imposter_color || defaultConfig.imposter_color,
+              set: (value) => {
+                config.imposter_color = value;
+                window.elementSdk.setConfig({ imposter_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ["app_title", config.app_title || defaultConfig.app_title],
+          ["subtitle", config.subtitle || defaultConfig.subtitle],
+          ["imposter_text", config.imposter_text || defaultConfig.imposter_text],
+          ["swipe_instruction", config.swipe_instruction || defaultConfig.swipe_instruction],
+          ["pass_device", config.pass_device || defaultConfig.pass_device]
+        ])
+      });
+
+      renderApp();
+    }
+
+    function renderApp() {
+      const config = window.elementSdk?.config || defaultConfig;
+      const app = document.getElementById('app');
+      app.style.background = config.background_color || defaultConfig.background_color;
+
+      const screens = {
+        'home': renderHome,
+        'setup': renderSetup,
+        'mode-select': renderModeSelect,
+        'theme-select': renderThemeSelect,
+        'host-word': renderHostWord,
+        'player-words': renderPlayerWords,
+        'reveal': renderReveal,
+        'playing': renderPlaying
+      };
+
+      const renderFn = screens[state.screen];
+      if (renderFn) renderFn(config);
+    }
+
+    function renderHome(config) {
+      const app = document.getElementById('app');
+      app.innerHTML = `
+        <div class="h-full flex flex-col items-center justify-between p-8 fade-in">
+          <div class="flex-1 flex flex-col items-center justify-center w-full max-w-md">
+            <div class="text-center mb-20">
+              <h1 class="text-7xl font-bold mb-2 gradient-text">${config.app_title || defaultConfig.app_title}</h1>
+              <p class="text-2xl mb-12" style="color: ${config.accent_color || defaultConfig.accent_color}">${config.subtitle || defaultConfig.subtitle}</p>
+              <div class="h-px w-32 mx-auto mb-8" style="background: linear-gradient(90deg, transparent, ${config.accent_color || defaultConfig.accent_color}, transparent)"></div>
+              <p class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.7">Het ultieme blufspel</p>
+            </div>
+
+            <button id="playBtn" class="w-full touch-card glass-strong card-shadow rounded-3xl p-12 mb-6 pulse-slow">
+              <div class="text-8xl mb-5">🕵️</div>
+              <div class="text-4xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">Speel</div>
+            </button>
+          </div>
+
+          <footer class="text-center pb-8 w-full" style="color: ${config.accent_color || defaultConfig.accent_color}">
+            <div class="h-px w-24 mx-auto mb-6" style="background: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.3"></div>
+            <p class="text-sm mb-2 opacity-70">Dit project is gemaakt door</p>
+            <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer" class="text-lg font-bold underline hover:opacity-80 transition-opacity inline-block" style="color: ${config.text_color || defaultConfig.text_color}">Van Appiah</a>
+            <p class="text-xs mt-2 opacity-50">vanappiah.com</p>
+          </footer>
+        </div>
+      `;
+
+      document.getElementById('playBtn')?.addEventListener('click', () => {
+        state.screen = 'setup';
+        renderApp();
+      });
+    }
+
+    function renderSetup(config) {
+      const app = document.getElementById('app');
+      app.innerHTML = `
+        <div class="h-full flex flex-col p-6 fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <button id="backBtn" class="text-4xl touch-card p-3 rounded-xl" style="color: ${config.text_color || defaultConfig.text_color}">←</button>
+            <h2 class="text-3xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">Setup</h2>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex-1 scroll-container">
+            <div class="glass rounded-3xl p-8 mb-6">
+              <label class="block text-base font-semibold mb-5" style="color: ${config.accent_color || defaultConfig.accent_color}">Aantal Spelers</label>
+              <input type="number" id="playerCount" min="3" max="10" value="${state.playerCount}" class="w-full text-center text-5xl font-bold py-6 rounded-2xl" style="background: ${config.card_color || defaultConfig.card_color}; color: ${config.text_color || defaultConfig.text_color}; border: 2px solid ${config.accent_color || defaultConfig.accent_color}">
+            </div>
+
+            <div class="glass rounded-3xl p-8 mb-6">
+              <label class="block text-base font-semibold mb-5" style="color: ${config.accent_color || defaultConfig.accent_color}">Spelers</label>
+              <div class="space-y-4" id="playerInputs">
+                ${Array.from({length: state.playerCount}, (_, i) => {
+                  const avatar = state.playerAvatars[i] || AVATAR_EMOJIS[i % AVATAR_EMOJIS.length];
+                  return `
+                    <div class="flex items-center gap-4">
+                      <button class="avatar-btn text-5xl touch-card p-3 rounded-2xl" data-index="${i}" style="background: ${config.card_color || defaultConfig.card_color}">${avatar}</button>
+                      <input type="text" placeholder="Speler ${i + 1}" maxlength="20" value="${state.playerNames[i] || ''}" data-index="${i}" class="name-input flex-1 px-5 py-4 rounded-2xl text-lg" style="background: ${config.card_color || defaultConfig.card_color}; color: ${config.text_color || defaultConfig.text_color}; border: 2px solid ${config.accent_color || defaultConfig.accent_color}">
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+
+            <div class="glass rounded-3xl p-8 mb-6">
+              <label class="block text-base font-semibold mb-5" style="color: ${config.accent_color || defaultConfig.accent_color}">Timer (minuten)</label>
+              <input type="number" id="timerMinutes" min="1" max="30" value="${state.timerMinutes}" class="w-full text-center text-5xl font-bold py-6 rounded-2xl" style="background: ${config.card_color || defaultConfig.card_color}; color: ${config.text_color || defaultConfig.text_color}; border: 2px solid ${config.accent_color || defaultConfig.accent_color}">
+            </div>
+          </div>
+
+          <button id="continueBtn" class="w-full touch-card py-6 rounded-2xl font-bold text-2xl card-shadow mt-6" style="background: ${config.text_color || defaultConfig.text_color}; color: ${config.background_color || defaultConfig.background_color}">
+            Volgende →
+          </button>
+        </div>
+      `;
+
+      document.getElementById('backBtn')?.addEventListener('click', () => {
+        state.screen = 'home';
+        renderApp();
+      });
+
+      document.getElementById('playerCount')?.addEventListener('input', (e) => {
+        state.playerCount = Math.max(3, Math.min(10, parseInt(e.target.value) || 3));
+        renderApp();
+      });
+
+      document.getElementById('timerMinutes')?.addEventListener('input', (e) => {
+        state.timerMinutes = Math.max(1, Math.min(30, parseInt(e.target.value) || 5));
+      });
+
+      document.querySelectorAll('.avatar-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const index = parseInt(e.currentTarget.dataset.index);
+          const currentAvatar = state.playerAvatars[index] || AVATAR_EMOJIS[index % AVATAR_EMOJIS.length];
+          const currentIdx = AVATAR_EMOJIS.indexOf(currentAvatar);
+          const nextIdx = (currentIdx + 1) % AVATAR_EMOJIS.length;
+          state.playerAvatars[index] = AVATAR_EMOJIS[nextIdx];
+          renderApp();
+        });
+      });
+
+      document.querySelectorAll('.name-input').forEach(input => {
+        input.addEventListener('input', (e) => {
+          const index = parseInt(e.target.dataset.index);
+          state.playerNames[index] = e.target.value.trim();
+        });
+      });
+
+      document.getElementById('continueBtn')?.addEventListener('click', () => {
+        for (let i = 0; i < state.playerCount; i++) {
+          if (!state.playerNames[i]) {
+            state.playerNames[i] = `Speler ${i + 1}`;
+          }
+          if (!state.playerAvatars[i]) {
+            state.playerAvatars[i] = AVATAR_EMOJIS[i % AVATAR_EMOJIS.length];
+          }
+        }
+        state.screen = 'mode-select';
+        renderApp();
+      });
+    }
+
+    function renderModeSelect(config) {
+      const app = document.getElementById('app');
+      app.innerHTML = `
+        <div class="h-full flex flex-col p-6 fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <button id="backBtn" class="text-4xl touch-card p-3 rounded-xl" style="color: ${config.text_color || defaultConfig.text_color}">←</button>
+            <h2 class="text-3xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">Woordbron</h2>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex-1 flex flex-col justify-center space-y-6 px-2">
+            <button id="standardBtn" class="touch-card glass-strong rounded-3xl p-10 card-shadow">
+              <div class="text-7xl mb-5">📚</div>
+              <div class="text-3xl font-bold mb-3" style="color: ${config.text_color || defaultConfig.text_color}">Woordenbank</div>
+              <div class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}">Kies uit 10 thema's</div>
+            </button>
+
+            <button id="hostBtn" class="touch-card glass-strong rounded-3xl p-10 card-shadow">
+              <div class="text-7xl mb-5">✍️</div>
+              <div class="text-3xl font-bold mb-3" style="color: ${config.text_color || defaultConfig.text_color}">Host Woord</div>
+              <div class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}">1 speler kiest het woord</div>
+            </button>
+
+            <button id="allPlayersBtn" class="touch-card glass-strong rounded-3xl p-10 card-shadow">
+              <div class="text-7xl mb-5">🎲</div>
+              <div class="text-3xl font-bold mb-3" style="color: ${config.text_color || defaultConfig.text_color}">Spelers Woorden</div>
+              <div class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}">Iedereen voert woord in</div>
+            </button>
+          </div>
+
+          <footer class="text-center pt-6 pb-4" style="color: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.5">
+            <p class="text-xs">VAN APPIAH – We maken alles.</p>
+          </footer>
+        </div>
+      `;
+
+      document.getElementById('backBtn')?.addEventListener('click', () => {
+        state.screen = 'setup';
+        renderApp();
+      });
+
+      document.getElementById('standardBtn')?.addEventListener('click', () => {
+        state.wordMode = 'standard';
+        state.screen = 'theme-select';
+        renderApp();
+      });
+
+      document.getElementById('hostBtn')?.addEventListener('click', () => {
+        state.wordMode = 'host';
+        state.screen = 'host-word';
+        renderApp();
+      });
+
+      document.getElementById('allPlayersBtn')?.addEventListener('click', () => {
+        state.wordMode = 'all-players';
+        state.customWords = [];
+        state.screen = 'player-words';
+        renderApp();
+      });
+    }
+
+    function renderThemeSelect(config) {
+      const app = document.getElementById('app');
+      const themes = Object.keys(WORD_BANK);
+
+      app.innerHTML = `
+        <div class="h-full flex flex-col p-6 fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <button id="backBtn" class="text-4xl touch-card p-3 rounded-xl" style="color: ${config.text_color || defaultConfig.text_color}">←</button>
+            <h2 class="text-3xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">Thema</h2>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex-1 scroll-container">
+            <div class="grid grid-cols-2 gap-4">
+              ${themes.map(theme => `
+                <button class="theme-btn touch-card glass rounded-3xl p-8 card-shadow" data-theme="${theme}">
+                  <div class="text-6xl mb-4">📁</div>
+                  <div class="text-xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">${theme}</div>
+                  <div class="text-sm mt-2" style="color: ${config.accent_color || defaultConfig.accent_color}">10 woorden</div>
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('backBtn')?.addEventListener('click', () => {
+        state.screen = 'mode-select';
+        renderApp();
+      });
+
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          state.selectedTheme = e.currentTarget.dataset.theme;
+          startGame();
+        });
+      });
+    }
+
+    function renderHostWord(config) {
+      const app = document.getElementById('app');
+      
+      app.innerHTML = `
+        <div class="h-full flex flex-col p-6 fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <button id="backBtn" class="text-4xl touch-card p-3 rounded-xl" style="color: ${config.text_color || defaultConfig.text_color}">←</button>
+            <h2 class="text-3xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">Host Woord</h2>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center justify-center">
+            <div class="w-full max-w-md">
+              <div class="glass-strong rounded-3xl p-12 card-shadow mb-8">
+                <div class="text-8xl text-center mb-8">✍️</div>
+                <p class="text-center text-lg mb-8" style="color: ${config.accent_color || defaultConfig.accent_color}">Voer het geheime woord in</p>
+                <input type="text" id="hostWordInput" placeholder="bijv. Pizza" maxlength="30" class="w-full text-center text-5xl font-bold py-6 rounded-2xl" style="background: ${config.card_color || defaultConfig.card_color}; color: ${config.text_color || defaultConfig.text_color}; border: 2px solid ${config.accent_color || defaultConfig.accent_color}">
+              </div>
+
+              <button id="startBtn" class="w-full touch-card py-6 rounded-2xl font-bold text-2xl card-shadow" style="background: ${config.text_color || defaultConfig.text_color}; color: ${config.background_color || defaultConfig.background_color}">
+                Start Spel →
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('backBtn')?.addEventListener('click', () => {
+        state.screen = 'mode-select';
+        renderApp();
+      });
+
+      const wordInput = document.getElementById('hostWordInput');
+      const startBtn = document.getElementById('startBtn');
+
+      startBtn?.addEventListener('click', () => {
+        const word = wordInput?.value.trim();
+        if (!word) return;
+
+        state.hostWord = word;
+        state.wordSetterIndex = 0;
+        startGame();
+      });
+
+      wordInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          startBtn?.click();
+        }
+      });
+
+      setTimeout(() => wordInput?.focus(), 200);
+    }
+
+    function renderPlayerWords(config) {
+      const app = document.getElementById('app');
+      const currentIndex = state.customWords.length;
+      const avatar = state.playerAvatars[currentIndex];
+      const playerName = state.playerNames[currentIndex];
+      
+      app.innerHTML = `
+        <div class="h-full flex flex-col p-6 fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <button id="backBtn" class="text-4xl touch-card p-3 rounded-xl" style="color: ${config.text_color || defaultConfig.text_color}">←</button>
+            <h2 class="text-2xl font-bold" style="color: ${config.text_color || defaultConfig.text_color}">${currentIndex + 1} / ${state.playerCount}</h2>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex-1 flex flex-col items-center justify-center">
+            <div class="w-full max-w-md">
+              <div class="text-center mb-8">
+                <div class="text-8xl mb-4">${avatar}</div>
+                <p class="text-3xl font-bold mb-3" style="color: ${config.text_color || defaultConfig.text_color}">${playerName}</p>
+                <p class="text-lg" style="color: ${config.accent_color || defaultConfig.accent_color}">Voer jouw woord in</p>
+              </div>
+
+              <div class="glass-strong rounded-3xl p-10 card-shadow mb-8">
+                <input type="text" id="wordInput" placeholder="bijv. Pizza" maxlength="30" class="w-full text-center text-4xl font-bold py-6 rounded-2xl" style="background: ${config.card_color || defaultConfig.card_color}; color: ${config.text_color || defaultConfig.text_color}; border: 2px solid ${config.accent_color || defaultConfig.accent_color}">
+              </div>
+
+              <button id="submitBtn" class="w-full touch-card py-6 rounded-2xl font-bold text-2xl card-shadow" style="background: ${config.text_color || defaultConfig.text_color}; color: ${config.background_color || defaultConfig.background_color}">
+                ${currentIndex + 1 >= state.playerCount ? 'Start Spel →' : 'Volgende →'}
+              </button>
+            </div>
+          </div>
+
+          <div class="flex justify-center gap-2 pb-6">
+            ${Array.from({length: state.playerCount}, (_, i) => `
+              <div class="w-2.5 h-2.5 rounded-full transition-all" style="background: ${i < currentIndex ? config.text_color : config.accent_color}; opacity: ${i < currentIndex ? 1 : 0.3}"></div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+
+      document.getElementById('backBtn')?.addEventListener('click', () => {
+        if (currentIndex === 0) {
+          state.screen = 'mode-select';
+        } else {
+          state.customWords.pop();
+        }
+        renderApp();
+      });
+
+      const wordInput = document.getElementById('wordInput');
+      const submitBtn = document.getElementById('submitBtn');
+
+      submitBtn?.addEventListener('click', () => {
+        const word = wordInput?.value.trim();
+        if (!word) return;
+
+        state.customWords.push({ word, playerIndex: currentIndex });
+
+        if (state.customWords.length >= state.playerCount) {
+          startGame();
+        } else {
+          renderApp();
+        }
+      });
+
+      wordInput?.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          submitBtn?.click();
+        }
+      });
+
+      setTimeout(() => wordInput?.focus(), 200);
+    }
+
+    function startGame() {
+      state.currentPlayerIndex = 0;
+      state.revealed = false;
+      state.timerSeconds = state.timerMinutes * 60;
+      
+      state.imposterIndex = Math.floor(Math.random() * state.playerCount);
+      
+      let burgerIdx;
+      do {
+        burgerIdx = Math.floor(Math.random() * state.playerCount);
+      } while (burgerIdx === state.imposterIndex);
+      state.burgerIndex = burgerIdx;
+
+      if (state.wordMode === 'standard') {
+        const themeWords = WORD_BANK[state.selectedTheme];
+        const wordPair = themeWords[Math.floor(Math.random() * themeWords.length)];
+        state.selectedMainWord = wordPair.main;
+        state.selectedBurgerWord = wordPair.burger;
+      } else if (state.wordMode === 'host') {
+        state.selectedMainWord = state.hostWord;
+        state.selectedBurgerWord = state.hostWord;
+      } else if (state.wordMode === 'all-players') {
+        const chosenWordObj = state.customWords[Math.floor(Math.random() * state.customWords.length)];
+        state.selectedMainWord = chosenWordObj.word;
+        state.selectedBurgerWord = chosenWordObj.word;
+        state.wordSetterIndex = chosenWordObj.playerIndex;
+      }
+
+      state.screen = 'reveal';
+      renderApp();
+    }
+
+    function renderReveal(config) {
+      const app = document.getElementById('app');
+      const progress = ((state.currentPlayerIndex + 1) / state.playerCount) * 100;
+      const isImposter = state.currentPlayerIndex === state.imposterIndex;
+      const isBurger = state.currentPlayerIndex === state.burgerIndex;
+      const displayWord = isBurger ? state.selectedBurgerWord : state.selectedMainWord;
+      const avatar = state.playerAvatars[state.currentPlayerIndex];
+      const playerName = state.playerNames[state.currentPlayerIndex];
+
+      if (!state.revealed) {
+        app.innerHTML = `
+          <div class="h-full flex flex-col">
+            <div class="w-full h-2" style="background: rgba(255,255,255,0.05)">
+              <div class="h-full transition-all duration-500" style="width: ${progress}%; background: ${config.text_color || defaultConfig.text_color}"></div>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center p-8">
+              <div class="text-center mb-12">
+                <div class="text-8xl mb-6">${avatar}</div>
+                <p class="text-4xl font-bold mb-4" style="color: ${config.text_color || defaultConfig.text_color}">${playerName}</p>
+                <p class="text-xl" style="color: ${config.accent_color || defaultConfig.accent_color}">${config.pass_device || defaultConfig.pass_device}</p>
+              </div>
+              
+              <div id="revealCard" class="w-full max-w-lg touch-card glass-strong rounded-3xl flex flex-col items-center justify-center card-shadow pulse-slow" style="height: 500px">
+                <div class="text-9xl mb-8">👆</div>
+                <p class="text-2xl font-semibold px-8 text-center" style="color: ${config.text_color || defaultConfig.text_color}">${config.swipe_instruction || defaultConfig.swipe_instruction}</p>
+              </div>
+            </div>
+
+            <div class="p-6 text-center">
+              <p class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.6">${state.currentPlayerIndex + 1} van ${state.playerCount}</p>
+            </div>
+          </div>
+        `;
+
+        const card = document.getElementById('revealCard');
+        let startY = 0;
+
+        card?.addEventListener('touchstart', (e) => {
+          startY = e.touches[0].clientY;
+        });
+
+        card?.addEventListener('touchmove', (e) => {
+          const currentY = e.touches[0].clientY;
+          const diff = startY - currentY;
+          
+          if (diff > 70) {
+            state.revealed = true;
+            renderApp();
+          }
+        });
+
+        card?.addEventListener('click', () => {
+          state.revealed = true;
+          renderApp();
+        });
+      } else {
+        app.innerHTML = `
+          <div class="h-full flex flex-col">
+            <div class="w-full h-2" style="background: rgba(255,255,255,0.05)">
+              <div class="h-full transition-all duration-500" style="width: ${progress}%; background: ${config.text_color || defaultConfig.text_color}"></div>
+            </div>
+
+            <div class="flex-1 flex flex-col items-center justify-center p-8">
+              <div class="w-full max-w-lg rounded-3xl p-12 flex flex-col items-center justify-center card-shadow slide-up" style="background: ${isImposter ? (config.imposter_color || defaultConfig.imposter_color) : (config.card_color || defaultConfig.card_color)}; min-height: 500px">
+                ${isImposter ? `
+                  <div class="text-9xl mb-8">🕵️</div>
+                  <h2 class="text-6xl font-bold mb-8" style="color: ${config.text_color || defaultConfig.text_color}">IMPOSTER</h2>
+                  <p class="text-center text-xl leading-relaxed px-6" style="color: ${config.text_color || defaultConfig.text_color}; opacity: 0.95">${config.imposter_text || defaultConfig.imposter_text}</p>
+                ` : `
+                  <div class="text-9xl mb-10">${isBurger ? '🍔' : '📝'}</div>
+                  <h2 class="text-7xl font-bold mb-6" style="color: ${config.text_color || defaultConfig.text_color}">${displayWord}</h2>
+                  ${isBurger ? `<p class="text-lg mt-4" style="color: ${config.accent_color || defaultConfig.accent_color}">(Burger Woord)</p>` : ''}
+                `}
+              </div>
+              
+              <button id="nextBtn" class="w-full max-w-lg touch-card py-6 rounded-2xl font-bold text-2xl card-shadow mt-10" style="background: ${config.text_color || defaultConfig.text_color}; color: ${config.background_color || defaultConfig.background_color}">
+                ${state.currentPlayerIndex + 1 >= state.playerCount ? 'Start Timer →' : 'Volgende →'}
+              </button>
+            </div>
+
+            <div class="p-6 text-center">
+              <p class="text-base" style="color: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.6">${state.currentPlayerIndex + 1} van ${state.playerCount}</p>
+            </div>
+          </div>
+        `;
+
+        document.getElementById('nextBtn')?.addEventListener('click', () => {
+          state.currentPlayerIndex++;
+          state.revealed = false;
+          
+          if (state.currentPlayerIndex >= state.playerCount) {
+            state.screen = 'playing';
+            startTimer();
+          }
+          renderApp();
+        });
+      }
+    }
+
+    function renderPlaying(config) {
+      const app = document.getElementById('app');
+      const minutes = Math.floor(state.timerSeconds / 60);
+      const seconds = state.timerSeconds % 60;
+      const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      const isLowTime = state.timerSeconds <= 30;
+
+      app.innerHTML = `
+        <div class="h-full flex flex-col items-center justify-center p-8 fade-in">
+          <div class="text-center w-full max-w-md">
+            <div class="glass-strong rounded-3xl p-16 card-shadow mb-10 ${isLowTime ? 'shake' : ''}">
+              <p class="text-8xl font-bold mb-6 gradient-text shimmer">${timeString}</p>
+              <p class="text-xl" style="color: ${isLowTime ? config.imposter_color : config.accent_color}; ${isLowTime ? 'font-bold' : ''}">
+                ${isLowTime ? '⚠️ Bijna tijd!' : 'Tijd'}
+              </p>
+            </div>
+
+            <button id="endBtn" class="touch-card px-10 py-4 rounded-2xl font-semibold text-lg mb-16" style="background: ${config.imposter_color || defaultConfig.imposter_color}; color: ${config.text_color || defaultConfig.text_color}; opacity: 0.8">
+              Spel Stoppen
+            </button>
+
+            <div class="text-xs" style="color: ${config.accent_color || defaultConfig.accent_color}; opacity: 0.4">
+              <p>VAN APPIAH</p>
+            </div>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('endBtn')?.addEventListener('click', () => {
+        stopTimer();
+        resetGame();
+      });
+    }
+
+    function startTimer() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+      }
+
+      state.timerInterval = setInterval(() => {
+        state.timerSeconds--;
+        
+        if (state.timerSeconds <= 0) {
+          stopTimer();
+        }
+        renderApp();
+      }, 1000);
+    }
+
+    function stopTimer() {
+      if (state.timerInterval) {
+        clearInterval(state.timerInterval);
+        state.timerInterval = null;
+      }
+    }
+
+    function resetGame() {
+      stopTimer();
+      state = {
+        screen: 'home',
+        playerCount: 5,
+        playerNames: [],
+        playerAvatars: [],
+        timerMinutes: 5,
+        timerSeconds: 0,
+        timerInterval: null,
+        wordMode: null,
+        selectedTheme: null,
+        customWords: [],
+        hostWord: '',
+        selectedMainWord: null,
+        selectedBurgerWord: null,
+        imposterIndex: -1,
+        burgerIndex: -1,
+        currentPlayerIndex: 0,
+        revealed: false,
+        wordSetterIndex: -1
+      };
+      renderApp();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a1e4edba7bbb594',t:'MTc2MzcwODQwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

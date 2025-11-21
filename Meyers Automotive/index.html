@@ -1,1129 +1,1286 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meyers Automotive - Betrouwbare Occasions & Autoservice</title>
-    <meta name="description" content="Meyers Automotive biedt kwaliteitsvolle tweedehands auto's, APK-keuringen, reparaties en export services. Financieringsopties beschikbaar voor iedereen.">
-    <meta name="keywords" content="tweedehands auto's, occasions, APK keuring, autoreparatie, export, Meyers Automotive">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meyers Automotive - Betrouwbare Occasions &amp; Complete Autoservice</title>
+  <meta name="description" content="Meyers Automotive - Kwaliteitsvolle occasions, APK-keuring, reparatie, export en sleepdienst. Locaties in Amsterdam en Heemskerk.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
     
-     Open Graph tags 
-    <meta property="og:title" content="Meyers Automotive - Betrouwbare Occasions & Autoservice">
-    <meta property="og:description" content="Ontdek ons uitgebreide aanbod van kwaliteitsvolle tweedehands auto's. Financieringsopties beschikbaar voor iedereen!">
-    <meta property="og:type" content="website">
+    html, body {
+      height: 100%;
+    }
     
-     Google Fonts 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    .spinner {
+      border: 3px solid #f3f4f6;
+      border-top: 3px solid #DC2626;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 0.8s linear infinite;
+    }
     
-    <style>
-        :root {
-            /* Colors */
-            --primary: #0a0a0a;
-            --secondary: #1a1a1a;
-            --accent: #2563eb;
-            --accent-hover: #1d4ed8;
-            --muted: #6b7280;
-            --muted-foreground: #9ca3af;
-            --background: #ffffff;
-            --surface: #f8fafc;
-            --surface-elevated: #ffffff;
-            --border: #e5e7eb;
-            --border-light: #f3f4f6;
-            --success: #059669;
-            --warning: #d97706;
-            --error: #dc2626;
-            
-            /* Typography */
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            --font-serif: 'Playfair Display', Georgia, serif;
-            
-            /* Spacing */
-            --space-xs: 0.5rem;
-            --space-sm: 0.75rem;
-            --space-md: 1rem;
-            --space-lg: 1.5rem;
-            --space-xl: 2rem;
-            --space-2xl: 3rem;
-            --space-3xl: 4rem;
-            --space-4xl: 6rem;
-            
-            /* Shadows */
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            
-            /* Border radius */
-            --radius-sm: 0.375rem;
-            --radius-md: 0.5rem;
-            --radius-lg: 0.75rem;
-            --radius-xl: 1rem;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
-        body {
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            color: var(--primary);
-            background-color: var(--background);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        /* Typography */
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            line-height: 1.2;
-            text-wrap: balance;
-        }
-
-        .text-balance {
-            text-wrap: balance;
-        }
-
-        /* Header & Navigation */
-        header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-light);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-
-        .logo h1 {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: -0.025em;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: var(--space-xl);
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-            transition: all 0.2s ease;
-            position: relative;
-        }
-
-        nav a:hover,
-        nav a[aria-current="page"] {
-            color: var(--accent);
-            background-color: rgba(37, 99, 235, 0.05);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: var(--space-sm);
-            border-radius: var(--radius-md);
-            transition: background-color 0.2s ease;
-        }
-
-        .mobile-menu-toggle:hover {
-            background-color: var(--surface);
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--surface) 0%, #f1f5f9 100%);
-            padding: var(--space-4xl) 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('/placeholder.svg?height=800&width=1400') center/cover;
-            opacity: 0.03;
-            z-index: 0;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .hero h2 {
-            font-size: clamp(2.5rem, 6vw, 4rem);
-            margin-bottom: var(--space-lg);
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--muted);
-            margin-bottom: var(--space-xl);
-            font-weight: 400;
-        }
-
-        .hero-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--space-md);
-            background: var(--accent);
-            color: white;
-            padding: var(--space-md) var(--space-xl);
-            border-radius: var(--radius-lg);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
-        }
-
-        .hero-cta:hover {
-            background: var(--accent-hover);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Filters Section */
-        .filters {
-            background: var(--surface-elevated);
-            padding: var(--space-2xl) 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .filter-controls {
-            display: flex;
-            gap: var(--space-lg);
-            justify-content: center;
-            align-items: end;
-            flex-wrap: wrap;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .search-group {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-            min-width: 200px;
-        }
-
-        .search-group label {
-            font-weight: 600;
-            color: var(--primary);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .search-input,
-        select {
-            padding: var(--space-md) var(--space-lg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
-            font-size: 1rem;
-            font-family: var(--font-sans);
-            background: var(--background);
-            transition: all 0.2s ease;
-            min-height: 48px;
-        }
-
-        .search-input:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        /* Cars Section */
-        .cars-section {
-            padding: var(--space-4xl) 0;
-            background: var(--background);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: var(--space-2xl);
-            color: var(--primary);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .cars-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: var(--space-2xl);
-            margin-top: var(--space-2xl);
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .car-card {
-            background: var(--surface-elevated);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-        }
-
-        .car-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-            border-color: var(--border);
-        }
-
-        .car-card img {
-            width: 100%;
-            height: 240px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .car-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .car-info {
-            padding: var(--space-xl);
-        }
-
-        .car-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: var(--space-sm);
-            color: var(--primary);
-            font-family: var(--font-serif);
-        }
-
-        .car-subtitle {
-            font-size: 1rem;
-            color: var(--muted);
-            margin-bottom: var(--space-lg);
-            font-weight: 500;
-        }
-
-        .car-details {
-            list-style: none;
-            margin: var(--space-lg) 0;
-            display: grid;
-            gap: var(--space-sm);
-        }
-
-        .car-details li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--space-sm) 0;
-            border-bottom: 1px solid var(--border-light);
-            font-size: 0.95rem;
-        }
-
-        .car-details li:last-child {
-            border-bottom: none;
-        }
-
-        .car-details li span:first-child {
-            color: var(--muted);
-            font-weight: 500;
-        }
-
-        .car-details li span:last-child {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        .car-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--success);
-            margin-top: var(--space-lg);
-            font-family: var(--font-serif);
-        }
-
-        .car-description {
-            margin-top: var(--space-lg);
-            color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        /* Services Section */
-        .services {
-            padding: var(--space-4xl) 0;
-            background: var(--surface);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-2xl);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .service-card {
-            text-align: center;
-            padding: var(--space-2xl);
-            border-radius: var(--radius-xl);
-            background: var(--surface-elevated);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-light);
-        }
-
-        .service-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--border);
-        }
-
-        .service-icon {
-            font-size: 3.5rem;
-            margin-bottom: var(--space-lg);
-            display: block;
-        }
-
-        .service-card h3 {
-            margin-bottom: var(--space-md);
-            color: var(--primary);
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .service-card p {
-            color: var(--muted);
-            line-height: 1.6;
-            font-size: 1rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: var(--space-4xl) 0;
-            background: var(--background);
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: var(--space-3xl);
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .contact-info h3 {
-            margin-bottom: var(--space-xl);
-            color: var(--primary);
-            font-size: 1.75rem;
-            font-weight: 600;
-        }
-
-        address {
-            font-style: normal;
-            margin-bottom: var(--space-xl);
-            padding: var(--space-xl);
-            background: var(--surface-elevated);
-            border-radius: var(--radius-lg);
-            border-left: 4px solid var(--accent);
-            box-shadow: var(--shadow-sm);
-        }
-
-        address strong {
-            display: block;
-            margin-bottom: var(--space-sm);
-            color: var(--primary);
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .contact-item {
-            margin-bottom: var(--space-md);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .contact-item a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-
-        .contact-item a:hover {
-            color: var(--accent-hover);
-        }
-
-        /* Forms */
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-lg);
-        }
-
-        form input,
-        form textarea {
-            padding: var(--space-md) var(--space-lg);
-            border: 2px solid var(--border);
-            border-radius: var(--radius-lg);
-            font-size: 1rem;
-            font-family: var(--font-sans);
-            background: var(--background);
-            transition: all 0.2s ease;
-            min-height: 48px;
-        }
-
-        form input:focus,
-        form textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        form button {
-            padding: var(--space-md) var(--space-xl);
-            border: none;
-            border-radius: var(--radius-lg);
-            background: var(--accent);
-            color: white;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            font-family: var(--font-sans);
-            transition: all 0.3s ease;
-            min-height: 48px;
-            box-shadow: var(--shadow-sm);
-        }
-
-        form button:hover {
-            background: var(--accent-hover);
-            transform: translateY(-1px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .message {
-            margin-top: var(--space-md);
-            font-size: 0.9rem;
-            padding: var(--space-sm) var(--space-md);
-            border-radius: var(--radius-md);
-        }
-
-        .message.success {
-            background: rgba(5, 150, 105, 0.1);
-            color: var(--success);
-            border: 1px solid rgba(5, 150, 105, 0.2);
-        }
-
-        .message.error {
-            background: rgba(220, 38, 38, 0.1);
-            color: var(--error);
-            border: 1px solid rgba(220, 38, 38, 0.2);
-        }
-
-        .subscribe {
-            margin-top: var(--space-2xl);
-            padding-top: var(--space-2xl);
-            border-top: 1px solid var(--border);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary);
-            color: white;
-            padding: var(--space-2xl) 0;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: var(--space-lg);
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        .footer-content a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-
-        .footer-content a:hover {
-            color: white;
-        }
-
-        /* Loading & Error States */
-        .loading {
-            text-align: center;
-            padding: var(--space-3xl);
-            font-size: 1.2rem;
-            color: var(--muted);
-        }
-
-        .error {
-            text-align: center;
-            padding: var(--space-xl);
-            color: var(--error);
-            background: rgba(220, 38, 38, 0.05);
-            border: 1px solid rgba(220, 38, 38, 0.1);
-            border-radius: var(--radius-lg);
-            margin: var(--space-lg) 0;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-lg);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                padding: var(--space-lg);
-                box-shadow: var(--shadow-lg);
-                border-top: 1px solid var(--border);
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            .header-content {
-                flex-wrap: wrap;
-            }
-
-            .filter-controls {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-group {
-                min-width: auto;
-                width: 100%;
-            }
-
-            .cars-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-xl);
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-2xl);
-            }
-
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .hero {
-                padding: var(--space-2xl) 0;
-            }
-
-            .services,
-            .cars-section,
-            .contact {
-                padding: var(--space-2xl) 0;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .cars-grid {
-                grid-template-columns: 1fr;
-                padding: 0 var(--space-md);
-            }
-
-            .car-card {
-                margin: 0;
-            }
-
-            .contact-grid {
-                padding: 0 var(--space-md);
-            }
-
-            .services-grid {
-                padding: 0 var(--space-md);
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <h1>Meyers Automotive</h1>
-            </div>
-            <button class="mobile-menu-toggle" aria-label="Menu openen">☰</button>
-            <nav>
-                <ul>
-                    <li><a href="#home" aria-current="page">Home</a></li>
-                    <li><a href="#autos">Auto's</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <h2 class="text-balance">Betrouwbare Occasions, Direct Beschikbaar</h2>
-                <p class="text-balance">Ontdek ons uitgebreide aanbod van kwaliteitsvolle tweedehands auto's. Financieringsopties beschikbaar voor iedereen!</p>
-                <a href="#autos" class="hero-cta">
-                    Bekijk Ons Aanbod
-                    <span>→</span>
-                </a>
-            </div>
-        </section>
-
-        <section class="filters">
-            <div class="container">
-                <div class="filter-controls">
-                    <div class="search-group">
-                        <label for="search">Zoeken</label>
-                        <input type="text" id="search" class="search-input" placeholder="Zoek op merk, model...">
-                    </div>
-                    <div class="search-group">
-                        <label for="sort">Sorteren op</label>
-                        <select id="sort">
-                            <option value="nieuwste">Nieuwste aanbod</option>
-                            <option value="prijs-laag">Prijs (laag naar hoog)</option>
-                            <option value="prijs-hoog">Prijs (hoog naar laag)</option>
-                            <option value="bouwjaar">Bouwjaar</option>
-                            <option value="vermogen">Vermogen</option>
-                            <option value="kilometer">Kilometerstand</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="autos" class="cars-section">
-            <div class="container">
-                <h2 class="section-title text-balance">Ons Premium Aanbod</h2>
-                <div class="loading" id="loading">Auto's worden geladen...</div>
-                <div class="cars-grid" id="cars-container">
-                     Auto cards worden hier dynamisch geladen 
-                </div>
-            </div>
-        </section>
-
-        <section id="services" class="services">
-            <div class="container">
-                <h2 class="section-title text-balance">Onze Professionele Services</h2>
-                <div class="services-grid">
-                    <div class="service-card">
-                        <span class="service-icon">🔧</span>
-                        <h3>APK Keuring</h3>
-                        <p>Professionele APK keuringen door gecertificeerde monteurs. Snel, betrouwbaar en volgens de nieuwste standaarden.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-icon">⚙️</span>
-                        <h3>Reparatie & Onderhoud</h3>
-                        <p>Volledige reparatie- en onderhoudsdiensten voor alle automerken en modellen. Kwaliteit gegarandeerd.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-icon">🌍</span>
-                        <h3>Export Services</h3>
-                        <p>Gespecialiseerd in auto-export naar verschillende landen. Alle papierwerk en logistiek volledig geregeld.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-icon">🚗</span>
-                        <h3>24/7 Sleepdienst</h3>
-                        <p>Altijd bereikbare sleepdienst voor noodsituaties. Snelle hulp bij pech, ongevallen of andere problemen.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="contact">
-            <div class="container">
-                <h2 class="section-title text-balance">Neem Contact Op</h2>
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <h3>Onze Locaties</h3>
-                        <address>
-                            <strong>Hoofdvestiging</strong>
-                            Ibisweg 3-5<br>
-                            <div class="contact-item">
-                                <span>📞</span>
-                                <a href="tel:+31614435050">+31 6 14 43 50 50</a>
-                            </div>
-                        </address>
-                        <address>
-                            <strong>Tweede Locatie</strong>
-                            Kerkweg 152<br>
-                            <div class="contact-item">
-                                <span>📞</span>
-                                <a href="tel:+31614435050">+31 6 14 43 50 50</a>
-                            </div>
-                        </address>
-                        
-                        <div class="contact-info">
-                            <h3>Contact Informatie</h3>
-                            <div class="contact-item">
-                                <span>✉️</span>
-                                <div>
-                                    <strong>Email:</strong><br>
-                                    <a href="mailto:meyersautomotives@gmail.com">meyersautomotives@gmail.com</a>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <span>📱</span>
-                                <div>
-                                    <strong>Telefoon:</strong><br>
-                                    <a href="tel:+31614435050">+31 6 14 43 50 50</a>
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <span>🕒</span>
-                                <div>
-                                    <strong>Openingstijden:</strong><br>
-                                    Ma-Vr: 08:00 - 18:00<br>
-                                    Za: 09:00 - 17:00<br>
-                                    Zo: Gesloten
-                                </div>
-                            </div>
-                            <div class="contact-item">
-                                <span>🏢</span>
-                                <div>
-                                    <strong>KVK-nummer:</strong><br>
-                                    12345678
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-form">
-                        <h3>Stuur Ons Een Bericht</h3>
-                        <form id="contactForm">
-                            <input type="text" name="naam" placeholder="Uw naam" required>
-                            <input type="email" name="email" placeholder="Uw e-mailadres" required>
-                            <textarea name="bericht" placeholder="Uw bericht of vraag" rows="5" required></textarea>
-                            <input type="hidden" name="favorieten" id="favorietenInput">
-                            <button type="submit">Verstuur Bericht</button>
-                            <div class="message" id="contactMessage"></div>
-                        </form>
-
-                        <div class="subscribe">
-                            <h3>Blijf Op De Hoogte</h3>
-                            <p style="color: var(--muted); margin-bottom: var(--space-lg);">Ontvang updates over nieuwe auto's en speciale aanbiedingen.</p>
-                            <form id="subscribeForm">
-                                <input type="email" name="email" placeholder="Uw e-mailadres" required>
-                                <button type="submit">Inschrijven</button>
-                                <div class="message" id="subscribeMessage"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Meyers Automotive. Alle rechten voorbehouden.</p>
-            <p>Powered by <a href="https://vanappiah.com/" target="_blank" rel="noopener">VA</a></p>
-        </div>
-    </footer>
-
-    <script>
-        const sheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vToVqUqC3z-fZPfOZwMZzr1Ed0Hmzu9fgYVG4wvs80YGS5fXD07gmaZi-kLlxGpc4qj3NPmxR46vdaJ/pub?output=csv";
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .car-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .car-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+    
+    .favorite-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .favorite-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .favorite-btn.active svg {
+      fill: #DC2626;
+    }
+    
+    .gallery-container {
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .gallery-item {
+      scroll-snap-align: start;
+    }
+    
+    .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    
+    .line-clamp-1 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+    }
+    
+    .line-clamp-2 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    
+    .badge-verkocht {
+      background: linear-gradient(135deg, #6B7280 0%, #374151 100%);
+      color: white;
+      font-weight: 700;
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    
+    .badge-uitgelicht {
+      background: linear-gradient(135deg, #DC2626 0%, #991B1B 100%);
+      color: white;
+      font-weight: 700;
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.05em;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    
+    .sold-card {
+      opacity: 0.6;
+      filter: grayscale(40%);
+    }
+    
+    .banner-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      max-height: 500px;
+    }
+    
+    .icon {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .icon-lg {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .service-card {
+      transition: all 0.3s ease;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+    
+    @media (max-width: 640px) {
+      .banner-image {
+        max-height: 300px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="bg-white text-gray-900"><!-- Header -->
+  <header class="bg-black text-white shadow-lg sticky top-0 z-50">
+   <div class="bg-gray-900 py-2">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="flex flex-wrap justify-center sm:justify-between items-center gap-2 text-xs sm:text-sm"><a href="tel:+31657160395" class="hover:text-red-600 transition-colors flex items-center gap-1">
+       <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+       </svg><span>+31 6 57 16 03 95</span> </a> <a href="mailto:meyersautomotives@gmail.com" class="hover:text-red-600 transition-colors flex items-center gap-1">
+       <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /> <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+       </svg><span class="hidden sm:inline">meyersautomotives@gmail.com</span> <span class="sm:hidden">Email ons</span> </a>
+     </div>
+    </div>
+   </div>
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+    <div class="flex justify-between items-center"><a href="#home" class="text-lg sm:text-xl lg:text-2xl font-bold"> <span class="text-white">Meyers</span> <span class="text-red-600">Automotive</span> </a> <button id="mobileMenuBtn" class="md:hidden text-2xl font-bold text-white w-10 h-10 flex items-center justify-center hover:text-red-600 transition-colors">☰</button>
+     <nav class="hidden md:flex gap-6 items-center"><a href="#aanbod" class="font-medium hover:text-red-600 transition-colors text-sm">Aanbod</a> <a href="#diensten" class="font-medium hover:text-red-600 transition-colors text-sm">Diensten</a> <a href="#over" class="font-medium hover:text-red-600 transition-colors text-sm">Over Ons</a> <a href="#contact" class="font-medium hover:text-red-600 transition-colors text-sm">Contact</a> <button id="favoritesBtn" class="font-medium hover:text-red-600 transition-colors flex items-center gap-2 text-sm"> <span>���️ Favorieten</span> <span id="favoritesCount" class="hidden bg-red-600 text-white px-2 py-0.5 rounded-full text-xs font-bold">0</span> </button>
+     </nav>
+    </div>
+   </div>
+   <nav id="mobileNav" class="hidden md:hidden bg-gray-900 border-t border-gray-700"><a href="#aanbod" class="block px-6 py-3 border-b border-gray-800 hover:bg-gray-800 hover:text-red-600 transition-colors text-sm font-medium">Aanbod</a> <a href="#diensten" class="block px-6 py-3 border-b border-gray-800 hover:bg-gray-800 hover:text-red-600 transition-colors text-sm font-medium">Diensten</a> <a href="#over" class="block px-6 py-3 border-b border-gray-800 hover:bg-gray-800 hover:text-red-600 transition-colors text-sm font-medium">Over Ons</a> <a href="#contact" class="block px-6 py-3 border-b border-gray-800 hover:bg-gray-800 hover:text-red-600 transition-colors text-sm font-medium">Contact</a> <button id="mobileFavoritesBtn" class="w-full text-left px-6 py-3 hover:bg-gray-800 hover:text-red-600 transition-colors text-sm font-medium flex items-center gap-2">
+     <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd" />
+     </svg><span>Favorieten</span> <span id="mobileFavoritesCount" class="hidden bg-red-600 text-white px-2 py-0.5 rounded-full text-xs font-bold ml-auto">0</span> </button>
+   </nav>
+  </header><!-- Banner -->
+  <section id="home" class="bg-black relative"><img src="https://i.postimg.cc/Y0H1mm50/Meyers-Automotive-BEDRIJVENbanner.png" alt="Meyers Automotive Banner" class="banner-image" loading="eager">
+   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-end justify-center p-4 sm:p-6">
+    <div class="text-center w-full max-w-4xl mb-4">
+     <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 drop-shadow-lg">Betrouwbare Occasions &amp; Complete Autoservice</h1>
+     <p class="text-sm sm:text-base text-gray-200 mb-3 sm:mb-4 drop-shadow-md">Kwaliteitsvolle tweedehands auto's, deskundige service en eerlijke prijzen</p><a href="#aanbod" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-lg transition-all transform hover:scale-105 shadow-xl text-sm sm:text-base"> Bekijk Ons Aanbod </a>
+    </div>
+   </div>
+  </section><!-- UITGELICHT -->
+  <section id="uitgelicht" class="bg-white py-8 sm:py-12 hidden">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-6 sm:mb-8">
+     <h2 class="text-2xl sm:text-3xl font-bold mb-2 flex items-center justify-center gap-2">
+      <svg class="w-8 h-8 text-red-600" fill="currentColor" viewbox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg><span>Uitgelicht</span></h2>
+     <p class="text-gray-600 text-sm sm:text-base">Onze topkeuzes speciaal voor u geselecteerd</p>
+    </div>
+    <div id="featuredGrid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"><!-- Featured cars will be inserted here -->
+    </div>
+    <div class="text-center mt-6"><a href="#aanbod" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-6 rounded-lg transition-all text-sm"> Bekijk alle auto's → </a>
+    </div>
+   </div>
+  </section><!-- ONS AANBOD -->
+  <section id="aanbod" class="bg-gray-50 py-8 sm:py-12">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-6 sm:mb-8">
+     <h2 class="text-2xl sm:text-3xl font-bold mb-2">Ons Aanbod</h2>
+     <p class="text-gray-600 text-sm sm:text-base">Ontdek onze actuele voorraad</p>
+    </div><!-- Filter Bar -->
+    <div class="mb-6"><button id="filterToggleBtn" class="w-full bg-white border-2 border-gray-300 rounded-lg p-3 sm:p-4 font-bold text-left flex justify-between items-center hover:border-red-600 transition-colors shadow-sm text-sm sm:text-base"> <span class="flex items-center gap-2">
+       <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+       </svg> Filters en Zoeken </span> <span id="filterToggleIcon" class="text-xl text-red-600">+</span> </button>
+     <div id="filterContainer" class="hidden bg-white border-2 border-gray-200 rounded-xl p-4 sm:p-6 shadow-sm mt-4">
+      <div class="mb-4"><label for="searchInput" class="block font-bold mb-2 text-sm">Zoeken</label> <input type="text" id="searchInput" placeholder="Zoek op merk, model, locatie..." class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm">
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+       <div><label for="sortSelect" class="block font-bold mb-2 text-sm">Sorteren</label> <select id="sortSelect" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Standaard</option> <option value="price-asc">Prijs: laag → hoog</option> <option value="price-desc">Prijs: hoog → laag</option> <option value="km-asc">Kilometerstand: laag → hoog</option> <option value="year-desc">Bouwjaar: nieuw → oud</option> </select>
+       </div>
+       <div><label for="brandstofFilter" class="block font-bold mb-2 text-sm">Brandstof</label> <select id="brandstofFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> </select>
+       </div>
+       <div><label for="locatieFilter" class="block font-bold mb-2 text-sm">Locatie</label> <select id="locatieFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> <option value="Amsterdam">Amsterdam</option> <option value="Heemskerk">Heemskerk</option> </select>
+       </div>
+      </div>
+      <div class="mt-4 flex justify-end"><button id="resetFilters" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm"> Filters Resetten </button>
+      </div>
+     </div>
+     <div id="resultsCount" class="mt-3 text-center text-gray-600 font-medium text-sm"></div>
+    </div>
+    <div id="errorMessage" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded mb-6">
+     <p class="font-bold text-sm">Fout bij laden</p>
+     <p id="errorText" class="mt-1 text-xs"></p>
+    </div>
+    <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+     <div class="text-center py-12 col-span-full">
+      <div class="spinner mx-auto mb-4"></div>
+      <p class="text-gray-600 text-sm">Auto's laden...</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- DIENSTEN -->
+  <section id="diensten" class="bg-white py-8 sm:py-12">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-10">Onze Diensten</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" /> <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">Verkoop Occasions</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Kwaliteitsvolle tweedehands auto's met volledige historie</p><a href="#aanbod" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Bekijk aanbod</a>
+     </div>
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" /> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">Inkoop Auto's</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Eerlijke prijs voor uw auto met snelle afhandeling</p><a href="#contact" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Neem contact op</a>
+     </div>
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">APK-keuring</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Professionele APK-keuringen door erkende keurmeesters</p><a href="#contact" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Maak afspraak</a>
+     </div>
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">Reparatie &amp; Onderhoud</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Van oliebeurt tot motorrevision, wij regelen het</p><a href="#contact" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Meer info</a>
+     </div>
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">Sleepdienst 24/7</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Altijd bereikbaar voor snelle hulp bij pech</p><a href="tel:+31657160395" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Direct bellen</a>
+     </div>
+     <div class="service-card bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-red-600">
+      <svg class="icon-lg text-red-600 mb-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" />
+      </svg>
+      <h3 class="text-lg font-bold mb-2">Auto Exporteren</h3>
+      <p class="text-gray-600 text-sm mb-4 line-clamp-2">Volledige export-ondersteuning naar het buitenland</p><a href="#contact" class="inline-block bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm">Meer weten</a>
+     </div>
+    </div>
+   </div>
+  </section><!-- OVER ONS -->
+  <section id="over" class="bg-gray-50 py-8 sm:py-12">
+   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-8">
+     <h2 class="text-2xl sm:text-3xl font-bold mb-2">Over <span class="text-red-600">Meyers Automotive</span></h2>
+     <p class="text-gray-600 text-sm sm:text-base">Uw betrouwbare partner sinds meer dan 30 jaar</p>
+    </div>
+    <div class="bg-white rounded-xl shadow-lg p-5 sm:p-8 mb-6">
+     <p class="text-gray-700 leading-relaxed mb-4 text-sm sm:text-base"><strong class="text-red-600">Meyers Automotive</strong> staat voor kwaliteit, betrouwbaarheid en eerlijke service. Met meer dan 30 jaar ervaring zijn wij uw totaalpartner voor occasions, APK, reparatie en export.</p>
+     <p class="text-gray-700 leading-relaxed text-sm sm:text-base">Onze vestigingen in <strong>Amsterdam</strong> en <strong>Heemskerk</strong> staan klaar om u van dienst te zijn met persoonlijke aandacht en vakkundig advies.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+     <div class="text-center">
+      <div class="w-16 h-16 mx-auto mb-3 bg-red-600 rounded-full flex items-center justify-center text-3xl">
+       🛡��
+      </div>
+      <h3 class="text-lg font-bold mb-2">Betrouwbaar</h3>
+      <p class="text-gray-600 text-sm">30+ jaar ervaring</p>
+     </div>
+     <div class="text-center">
+      <div class="w-16 h-16 mx-auto mb-3 bg-red-600 rounded-full flex items-center justify-center text-3xl">
+       👁️
+      </div>
+      <h3 class="text-lg font-bold mb-2">Transparant</h3>
+      <p class="text-gray-600 text-sm">Eerlijke prijzen</p>
+     </div>
+     <div class="text-center">
+      <div class="w-16 h-16 mx-auto mb-3 bg-red-600 rounded-full flex items-center justify-center text-3xl">
+       ❤️
+      </div>
+      <h3 class="text-lg font-bold mb-2">Persoonlijk</h3>
+      <p class="text-gray-600 text-sm">Aandacht voor elke klant</p>
+     </div>
+    </div>
+   </div>
+  </section><!-- CONTACT -->
+  <section id="contact" class="bg-white py-8 sm:py-12">
+   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8">Contact</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+     <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border-2 border-gray-200">
+      <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+       <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+       </svg> Locaties</h3>
+      <div class="mb-5">
+       <p class="font-bold text-sm mb-1">Amsterdam</p>
+       <p class="text-gray-700 text-sm">Ibisweg 3-5, 1033RA Amsterdam</p>
+      </div>
+      <div class="mb-5">
+       <p class="font-bold text-sm mb-1">Heemskerk</p>
+       <p class="text-gray-700 text-sm">Kerkweg 152, 1968KL Heemskerk</p>
+      </div>
+      <div class="mb-5">
+       <p class="font-bold text-sm mb-1 flex items-center gap-2">
+        <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+        </svg> Openingstijden</p>
+       <p class="text-gray-700 text-sm">Ma-Za: 09:00 - 18:00</p>
+       <p class="text-gray-700 text-sm">Zondag: 10:00 - 16:00</p>
+      </div>
+      <div class="space-y-2"><a href="tel:+31657160395" class="flex items-center justify-center gap-2 w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
+        <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+        </svg> +31 6 57 16 03 95 </a> <a href="mailto:meyersautomotives@gmail.com" class="flex items-center justify-center gap-2 w-full bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
+        <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /> <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+        </svg> meyersautomotives@gmail.com </a>
+      </div>
+     </div>
+     <div class="bg-gray-50 p-5 sm:p-6 rounded-xl border-2 border-gray-200">
+      <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
+       <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" /> <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+       </svg> Stuur een bericht</h3>
+      <form id="contactForm" class="space-y-3">
+       <div id="formMessage" class="hidden p-3 rounded text-sm"></div>
+       <div><label for="name" class="block font-medium mb-1 text-sm">Naam</label> <input type="text" id="name" name="name" required class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm">
+       </div>
+       <div><label for="email" class="block font-medium mb-1 text-sm">E-mailadres</label> <input type="email" id="email" name="email" required class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm">
+       </div>
+       <div><label for="message" class="block font-medium mb-1 text-sm">Bericht</label> <textarea id="message" name="message" rows="4" required class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"></textarea>
+       </div><button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors text-sm">Verzenden</button>
+      </form>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="bg-black text-white py-6 sm:py-8">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+     <div>
+      <h4 class="text-base font-bold mb-2 text-red-600">Meyers Automotive</h4>
+      <p class="text-gray-400 text-xs mb-1">Uw betrouwbare partner</p>
+      <p class="text-gray-400 text-xs">KVK: 84030712</p>
+     </div>
+     <div>
+      <h4 class="text-base font-bold mb-2">Contact</h4>
+      <div class="space-y-1 text-xs">
+       <p><a href="tel:+31657160395" class="text-gray-400 hover:text-red-600">+31 6 57 16 03 95</a></p>
+       <p><a href="mailto:meyersautomotives@gmail.com" class="text-gray-400 hover:text-red-600 break-all">meyersautomotives@gmail.com</a></p>
+       <p><a href="mailto:vawerkers@gmail.com" class="text-gray-400 hover:text-red-600">vawerkers@gmail.com</a></p>
+      </div>
+     </div>
+     <div>
+      <h4 class="text-base font-bold mb-2">Volg Ons</h4>
+      <div class="flex gap-3"><a href="https://www.instagram.com/meyers_automotivendsm" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+        </svg></a> <a href="https://www.tiktok.com/@meyers.automotive" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z" />
+        </svg></a> <a href="https://www.facebook.com/share/17YyzdEtC5" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+        </svg></a>
+      </div>
+     </div>
+     <div>
+      <h4 class="text-base font-bold mb-2">Powered By</h4>
+      <p class="text-gray-400 text-xs mb-1"><a href="http://vanappiah.com/" target="_blank" rel="noopener noreferrer" class="hover:text-red-600 transition-colors">Van Appiah - VA</a></p>
+     </div>
+    </div>
+    <div class="border-t border-gray-800 pt-4 text-center text-xs text-gray-400">
+     <p>© 2024 Meyers Automotive. Alle rechten voorbehouden.</p>
+    </div>
+   </div>
+  </footer><!-- Favorites Modal -->
+  <div id="favoritesModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 overflow-y-auto">
+   <div class="min-h-full flex items-start justify-center p-4 py-8">
+    <div class="bg-white rounded-lg max-w-6xl w-full max-h-[85vh] overflow-y-auto">
+     <div class="sticky top-0 bg-white border-b-2 border-gray-200 p-4 sm:p-5 flex justify-between items-center z-10">
+      <h2 class="text-xl sm:text-2xl font-bold">❤️ Mijn Favorieten</h2><button id="closeFavoritesModal" class="bg-red-600 hover:bg-red-700 text-white w-10 h-10 rounded-full flex items-center justify-center text-2xl font-bold">×</button>
+     </div>
+     <div id="favoritesContent" class="p-4 sm:p-6"></div>
+    </div>
+   </div>
+  </div><!-- Car Detail Modal -->
+  <div id="carModal" class="hidden fixed inset-0 bg-black bg-opacity-90 z-50 overflow-y-auto">
+   <div class="min-h-full flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg max-w-5xl w-full max-h-[90vh] overflow-y-auto"><button id="closeModal" class="sticky top-4 right-4 float-right bg-red-600 hover:bg-red-700 text-white w-10 h-10 rounded-full flex items-center justify-center text-2xl font-bold z-10 shadow-lg">×</button>
+     <div id="modalContent"></div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQjjj1jUUsSzJBMG8Kpy-d3PxysCCiGbyz561wWljymwvveQHL_Cy501dz86JD-9UoWyyE6vK34TMb8/pub?output=csv';
+
+    const RDW_API = {
+      basis: 'https://opendata.rdw.nl/resource/m9d7-ebf2.json',
+      brandstof: 'https://opendata.rdw.nl/resource/8ys7-d773.json',
+      carrosserie: 'https://opendata.rdw.nl/resource/vezc-m2t6.json',
+      apk: 'https://opendata.rdw.nl/resource/a34c-vvps.json'
+    };
+
+    let allCarsData = [];
+    let allCarsWithRDW = [];
+    let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    let filterConfig = {
+      search: '',
+      brandstof: '',
+      locatie: '',
+      sort: ''
+    };
+
+    // Favorites functions
+    function updateFavoritesCount() {
+      const count = favorites.length;
+      const counts = [
+        document.getElementById('favoritesCount'),
+        document.getElementById('mobileFavoritesCount')
+      ];
+      
+      counts.forEach(el => {
+        if (count > 0) {
+          el.textContent = count;
+          el.classList.remove('hidden');
+        } else {
+          el.classList.add('hidden');
+        }
+      });
+    }
+
+    function toggleFavorite(kenteken) {
+      const index = favorites.indexOf(kenteken);
+      if (index > -1) {
+        favorites.splice(index, 1);
+      } else {
+        favorites.push(kenteken);
+      }
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      updateFavoritesCount();
+      
+      document.querySelectorAll(`[data-favorite-kenteken="${kenteken}"]`).forEach(btn => {
+        btn.classList.toggle('active', favorites.includes(kenteken));
+        btn.textContent = favorites.includes(kenteken) ? '❤️' : '🤍';
+      });
+    }
+
+    function showFavorites() {
+      const modal = document.getElementById('favoritesModal');
+      const content = document.getElementById('favoritesContent');
+      
+      if (favorites.length === 0) {
+        content.innerHTML = `
+          <div class="text-center py-12">
+            <div class="text-6xl mb-4">❤️</div>
+            <p class="text-xl text-gray-600 mb-2">Geen favorieten opgeslagen</p>
+            <p class="text-gray-500 text-sm">Klik op het hart bij een auto om deze toe te voegen</p>
+          </div>
+        `;
+      } else {
+        const favoriteCars = allCarsWithRDW.filter(item => favorites.includes(item.car.Kenteken));
+        content.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            ${favoriteCars.map(item => renderCarCard(item.car, item.rdw).outerHTML).join('')}
+          </div>
+        `;
+      }
+      
+      modal.classList.remove('hidden');
+    }
+
+    // Mobile menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.toggle('hidden');
+    });
+
+    document.querySelectorAll('#mobileNav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobileNav').classList.add('hidden');
+      });
+    });
+
+    // Favorites buttons
+    document.getElementById('favoritesBtn').addEventListener('click', showFavorites);
+    document.getElementById('mobileFavoritesBtn').addEventListener('click', () => {
+      document.getElementById('mobileNav').classList.add('hidden');
+      showFavorites();
+    });
+    document.getElementById('closeFavoritesModal').addEventListener('click', () => {
+      document.getElementById('favoritesModal').classList.add('hidden');
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Contact form
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const msg = document.getElementById('formMessage');
+      msg.className = 'p-3 rounded text-sm bg-green-50 text-green-700 border-l-4 border-green-600';
+      msg.textContent = 'Bedankt voor uw bericht! We nemen spoedig contact op.';
+      msg.classList.remove('hidden');
+      this.reset();
+      setTimeout(() => msg.classList.add('hidden'), 5000);
+    });
+
+    // Format functions
+    function formatPrice(prijs) {
+      if (!prijs || prijs === '' || prijs === '0' || prijs === 0) return 'Prijs op aanvraag';
+      const cleanPrice = String(prijs).replace(/[€\s]/g, '').replace(/\./g, '').replace(',', '.');
+      const num = parseFloat(cleanPrice);
+      if (isNaN(num) || num === 0) return 'Prijs op aanvraag';
+      return '€ ' + num.toLocaleString('nl-NL', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function formatKm(km) {
+      if (!km || km === '' || km === '0' || km === 0) return 'Niet beschikbaar';
+      const cleanKm = String(km).replace(/[^\d]/g, '');
+      const num = parseInt(cleanKm) || 0;
+      if (num === 0) return 'Niet beschikbaar';
+      return num.toLocaleString('nl-NL') + ' km';
+    }
+
+    // Fetch RDW data
+    async function fetchRDWData(kenteken) {
+      const clean = kenteken.replace(/[-\s]/g, '').toUpperCase();
+      
+      try {
+        const [basis, brandstof, carrosserie, apk] = await Promise.all([
+          fetch(`${RDW_API.basis}?kenteken=${clean}`).then(r => r.json()),
+          fetch(`${RDW_API.brandstof}?kenteken=${clean}`).then(r => r.json()),
+          fetch(`${RDW_API.carrosserie}?kenteken=${clean}`).then(r => r.json()),
+          fetch(`${RDW_API.apk}?kenteken=${clean}`).then(r => r.json())
+        ]);
         
-        let allCars = [];
-        let filteredCars = [];
+        const b = basis[0] || {};
+        const br = brandstof[0] || {};
+        const c = carrosserie[0] || {};
+        const a = apk[0] || {};
+        
+        // Bouwjaar
+        let bouwjaar = null;
+        if (b.datum_eerste_toelating_dt) {
+          bouwjaar = new Date(b.datum_eerste_toelating_dt).getFullYear();
+        } else if (b.datum_eerste_toelating && b.datum_eerste_toelating.length >= 4) {
+          bouwjaar = parseInt(b.datum_eerste_toelating.substring(0, 4));
+        }
+        
+        // Vermogen (kW -> pk)
+        let vermogenKw = null;
+        let vermogenPk = null;
+        const vermogenRaw = br.vermogen_massarijklaar || b.nettomaximumvermogen || b.maximum_vermogen;
+        if (vermogenRaw) {
+          const kw = parseFloat(vermogenRaw);
+          if (!isNaN(kw) && kw > 0) {
+            vermogenKw = Math.round(kw);
+            vermogenPk = Math.round(kw * 1.35962);
+          }
+        }
+        
+        // Brandstof
+        let brandstofType = null;
+        const brandstofRaw = br.brandstof_omschrijving || b.brandstof_omschrijving || '';
+        if (brandstofRaw) {
+          const lower = brandstofRaw.toLowerCase();
+          if (lower.includes('benzine')) brandstofType = 'Benzine';
+          else if (lower.includes('diesel')) brandstofType = 'Diesel';
+          else if (lower.includes('elektr')) brandstofType = 'Elektrisch';
+          else if (lower.includes('lpg')) brandstofType = 'LPG';
+          else if (lower.includes('hybride') || lower.includes('hybrid')) brandstofType = 'Hybride';
+          else brandstofType = brandstofRaw;
+        }
+        
+        // APK
+        let apkVervaldatum = null;
+        if (a.vervaldatum_apk_dt) {
+          apkVervaldatum = a.vervaldatum_apk_dt.split('T')[0];
+        }
+        
+        return {
+          merk: b.merk || null,
+          model: b.handelsbenaming || null,
+          bouwjaar: bouwjaar,
+          brandstof: brandstofType,
+          vermogenKw: vermogenKw,
+          vermogenPk: vermogenPk,
+          carrosserie: c.type_carrosserie_europese_omschrijving || b.inrichting || null,
+          kleur: b.eerste_kleur || null,
+          aantalDeuren: b.aantal_deuren || null,
+          aantalZitplaatsen: b.aantal_zitplaatsen || null,
+          cilinderinhoud: b.cilinderinhoud ? `${parseInt(b.cilinderinhoud).toLocaleString('nl-NL')} cm³` : null,
+          co2Uitstoot: b.co2_uitstoot_gecombineerd || null,
+          emissieklasse: b.emissiecode_omschrijving || null,
+          massaRijklaar: b.massa_rijklaar ? `${parseInt(b.massa_rijklaar).toLocaleString('nl-NL')} kg` : null,
+          toegestaneMaxMassa: b.toegestane_maximum_massa_voertuig ? `${parseInt(b.toegestane_maximum_massa_voertuig).toLocaleString('nl-NL')} kg` : null,
+          apkVervaldatum: apkVervaldatum,
+          wamVerzekerd: b.wam_verzekerd || null,
+          gestolen: b.export_indicator === 'J' ? 'Ja' : 'Nee',
+          datumEersteToelating: b.datum_eerste_toelating_dt ? b.datum_eerste_toelating_dt.split('T')[0] : null,
+          tellerstandOordeel: b.tellerstandoordeel || null
+        };
+      } catch (error) {
+        console.error(`RDW fout ${kenteken}:`, error);
+        return null;
+      }
+    }
 
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-toggle').addEventListener('click', function() {
-            const nav = document.querySelector('nav ul');
-            nav.classList.toggle('active');
-        });
+    // Render featured cars
+    function renderFeaturedCars() {
+      const featuredCars = allCarsWithRDW.filter(item => 
+        String(item.car["Favoriet"] || "").trim().toLowerCase() === "ja" &&
+        item.car.Beschikbaar?.toLowerCase() === 'ja'
+      );
+      
+      const section = document.getElementById('uitgelicht');
+      const grid = document.getElementById('featuredGrid');
+      
+      if (featuredCars.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+      
+      // Sort by year descending and take max 4
+      const sortedFeatured = featuredCars
+        .sort((a, b) => (b.rdw?.bouwjaar || 0) - (a.rdw?.bouwjaar || 0))
+        .slice(0, 4);
+      
+      grid.innerHTML = '';
+      sortedFeatured.forEach(item => {
+        const card = renderFeaturedCard(item.car, item.rdw);
+        grid.appendChild(card);
+      });
+      
+      section.classList.remove('hidden');
+    }
 
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    // Close mobile menu if open
-                    document.querySelector('nav ul').classList.remove('active');
-                    // Update active nav item
-                    document.querySelectorAll('nav a').forEach(a => a.removeAttribute('aria-current'));
-                    this.setAttribute('aria-current', 'page');
-                }
+    // Render featured card (compact version)
+    function renderFeaturedCard(car, rdw) {
+      const card = document.createElement('div');
+      const isFav = favorites.includes(car.Kenteken);
+      
+      // Get photo
+      const foto1 = car['Foto 1 – Voorkant'] || '';
+      const validFoto = foto1 && typeof foto1 === 'string' && foto1.trim() && foto1.trim().startsWith('http') ? foto1.trim() : '';
+      
+      // SVG icon placeholders
+      const carIcon = '<svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>';
+      const heartIconOutline = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>';
+      const heartIconFilled = '<svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>';
+      const starIcon = '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+      const locationIcon = '<svg class="w-3 h-3 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>';
+      
+      card.className = 'car-card bg-white rounded-xl border-2 border-gray-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-lg';
+      card.setAttribute('data-kenteken', car.Kenteken);
+      card.onclick = () => openCarDetail(car.Kenteken);
+      
+      card.innerHTML = `
+        <div class="relative bg-gray-100 h-32 sm:h-40 flex items-center justify-center overflow-hidden">
+          ${validFoto ? `<img src="${validFoto}" alt="${car.Kenteken}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='${carIcon}'">` : carIcon}
+          
+          <button class="favorite-btn absolute top-2 left-2 bg-white/95 hover:bg-white ${isFav ? 'active' : ''} w-8 h-8 rounded-full flex items-center justify-center shadow-lg z-10" data-favorite-kenteken="${car.Kenteken}" onclick="event.stopPropagation(); toggleFavorite('${car.Kenteken}')">
+            ${isFav ? heartIconFilled : heartIconOutline}
+          </button>
+          
+          <div class="badge-uitgelicht absolute top-2 right-2">${starIcon} TOP</div>
+        </div>
+        
+        <div class="p-3">
+          <div class="text-base sm:text-lg font-bold text-red-600 mb-1">${formatPrice(car.Prijs)}</div>
+          
+          ${rdw ? `<div class="text-xs sm:text-sm text-gray-900 font-semibold mb-1 line-clamp-1">${rdw.merk || ''} ${rdw.model || ''}</div>` : '<div class="text-xs text-gray-400 mb-1">...</div>'}
+          
+          <div class="flex items-center justify-between text-xs text-gray-600 mb-2">
+            <span>${rdw?.bouwjaar || '...'}</span>
+            <span>•</span>
+            <span>${formatKm(car.Kilometerstand)}</span>
+          </div>
+          
+          ${car.Locatie ? `<div class="text-xs bg-gray-100 px-2 py-1 rounded text-gray-600 text-center flex items-center justify-center gap-1">${locationIcon} ${car.Locatie}</div>` : ''}
+        </div>
+      `;
+      
+      return card;
+    }
+
+    // Render car card
+    function renderCarCard(car, rdw) {
+      const card = document.createElement('div');
+      const available = car.Beschikbaar?.toLowerCase() === 'ja';
+      const favoriet = car.Favoriet?.toLowerCase() === 'ja';
+      const isFav = favorites.includes(car.Kenteken);
+      
+      // Get all photos - exact column names from Google Sheet
+      const photoColumns = [
+        'Foto 1 – Voorkant',
+        'Foto 2 – Linker zijkant',
+        'Foto 3 – Achterkant',
+        'Foto 4 – Rechter zijkant',
+        'Foto 5 – Interieur voor',
+        'Foto 6 – Interieur achter',
+        'Foto 7 – Dashboard',
+        'Foto 8 – Stoelen/Details',
+        'Foto 9 – Motorruimte',
+        'Foto 10 – Kofferbak',
+        'Foto 11 – Detail 1',
+        'Foto 12 – Detail 2',
+        'Foto 13 – Detail 3',
+        'Foto 14 – Detail 4',
+        'Foto 15 – Detail 5'
+      ];
+      
+      const photos = [];
+      photoColumns.forEach(colName => {
+        const url = car[colName];
+        if (url && typeof url === 'string' && url.trim() && url.trim().startsWith('http')) {
+          photos.push(url.trim());
+        }
+      });
+      
+      const foto1 = photos[0] || '';
+      
+      if (!available) {
+        card.className = 'bg-white rounded-lg border-2 border-gray-300 overflow-hidden sold-card';
+        card.innerHTML = `
+          <div class="relative bg-gray-200 h-48 flex items-center justify-center">
+            ${foto1 ? `<img src="${foto1}" alt="${car.Kenteken}" class="w-full h-full object-cover" loading="lazy">` : '<div class="text-gray-400 text-4xl">🚗</div>'}
+            <div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+              <div class="badge-verkocht">VERKOCHT</div>
+            </div>
+          </div>
+          <div class="p-4 text-center">
+            <div class="text-base font-bold font-mono mb-1">${car.Kenteken}</div>
+            ${rdw ? `<div class="text-sm text-gray-600">${rdw.merk || ''} ${rdw.model || ''}</div>` : ''}
+          </div>
+        `;
+        return card;
+      }
+      
+      card.className = 'car-card bg-white rounded-xl border-2 border-gray-200 overflow-hidden cursor-pointer shadow-sm hover:shadow-lg';
+      card.setAttribute('data-kenteken', car.Kenteken);
+      
+      const carIconLarge = '<svg class="w-16 h-16 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>';
+      const heartOutline = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>';
+      const heartFilled = '<svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>';
+      const starIconBadge = '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+      const cameraIcon = '<svg class="w-3.5 h-3.5 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/></svg>';
+      const locationIconCard = '<svg class="w-3 h-3 inline" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>';
+      
+      card.innerHTML = `
+        <div class="relative bg-gray-100 h-52 sm:h-56 flex items-center justify-center overflow-hidden" onclick="openCarDetail('${car.Kenteken}')">
+          ${foto1 ? `<img src="${foto1}" alt="${car.Kenteken}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='${carIconLarge}'">` : carIconLarge}
+          
+          <button class="favorite-btn absolute top-3 left-3 bg-white/95 hover:bg-white ${isFav ? 'active' : ''} w-10 h-10 rounded-full flex items-center justify-center shadow-lg z-10" data-favorite-kenteken="${car.Kenteken}" onclick="event.stopPropagation(); toggleFavorite('${car.Kenteken}')">
+            ${isFav ? heartFilled : heartOutline}
+          </button>
+          
+          ${favoriet ? `<div class="badge-uitgelicht absolute top-3 right-3 z-10">${starIconBadge} TOP</div>` : ''}
+          ${photos.length > 1 ? `<div class="absolute bottom-3 right-3 bg-black/70 text-white px-2.5 py-1 rounded-full text-xs font-medium z-10 flex items-center gap-1">${cameraIcon} ${photos.length}</div>` : ''}
+        </div>
+        
+        <div class="p-4 sm:p-5" onclick="openCarDetail('${car.Kenteken}')">
+          <div class="flex justify-between items-start mb-3">
+            <div class="text-xl sm:text-2xl font-bold text-red-600">${formatPrice(car.Prijs)}</div>
+            ${car.Locatie ? `<div class="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-600 flex items-center gap-1">${locationIconCard} ${car.Locatie}</div>` : ''}
+          </div>
+          
+          <div class="text-base font-bold font-mono mb-1">${car.Kenteken}</div>
+          ${rdw ? `<div class="text-sm text-gray-600 font-medium mb-3">${rdw.merk || ''} ${rdw.model || ''}</div>` : '<div class="text-xs text-gray-400 mb-3">RDW data laden...</div>'}
+          
+          <div class="grid grid-cols-2 gap-2 mb-3">
+            <div class="bg-gray-50 p-2 rounded border border-gray-200">
+              <p class="text-xs text-gray-500">Kilometerstand</p>
+              <p class="font-bold text-sm">${formatKm(car.Kilometerstand)}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-2 rounded border border-gray-200">
+              <p class="text-xs text-gray-500">Bouwjaar</p>
+              <p class="font-bold text-sm">${rdw?.bouwjaar || '...'}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-2 rounded border border-gray-200">
+              <p class="text-xs text-gray-500">Brandstof</p>
+              <p class="font-bold text-sm">${rdw?.brandstof || '...'}</p>
+            </div>
+            
+            <div class="bg-gray-50 p-2 rounded border border-gray-200">
+              <p class="text-xs text-gray-500">Vermogen</p>
+              <p class="font-bold text-sm">${rdw?.vermogenPk ? rdw.vermogenPk + ' pk' : '...'}</p>
+            </div>
+          </div>
+          
+          <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-lg transition-colors text-sm">
+            Bekijk details →
+          </button>
+        </div>
+      `;
+      
+      return card;
+    }
+
+    // Open car detail
+    async function openCarDetail(kenteken) {
+      const car = allCarsData.find(c => c.Kenteken === kenteken);
+      if (!car || car.Beschikbaar?.toLowerCase() !== 'ja') return;
+      
+      const modal = document.getElementById('carModal');
+      const content = document.getElementById('modalContent');
+      
+      content.innerHTML = '<div class="p-12 text-center"><div class="spinner mx-auto mb-4"></div><p class="text-gray-600 text-sm">Details laden...</p></div>';
+      modal.classList.remove('hidden');
+      
+      const rdwData = allCarsWithRDW.find(item => item.car.Kenteken === kenteken);
+      const rdw = rdwData?.rdw;
+      const favoriet = car.Favoriet?.toLowerCase() === 'ja';
+      const isFav = favorites.includes(kenteken);
+      
+      // Get all photos - exact column names from Google Sheet
+      const photoColumns = [
+        'Foto 1 – Voorkant',
+        'Foto 2 – Linker zijkant',
+        'Foto 3 – Achterkant',
+        'Foto 4 – Rechter zijkant',
+        'Foto 5 – Interieur voor',
+        'Foto 6 – Interieur achter',
+        'Foto 7 – Dashboard',
+        'Foto 8 – Stoelen/Details',
+        'Foto 9 – Motorruimte',
+        'Foto 10 – Kofferbak',
+        'Foto 11 – Detail 1',
+        'Foto 12 – Detail 2',
+        'Foto 13 – Detail 3',
+        'Foto 14 – Detail 4',
+        'Foto 15 – Detail 5'
+      ];
+      
+      const photos = [];
+      photoColumns.forEach(colName => {
+        const url = car[colName];
+        if (url && typeof url === 'string' && url.trim() && url.trim().startsWith('http')) {
+          photos.push(url.trim());
+        }
+      });
+      
+      let galleryHTML = '';
+      if (photos.length > 0) {
+        galleryHTML = `
+          <div class="relative bg-black">
+            <div id="gallery" class="gallery-container flex overflow-x-auto snap-x snap-mandatory scrollbar-hide">
+              ${photos.map((photo, idx) => `
+                <div class="gallery-item flex-shrink-0 w-full h-64 sm:h-80 md:h-96 flex items-center justify-center bg-black">
+                  <img src="${photo}" alt="Foto ${idx + 1}" class="w-full h-full object-contain" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'text-gray-600 text-6xl\\'>🚗</div>'">
+                </div>
+              `).join('')}
+            </div>
+            
+            ${photos.length > 1 ? `
+              <button id="prevPhoto" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center z-10">‹</button>
+              <button id="nextPhoto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black text-white w-10 h-10 rounded-full flex items-center justify-center z-10">›</button>
+              
+              <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-10">
+                ${photos.map((_, idx) => `<div class="gallery-dot w-2 h-2 rounded-full bg-white ${idx === 0 ? 'opacity-100' : 'opacity-50'} cursor-pointer" data-index="${idx}"></div>`).join('')}
+              </div>
+            ` : ''}
+            
+            <div class="absolute top-3 left-3 z-10">
+              <button class="favorite-btn bg-white/95 hover:bg-white ${isFav ? 'active' : ''} w-10 h-10 rounded-full flex items-center justify-center shadow-lg" data-favorite-kenteken="${kenteken}" onclick="toggleFavorite('${kenteken}')">
+                ${isFav ? '<svg class="w-6 h-6 text-red-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>' : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>'}
+              </button>
+            </div>
+            
+            ${favoriet ? '<div class="badge-uitgelicht absolute top-3 right-3 z-10"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg> TOP</div>' : ''}
+          </div>
+        `;
+      } else {
+        galleryHTML = `
+          <div class="bg-gray-100 h-64 sm:h-80 flex items-center justify-center">
+            <div class="text-gray-400 text-6xl">🚗</div>
+          </div>
+        `;
+      }
+      
+      const bijzonderheden = car.Bijzonderheden?.trim() || '';
+      
+      content.innerHTML = `
+        ${galleryHTML}
+        
+        <div class="p-5 sm:p-6 lg:p-8">
+          <div class="mb-5 pb-5 border-b-2 border-gray-200">
+            <div class="flex flex-col sm:flex-row sm:justify-between gap-3 mb-2">
+              <div>
+                <h2 class="text-xl sm:text-2xl font-bold font-mono mb-1">${car.Kenteken}</h2>
+                ${rdw ? `<p class="text-base sm:text-lg text-gray-600 font-medium">${rdw.merk || ''} ${rdw.model || ''}</p>` : ''}
+              </div>
+              <div class="sm:text-right">
+                <div class="text-2xl sm:text-3xl font-bold text-red-600">${formatPrice(car.Prijs)}</div>
+                ${car.Locatie ? `<p class="text-sm text-gray-600 mt-1">📍 ${car.Locatie}</p>` : ''}
+              </div>
+            </div>
+          </div>
+          
+          ${rdw ? `
+          <div class="space-y-5">
+            <div>
+              <h3 class="text-lg font-bold mb-3 text-red-600">📋 Voertuiginfo</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                ${rdw.merk ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Merk</p><p class="font-bold text-sm">${rdw.merk}</p></div>` : ''}
+                ${rdw.model ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Model</p><p class="font-bold text-sm">${rdw.model}</p></div>` : ''}
+                ${rdw.bouwjaar ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Bouwjaar</p><p class="font-bold text-sm">${rdw.bouwjaar}</p></div>` : ''}
+                ${rdw.datumEersteToelating ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Datum eerste toelating</p><p class="font-bold text-sm">${rdw.datumEersteToelating}</p></div>` : ''}
+                <div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Tellerstand</p><p class="font-bold text-sm">${formatKm(car.Kilometerstand)}</p></div>
+                ${rdw.tellerstandOordeel ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Tellerstand oordeel</p><p class="font-bold text-sm">${rdw.tellerstandOordeel}</p></div>` : ''}
+                ${rdw.apkVervaldatum ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">APK vervaldatum</p><p class="font-bold text-sm">${rdw.apkVervaldatum}</p></div>` : ''}
+                ${rdw.kleur ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Kleur</p><p class="font-bold text-sm">${rdw.kleur}</p></div>` : ''}
+                ${rdw.aantalDeuren ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Aantal deuren</p><p class="font-bold text-sm">${rdw.aantalDeuren}</p></div>` : ''}
+                ${rdw.aantalZitplaatsen ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Zitplaatsen</p><p class="font-bold text-sm">${rdw.aantalZitplaatsen}</p></div>` : ''}
+                ${rdw.carrosserie ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Carrosserie</p><p class="font-bold text-sm">${rdw.carrosserie}</p></div>` : ''}
+              </div>
+            </div>
+            
+            <div>
+              <h3 class="text-lg font-bold mb-3 text-red-600">⚙️ Technische gegevens</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                ${rdw.vermogenKw && rdw.vermogenPk ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Vermogen</p><p class="font-bold text-sm">${rdw.vermogenKw} kW (${rdw.vermogenPk} pk)</p></div>` : ''}
+                ${rdw.cilinderinhoud ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Cilinderinhoud</p><p class="font-bold text-sm">${rdw.cilinderinhoud}</p></div>` : ''}
+                ${rdw.brandstof ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Brandstof</p><p class="font-bold text-sm">${rdw.brandstof}</p></div>` : ''}
+                ${car.Transmissie ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Transmissie</p><p class="font-bold text-sm">${car.Transmissie}</p></div>` : ''}
+                ${rdw.co2Uitstoot ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">CO₂-uitstoot</p><p class="font-bold text-sm">${rdw.co2Uitstoot} g/km</p></div>` : ''}
+                ${rdw.emissieklasse ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Emissieklasse</p><p class="font-bold text-sm">${rdw.emissieklasse}</p></div>` : ''}
+                ${rdw.massaRijklaar ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Massa rijklaar</p><p class="font-bold text-sm">${rdw.massaRijklaar}</p></div>` : ''}
+                ${rdw.toegestaneMaxMassa ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Toelaatbaar gewicht</p><p class="font-bold text-sm">${rdw.toegestaneMaxMassa}</p></div>` : ''}
+              </div>
+            </div>
+            
+            ${rdw.wamVerzekerd || rdw.gestolen ? `
+            <div>
+              <h3 class="text-lg font-bold mb-3 text-red-600">�� Status</h3>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                ${rdw.wamVerzekerd ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">WAM verzekerd</p><p class="font-bold text-sm">${rdw.wamVerzekerd}</p></div>` : ''}
+                ${rdw.gestolen ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Gestolen</p><p class="font-bold text-sm">${rdw.gestolen}</p></div>` : ''}
+              </div>
+            </div>
+            ` : ''}
+          </div>
+          ` : '<div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4 text-center"><p class="text-sm text-gray-700">RDW-gegevens niet beschikbaar</p></div>'}
+          
+          ${bijzonderheden ? `
+          <div class="mt-5">
+            <h3 class="text-lg font-bold mb-2 text-red-600">📝 Bijzonderheden</h3>
+            <div class="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+              <p class="text-sm text-gray-800">${bijzonderheden}</p>
+            </div>
+          </div>
+          ` : ''}
+          
+          <div class="flex flex-col sm:flex-row gap-3 mt-6">
+            <a href="tel:+31657160395" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
+              📞 Bel ons
+            </a>
+            <a href="#contact" onclick="document.getElementById('carModal').classList.add('hidden')" class="flex-1 bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
+              ✉️ Stuur bericht
+            </a>
+          </div>
+        </div>
+      `;
+      
+      // Gallery navigation
+      if (photos.length > 1) {
+        const gallery = document.getElementById('gallery');
+        const dots = document.querySelectorAll('.gallery-dot');
+        const prevBtn = document.getElementById('prevPhoto');
+        const nextBtn = document.getElementById('nextPhoto');
+        
+        let currentIndex = 0;
+        
+        function updateGallery(index) {
+          currentIndex = index;
+          gallery.scrollTo({ left: index * gallery.offsetWidth, behavior: 'smooth' });
+          dots.forEach((dot, idx) => {
+            dot.style.opacity = idx === index ? '1' : '0.5';
+          });
+        }
+        
+        gallery.addEventListener('scroll', () => {
+          const newIndex = Math.round(gallery.scrollLeft / gallery.offsetWidth);
+          if (newIndex !== currentIndex) {
+            currentIndex = newIndex;
+            dots.forEach((dot, idx) => {
+              dot.style.opacity = idx === newIndex ? '1' : '0.5';
             });
+          }
         });
-
-        // CSV Parser - handles commas and quotes properly
-        function parseCSV(text) {
-            const rows = [];
-            const lines = text.split('\n');
-            
-            for (let line of lines) {
-                if (line.trim() === '') continue;
-                
-                const row = [];
-                let current = '';
-                let inQuotes = false;
-                
-                for (let i = 0; i < line.length; i++) {
-                    const char = line[i];
-                    
-                    if (char === '"') {
-                        inQuotes = !inQuotes;
-                    } else if (char === ',' && !inQuotes) {
-                        row.push(current.trim());
-                        current = '';
-                    } else {
-                        current += char;
-                    }
-                }
-                row.push(current.trim());
-                rows.push(row);
-            }
-            
-            return rows;
+        
+        dots.forEach((dot, idx) => {
+          dot.addEventListener('click', () => updateGallery(idx));
+        });
+        
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            const newIndex = currentIndex > 0 ? currentIndex - 1 : photos.length - 1;
+            updateGallery(newIndex);
+          });
         }
-
-        // Load cars from CSV
-        async function loadCars() {
-            const loadingElement = document.getElementById('loading');
-            const carsContainer = document.getElementById('cars-container');
-            
-            try {
-                const response = await fetch(sheetUrl);
-                if (!response.ok) throw new Error('Netwerk fout');
-                
-                const text = await response.text();
-                const rows = parseCSV(text);
-                
-                if (rows.length === 0) throw new Error('Geen data gevonden');
-                
-                const headers = rows[0].map(h => h.trim());
-                allCars = [];
-                
-                rows.slice(1).forEach(row => {
-                    if (row.length === 0 || row.every(cell => !cell.trim())) return;
-                    
-                    const car = {};
-                    headers.forEach((header, index) => {
-                        car[header] = row[index] ? row[index].trim() : '';
-                    });
-                    
-                    // Sanitize data
-                    if (car['Vermogen (pk)']) {
-                        car['Vermogen (pk)'] = car['Vermogen (pk)'].replace(/\s*pk\s*$/i, '');
-                    }
-                    
-                    allCars.push(car);
-                });
-                
-                filteredCars = [...allCars];
-                loadingElement.style.display = 'none';
-                renderCars();
-                
-            } catch (error) {
-                console.error('Fout bij laden van auto\'s:', error);
-                loadingElement.innerHTML = `<div class="error">Fout bij het laden van auto's: ${error.message}</div>`;
-            }
+        
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            const newIndex = currentIndex < photos.length - 1 ? currentIndex + 1 : 0;
+            updateGallery(newIndex);
+          });
         }
+      }
+    }
 
-        // Render cars
-        function renderCars() {
-            const carsContainer = document.getElementById('cars-container');
-            
-            if (filteredCars.length === 0) {
-                carsContainer.innerHTML = '<div class="error">Geen auto\'s gevonden die voldoen aan uw zoekcriteria.</div>';
-                return;
-            }
-            
-            carsContainer.innerHTML = filteredCars.map(car => {
-                const image = car["Afbeelding 1"] || "/placeholder.svg?height=240&width=380";
-                const merk = car["Merk"] || '';
-                const model = car["Model"] || '';
-                const type = car["Type"] || '';
-                const bouwjaar = car["Bouwjaar"] || '';
-                const kilometerstand = car["Kilometerstand"] || '';
-                const brandstof = car["Brandstof"] || '';
-                const vermogen = car["Vermogen (pk)"] || '';
-                const prijs = car["Prijs"] || 'Op aanvraag';
-                const locatie = car["Locatie"] || '';
-                const beschrijving = car["Beschrijving"] || '';
-                
-                return `
-                    <div class="car-card">
-                        <img src="${image}" alt="Professionele foto van ${merk} ${model} ${type}" onerror="this.src='/placeholder.svg?height=240&width=380'">
-                        <div class="car-info">
-                            <h3 class="car-title">${merk} ${model}</h3>
-                            ${type ? `<p class="car-subtitle">${type}</p>` : ''}
-                            <ul class="car-details">
-                                ${bouwjaar ? `<li><span>Bouwjaar</span><span>${bouwjaar}</span></li>` : ''}
-                                ${kilometerstand ? `<li><span>Kilometerstand</span><span>${kilometerstand}</span></li>` : ''}
-                                ${brandstof ? `<li><span>Brandstof</span><span>${brandstof}</span></li>` : ''}
-                                ${vermogen ? `<li><span>Vermogen</span><span>${vermogen} pk</span></li>` : ''}
-                                ${locatie ? `<li><span>Locatie</span><span>${locatie}</span></li>` : ''}
-                            </ul>
-                            <div class="car-price">${prijs}</div>
-                            ${beschrijving ? `<p class="car-description">${beschrijving}</p>` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+    document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('carModal').classList.add('hidden');
+    });
 
-        // Search functionality
-        function filterCars() {
-            const searchTerm = document.getElementById('search').value.toLowerCase();
-            const sortBy = document.getElementById('sort').value;
-            
-            // Filter cars based on search term
-            filteredCars = allCars.filter(car => {
-                const searchableText = [
-                    car["Merk"] || '',
-                    car["Model"] || '',
-                    car["Type"] || '',
-                    car["Brandstof"] || '',
-                    car["Beschrijving"] || ''
-                ].join(' ').toLowerCase();
-                
-                return searchableText.includes(searchTerm);
+    // Filter functions
+    document.getElementById('filterToggleBtn').addEventListener('click', () => {
+      const container = document.getElementById('filterContainer');
+      const icon = document.getElementById('filterToggleIcon');
+      container.classList.toggle('hidden');
+      icon.textContent = container.classList.contains('hidden') ? '+' : '−';
+    });
+
+    function applyFilters() {
+      let filtered = [...allCarsWithRDW];
+      
+      if (filterConfig.search) {
+        const search = filterConfig.search.toLowerCase();
+        filtered = filtered.filter(item => {
+          const rdw = item.rdw || {};
+          const car = item.car || {};
+          return (
+            (rdw.merk || '').toLowerCase().includes(search) ||
+            (rdw.model || '').toLowerCase().includes(search) ||
+            (rdw.brandstof || '').toLowerCase().includes(search) ||
+            (car.Locatie || '').toLowerCase().includes(search) ||
+            (car.Kenteken || '').toLowerCase().includes(search)
+          );
+        });
+      }
+      
+      if (filterConfig.brandstof) {
+        filtered = filtered.filter(item => 
+          (item.rdw?.brandstof || '').toLowerCase() === filterConfig.brandstof.toLowerCase()
+        );
+      }
+      
+      if (filterConfig.locatie) {
+        filtered = filtered.filter(item => 
+          (item.car.Locatie || '').toLowerCase() === filterConfig.locatie.toLowerCase()
+        );
+      }
+      
+      if (filterConfig.sort) {
+        switch(filterConfig.sort) {
+          case 'price-asc':
+            filtered.sort((a, b) => {
+              const priceA = parseFloat(String(a.car.Prijs || '0').replace(/[€\s.]/g, '').replace(',', '.')) || 0;
+              const priceB = parseFloat(String(b.car.Prijs || '0').replace(/[€\s.]/g, '').replace(',', '.')) || 0;
+              return priceA - priceB;
             });
-            
-            // Sort cars
-            filteredCars.sort((a, b) => {
-                switch (sortBy) {
-                    case 'prijs-laag':
-                        return parseFloat(a["Prijs"]?.replace(/[^\d]/g, '') || 0) - parseFloat(b["Prijs"]?.replace(/[^\d]/g, '') || 0);
-                    case 'prijs-hoog':
-                        return parseFloat(b["Prijs"]?.replace(/[^\d]/g, '') || 0) - parseFloat(a["Prijs"]?.replace(/[^\d]/g, '') || 0);
-                    case 'bouwjaar':
-                        return parseInt(b["Bouwjaar"] || 0) - parseInt(a["Bouwjaar"] || 0);
-                    case 'vermogen':
-                        return parseInt(b["Vermogen (pk)"]?.replace(/[^\d]/g, '') || 0) - parseInt(a["Vermogen (pk)"]?.replace(/[^\d]/g, '') || 0);
-                    case 'kilometer':
-                        return parseInt(a["Kilometerstand"]?.replace(/[^\d]/g, '') || 0) - parseInt(b["Kilometerstand"]?.replace(/[^\d]/g, '') || 0);
-                    default:
-                        return 0; // nieuwste - keep original order
-                }
+            break;
+          case 'price-desc':
+            filtered.sort((a, b) => {
+              const priceA = parseFloat(String(a.car.Prijs || '0').replace(/[€\s.]/g, '').replace(',', '.')) || 0;
+              const priceB = parseFloat(String(b.car.Prijs || '0').replace(/[€\s.]/g, '').replace(',', '.')) || 0;
+              return priceB - priceA;
             });
-            
-            renderCars();
+            break;
+          case 'km-asc':
+            filtered.sort((a, b) => {
+              const kmA = parseInt(String(a.car.Kilometerstand || '0').replace(/[^\d]/g, '')) || 0;
+              const kmB = parseInt(String(b.car.Kilometerstand || '0').replace(/[^\d]/g, '')) || 0;
+              return kmA - kmB;
+            });
+            break;
+          case 'year-desc':
+            filtered.sort((a, b) => {
+              const yearA = a.rdw?.bouwjaar || 0;
+              const yearB = b.rdw?.bouwjaar || 0;
+              return yearB - yearA;
+            });
+            break;
         }
+      }
+      
+      renderFilteredCars(filtered);
+      document.getElementById('resultsCount').textContent = `${filtered.length} auto's gevonden`;
+    }
 
-        // Event listeners for search and sort
-        document.getElementById('search').addEventListener('input', filterCars);
-        document.getElementById('sort').addEventListener('change', filterCars);
+    function renderFilteredCars(cars) {
+      const grid = document.getElementById('carsGrid');
+      grid.innerHTML = '';
+      
+      if (cars.length === 0) {
+        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg text-gray-500">Geen auto\'s gevonden</p></div>';
+        return;
+      }
+      
+      cars.forEach(item => {
+        const card = renderCarCard(item.car, item.rdw);
+        grid.appendChild(card);
+      });
+    }
 
-        // Form handling
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const messageDiv = document.getElementById('contactMessage');
-            messageDiv.textContent = 'Bedankt voor uw bericht! We nemen zo spoedig mogelijk contact met u op.';
-            messageDiv.className = 'message success';
-            this.reset();
-        });
+    function initializeFilters() {
+      const brandstofSet = new Set();
+      
+      allCarsWithRDW.forEach(item => {
+        if (item.rdw?.brandstof) brandstofSet.add(item.rdw.brandstof);
+      });
+      
+      const brandstofFilter = document.getElementById('brandstofFilter');
+      Array.from(brandstofSet).sort().forEach(b => {
+        const option = document.createElement('option');
+        option.value = b;
+        option.textContent = b;
+        brandstofFilter.appendChild(option);
+      });
+    }
 
-        document.getElementById('subscribeForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const messageDiv = document.getElementById('subscribeMessage');
-            messageDiv.textContent = 'Bedankt voor uw inschrijving! U ontvangt binnenkort updates van ons.';
-            messageDiv.className = 'message success';
-            this.reset();
-        });
+    // Event listeners
+    let searchTimeout;
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => {
+        filterConfig.search = e.target.value;
+        applyFilters();
+      }, 300);
+    });
 
-        // Load cars on page load
-        loadCars();
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      filterConfig.sort = e.target.value;
+      applyFilters();
+    });
 
-        // Header scroll effect
-        let lastScrollTop = 0;
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    document.getElementById('brandstofFilter').addEventListener('change', (e) => {
+      filterConfig.brandstof = e.target.value;
+      applyFilters();
+    });
+
+    document.getElementById('locatieFilter').addEventListener('change', (e) => {
+      filterConfig.locatie = e.target.value;
+      applyFilters();
+    });
+
+    document.getElementById('resetFilters').addEventListener('click', () => {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('sortSelect').value = '';
+      document.getElementById('brandstofFilter').value = '';
+      document.getElementById('locatieFilter').value = '';
+      
+      filterConfig = { search: '', brandstof: '', locatie: '', sort: '' };
+      applyFilters();
+    });
+
+    // Load cars
+    async function loadCars() {
+      const error = document.getElementById('errorMessage');
+      const errorText = document.getElementById('errorText');
+      const grid = document.getElementById('carsGrid');
+      
+      try {
+        Papa.parse(SHEET_URL, {
+          download: true,
+          header: true,
+          skipEmptyLines: true,
+          complete: async function(results) {
             
-            if (scrollTop > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 4px 6px -1px rgb(0 0 0 / 0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = 'none';
+            if (!results.data || results.data.length === 0) {
+              error.classList.remove('hidden');
+              errorText.textContent = 'Geen auto\'s gevonden in de sheet.';
+              return;
             }
             
-            lastScrollTop = scrollTop;
+            allCarsData = results.data.filter(row => row.Kenteken && row.Kenteken.trim());
+            
+            if (allCarsData.length === 0) {
+              error.classList.remove('hidden');
+              errorText.textContent = 'Geen geldige auto\'s gevonden.';
+              return;
+            }
+            
+            // Phase 1: Show cars immediately
+            allCarsWithRDW = allCarsData.map(car => ({ car: car, rdw: null }));
+            grid.innerHTML = '';
+            renderFilteredCars(allCarsWithRDW);
+            renderFeaturedCars();
+            initializeFilters();
+            updateFavoritesCount();
+            
+            // Phase 2: Load RDW data progressively
+            const BATCH_SIZE = 10;
+            for (let i = 0; i < allCarsData.length; i += BATCH_SIZE) {
+              const batch = allCarsData.slice(i, i + BATCH_SIZE);
+              
+              await Promise.all(batch.map(async (car) => {
+                try {
+                  const rdw = await fetchRDWData(car.Kenteken);
+                  const index = allCarsWithRDW.findIndex(item => item.car.Kenteken === car.Kenteken);
+                  if (index !== -1) {
+                    allCarsWithRDW[index].rdw = rdw;
+                    updateCardWithRDW(car.Kenteken, rdw);
+                  }
+                } catch (err) {
+                  console.error(`RDW fout ${car.Kenteken}:`, err);
+                }
+              }));
+              
+              if (i + BATCH_SIZE < allCarsData.length) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+              }
+            }
+            
+            // Refresh filters and featured with RDW data
+            initializeFilters();
+            renderFeaturedCars();
+          },
+          error: function(err) {
+            error.classList.remove('hidden');
+            errorText.textContent = `Fout: ${err.message}`;
+          }
         });
-    </script>
-</body>
+      } catch (err) {
+        error.classList.remove('hidden');
+        errorText.textContent = `Fout: ${err.message}`;
+      }
+    }
+
+    function updateCardWithRDW(kenteken, rdw) {
+      const cards = document.querySelectorAll(`[data-kenteken="${kenteken}"]`);
+      cards.forEach(cardElement => {
+        if (!rdw) return;
+        
+        const info = cardElement.querySelector('.text-gray-400');
+        if (info && rdw.merk && rdw.model) {
+          info.textContent = `${rdw.merk} ${rdw.model}`;
+          info.classList.remove('text-gray-400', 'text-xs');
+          info.classList.add('text-gray-600', 'text-sm');
+        }
+        
+        const cells = cardElement.querySelectorAll('.bg-gray-50');
+        if (cells[1] && rdw.bouwjaar) cells[1].querySelector('.font-bold').textContent = rdw.bouwjaar;
+        if (cells[2] && rdw.brandstof) cells[2].querySelector('.font-bold').textContent = rdw.brandstof;
+        if (cells[3] && rdw.vermogenPk) cells[3].querySelector('.font-bold').textContent = rdw.vermogenPk + ' pk';
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', loadCars);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a18a548a53ad595',t:'MTc2MzY0OTAzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

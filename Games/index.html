@@ -306,65 +306,67 @@
     };
 
     async function initApp() {
-      await window.elementSdk.init({
-        defaultConfig,
-        onConfigChange: async (config) => {
-          const app = document.getElementById('app');
-          if (app) {
-            app.style.background = config.background_color || defaultConfig.background_color;
-          }
-          renderApp();
-        },
-        mapToCapabilities: (config) => ({
-          recolorables: [
-            {
-              get: () => config.background_color || defaultConfig.background_color,
-              set: (value) => {
-                config.background_color = value;
-                window.elementSdk.setConfig({ background_color: value });
-              }
-            },
-            {
-              get: () => config.card_color || defaultConfig.card_color,
-              set: (value) => {
-                config.card_color = value;
-                window.elementSdk.setConfig({ card_color: value });
-              }
-            },
-            {
-              get: () => config.text_color || defaultConfig.text_color,
-              set: (value) => {
-                config.text_color = value;
-                window.elementSdk.setConfig({ text_color: value });
-              }
-            },
-            {
-              get: () => config.accent_color || defaultConfig.accent_color,
-              set: (value) => {
-                config.accent_color = value;
-                window.elementSdk.setConfig({ accent_color: value });
-              }
-            },
-            {
-              get: () => config.imposter_color || defaultConfig.imposter_color,
-              set: (value) => {
-                config.imposter_color = value;
-                window.elementSdk.setConfig({ imposter_color: value });
-              }
+      if (window.elementSdk) {
+        await window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: async (config) => {
+            const app = document.getElementById('app');
+            if (app) {
+              app.style.background = config.background_color || defaultConfig.background_color;
             }
-          ],
-          borderables: [],
-          fontEditable: undefined,
-          fontSizeable: undefined
-        }),
-        mapToEditPanelValues: (config) => new Map([
-          ["app_title", config.app_title || defaultConfig.app_title],
-          ["subtitle", config.subtitle || defaultConfig.subtitle],
-          ["imposter_text", config.imposter_text || defaultConfig.imposter_text],
-          ["swipe_instruction", config.swipe_instruction || defaultConfig.swipe_instruction],
-          ["pass_device", config.pass_device || defaultConfig.pass_device]
-        ])
-      });
+            renderApp();
+          },
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  config.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                }
+              },
+              {
+                get: () => config.card_color || defaultConfig.card_color,
+                set: (value) => {
+                  config.card_color = value;
+                  window.elementSdk.setConfig({ card_color: value });
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  config.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                }
+              },
+              {
+                get: () => config.accent_color || defaultConfig.accent_color,
+                set: (value) => {
+                  config.accent_color = value;
+                  window.elementSdk.setConfig({ accent_color: value });
+                }
+              },
+              {
+                get: () => config.imposter_color || defaultConfig.imposter_color,
+                set: (value) => {
+                  config.imposter_color = value;
+                  window.elementSdk.setConfig({ imposter_color: value });
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["app_title", config.app_title || defaultConfig.app_title],
+            ["subtitle", config.subtitle || defaultConfig.subtitle],
+            ["imposter_text", config.imposter_text || defaultConfig.imposter_text],
+            ["swipe_instruction", config.swipe_instruction || defaultConfig.swipe_instruction],
+            ["pass_device", config.pass_device || defaultConfig.pass_device]
+          ])
+        });
+      }
 
       renderApp();
     }
@@ -881,7 +883,7 @@
         <div class="h-full flex flex-col items-center justify-center p-8 fade-in">
           <div class="text-center w-full max-w-md">
             <div class="glass-strong rounded-3xl p-16 card-shadow mb-10 ${isLowTime ? 'shake' : ''}">
-              <p class="text-8xl font-bold mb-6 gradient-text shimmer">${timeString}</p>
+              <p class="text-8xl font-bold mb-6 gradient-text">${timeString}</p>
               <p class="text-xl" style="color: ${isLowTime ? config.imposter_color : config.accent_color}; ${isLowTime ? 'font-bold' : ''}">
                 ${isLowTime ? '⚠️ Bijna tijd!' : 'Tijd'}
               </p>
@@ -957,5 +959,5 @@
       initApp();
     }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a1e4edba7bbb594',t:'MTc2MzcwODQwNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a30a610f365775a',t:'MTc2MzkwMDcyMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

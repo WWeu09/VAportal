@@ -33,6 +33,18 @@
       to { transform: rotate(360deg); }
     }
     
+    /* Skeleton loader */
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: loading 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    
     .car-card {
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -40,6 +52,36 @@
     .car-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+    }
+    
+    /* Mobile Grid Optimization */
+    @media (max-width: 640px) {
+      .mobile-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+    }
+    
+    @media (max-width: 340px) {
+      .mobile-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Compact mobile card */
+    .car-card-mobile {
+      font-size: 0.75rem;
+    }
+    
+    .car-card-mobile .price {
+      font-size: 0.875rem;
+      font-weight: 800;
+    }
+    
+    .car-card-mobile .kenteken-badge {
+      font-size: 0.625rem;
+      padding: 0.25rem 0.5rem;
     }
     
     .favorite-btn {
@@ -205,6 +247,12 @@
     <div class="text-center mb-6 sm:mb-8">
      <h2 class="text-2xl sm:text-3xl font-bold mb-2">Ons Aanbod</h2>
      <p class="text-gray-600 text-sm sm:text-base">Ontdek onze actuele voorraad</p>
+    </div><!-- View Toggle (Mobile) -->
+    <div class="flex gap-2 mb-4 sm:hidden"><button id="gridViewBtn" class="flex-1 bg-red-600 text-white py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
+      <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+      </svg> Grid </button> <button id="sliderViewBtn" class="flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2">
+      <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+      </svg> Slider </button>
     </div><!-- Filter Bar -->
     <div class="mb-6"><button id="filterToggleBtn" class="w-full bg-white border-2 border-gray-300 rounded-lg p-3 sm:p-4 font-bold text-left flex justify-between items-center hover:border-red-600 transition-colors shadow-sm text-sm sm:text-base"> <span class="flex items-center gap-2">
        <svg class="icon" fill="currentColor" viewbox="0 0 20 20"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
@@ -219,6 +267,12 @@
        </div>
        <div><label for="locatieFilter" class="block font-bold mb-2 text-sm">Locatie</label> <select id="locatieFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> <option value="Amsterdam">Amsterdam</option> <option value="Heemskerk">Heemskerk</option> </select>
        </div>
+       <div><label for="transmissieFilter" class="block font-bold mb-2 text-sm">Transmissie</label> <select id="transmissieFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> <option value="Automaat">Automaat</option> <option value="Handgeschakeld">Handgeschakeld</option> </select>
+       </div>
+       <div><label for="merkFilter" class="block font-bold mb-2 text-sm">Merk</label> <select id="merkFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> </select>
+       </div>
+       <div><label for="prijsFilter" class="block font-bold mb-2 text-sm">Prijscategorie</label> <select id="prijsFilter" class="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:border-red-600 focus:outline-none text-sm"> <option value="">Alle</option> <option value="0-5000">€ 0 - € 5.000</option> <option value="5000-10000">€ 5.000 - € 10.000</option> <option value="10000-15000">€ 10.000 - € 15.000</option> <option value="15000-20000">€ 15.000 - € 20.000</option> <option value="20000-99999999">€ 20.000+</option> </select>
+       </div>
       </div>
       <div class="mt-4 flex justify-end"><button id="resetFilters" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm"> Filters Resetten </button>
       </div>
@@ -228,7 +282,9 @@
     <div id="errorMessage" class="hidden bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded mb-6">
      <p class="font-bold text-sm">Fout bij laden</p>
      <p id="errorText" class="mt-1 text-xs"></p>
-    </div>
+    </div><!-- Slider View (Mobile Only) -->
+    <div id="carsSlider" class="hidden gallery-container flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-4 pb-4"><!-- Slider cards will be inserted here -->
+    </div><!-- Grid View -->
     <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
      <div class="text-center py-12 col-span-full">
       <div class="spinner mx-auto mb-4"></div>
@@ -433,8 +489,52 @@
       search: '',
       brandstof: '',
       locatie: '',
+      transmissie: '',
+      merk: '',
+      prijs: '',
       sort: ''
     };
+    let currentView = 'grid'; // 'grid' or 'slider'
+
+    // Share function
+    async function shareVehicle(kenteken, car, rdw) {
+      const title = `Occasion – ${rdw?.merk || ''} ${rdw?.model || ''} ${formatPrice(car.Prijs)}`;
+      const description = `Bekijk deze auto bij Meyers Automotive – ${formatKm(car.Kilometerstand)}, ${rdw?.bouwjaar || ''}, ${car.Transmissie || ''}, ${car.Locatie || 'Amsterdam'}.`;
+      const url = window.location.href.split('#')[0] + '#' + kenteken;
+      const image = car['Foto 1 – Voorkant'] || '';
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: title,
+            text: description,
+            url: url
+          });
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            fallbackCopyLink(url);
+          }
+        }
+      } else {
+        fallbackCopyLink(url);
+      }
+    }
+
+    function fallbackCopyLink(url) {
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('Link gekopieerd naar klembord!');
+      }).catch(() => {
+        showToast('Kon link niet kopiëren');
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-black text-white px-4 py-2 rounded-lg shadow-lg z-50 text-sm';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
 
     // Favorites functions
     function updateFavoritesCount() {
@@ -716,6 +816,46 @@
       return card;
     }
 
+    // Render mobile compact card
+    function renderMobileCard(car, rdw) {
+      const card = document.createElement('div');
+      const available = car.Beschikbaar?.toLowerCase() === 'ja';
+      const isFav = favorites.includes(car.Kenteken);
+      
+      if (!available) return null;
+      
+      const foto1 = car['Foto 1 – Voorkant'] || '';
+      const validFoto = foto1 && typeof foto1 === 'string' && foto1.trim() && foto1.trim().startsWith('http') ? foto1.trim() : '';
+      
+      card.className = 'car-card car-card-mobile bg-white rounded-lg border border-gray-200 overflow-hidden cursor-pointer shadow-sm';
+      card.setAttribute('data-kenteken', car.Kenteken);
+      card.onclick = () => openCarDetail(car.Kenteken);
+      
+      const shareIcon = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>';
+      const carIconSmall = '<svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>';
+      
+      card.innerHTML = `
+        <div class="relative bg-gray-100 h-28 flex items-center justify-center overflow-hidden">
+          ${validFoto ? `<img src="${validFoto}" alt="${car.Kenteken}" class="w-full h-full object-cover" loading="lazy" onerror="this.parentElement.innerHTML='${carIconSmall}'">` : carIconSmall}
+        </div>
+        <div class="p-2">
+          <div class="price text-red-600 font-bold mb-1">${formatPrice(car.Prijs)}</div>
+          <div class="kenteken-badge bg-black text-white rounded px-2 py-0.5 inline-block mb-1 font-mono font-bold">${car.Kenteken}</div>
+          ${rdw ? `<div class="text-xs font-semibold text-gray-800 mb-1 line-clamp-1">${rdw.merk || ''} ${rdw.model || ''}</div>` : '<div class="skeleton h-3 w-full mb-1 rounded"></div>'}
+          <div class="text-xs text-gray-600 space-y-0.5">
+            <div>${rdw?.bouwjaar || '...'} • ${formatKm(car.Kilometerstand)}</div>
+            <div>${car.Transmissie || '...'}</div>
+            ${car.Locatie ? `<div class="text-xs bg-gray-100 px-1.5 py-0.5 rounded inline-block mt-1">${car.Locatie}</div>` : ''}
+          </div>
+          <button onclick="event.stopPropagation(); shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'})" class="mt-2 w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-1.5 px-2 rounded text-xs font-semibold flex items-center justify-center gap-1">
+            ${shareIcon} Delen
+          </button>
+        </div>
+      `;
+      
+      return card;
+    }
+
     // Render car card
     function renderCarCard(car, rdw) {
       const card = document.createElement('div');
@@ -822,9 +962,16 @@
             </div>
           </div>
           
-          <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-lg transition-colors text-sm">
-            Bekijk details →
-          </button>
+          <div class="flex gap-2">
+            <button class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded-lg transition-colors text-sm">
+              Bekijk details
+            </button>
+            <button onclick="event.stopPropagation(); shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'})" class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2.5 rounded-lg transition-colors" title="Deel deze auto">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+              </svg>
+            </button>
+          </div>
         </div>
       `;
       
@@ -956,7 +1103,7 @@
                 ${rdw.vermogenKw && rdw.vermogenPk ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Vermogen</p><p class="font-bold text-sm">${rdw.vermogenKw} kW (${rdw.vermogenPk} pk)</p></div>` : ''}
                 ${rdw.cilinderinhoud ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Cilinderinhoud</p><p class="font-bold text-sm">${rdw.cilinderinhoud}</p></div>` : ''}
                 ${rdw.brandstof ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Brandstof</p><p class="font-bold text-sm">${rdw.brandstof}</p></div>` : ''}
-                ${car.Transmissie ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Transmissie</p><p class="font-bold text-sm">${car.Transmissie}</p></div>` : ''}
+                <div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Transmissie</p><p class="font-bold text-sm">${car.Transmissie || 'Niet beschikbaar'}</p></div>
                 ${rdw.co2Uitstoot ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">CO₂-uitstoot</p><p class="font-bold text-sm">${rdw.co2Uitstoot} g/km</p></div>` : ''}
                 ${rdw.emissieklasse ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Emissieklasse</p><p class="font-bold text-sm">${rdw.emissieklasse}</p></div>` : ''}
                 ${rdw.massaRijklaar ? `<div class="bg-gray-50 p-2 rounded border border-gray-200"><p class="text-xs text-gray-500">Massa rijklaar</p><p class="font-bold text-sm">${rdw.massaRijklaar}</p></div>` : ''}
@@ -985,13 +1132,25 @@
           </div>
           ` : ''}
           
-          <div class="flex flex-col sm:flex-row gap-3 mt-6">
-            <a href="tel:+31657160395" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
-              📞 Bel ons
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+            <a href="tel:+31657160395" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+              Bel ons
             </a>
-            <a href="#contact" onclick="document.getElementById('carModal').classList.add('hidden')" class="flex-1 bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm">
-              ✉️ Stuur bericht
+            <a href="https://wa.me/31657160395?text=Hoi,%20ik%20ben%20geïnteresseerd%20in%20${car.Kenteken}" target="_blank" rel="noopener noreferrer" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+              </svg>
+              WhatsApp
             </a>
+            <button onclick="shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'})" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+              </svg>
+              Delen
+            </button>
           </div>
         </div>
       `;
@@ -1068,7 +1227,8 @@
             (rdw.model || '').toLowerCase().includes(search) ||
             (rdw.brandstof || '').toLowerCase().includes(search) ||
             (car.Locatie || '').toLowerCase().includes(search) ||
-            (car.Kenteken || '').toLowerCase().includes(search)
+            (car.Kenteken || '').toLowerCase().includes(search) ||
+            (car.Transmissie || '').toLowerCase().includes(search)
           );
         });
       }
@@ -1083,6 +1243,26 @@
         filtered = filtered.filter(item => 
           (item.car.Locatie || '').toLowerCase() === filterConfig.locatie.toLowerCase()
         );
+      }
+      
+      if (filterConfig.transmissie) {
+        filtered = filtered.filter(item => 
+          (item.car.Transmissie || '').toLowerCase() === filterConfig.transmissie.toLowerCase()
+        );
+      }
+      
+      if (filterConfig.merk) {
+        filtered = filtered.filter(item => 
+          (item.rdw?.merk || '').toLowerCase() === filterConfig.merk.toLowerCase()
+        );
+      }
+      
+      if (filterConfig.prijs) {
+        const [min, max] = filterConfig.prijs.split('-').map(Number);
+        filtered = filtered.filter(item => {
+          const prijs = parseFloat(String(item.car.Prijs || '0').replace(/[€\s.]/g, '').replace(',', '.')) || 0;
+          return prijs >= min && prijs <= max;
+        });
       }
       
       if (filterConfig.sort) {
@@ -1124,32 +1304,83 @@
 
     function renderFilteredCars(cars) {
       const grid = document.getElementById('carsGrid');
-      grid.innerHTML = '';
+      const slider = document.getElementById('carsSlider');
       
-      if (cars.length === 0) {
-        grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg text-gray-500">Geen auto\'s gevonden</p></div>';
-        return;
+      if (currentView === 'slider') {
+        grid.classList.add('hidden');
+        slider.classList.remove('hidden');
+        slider.innerHTML = '';
+        
+        const sliderCars = cars.slice(0, 12); // Max 12 for slider
+        
+        if (sliderCars.length === 0) {
+          slider.innerHTML = '<div class="w-full text-center py-12"><p class="text-lg text-gray-500">Geen auto\'s gevonden</p></div>';
+          return;
+        }
+        
+        sliderCars.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'gallery-item flex-shrink-0 w-64 snap-start';
+          const innerCard = renderMobileCard(item.car, item.rdw);
+          if (innerCard) {
+            card.appendChild(innerCard);
+            slider.appendChild(card);
+          }
+        });
+      } else {
+        slider.classList.add('hidden');
+        grid.classList.remove('hidden');
+        grid.innerHTML = '';
+        
+        if (cars.length === 0) {
+          grid.innerHTML = '<div class="col-span-full text-center py-12"><p class="text-lg text-gray-500">Geen auto\'s gevonden</p></div>';
+          return;
+        }
+        
+        // Check if mobile screen
+        const isMobile = window.innerWidth < 640;
+        
+        if (isMobile) {
+          grid.className = 'mobile-grid-2';
+          cars.forEach(item => {
+            const card = renderMobileCard(item.car, item.rdw);
+            if (card) grid.appendChild(card);
+          });
+        } else {
+          grid.className = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6';
+          cars.forEach(item => {
+            const card = renderCarCard(item.car, item.rdw);
+            grid.appendChild(card);
+          });
+        }
       }
-      
-      cars.forEach(item => {
-        const card = renderCarCard(item.car, item.rdw);
-        grid.appendChild(card);
-      });
     }
 
     function initializeFilters() {
       const brandstofSet = new Set();
+      const merkSet = new Set();
       
       allCarsWithRDW.forEach(item => {
         if (item.rdw?.brandstof) brandstofSet.add(item.rdw.brandstof);
+        if (item.rdw?.merk) merkSet.add(item.rdw.merk);
       });
       
       const brandstofFilter = document.getElementById('brandstofFilter');
+      brandstofFilter.innerHTML = '<option value="">Alle</option>';
       Array.from(brandstofSet).sort().forEach(b => {
         const option = document.createElement('option');
         option.value = b;
         option.textContent = b;
         brandstofFilter.appendChild(option);
+      });
+      
+      const merkFilter = document.getElementById('merkFilter');
+      merkFilter.innerHTML = '<option value="">Alle</option>';
+      Array.from(merkSet).sort().forEach(m => {
+        const option = document.createElement('option');
+        option.value = m;
+        option.textContent = m;
+        merkFilter.appendChild(option);
       });
     }
 
@@ -1178,13 +1409,46 @@
       applyFilters();
     });
 
+    document.getElementById('transmissieFilter').addEventListener('change', (e) => {
+      filterConfig.transmissie = e.target.value;
+      applyFilters();
+    });
+
+    document.getElementById('merkFilter').addEventListener('change', (e) => {
+      filterConfig.merk = e.target.value;
+      applyFilters();
+    });
+
+    document.getElementById('prijsFilter').addEventListener('change', (e) => {
+      filterConfig.prijs = e.target.value;
+      applyFilters();
+    });
+
+    // View toggle buttons
+    document.getElementById('gridViewBtn').addEventListener('click', () => {
+      currentView = 'grid';
+      document.getElementById('gridViewBtn').className = 'flex-1 bg-red-600 text-white py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2';
+      document.getElementById('sliderViewBtn').className = 'flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2';
+      applyFilters();
+    });
+
+    document.getElementById('sliderViewBtn').addEventListener('click', () => {
+      currentView = 'slider';
+      document.getElementById('sliderViewBtn').className = 'flex-1 bg-red-600 text-white py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2';
+      document.getElementById('gridViewBtn').className = 'flex-1 bg-white border-2 border-gray-300 text-gray-700 py-2 px-3 rounded-lg font-semibold text-sm flex items-center justify-center gap-2';
+      applyFilters();
+    });
+
     document.getElementById('resetFilters').addEventListener('click', () => {
       document.getElementById('searchInput').value = '';
       document.getElementById('sortSelect').value = '';
       document.getElementById('brandstofFilter').value = '';
       document.getElementById('locatieFilter').value = '';
+      document.getElementById('transmissieFilter').value = '';
+      document.getElementById('merkFilter').value = '';
+      document.getElementById('prijsFilter').value = '';
       
-      filterConfig = { search: '', brandstof: '', locatie: '', sort: '' };
+      filterConfig = { search: '', brandstof: '', locatie: '', transmissie: '', merk: '', prijs: '', sort: '' };
       applyFilters();
     });
 
@@ -1282,5 +1546,5 @@
 
     window.addEventListener('DOMContentLoaded', loadCars);
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a18a548a53ad595',t:'MTc2MzY0OTAzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a4c43a5a262751f',t:'MTc2NDE5MDI5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

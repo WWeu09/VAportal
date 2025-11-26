@@ -1,0 +1,2861 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Van Appiah - Digital Solutions & Portfolio</title>
+    <meta name="description" content="Wij bouwen digitale ervaringen die bedrijven laten groeien. Webdesign, branding & slimme systemen voor jouw succes.">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons and Libraries -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <style>
+        /* Mobile-First CSS Variables */
+        :root {
+            /* Primary Colors */
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #8b5cf6;
+            --primary-50: #f8faff;
+            --primary-100: #e0e7ff;
+            --primary-200: #c7d2fe;
+            
+            /* Neutral Colors */
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-400: #a3a3a3;
+            --neutral-500: #737373;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+            
+            /* Semantic Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+            
+            /* Background Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            
+            /* Text Colors */
+            --text-primary: #171717;
+            --text-secondary: #525252;
+            --text-tertiary: #737373;
+            --text-inverse: #ffffff;
+            
+            /* Border & Shadow */
+            --border-light: #e5e5e5;
+            --border-medium: #d4d4d4;
+            --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            --gradient-hero: linear-gradient(135deg, var(--primary-50) 0%, var(--bg-primary) 50%, var(--primary-50) 100%);
+            
+            /* Typography */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            
+            /* Transitions */
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Border Radius */
+            --radius-xs: 4px;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-2xl: 24px;
+            --radius-full: 9999px;
+            
+            /* Spacing - Mobile Optimized */
+            --spacing-xs: 0.5rem;   /* 8px */
+            --spacing-sm: 0.75rem;  /* 12px */
+            --spacing-md: 1rem;     /* 16px */
+            --spacing-lg: 1.5rem;   /* 24px */
+            --spacing-xl: 2rem;     /* 32px */
+            --spacing-2xl: 2.5rem;  /* 40px */
+            --spacing-3xl: 3rem;    /* 48px */
+            
+            /* Mobile Navigation */
+            --nav-height: 60px;
+            --mobile-cta-height: 70px;
+            
+            /* Category Colors */
+            --category-ecommerce: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --category-webdesign: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            --category-showcase: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --category-business: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            line-height: 1.5;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            touch-action: manipulation;
+            min-height: 100vh;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--gradient-hero);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 10vw, 3rem);
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-md);
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .loading-text {
+            color: var(--primary);
+            font-size: 0.875rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+        }
+
+        .loading-spinner {
+            width: 32px;
+            height: 32px;
+            border: 2px solid var(--primary-100);
+            border-top: 2px solid var(--primary);
+            border-radius: var(--radius-full);
+            animation: spin 1s linear infinite;
+            margin-top: var(--spacing-lg);
+        }
+
+        /* Mobile Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            height: var(--nav-height);
+            border-bottom: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.02);
+        }
+
+        /* Desktop Navigation - Hidden on Mobile */
+        .nav-links {
+            display: none;
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            cursor: pointer;
+            color: var(--text-primary);
+            padding: var(--spacing-sm);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover,
+        .mobile-menu-btn.active {
+            background: var(--primary-50);
+            border-color: var(--primary-200);
+            color: var(--primary);
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-primary);
+            z-index: 1001;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-xl);
+            display: flex;
+            flex-direction: column;
+            padding-top: var(--nav-height);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-header {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile-menu-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+        }
+
+        .mobile-menu-close:hover {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+        }
+
+        .mobile-menu-links {
+            flex: 1;
+            padding: var(--spacing-lg);
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            list-style: none;
+        }
+
+        .mobile-menu-links a {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+            padding: var(--spacing-lg);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            min-height: 56px;
+            font-size: 1rem;
+        }
+
+        .mobile-menu-links a:hover,
+        .mobile-menu-links a.active {
+            background: var(--primary-50);
+            color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        .mobile-menu-links .menu-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        /* Mobile CTA Bar */
+        .mobile-cta-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border-light);
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: flex;
+            z-index: 999;
+            box-shadow: 0 -4px 6px -1px rgb(0 0 0 / 0.1);
+            backdrop-filter: blur(20px);
+            height: var(--mobile-cta-height);
+            padding-bottom: calc(var(--spacing-sm) + env(safe-area-inset-bottom));
+        }
+
+        .mobile-cta-buttons {
+            display: flex;
+            gap: var(--spacing-sm);
+            justify-content: space-between;
+            width: 100%;
+            align-items: center;
+        }
+
+        .mobile-cta-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            padding: var(--spacing-sm);
+            text-decoration: none;
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            min-height: 48px;
+            justify-content: center;
+        }
+
+        .mobile-cta-btn:hover {
+            background: var(--primary-50);
+            color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .mobile-cta-btn.primary {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .mobile-cta-btn.primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Page Container */
+        .page-container {
+            min-height: 100vh;
+            padding-top: var(--nav-height);
+            padding-bottom: var(--mobile-cta-height);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - var(--nav-height) - var(--mobile-cta-height));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+            padding: var(--spacing-xl) var(--spacing-md);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 100%;
+            width: 100%;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 8vw, 2.5rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.1;
+            animation: fadeInUp 0.6s ease-out 0.1s both;
+        }
+
+        .hero-title .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-2xl);
+            font-weight: 400;
+            animation: fadeInUp 0.6s ease-out 0.2s both;
+            line-height: 1.4;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+            align-items: center;
+            animation: fadeInUp 0.6s ease-out 0.3s both;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            max-width: 280px;
+            min-height: 52px;
+            position: relative;
+            overflow: hidden;
+            gap: var(--spacing-sm);
+            font-family: var(--font-primary);
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: var(--text-inverse);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-outline {
+            background: var(--bg-primary);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--text-inverse);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--spacing-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-xs);
+            color: var(--text-tertiary);
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-lg);
+        }
+
+        .scroll-indicator:hover {
+            color: var(--primary);
+            background: var(--primary-50);
+        }
+
+        .scroll-indicator span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .scroll-arrow {
+            width: 18px;
+            height: 18px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-6px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: var(--spacing-2xl) 0;
+        }
+
+        .section-alt {
+            background: var(--bg-secondary);
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: clamp(0.95rem, 3vw, 1.1rem);
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Solutions Grid */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .solution-card {
+            background: var(--bg-primary);
+            padding: var(--spacing-xl);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .solution-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-200);
+        }
+
+        .solution-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .solution-icon {
+            font-size: 2.5rem;
+            margin-bottom: var(--spacing-md);
+            display: block;
+        }
+
+        .solution-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .solution-description {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.95rem;
+        }
+
+        .solution-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            transition: var(--transition);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+        }
+
+        .solution-link:hover {
+            background: var(--primary-50);
+            transform: translateX(2px);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid, .mini-portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        .portfolio-card, .mini-portfolio-card {
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+
+        .portfolio-card:hover, .mini-portfolio-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-200);
+        }
+
+        .portfolio-image, .mini-portfolio-image {
+            width: 100%;
+            height: 200px;
+            background: var(--bg-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image img, .mini-portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .portfolio-card:hover .portfolio-image img,
+        .mini-portfolio-card:hover .mini-portfolio-image img {
+            transform: scale(1.03);
+        }
+
+        .portfolio-content, .mini-portfolio-content {
+            padding: var(--spacing-lg);
+        }
+
+        .portfolio-badges, .mini-portfolio-badges {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .portfolio-category, .mini-portfolio-category {
+            display: inline-block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+        }
+
+        .category-ecommerce { background: var(--category-ecommerce); }
+        .category-webdesign { background: var(--category-webdesign); }
+        .category-showcase { background: var(--category-showcase); }
+        .category-business { background: var(--category-business); }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-online {
+            background: var(--success);
+            color: white;
+        }
+
+        .status-offline {
+            background: var(--neutral-400);
+            color: white;
+        }
+
+        .portfolio-title, .mini-portfolio-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .portfolio-description, .mini-portfolio-description {
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: var(--spacing-md);
+            font-size: 0.9rem;
+        }
+
+        .portfolio-meta, .mini-portfolio-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .portfolio-client, .mini-portfolio-client {
+            font-style: italic;
+            font-weight: 500;
+        }
+
+        .portfolio-actions {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        .portfolio-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: var(--transition);
+            min-height: 40px;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .portfolio-btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .portfolio-btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .portfolio-btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .portfolio-btn-secondary:hover {
+            background: var(--primary-50);
+            color: var(--primary);
+            border-color: var(--primary-200);
+        }
+
+        .portfolio-btn-disabled {
+            background: var(--neutral-300);
+            color: white;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Project Detail */
+        .project-detail {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+        }
+
+        .project-back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+            min-height: 48px;
+            background: var(--primary-50);
+            border: 1px solid var(--primary-200);
+            position: sticky;
+            top: calc(var(--nav-height) + var(--spacing-sm));
+            z-index: 100;
+            width: fit-content;
+        }
+
+        .project-back-btn:hover {
+            background: var(--primary-100);
+            transform: translateX(-2px);
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .project-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.5rem, 6vw, 2rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .project-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            line-height: 1.4;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 250px;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-2xl);
+            overflow: hidden;
+            margin-bottom: var(--spacing-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .project-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .project-sidebar {
+            background: var(--bg-secondary);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-2xl);
+            order: -1;
+            border: 1px solid var(--border-light);
+        }
+
+        .project-detail-item {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .project-detail-label {
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-detail-value {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .project-tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .tech-tag {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid var(--border-light);
+        }
+
+        .project-website-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            margin-top: var(--spacing-lg);
+            min-height: 52px;
+            width: 100%;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        .project-website-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .project-website-btn.disabled {
+            background: var(--neutral-300);
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: var(--spacing-md);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--bg-primary);
+            min-height: 52px;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px var(--primary-100);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-success {
+            background: var(--success);
+            color: white;
+            padding: var(--spacing-md);
+            border-radius: var(--radius-lg);
+            margin-top: var(--spacing-md);
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        /* Stats Section */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background: var(--bg-primary);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--bg-primary);
+            border-radius: var(--radius-xl);
+            margin-bottom: var(--spacing-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .faq-question {
+            padding: var(--spacing-lg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--text-primary);
+            transition: var(--transition);
+            min-height: 60px;
+            font-size: 0.95rem;
+        }
+
+        .faq-question:hover {
+            background: var(--primary-50);
+        }
+
+        .faq-answer {
+            padding: 0 var(--spacing-lg) var(--spacing-lg);
+            color: var(--text-secondary);
+            line-height: 1.5;
+            display: none;
+            font-size: 0.9rem;
+        }
+
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-lg);
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: var(--spacing-md);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border-light);
+            min-height: 52px;
+            background: var(--bg-primary);
+            justify-content: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .social-link:hover {
+            color: var(--primary);
+            background: var(--primary-50);
+            border-color: var(--primary-200);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .social-icon {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.5;
+        }
+
+        /* Footer */
+        .site-footer {
+            background: linear-gradient(135deg, var(--neutral-900) 0%, var(--neutral-800) 100%);
+            color: var(--text-inverse);
+            padding: var(--spacing-2xl) 0 var(--spacing-xl);
+            margin-top: auto;
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .footer-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-inverse);
+            margin: 0 0 var(--spacing-md) 0;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-contact {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: var(--spacing-xs) 0;
+            min-height: 44px;
+        }
+
+        .footer-contact-item:hover {
+            color: var(--primary-200);
+            transform: translateX(2px);
+        }
+
+        .footer-icon {
+            font-size: 1rem;
+            width: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .footer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-link {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: var(--spacing-xs) 0;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-link:hover {
+            color: var(--primary-200);
+            transform: translateX(2px);
+        }
+
+        .footer-socials {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .footer-social-link {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 52px;
+        }
+
+        .footer-social-link:hover {
+            color: var(--text-inverse);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-social-icon {
+            font-size: 1.1rem;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: var(--spacing-lg);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .footer-brand h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, var(--primary-200) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+        }
+
+        .footer-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            padding: var(--spacing-md) var(--spacing-lg);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+            min-height: 52px;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .footer-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gradient-primary);
+            color: white;
+            padding: var(--spacing-2xl) 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.25rem, 5vw, 1.8rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-description {
+            font-size: 1rem;
+            margin-bottom: var(--spacing-xl);
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--primary);
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--radius-xl);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            min-height: 52px;
+            position: relative;
+            z-index: 1;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Loading States */
+        .loading-placeholder {
+            background: linear-gradient(90deg, var(--bg-tertiary) 25%, rgba(255,255,255,0.5) 50%, var(--bg-tertiary) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius-2xl);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Desktop Responsive Enhancements */
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                list-style: none;
+                gap: var(--spacing-xl);
+                align-items: center;
+            }
+
+            .nav-links a {
+                text-decoration: none;
+                color: var(--text-secondary);
+                font-weight: 500;
+                font-size: 0.95rem;
+                transition: var(--transition);
+                position: relative;
+                padding: var(--spacing-sm) 0;
+            }
+
+            .nav-links a::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background: var(--gradient-primary);
+                transition: var(--transition);
+                border-radius: var(--radius-full);
+            }
+
+            .nav-links a:hover,
+            .nav-links a.active {
+                color: var(--primary);
+            }
+
+            .nav-links a:hover::after,
+            .nav-links a.active::after {
+                width: 100%;
+            }
+
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .mobile-cta-bar {
+                display: none;
+            }
+
+            .page-container {
+                padding-bottom: 0;
+            }
+
+            .hero {
+                min-height: calc(100vh - var(--nav-height));
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+                justify-content: center;
+            }
+
+            .btn {
+                width: auto;
+                min-width: 200px;
+            }
+
+            .solutions-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+
+            .portfolio-grid, .mini-portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            }
+
+            .project-info {
+                grid-template-columns: 1fr 300px;
+            }
+
+            .project-sidebar {
+                order: 0;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .social-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .container {
+                max-width: 1200px;
+                padding: 0 var(--spacing-xl);
+            }
+        }
+
+        /* Large Desktop */
+        @media (min-width: 1024px) {
+            .solutions-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section {
+                padding: var(--spacing-3xl) 0;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center { text-align: center; }
+        .hidden { display: none; }
+        .visible { display: block; }
+
+        /* Accessibility & Performance */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Safe Area Support */
+        @supports (padding: max(0px)) {
+            .mobile-cta-bar {
+                padding-bottom: max(var(--spacing-sm), env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">Van Appiah</div>
+        <div class="loading-text">Loading Portfolio</div>
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">Van Appiah</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#" onclick="showPage('home')" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" onclick="showPage('portfolio')" class="nav-link" data-page="portfolio">Portfolio</a></li>
+                <li><a href="#" onclick="showPage('about')" class="nav-link" data-page="about">Over ons</a></li>
+                <li><a href="#" onclick="showPage('contact')" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">
+                <i data-lucide="menu" style="width: 20px; height: 20px;"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay" onclick="closeMobileMenu()"></div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-header">
+            <div class="logo">Van Appiah</div>
+            <button class="mobile-menu-close" onclick="closeMobileMenu()" aria-label="Sluit menu">
+                <i data-lucide="x" style="width: 20px; height: 20px;"></i>
+            </button>
+        </div>
+        <ul class="mobile-menu-links">
+            <li>
+                <a href="#" onclick="showPage('home')" class="active" data-page="home">
+                    <i data-lucide="home" class="menu-icon"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('portfolio')" data-page="portfolio">
+                    <i data-lucide="briefcase" class="menu-icon"></i>
+                    <span>Portfolio</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('about')" data-page="about">
+                    <i data-lucide="info" class="menu-icon"></i>
+                    <span>Over ons</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showPage('contact')" data-page="contact">
+                    <i data-lucide="phone" class="menu-icon"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Mobile CTA Bar -->
+    <div class="mobile-cta-bar" id="mobileCTABar">
+        <div class="mobile-cta-buttons">
+            <a href="tel:+31657160395" class="mobile-cta-btn">
+                <i data-lucide="phone" style="width: 16px; height: 16px;"></i>
+                <span>Bellen</span>
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=31657160395&text&type=phone_number&app_absent=0" target="_blank" class="mobile-cta-btn">
+                <i data-lucide="message-circle" style="width: 16px; height: 16px;"></i>
+                <span>WhatsApp</span>
+            </a>
+            <a href="mailto:vanappiah.com@gmail.com" class="mobile-cta-btn">
+                <i data-lucide="mail" style="width: 16px; height: 16px;"></i>
+                <span>Email</span>
+            </a>
+            <a href="#" onclick="showPage('contact')" class="mobile-cta-btn primary">
+                <i data-lucide="calendar" style="width: 16px; height: 16px;"></i>
+                <span>Afspraak</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <section class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Wij bouwen <span class="gradient-text">digitale ervaringen</span> die bedrijven laten groeien</h1>
+                    <p class="hero-subtitle">Webdesign, branding & slimme systemen voor jouw succes</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-primary" onclick="showPage('portfolio')">
+                            <i data-lucide="eye" style="width: 18px; height: 18px;"></i>
+                            Bekijk ons werk
+                        </a>
+                        <a href="#" class="btn btn-outline" onclick="showPage('contact')">
+                            <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                            Plan kennismaking
+                        </a>
+                    </div>
+                </div>
+                <div class="scroll-indicator" onclick="document.getElementById('solutions-section').scrollIntoView({behavior: 'smooth'})">
+                    <span>Scroll voor meer</span>
+                    <i data-lucide="chevron-down" class="scroll-arrow"></i>
+                </div>
+            </section>
+
+            <!-- Solutions Section -->
+            <section class="section" id="solutions-section" data-aos="fade-up">
+                <div class="container">
+                    <h2 class="section-title">Onze Oplossingen</h2>
+                    <p class="section-subtitle">
+                        Van concept tot lancering - wij helpen jouw bedrijf digitaal groeien
+                    </p>
+                    <div class="solutions-grid">
+                        <div class="solution-card" data-aos="fade-up" data-aos-delay="100">
+                            <span class="solution-icon">🧠</span>
+                            <h3 class="solution-title">Merkstrategie</h3>
+                            <p class="solution-description">
+                                Een sterke merkidentiteit die jouw bedrijf onderscheidt en vertrouwen wekt bij klanten.
+                            </p>
+                            <a href="#" class="solution-link" onclick="showPage('contact')">
+                                Meer weten <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                        <div class="solution-card" data-aos="fade-up" data-aos-delay="200">
+                            <span class="solution-icon">🌐</span>
+                            <h3 class="solution-title">Website Ontwikkeling</h3>
+                            <p class="solution-description">
+                                Op maat gemaakte websites die converteren en een perfecte gebruikerservaring bieden.
+                            </p>
+                            <a href="#" class="solution-link" onclick="showPage('portfolio')">
+                                Voorbeelden bekijken <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                        <div class="solution-card" data-aos="fade-up" data-aos-delay="300">
+                            <span class="solution-icon">🛒</span>
+                            <h3 class="solution-title">E-commerce Oplossingen</h3>
+                            <p class="solution-description">
+                                Krachtige webshops die verkopen stimuleren en je bedrijf online laten groeien.
+                            </p>
+                            <a href="#" class="solution-link" onclick="showPage('contact')">
+                                Project starten <i data-lucide="arrow-right" style="width: 14px; height: 14px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Portfolio Section -->
+            <section class="section section-alt" id="portfolio-section" data-aos="fade-up">
+                <div class="container">
+                    <h2 class="section-title">Uitgelichte Projecten</h2>
+                    <p class="section-subtitle">
+                        Een selectie van onze nieuwste projecten met resultaten die spreken
+                    </p>
+                    <div class="mini-portfolio-grid" id="miniPortfolioGrid">
+                        <!-- Mini portfolio items will be loaded here -->
+                        <div class="mini-portfolio-card loading-placeholder" style="height: 300px;"></div>
+                        <div class="mini-portfolio-card loading-placeholder" style="height: 300px;"></div>
+                        <div class="mini-portfolio-card loading-placeholder" style="height: 300px;"></div>
+                    </div>
+                    <div style="text-align: center; margin-top: var(--spacing-xl);">
+                        <a href="#" class="btn btn-outline" onclick="showPage('portfolio')">
+                            <i data-lucide="grid-3x3" style="width: 18px; height: 18px;"></i>
+                            Alle projecten
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="section" data-aos="fade-up">
+                <div class="container">
+                    <div class="stats-grid" id="statsGrid">
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="stat-number" id="projectCount">0</div>
+                            <div class="stat-label">Projecten</div>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+                            <div class="stat-number" id="clientCount">0</div>
+                            <div class="stat-label">Klanten</div>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+                            <div class="stat-number" id="techCount">0</div>
+                            <div class="stat-label">Technologieën</div>
+                        </div>
+                        <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Tevredenheid</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section" data-aos="fade-up">
+                <div class="container">
+                    <h2 class="cta-title">Laat ons jouw project bouwen</h2>
+                    <p class="cta-description">
+                        Plan nu een gratis gesprek en ontdek hoe we jouw digitale ambities kunnen realiseren
+                    </p>
+                    <a href="#" class="cta-btn" onclick="showPage('contact')">
+                        <i data-lucide="calendar" style="width: 18px; height: 18px;"></i>
+                        <span>Plan gratis gesprek</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Portfolio Page -->
+        <div class="page" id="portfolio">
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Ons Portfolio</h2>
+                    <p class="section-subtitle">
+                        Ons Werk. Jouw Inspiratie. Van showcase-websites tot luxe ecommerce - dit is wat wij bouwen.
+                    </p>
+                    <div class="portfolio-grid" id="portfolioGrid">
+                        <!-- Portfolio items will be loaded here -->
+                        <div class="portfolio-card loading-placeholder" style="height: 350px;"></div>
+                        <div class="portfolio-card loading-placeholder" style="height: 350px;"></div>
+                        <div class="portfolio-card loading-placeholder" style="height: 350px;"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Project Detail Page -->
+        <div class="page" id="project-detail">
+            <section class="section">
+                <div class="project-detail" id="projectDetailContent">
+                    <!-- Project detail content will be loaded here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about">
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Over Van Appiah</h2>
+                    <p class="section-subtitle">
+                        Innovatie ontmoet expertise in digitale oplossingen
+                    </p>
+                    
+                    <div style="max-width: 100%; margin: 0 auto; text-align: center;">
+                        <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+                            Van Appiah is een innovatief bedrijf gericht op het ontwikkelen van op maat gemaakte digitale oplossingen 
+                            en het ondersteunen van verschillende bedrijven. We creëren en beheren websites en applicaties op maat, 
+                            zoals showcase-sites, die bedrijven helpen zichzelf te presenteren en te groeien.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: var(--spacing-lg);">
+                            Van e-commerce en sociale media tot het ontwerpen van unieke merkstrategieën, Van Appiah biedt een breed 
+                            scala aan diensten die bedrijven in verschillende sectoren helpen hun doelen te bereiken.
+                        </p>
+                        
+                        <p style="font-size: 1rem; line-height: 1.6; color: var(--text-secondary); margin-bottom: var(--spacing-xl);">
+                            Met een focus op kwaliteit, creativiteit en samenwerking streven we ernaar elke klant de tools en 
+                            ondersteuning te bieden die ze nodig hebben om te slagen in de digitale wereld.
+                        </p>
+
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary" onclick="showPage('portfolio')">Bekijk Ons Werk</a>
+                            <a href="#" class="btn btn-outline" onclick="showPage('contact')">Start Je Project</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact">
+            <section class="section">
+                <div class="container">
+                    <h2 class="section-title">Neem Contact Op</h2>
+                    <p class="section-subtitle">
+                        Klaar om je volgende digitale project te starten? Laten we bespreken hoe we jouw bedrijf kunnen laten groeien.
+                    </p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: var(--spacing-xl); margin-top: var(--spacing-xl);">
+                        <div>
+                            <h3 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.25rem; margin-bottom: var(--spacing-lg);">Contactgegevens</h3>
+                            <div style="margin-bottom: var(--spacing-lg);">
+                                <p style="margin-bottom: var(--spacing-sm);"><strong>Website:</strong> <a href="https://vanappiah.com" target="_blank" style="color: var(--primary);">vanappiah.com</a></p>
+                                <p style="margin-bottom: var(--spacing-sm);"><strong>Email:</strong> vanappiah.com@gmail.com</p>
+                                <p style="margin-bottom: var(--spacing-sm);"><strong>Telefoon:</strong> 06 57160395</p>
+                                <p style="margin-bottom: var(--spacing-sm);"><strong>Locatie:</strong> Nederland</p>
+                                <p style="margin-bottom: var(--spacing-sm);"><strong>Reactietijd:</strong> Binnen 24 uur</p>
+                            </div>
+
+                            <a href="https://api.whatsapp.com/send/?phone=31657160395&text&type=phone_number&app_absent=0" target="_blank" class="footer-whatsapp">
+                                <span>💬</span>
+                                Stel je vraag via WhatsApp
+                            </a>
+                            
+                            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin: var(--spacing-xl) 0 var(--spacing-md) 0;">Onze Diensten</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: var(--spacing-xs); color: var(--text-secondary);">• Op Maat Gemaakte Website Ontwikkeling</li>
+                                <li style="margin-bottom: var(--spacing-xs); color: var(--text-secondary);">• E-commerce Oplossingen</li>
+                                <li style="margin-bottom: var(--spacing-xs); color: var(--text-secondary);">• Bedrijfs Showcase Sites</li>
+                                <li style="margin-bottom: var(--spacing-xs); color: var(--text-secondary);">• Merkstrategie & Design</li>
+                                <li style="margin-bottom: var(--spacing-xs); color: var(--text-secondary);">• Digitale Marketing Ondersteuning</li>
+                            </ul>
+
+                            <h4 style="color: var(--text-primary); font-size: 1.1rem; margin: var(--spacing-xl) 0 var(--spacing-md) 0;">Volg Ons</h4>
+                            <div class="social-links">
+                                <a href="https://www.instagram.com/van_appiah/" target="_blank" class="social-link">
+                                    <i data-lucide="instagram" class="social-icon"></i>
+                                    <span>Instagram</span>
+                                </a>
+                                <a href="https://www.facebook.com/profile.php?id=61571888426620&mibextid=wwXIfr&rdid=vETAEuGwiLoc9ySu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16xgn7BFLj%2F%3Fmibextid%3DwwXIfr#" target="_blank" class="social-link">
+                                    <i data-lucide="facebook" class="social-icon"></i>
+                                    <span>Facebook</span>
+                                </a>
+                                <a href="https://www.linkedin.com/in/yaiden-k-45888b376/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="social-link">
+                                    <i data-lucide="linkedin" class="social-icon"></i>
+                                    <span>LinkedIn</span>
+                                </a>
+                                <a href="https://www.tiktok.com/@vanappiah?is_from_webapp=1&sender_device=pc" target="_blank" class="social-link">
+                                    <i data-lucide="video" class="social-icon"></i>
+                                    <span>TikTok</span>
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <form class="contact-form" onsubmit="handleContactForm(event)">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Naam</label>
+                                    <input type="text" id="name" name="name" class="form-input" required placeholder="Bijv. Jan van der Berg">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" id="email" name="email" class="form-input" required placeholder="jan@bedrijf.nl">
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject" class="form-label">Onderwerp</label>
+                                    <input type="text" id="subject" name="subject" class="form-input" required placeholder="Bijv. Website voor kledingmerk">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message" class="form-label">Bericht</label>
+                                    <textarea id="message" name="message" class="form-textarea" required placeholder="Vertel ons over je project, doelgroep en wensen..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                    <i data-lucide="send" style="width: 18px; height: 18px;"></i>
+                                    Verstuur Bericht
+                                </button>
+                                <div class="form-success" id="formSuccess">
+                                    ✅ Bedankt! We nemen binnen 24u contact op.
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                 <!-- FAQ Section -->
+<!-- FAQ Section -->
+<div style="max-width: 100%; margin: var(--spacing-2xl) auto 0;">
+    <h3 style="color: var(--text-primary); font-family: var(--font-display); font-size: 1.5rem; text-align: center; margin-bottom: var(--spacing-xl);">Veelgestelde Vragen</h3>
+    
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Hoelang duurt het maken van een website?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            Dat hangt af van de wensen. Simpele websites (zonder beheersysteem) kunnen al binnen 1 tot 3 werkdagen klaar zijn. Complexere sites met CMS of extra functies duren gemiddeld 5 tot 10 werkdagen. Spoedaanvragen voor 12:00 kunnen – in overleg – nog dezelfde dag opgeleverd worden.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Wat kost een website?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            De kosten starten vanaf €75 voor een eenvoudige, statische pagina. Voor een basis website met CMS starten de prijzen vanaf €150. We bespreken je wensen en geven vooraf een duidelijke prijsindicatie.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Bieden jullie ondersteuning en garantie?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            Ja, wij bieden standaard 30 dagen gratis ondersteuning na oplevering. Mocht je daarna extra hulp of updates willen, dan kun je kiezen voor een onderhoudspakket of losse ondersteuning tegen een tarief. Ook kleine aanpassingen kunnen wij dan verzorgen.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Kan ik zelf teksten en foto's aanpassen?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            Zeker. Als je kiest voor een site met beheersysteem (CMS), krijg je toegang tot een gebruiksvriendelijke omgeving waarin je zelf teksten, foto’s en content kunt wijzigen. We leggen je uit hoe het werkt.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Helpen jullie ook met marketing of video’s?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            Ja! We denken graag mee over je online groei. We kunnen helpen met social media marketing, bedrijfsvideo’s, advertenties en het opzetten van sterke visuele content. Neem contact op voor de mogelijkheden.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-question" onclick="toggleFAQ(this)">
+            <span>Denken jullie ook mee over functies die ik misschien nodig heb?</span>
+            <i data-lucide="chevron-down" style="width: 18px; height: 18px; transition: transform 0.3s;"></i>
+        </div>
+        <div class="faq-answer">
+            Absoluut. Tijdens de samenwerking kijken we actief mee naar jouw doelgroep en doelen. Als we kansen of slimme functies zien die bij jouw bedrijf passen, dan adviseren we die vrijblijvend.
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Column 1 - Contact -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Contact</h4>
+                    <div class="footer-contact">
+                        <a href="mailto:vanappiah.com@gmail.com" class="footer-contact-item">
+                            <span class="footer-icon">✉</span>
+                            <span>vanappiah.com@gmail.com</span>
+                        </a>
+                        <a href="tel:+31657160395" class="footer-contact-item">
+                            <span class="footer-icon">📞</span>
+                            <span>06 57160395</span>
+                        </a>
+                        <a href="https://www.vanappiah.com" target="_blank" class="footer-contact-item">
+                            <span class="footer-icon">🌐</span>
+                            <span>www.vanappiah.com</span>
+                        </a>
+                        <div class="footer-contact-item">
+                            <span class="footer-icon">📍</span>
+                            <span>Nederland</span>
+                        </div>
+                        <a href="https://api.whatsapp.com/send/?phone=31657160395&text&type=phone_number&app_absent=0" target="_blank" class="footer-whatsapp">
+                            <span>💬</span>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Column 2 - Navigation -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Navigatie</h4>
+                    <nav class="footer-nav">
+                        <a href="#" onclick="showPage('home')" class="footer-link">Home</a>
+                        <a href="#" onclick="showPage('portfolio')" class="footer-link">Portfolio</a>
+                        <a href="#" onclick="showPage('about')" class="footer-link">Over ons</a>
+                        <a href="#" onclick="showPage('contact')" class="footer-link">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Column 3 - Legal -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Juridisch</h4>
+                    <nav class="footer-nav">
+                        <a href="#" onclick="showPage('terms')" class="footer-link">Terms & Conditions</a>
+                        <a href="#" onclick="showPage('return')" class="footer-link">Return Policy</a>
+                        <a href="#" onclick="showPage('warranty')" class="footer-link">Service & Warranty</a>
+                        <a href="#" onclick="showPage('privacy')" class="footer-link">Privacy Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Column 4 - Socials -->
+                <div class="footer-column">
+                    <h4 class="footer-title">Socials</h4>
+                    <div class="footer-socials">
+                        <a href="https://www.instagram.com/van_appiah/" target="_blank" class="footer-social-link">
+                            <i data-lucide="instagram" class="footer-social-icon"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61571888426620&mibextid=wwXIfr&rdid=vETAEuGwiLoc9ySu&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16xgn7BFLj%2F%3Fmibextid%3DwwXIfr#" target="_blank" class="footer-social-link">
+                            <i data-lucide="facebook" class="footer-social-icon"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/yaiden-k-45888b376/?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" class="footer-social-link">
+                            <i data-lucide="linkedin" class="footer-social-icon"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://www.tiktok.com/@vanappiah?is_from_webapp=1&sender_device=pc" target="_blank" class="footer-social-link">
+                            <i data-lucide="video" class="footer-social-icon"></i>
+                            <span>TikTok</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-brand">
+                    <h3>Van Appiah</h3>
+                    <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.8); margin: var(--spacing-xs) 0 0 0; font-weight: 400; line-height: 1.4;">Digitale oplossingen die bedrijven laten groeien</p>
+                </div>
+                <p style="margin-top: var(--spacing-md);">© 2025 Van Appiah. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Application State
+        const AppState = {
+            currentPage: 'home',
+            portfolioData: [],
+            loading: true,
+            currentProject: null
+        };
+
+        // Google Sheets CSV URL
+        const SHEETS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSTaT1XO14T_dVasI4M1PhxS46v03dB-8DsUhU0-kzqmm6DJUn6z2Yy0m2NQyPpCHktMvNxhbIXa6tg/pub?output=csv';
+
+        // URL HANDLING FUNCTIONS
+        function fixUrl(url) {
+            if (!url || url.trim() === '') return '#';
+            
+            const cleanUrl = url.trim();
+            
+            if (cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://')) {
+                return cleanUrl;
+            }
+            
+            if (cleanUrl.startsWith('www.')) {
+                return `https://${cleanUrl}`;
+            }
+            
+            return `https://${cleanUrl}`;
+        }
+
+        function isValidUrl(url) {
+            if (!url || url.trim() === '') return false;
+            
+            const cleanUrl = url.trim();
+            const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+            const hasProtocol = cleanUrl.startsWith('http://') || cleanUrl.startsWith('https://');
+            const hasWww = cleanUrl.startsWith('www.');
+            
+            return urlPattern.test(cleanUrl) || hasProtocol || hasWww;
+        }
+
+        function createImageElement(src, alt, fallback = '🌐') {
+            if (!src || src.trim() === '') {
+                return `<div style="font-size: 2.5rem; color: var(--neutral-400); display: flex; align-items: center; justify-content: center; height: 100%;">${fallback}</div>`;
+            }
+            return `<img src="${src}" alt="${alt}" onerror="this.parentElement.innerHTML='<div style=&quot;font-size: 2.5rem; color: var(--neutral-400); display: flex; align-items: center; justify-content: center; height: 100%;&quot;>${fallback}</div>'" loading="lazy">`;
+        }
+
+        function getStatusInfo(status, websiteUrl) {
+            const hasValidUrl = isValidUrl(websiteUrl);
+            
+            if (!status) {
+                return hasValidUrl ? 
+                    { class: 'status-online', text: '🟢 Online', showButton: true } :
+                    { class: 'status-offline', text: '⚫ Offline', showButton: false };
+            }
+            
+            const statusLower = status.toLowerCase();
+            
+            if (statusLower.includes('online') || statusLower.includes('live') || statusLower.includes('completed') || statusLower.includes('voltooid')) {
+                return hasValidUrl ? 
+                    { class: 'status-online', text: '🟢 Online', showButton: true } :
+                    { class: 'status-offline', text: '⚫ Offline', showButton: false };
+            }
+            
+            if (statusLower.includes('offline') || statusLower.includes('development') || statusLower.includes('progress') || statusLower.includes('ontwikkeling')) {
+                return { class: 'status-offline', text: '⚫ Offline', showButton: false };
+            }
+            
+            return hasValidUrl ? 
+                { class: 'status-online', text: '🟢 Online', showButton: true } :
+                { class: 'status-offline', text: '⚫ Offline', showButton: false };
+        }
+
+        function getCategoryClass(category) {
+            if (!category) return 'category-showcase';
+            const categoryLower = category.toLowerCase();
+            if (categoryLower.includes('ecommerce') || categoryLower.includes('e-commerce')) return 'category-ecommerce';
+            if (categoryLower.includes('webdesign') || categoryLower.includes('web design')) return 'category-webdesign';
+            if (categoryLower.includes('business')) return 'category-business';
+            return 'category-showcase';
+        }
+
+        function formatTechnologies(tech) {
+            if (!tech) return [];
+            if (Array.isArray(tech)) return tech;
+            return tech.split(',').map(t => t.trim()).filter(t => t.length > 0);
+        }
+
+        function animateNumber(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+            
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current);
+            }, 16);
+        }
+
+        function createProjectSlug(projectName) {
+            return projectName
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+        }
+
+        // Data Loading Functions
+        async function loadPortfolioData() {
+            try {
+                console.log('Loading portfolio data from Google Sheets...');
+                
+                const response = await fetch(SHEETS_CSV_URL);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const csvText = await response.text();
+                console.log('CSV data received, parsing...');
+                
+                return new Promise((resolve, reject) => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true,
+                        transformHeader: (header) => {
+                            return header.trim();
+                        },
+                        transform: (value, header) => {
+                            return value ? value.trim() : '';
+                        },
+                        complete: (results) => {
+                            console.log('CSV parsing complete. Raw data:', results.data);
+                            
+                            if (results.errors.length > 0) {
+                                console.warn('CSV parsing warnings:', results.errors);
+                            }
+                            
+                            const validData = results.data
+                                .filter(row => {
+                                    const hasProjectName = row['Project Name'] && row['Project Name'].trim() !== '';
+                                    const hasDescription = row['Short Description'] && row['Short Description'].trim() !== '';
+                                    return hasProjectName || hasDescription;
+                                })
+                                .map(row => {
+                                    return {
+                                        projectName: row['Project Name'] || 'Untitled Project',
+                                        shortDescription: row['Short Description'] || 'No description available',
+                                        category: row['Category'] || 'Showcase',
+                                        client: row['Client'] || '',
+                                        launchDate: row['Launch Date'] || '',
+                                        status: row['Status'] || 'Online',
+                                        technologiesUsed: row['Technologies Used'] || '',
+                                        imageUrl: row['Image URL'] || '',
+                                        websiteUrl: row['Website URL'] || '',
+                                        description: row['Description'] || row['Short Description'] || 'No detailed description available.'
+                                    };
+                                });
+                            
+                            console.log(`Portfolio data processed successfully. Found ${validData.length} projects:`, validData);
+                            resolve(validData);
+                        },
+                        error: (error) => {
+                            console.error('CSV parsing error:', error);
+                            reject(error);
+                        }
+                    });
+                });
+                
+            } catch (error) {
+                console.error('Error loading portfolio data:', error);
+                return [
+                    {
+                        projectName: "Rafle L'Argent",
+                        shortDescription: "Luxe fashion webshop met minimalistisch design",
+                        category: "E-commerce",
+                        client: "Rafle L'argent",
+                        launchDate: "2024-11",
+                        status: "Online",
+                        technologiesUsed: "Shopify, Liquid, CSS",
+                        imageUrl: "https://i.postimg.cc/Prwkdvcr/Rafle-L-argent.png",
+                        websiteUrl: "https://raflelargent.com",
+                        description: "Een minimalistische en luxueuze mode-ervaring met custom CMS en geautomatiseerde verzendoplossing."
+                    }
+                ];
+            }
+        }
+
+        // Rendering Functions
+        function renderMiniPortfolio() {
+            const grid = document.getElementById('miniPortfolioGrid');
+            if (!grid) return;
+
+            console.log('Rendering mini portfolio with', AppState.portfolioData.length, 'total projects');
+
+            const onlineProjects = AppState.portfolioData
+                .filter(project => {
+                    const statusInfo = getStatusInfo(project.status, project.websiteUrl);
+                    return statusInfo.showButton;
+                })
+                .slice(0, 3);
+
+            if (onlineProjects.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--spacing-xl);">
+                        <h3 style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">Projecten worden geladen...</h3>
+                        <p style="color: var(--text-tertiary);">Even geduld alsjeblieft</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = onlineProjects.map((project, index) => {
+                const statusInfo = getStatusInfo(project.status, project.websiteUrl);
+                const categoryClass = getCategoryClass(project.category);
+                const fixedUrl = fixUrl(project.websiteUrl);
+                
+                const words = project.shortDescription.split(' ');
+                const shortDescription = words.length > 10 ? words.slice(0, 10).join(' ') + '...' : words.join(' ');
+                
+                return `
+                    <div class="mini-portfolio-card" onclick="openProjectDetail(${AppState.portfolioData.indexOf(project)})" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <div class="mini-portfolio-image">
+                            ${createImageElement(project.imageUrl, project.projectName, '🌐')}
+                        </div>
+                        <div class="mini-portfolio-content">
+                            <div class="mini-portfolio-badges">
+                                <div class="mini-portfolio-category ${categoryClass}">${project.category}</div>
+                                <div class="status-badge ${statusInfo.class}">${statusInfo.text}</div>
+                            </div>
+                            <h3 class="mini-portfolio-title">${project.projectName}</h3>
+                            <p class="mini-portfolio-description">${shortDescription}</p>
+                            <div class="mini-portfolio-meta">
+                                <span class="mini-portfolio-client">${project.client ? `voor ${project.client}` : 'Van Appiah'}</span>
+                                <span style="font-size: 0.75rem; color: var(--text-tertiary);">${project.launchDate}</span>
+                            </div>
+                            <div class="portfolio-actions">
+                                ${statusInfo.showButton ? `
+                                    <a href="${fixedUrl}" target="_blank" rel="noopener noreferrer" class="portfolio-btn portfolio-btn-primary" onclick="event.stopPropagation()">
+                                        <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                                        Live bekijken
+                                    </a>
+                                ` : `
+                                    <span class="portfolio-btn portfolio-btn-disabled">
+                                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                                        Binnenkort
+                                    </span>
+                                `}
+                                <button class="portfolio-btn portfolio-btn-secondary" onclick="event.stopPropagation(); openProjectDetail(${AppState.portfolioData.indexOf(project)})">
+                                    <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function renderPortfolio() {
+            const grid = document.getElementById('portfolioGrid');
+            if (!grid) return;
+
+            if (AppState.portfolioData.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: var(--spacing-xl);">
+                        <h3 style="color: var(--text-secondary); margin-bottom: var(--spacing-md);">Projecten worden geladen...</h3>
+                        <p style="color: var(--text-tertiary);">Even geduld alsjeblieft</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = AppState.portfolioData.map((project, index) => {
+                const statusInfo = getStatusInfo(project.status, project.websiteUrl);
+                const categoryClass = getCategoryClass(project.category);
+                const fixedUrl = fixUrl(project.websiteUrl);
+                
+                const words = project.shortDescription.split(' ');
+                const shortDescription = words.length > 12 ? words.slice(0, 12).join(' ') + '...' : words.join(' ');
+                
+                return `
+                    <div class="portfolio-card" onclick="openProjectDetail(${index})" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <div class="portfolio-image">
+                            ${createImageElement(project.imageUrl, project.projectName, '🌐')}
+                        </div>
+                        <div class="portfolio-content">
+                            <div class="portfolio-badges">
+                                <div class="portfolio-category ${categoryClass}">${project.category}</div>
+                                <div class="status-badge ${statusInfo.class}">${statusInfo.text}</div>
+                            </div>
+                            <h3 class="portfolio-title">${project.projectName}</h3>
+                            <p class="portfolio-description">${shortDescription}</p>
+                            <div class="portfolio-meta">
+                                <span class="portfolio-client">${project.client ? `voor ${project.client}` : 'Van Appiah'}</span>
+                                <span style="font-size: 0.75rem; color: var(--text-tertiary);">${project.launchDate}</span>
+                            </div>
+                            <div class="portfolio-actions">
+                                ${statusInfo.showButton ? `
+                                    <a href="${fixedUrl}" target="_blank" rel="noopener noreferrer" class="portfolio-btn portfolio-btn-primary" onclick="event.stopPropagation()">
+                                        <i data-lucide="external-link" style="width: 14px; height: 14px;"></i>
+                                        Live bekijken
+                                    </a>
+                                ` : `
+                                    <span class="portfolio-btn portfolio-btn-disabled">
+                                        <i data-lucide="clock" style="width: 14px; height: 14px;"></i>
+                                        Binnenkort
+                                    </span>
+                                `}
+                                <button class="portfolio-btn portfolio-btn-secondary" onclick="event.stopPropagation(); openProjectDetail(${index})">
+                                    <i data-lucide="eye" style="width: 14px; height: 14px;"></i>
+                                    Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        function updateStats() {
+            const projectCount = AppState.portfolioData.length;
+            const clientCount = new Set(AppState.portfolioData.map(p => p.client).filter(c => c)).size;
+            const techCount = new Set(
+                AppState.portfolioData
+                    .flatMap(p => formatTechnologies(p.technologiesUsed))
+                    .filter(t => t)
+            ).size;
+
+            setTimeout(() => {
+                const projectElement = document.getElementById('projectCount');
+                const clientElement = document.getElementById('clientCount');
+                const techElement = document.getElementById('techCount');
+
+                if (projectElement) animateNumber(projectElement, Math.max(projectCount, 8));
+                if (clientElement) animateNumber(clientElement, Math.max(clientCount, 12));
+                if (techElement) animateNumber(techElement, Math.max(techCount, 15));
+            }, 500);
+        }
+
+        // Project Detail Functions
+        function openProjectDetail(index) {
+            const project = AppState.portfolioData[index];
+            if (!project) return;
+
+            AppState.currentProject = project;
+            renderProjectDetail(project);
+            showPage('project-detail');
+        }
+
+        function renderProjectDetail(project) {
+            const container = document.getElementById('projectDetailContent');
+            if (!container) return;
+
+            const statusInfo = getStatusInfo(project.status, project.websiteUrl);
+            const categoryClass = getCategoryClass(project.category);
+            const technologies = formatTechnologies(project.technologiesUsed);
+            const fixedUrl = fixUrl(project.websiteUrl);
+
+            container.innerHTML = `
+                <a href="#" class="project-back-btn" onclick="showPage('portfolio')">
+                    <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i>
+                    Terug naar Portfolio
+                </a>
+                
+                <div class="project-header">
+                    <h1 class="project-title">${project.projectName}</h1>
+                    <p class="project-subtitle">${project.shortDescription}</p>
+                    <div style="display: flex; gap: var(--spacing-sm); justify-content: center; align-items: center; flex-wrap: wrap; margin-top: var(--spacing-md);">
+                        <div class="portfolio-category ${categoryClass}">${project.category}</div>
+                        <div class="status-badge ${statusInfo.class}">${statusInfo.text}</div>
+                    </div>
+                </div>
+
+                <div class="project-image">
+                    ${createImageElement(project.imageUrl, project.projectName, '🌐')}
+                </div>
+
+                <div class="project-info">
+                    <div class="project-description">
+                        <h3 style="font-family: var(--font-display); font-size: 1.25rem; margin-bottom: var(--spacing-md); color: var(--text-primary);">Over dit project</h3>
+                        <p style="margin-bottom: var(--spacing-lg);">${project.description}</p>
+                        
+                        ${statusInfo.showButton ? `
+                            <a href="${fixedUrl}" target="_blank" rel="noopener noreferrer" class="project-website-btn">
+                                <i data-lucide="external-link" style="width: 18px; height: 18px;"></i>
+                                Bezoek Website
+                            </a>
+                        ` : `
+                            <div class="project-website-btn disabled">
+                                <i data-lucide="clock" style="width: 18px; height: 18px;"></i>
+                                ${statusInfo.text.includes('Offline') ? 'Momenteel offline' : 'Binnenkort beschikbaar'}
+                            </div>
+                        `}
+                    </div>
+
+                    <div class="project-sidebar">
+                        <h4 style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--spacing-lg); color: var(--text-primary);">Project Details</h4>
+                        
+                        ${project.client ? `
+                            <div class="project-detail-item">
+                                <div class="project-detail-label">Klant</div>
+                                <div class="project-detail-value">${project.client}</div>
+                            </div>
+                        ` : ''}
+                        
+                        ${project.launchDate ? `
+                            <div class="project-detail-item">
+                                <div class="project-detail-label">Datum</div>
+                                <div class="project-detail-value">${project.launchDate}</div>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="project-detail-item">
+                            <div class="project-detail-label">Status</div>
+                            <div class="project-detail-value">
+                                <div class="status-badge ${statusInfo.class}">${statusInfo.text}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="project-detail-item">
+                            <div class="project-detail-label">Type</div>
+                            <div class="project-detail-value">${project.category}</div>
+                        </div>
+                        
+                        ${technologies.length > 0 ? `
+                            <div class="project-detail-item">
+                                <div class="project-detail-label">Technologieën</div>
+                                <div class="project-detail-value">
+                                    <div class="project-tech-tags">
+                                        ${technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                                    </div>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // Navigation Functions
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                AppState.currentPage = pageId;
+            }
+
+            // Update nav links
+            document.querySelectorAll('.nav-link, .mobile-menu-links a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            const activeLinks = document.querySelectorAll(`[data-page="${pageId}"]`);
+            activeLinks.forEach(link => {
+                link.classList.add('active');
+            });
+
+            // Close mobile menu
+            closeMobileMenu();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            const url = new URL(window.location);
+            if (pageId === 'project-detail' && AppState.currentProject) {
+                const slug = createProjectSlug(AppState.currentProject.projectName);
+                url.searchParams.set('project', slug);
+            } else {
+                url.searchParams.delete('project');
+                url.searchParams.set('page', pageId);
+            }
+            window.history.pushState({ page: pageId }, '', url);
+        }
+
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            
+            const isActive = mobileMenu.classList.contains('active');
+            
+            if (isActive) {
+                closeMobileMenu();
+            } else {
+                mobileMenu.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+                menuBtn.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Update menu icon
+                const icon = menuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'x');
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            
+            mobileMenu.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            menuBtn.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Update menu icon
+            const icon = menuBtn.querySelector('i');
+            icon.setAttribute('data-lucide', 'menu');
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }
+
+        // FAQ Functions
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const icon = element.querySelector('i');
+            
+            faqItem.classList.toggle('active');
+            
+            if (faqItem.classList.contains('active')) {
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Form Handling
+        function handleContactForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            const successDiv = document.getElementById('formSuccess');
+            successDiv.style.display = 'block';
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`Van Appiah Contact: ${data.subject}`);
+            const body = encodeURIComponent(`
+Naam: ${data.name}
+Email: ${data.email}
+
+Bericht:
+${data.message}
+
+---
+Verzonden via Van Appiah website contactformulier
+            `);
+            
+            const mailtoLink = `mailto:vanappiah.com@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Small delay then open email client
+            setTimeout(() => {
+                window.location.href = mailtoLink;
+            }, 1000);
+            
+            event.target.reset();
+        }
+
+        // Scroll Effects
+        function initScrollEffects() {
+            const navbar = document.getElementById('navbar');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // URL Parameter Handling
+        function handleURLParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const page = urlParams.get('page');
+            const projectSlug = urlParams.get('project');
+            
+            if (projectSlug && AppState.portfolioData.length > 0) {
+                const projectIndex = AppState.portfolioData.findIndex(project => {
+                    return createProjectSlug(project.projectName) === projectSlug;
+                });
+                
+                if (projectIndex !== -1) {
+                    openProjectDetail(projectIndex);
+                    return;
+                }
+            }
+            
+            if (page && ['home', 'portfolio', 'about', 'contact', 'terms', 'return', 'warranty', 'privacy'].includes(page)) {
+                showPage(page);
+            }
+        }
+
+        // Loading Screen
+        function hideLoadingScreen() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').classList.add('hidden');
+                AppState.loading = false;
+            }, 1000);
+        }
+
+        // Initialize Application
+        async function initApp() {
+            console.log('Initializing Van Appiah portfolio website...');
+            
+            try {
+                hideLoadingScreen();
+                
+                AppState.portfolioData = await loadPortfolioData();
+                
+                renderMiniPortfolio();
+                renderPortfolio();
+                updateStats();
+                
+                initScrollEffects();
+                handleURLParameters();
+
+                // Initialize AOS animations
+                if (typeof AOS !== 'undefined') {
+                    AOS.init({
+                        duration: 600,
+                        easing: 'ease-out-cubic',
+                        once: true,
+                        offset: 50,
+                        delay: 50
+                    });
+                }
+
+                // Initialize Lucide icons
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+                
+                console.log('Application initialized successfully');
+                
+            } catch (error) {
+                console.error('Failed to initialize application:', error);
+                
+                renderMiniPortfolio();
+                renderPortfolio();
+                updateStats();
+            }
+            
+            window.addEventListener('popstate', (event) => {
+                if (event.state && event.state.page) {
+                    showPage(event.state.page);
+                } else {
+                    handleURLParameters();
+                }
+            });
+        }
+
+        // Start the application
+        document.addEventListener('DOMContentLoaded', initApp);
+
+        // Error handling
+        window.addEventListener('error', (e) => {
+            console.error('Application error:', e.error);
+        });
+
+        window.addEventListener('unhandledrejection', (e) => {
+            console.error('Unhandled promise rejection:', e.reason);
+            e.preventDefault();
+        });
+
+        // Touch and gesture support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        }, { passive: true });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleGesture();
+        }, { passive: true });
+
+        function handleGesture() {
+            if (touchEndY < touchStartY - 50) {
+                // Swipe up
+            }
+            if (touchEndY > touchStartY + 50) {
+                // Swipe down
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            
+            if (mobileMenu.classList.contains('active') && 
+                !mobileMenu.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Prevent body scroll when mobile menu is open
+        document.addEventListener('touchmove', (e) => {
+            const mobileMenu = document.getElementById('mobileMenu');
+            if (mobileMenu.classList.contains('active') && !mobileMenu.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    </script>
+</body>
+</html>

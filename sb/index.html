@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SB Clean & Shine - Professionele Schoenreiniging</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-gray: #1f2937;
+            --secondary-gray: #374151;
+            --light-gray: #f9fafb;
+            --medium-gray: #6b7280;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #60a5fa;
+            --accent-blue-dark: #1d4ed8;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--primary-gray);
+            background: var(--light-gray);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 32px 24px;
+            max-width: 420px;
+            width: calc(100% - 32px);
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+            transform: scale(0.9) translateY(20px);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--medium-gray);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--light-gray);
+            color: var(--primary-gray);
+        }
+
+        .modal h2 {
+            color: var(--primary-gray);
+            margin-bottom: 16px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .modal p {
+            color: var(--medium-gray);
+            margin-bottom: 24px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            cursor: pointer;
+            font-size: 16px;
+            font-family: inherit;
+            min-height: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-blue-dark) 100%);
+            color: var(--white);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            background: linear-gradient(135deg, var(--accent-blue-light) 0%, var(--accent-blue) 100%);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--medium-gray);
+            border: 2px solid #e5e7eb;
+        }
+
+        .btn-secondary:hover {
+            background: var(--light-gray);
+            border-color: var(--medium-gray);
+            color: var(--primary-gray);
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            border-bottom: 1px solid rgba(229, 231, 235, 0.5);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 56px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-gray);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: var(--medium-gray);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav a:hover {
+            color: var(--accent-blue);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--primary-gray);
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--light-gray) 0%, #f3f4f6 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233b82f6' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            color: var(--primary-gray);
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 3vw, 20px);
+            color: var(--medium-gray);
+            margin-bottom: 32px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        /* Packages Section */
+        .packages {
+            padding: 80px 0;
+            background: var(--white);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(28px, 4vw, 36px);
+            font-weight: 600;
+            color: var(--primary-gray);
+            margin-bottom: 48px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .package-card {
+            background: var(--white);
+            border-radius: var(--border-radius-lg);
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid #e5e7eb;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--accent-blue-light) 100%);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .package-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .package-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue);
+        }
+
+        .package-card.featured {
+            border: 2px solid var(--accent-blue);
+            transform: scale(1.02);
+            background: linear-gradient(135deg, var(--white) 0%, #f8fafc 100%);
+        }
+
+        .package-card.featured:hover {
+            transform: scale(1.02) translateY(-8px);
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .package-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary-gray);
+        }
+
+        .package-menu {
+            position: relative;
+        }
+
+        .package-menu-btn {
+            background: none;
+            border: none;
+            color: var(--medium-gray);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: var(--transition);
+            font-size: 16px;
+        }
+
+        .package-menu-btn:hover {
+            background: var(--light-gray);
+            color: var(--primary-gray);
+        }
+
+        .package-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid #e5e7eb;
+            min-width: 160px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-8px);
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .package-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .package-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: var(--medium-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            font-size: 14px;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .package-dropdown-item:hover {
+            background: var(--light-gray);
+            color: var(--primary-gray);
+        }
+
+        .package-dropdown-item:first-child {
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+
+        .package-dropdown-item:last-child {
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        .package-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 16px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .package-features li {
+            padding: 8px 0;
+            color: var(--medium-gray);
+            position: relative;
+            padding-left: 24px;
+            font-size: 14px;
+        }
+
+        .package-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        /* Booking Section */
+        .booking {
+            padding: 80px 0;
+            background: var(--light-gray);
+        }
+
+        .booking-iframe {
+            width: 100%;
+            height: 700px;
+            border: none;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-lg);
+            background: var(--white);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-gray);
+            color: var(--white);
+            padding: 60px 0 24px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-bottom: 32px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent-blue-light);
+            margin-bottom: 16px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #d1d5db;
+            text-decoration: none;
+            margin-bottom: 8px;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-blue-light);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .social-links a {
+            color: #d1d5db;
+            font-size: 20px;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a:hover {
+            color: var(--white);
+            background: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--secondary-gray);
+            padding-top: 24px;
+            color: #9ca3af;
+            text-align: center;
+        }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--secondary-gray);
+        }
+
+        .powered-by a {
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 12px;
+            transition: var(--transition);
+            display: inline-block;
+        }
+
+        .powered-by a:hover {
+            color: var(--accent-blue-light);
+            transform: translateY(-1px);
+        }
+
+        .powered-by strong {
+            color: var(--accent-blue-light);
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 16px;
+                margin-bottom: 24px;
+            }
+
+            .modal {
+                padding: 24px 20px;
+                margin: 16px;
+            }
+
+            .modal-buttons {
+                gap: 12px;
+            }
+
+            .packages {
+                padding: 60px 0;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .package-card {
+                padding: 24px 20px;
+            }
+
+            .package-card.featured {
+                transform: none;
+            }
+
+            .package-card.featured:hover {
+                transform: translateY(-4px);
+            }
+
+            .booking {
+                padding: 60px 0;
+            }
+
+            .booking-iframe {
+                height: 600px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .btn {
+                min-height: 44px;
+                font-size: 16px;
+            }
+
+            /* Better touch targets */
+            .package-menu-btn {
+                min-width: 44px;
+                min-height: 44px;
+            }
+
+            .modal-close {
+                min-width: 44px;
+                min-height: 44px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero {
+                padding: 80px 0 40px;
+            }
+
+            .packages, .booking {
+                padding: 40px 0;
+            }
+
+            .package-card {
+                padding: 20px 16px;
+            }
+
+            .modal {
+                margin: 12px;
+                padding: 20px 16px;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading states */
+        .loading {
+            animation: pulse 2s infinite;
+        }
+
+        /* Focus states for accessibility */
+        .btn:focus,
+        .package-menu-btn:focus,
+        .modal-close:focus {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 2px;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Improved contrast for better readability */
+        @media (prefers-contrast: high) {
+            :root {
+                --medium-gray: #4b5563;
+                --primary-gray: #111827;
+            }
+        }
+
+        /* Reduced motion for accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Sluit modal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h2>🎉 Speciale Actie!</h2>
+            <p><strong>Deze maand 1+1 gratis actie</strong><br>
+            Laat twee paar schoenen reinigen en betaal voor slechts één!</p>
+            <div class="modal-buttons">
+                <a href="#booking" class="btn btn-primary" id="modalOrder">
+                    <i class="fas fa-calendar-alt" style="margin-right: 8px;"></i>
+                    Bestellen
+                </a>
+                <button class="btn btn-secondary" id="modalClose2">Nee dankje</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-shoe-prints"></i>
+                    SB Clean <span>&</span> Shine
+                </div>
+                <nav class="nav">
+                    <a href="#home">Home</a>
+                    <a href="#packages">Pakketten</a>
+                    <a href="#booking">Boeken</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <button class="mobile-menu-btn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Professionele Schoenreiniging</h1>
+                <p>Geef je schoenen een nieuwe glans met onze premium reinigingsservice. Vakkundig, snel en betaalbaar.</p>
+                <div class="hero-cta">
+                    <a href="#booking" class="btn btn-primary">
+                        <i class="fas fa-calendar-check" style="margin-right: 8px;"></i>
+                        Boek Nu
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="packages" id="packages">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Onze Reinigingspakketten</h2>
+            <div class="packages-grid">
+                <div class="package-card scroll-animate">
+                    <div class="package-header">
+                        <div class="package-name">Basic</div>
+                        <div class="package-menu">
+                            <button class="package-menu-btn" aria-label="Meer opties">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="package-dropdown">
+                                <button class="package-dropdown-item" onclick="addToFavorites('Basic')">
+                                    <i class="fas fa-heart"></i>
+                                    Favoriet
+                                </button>
+                                <button class="package-dropdown-item" onclick="sharePackage('Basic')">
+                                    <i class="fas fa-share"></i>
+                                    Delen
+                                </button>
+                                <button class="package-dropdown-item" onclick="comparePackage('Basic')">
+                                    <i class="fas fa-balance-scale"></i>
+                                    Vergelijken
+                                </button>
+                                <button class="package-dropdown-item" onclick="moreInfo('Basic')">
+                                    <i class="fas fa-info-circle"></i>
+                                    Meer info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="package-price">€20</div>
+                    <ul class="package-features">
+                        <li>Buitenreiniging</li>
+                        <li>Lichte vlekken verwijderen</li>
+                        <li>Veters reinigen</li>
+                        <li>Basis behandeling</li>
+                    </ul>
+                    <a href="#booking" class="btn btn-primary">
+                        <i class="fas fa-shopping-cart" style="margin-right: 8px;"></i>
+                        Kies Basic
+                    </a>
+                </div>
+
+                <div class="package-card featured scroll-animate">
+                    <div class="package-header">
+                        <div class="package-name">Medium</div>
+                        <div class="package-menu">
+                            <button class="package-menu-btn" aria-label="Meer opties">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="package-dropdown">
+                                <button class="package-dropdown-item" onclick="addToFavorites('Medium')">
+                                    <i class="fas fa-heart"></i>
+                                    Favoriet
+                                </button>
+                                <button class="package-dropdown-item" onclick="sharePackage('Medium')">
+                                    <i class="fas fa-share"></i>
+                                    Delen
+                                </button>
+                                <button class="package-dropdown-item" onclick="comparePackage('Medium')">
+                                    <i class="fas fa-balance-scale"></i>
+                                    Vergelijken
+                                </button>
+                                <button class="package-dropdown-item" onclick="moreInfo('Medium')">
+                                    <i class="fas fa-info-circle"></i>
+                                    Meer info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="package-price">€25</div>
+                    <ul class="package-features">
+                        <li>Intensieve buitenreiniging</li>
+                        <li>Lichte + diepe vlekken</li>
+                        <li>Veters reinigen</li>
+                        <li>Geur verwijdering</li>
+                        <li>Basis bescherming</li>
+                    </ul>
+                    <a href="#booking" class="btn btn-primary">
+                        <i class="fas fa-star" style="margin-right: 8px;"></i>
+                        Kies Medium
+                    </a>
+                </div>
+
+                <div class="package-card scroll-animate">
+                    <div class="package-header">
+                        <div class="package-name">All-in</div>
+                        <div class="package-menu">
+                            <button class="package-menu-btn" aria-label="Meer opties">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="package-dropdown">
+                                <button class="package-dropdown-item" onclick="addToFavorites('All-in')">
+                                    <i class="fas fa-heart"></i>
+                                    Favoriet
+                                </button>
+                                <button class="package-dropdown-item" onclick="sharePackage('All-in')">
+                                    <i class="fas fa-share"></i>
+                                    Delen
+                                </button>
+                                <button class="package-dropdown-item" onclick="comparePackage('All-in')">
+                                    <i class="fas fa-balance-scale"></i>
+                                    Vergelijken
+                                </button>
+                                <button class="package-dropdown-item" onclick="moreInfo('All-in')">
+                                    <i class="fas fa-info-circle"></i>
+                                    Meer info
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="package-price">€30</div>
+                    <ul class="package-features">
+                        <li>Intensieve binnen en buitenreiniging</li>
+                        <li>Lichte + diepe vlekken</li>
+                        <li>Veters reinigen</li>
+                        <li>Inlegzolen reinigen</li>
+                        <li>Water & vuilafstotende behandeling</li>
+                        <li>Premium bescherming</li>
+                    </ul>
+                    <a href="#booking" class="btn btn-primary">
+                        <i class="fas fa-crown" style="margin-right: 8px;"></i>
+                        Kies All-in
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking" id="booking">
+        <div class="container">
+            <h2 class="section-title scroll-animate">Boek Nu</h2>
+            <iframe 
+                src="https://sbcleanandshine.setmore.com" 
+                class="booking-iframe scroll-animate"
+                title="Boek een afspraak met SB Clean & Shine"
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-phone"></i> +31 6 415-45950</p>
+                    <p><i class="fas fa-envelope"></i> info@sbcleanandshine.nl</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Nederland</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Volg Ons</h3>
+                    <div class="social-links">
+                        <a href="https://instagram.com/sbclean_n_shine" target="_blank" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://tiktok.com/@sbcleaning020" target="_blank" aria-label="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <a href="#" target="_blank" aria-label="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </div>
+                    <p>@sbclean_n_shine</p>
+                    <p>@sbcleaning020</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Waarom SB Clean & Shine?</h3>
+                    <p><strong>Goedkoopste van NL</strong></p>
+                    <p>Professionele kwaliteit</p>
+                    <p>Snelle service</p>
+                    <p>100% tevredenheidsgarantie</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SB Clean & Shine. Alle rechten voorbehouden.</p>
+            </div>
+            <div class="powered-by">
+                <a href="https://vanappiah.com/" target="_blank" rel="noopener noreferrer">
+                    Powered by <strong>VA</strong>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Sticky Booking Widget -->
+    <script id="setmore_script" type="text/javascript" src="https://assets.setmore.com/integration/static/setmoreIframeLive.js"></script>
+    <a style="position: fixed; right: -2px; top: 25%; display: block; z-index: 20000" id="Setmore_button_iframe" href="https://sbcleanandshine.setmore.com">
+        <img border="none" src="https://storage.googleapis.com/full-assets/setmore/images/1.0/Calendar/Setmore-Book-Now.png" alt="Book an appointment with SB Clean & Shine using Setmore" />
+    </a>
+
+    <script>
+        // Modal functionality
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalClose2 = document.getElementById('modalClose2');
+        const modalOrder = document.getElementById('modalOrder');
+
+        // Show modal on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                modalOverlay.classList.add('active');
+            }, 1500);
+        });
+
+        // Close modal functions
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalClose2.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModal();
+            }
+        });
+
+        // Close modal with escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Order button closes modal and scrolls to booking
+        modalOrder.addEventListener('click', (e) => {
+            closeModal();
+        });
+
+        // Package menu functionality
+        document.querySelectorAll('.package-menu-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const dropdown = btn.nextElementSibling;
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.package-dropdown').forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('active');
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', () => {
+            document.querySelectorAll('.package-dropdown').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
+
+        // Package menu functions
+        function addToFavorites(packageName) {
+            // Add haptic feedback for mobile
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // Show toast notification
+            showToast(`${packageName} toegevoegd aan favorieten! ❤️`);
+            
+            // Store in localStorage
+            let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (!favorites.includes(packageName)) {
+                favorites.push(packageName);
+                localStorage.setItem('favorites', JSON.stringify(favorites));
+            }
+        }
+
+        function sharePackage(packageName) {
+            if (navigator.share) {
+                navigator.share({
+                    title: `SB Clean & Shine - ${packageName} Pakket`,
+                    text: `Bekijk het ${packageName} schoenreinigingspakket van SB Clean & Shine!`,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback for browsers without Web Share API
+                const url = window.location.href;
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast('Link gekopieerd naar klembord! 📋');
+                });
+            }
+        }
+
+        function comparePackage(packageName) {
+            showToast(`${packageName} pakket toegevoegd aan vergelijking! ⚖️`);
+            // Here you could implement comparison functionality
+        }
+
+        function moreInfo(packageName) {
+            const infoModal = `
+                <div class="modal-overlay active" id="infoModal">
+                    <div class="modal">
+                        <button class="modal-close" onclick="closeInfoModal()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <h2>${packageName} Pakket Details</h2>
+                        <p>Uitgebreide informatie over het ${packageName} pakket...</p>
+                        <div class="modal-buttons">
+                            <a href="#booking" class="btn btn-primary" onclick="closeInfoModal()">Boek Nu</a>
+                            <button class="btn btn-secondary" onclick="closeInfoModal()">Sluiten</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', infoModal);
+        }
+
+        function closeInfoModal() {
+            const infoModal = document.getElementById('infoModal');
+            if (infoModal) {
+                infoModal.remove();
+            }
+        }
+
+        // Toast notification function
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: var(--primary-gray);
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--border-radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 10001;
+                font-size: 14px;
+                opacity: 0;
+                transition: var(--transition);
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.opacity = '1';
+                toast.style.transform = 'translateX(-50%) translateY(0)';
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(-50%) translateY(20px)';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations with Intersection Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll-animate elements
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Package cards animation with staggered delay
+        const packageCards = document.querySelectorAll('.package-card');
+        const packageObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, index * 150);
+                }
+            });
+        }, observerOptions);
+
+        packageCards.forEach(card => {
+            packageObserver.observe(card);
+        });
+
+        // Header background on scroll with throttling
+        let ticking = false;
+        function updateHeader() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.borderBottom = '1px solid rgba(229, 231, 235, 0.8)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.borderBottom = '1px solid rgba(229, 231, 235, 0.5)';
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
+
+        // Load favorites on page load
+        window.addEventListener('load', () => {
+            const favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+            // You could highlight favorite packages here
+        });
+
+        // Performance optimization: Lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('loading');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        // Service Worker registration for PWA capabilities
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

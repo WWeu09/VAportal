@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="nl" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Van Appia Advocaten - Uw specialist in Straf-, Personen- en Familierecht, Vreemdelingenrecht en VOG-procedures</title>
+    <meta name="description" content="Van Appia Advocaten Amsterdam - Specialist in strafrecht, vreemdelingenrecht, personen- en familierecht. Kosteloos intakegesprek. Rechtsbijstand nationaal en internationaal.">
+    <meta name="keywords" content="advocaat Amsterdam, strafrecht advocaat, vreemdelingenrecht advocaat, familierecht advocaat, VOG procedures, rechtsbijstand Amsterdam">
+    <meta name="robots" content="index,follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Van Appia Advocaten - Specialist Strafrecht & Vreemdelingenrecht Amsterdam">
+    <meta property="og:description" content="Kosteloos intakegesprek. Specialist in strafrecht, vreemdelingenrecht, personen- en familierecht. Meertalige rechtsbijstand.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="nl_NL">
+    
+    <!-- JSON-LD Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LegalService",
+        "name": "Van Appia Advocaten",
+        "description": "Advocatenkantoor gespecialiseerd in strafrecht, vreemdelingenrecht, personen- en familierecht",
+        "url": "",
+        "telephone": ["+31205312999", "+31650207991"],
+        "email": "vanappia@vanappiavanderlee.nl",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Stadhouderskade 149-1h",
+            "postalCode": "1074BB",
+            "addressLocality": "Amsterdam",
+            "addressCountry": "NL"
+        },
+        "founder": {
+            "@type": "Person",
+            "name": "Joseph van Appia",
+            "jobTitle": "Advocaat"
+        },
+        "foundingDate": "2000",
+        "areaServed": "Nederland",
+        "serviceType": ["Strafrecht", "Vreemdelingenrecht", "Personen- en familierecht", "VOG-procedures"]
+    }
+    </script>
+    
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1C1C1C;
+            background-color: #FFFFFF;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(rgba(44, 62, 80, 0.95), rgba(44, 62, 80, 0.95)), url('https://i.postimg.cc/05LZV1Z1/bg05-jpg.webp');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .logo:hover {
+            opacity: 0.9;
+        }
+
+        .header-cta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .header-phone {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            border: 2px solid white;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .header-phone:hover {
+            background: white;
+            color: #2C3E50;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #D1D1D1;
+        }
+
+        nav a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #D1D1D1;
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+            color: white;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+            padding: 140px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23D1D1D1" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="%23D1D1D1" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #2C3E50;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-tagline {
+            font-size: 1.4rem;
+            color: #4D4D4D;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #0B3D91;
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(11, 61, 145, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #092B66;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(11, 61, 145, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #0B3D91;
+            padding: 16px 32px;
+            border: 2px solid #0B3D91;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #0B3D91;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            margin: 2rem 0;
+        }
+
+        .hero-image img {
+            max-width: 350px;
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 0;
+        }
+
+        .section-gray {
+            background: #F8F9FA;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #2C3E50;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #4D4D4D;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        /* Service Cards */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 1px solid #D1D1D1;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0B3D91, #2C3E50);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card h3 {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .service-card p {
+            color: #4D4D4D;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-cta {
+            color: #0B3D91;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .service-cta:hover {
+            color: #092B66;
+        }
+
+        .service-cta::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .service-cta:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Process Steps */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .process-step {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: translateY(-3px);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #0B3D91, #2C3E50);
+            color: white;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(11, 61, 145, 0.3);
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2C3E50;
+            margin-bottom: 1rem;
+        }
+
+        .step-description {
+            color: #4D4D4D;
+            line-height: 1.6;
+        }
+
+        /* Lawyer Profile */
+        .lawyer-profile {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .lawyer-bio {
+            font-size: 1.1rem;
+            color: #4D4D4D;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .lawyer-languages {
+            background: #F8F9FA;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .languages-list {
+            font-size: 1.1rem;
+            color: #2C3E50;
+            font-weight: 600;
+        }
+
+        /* Contact Info */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-card h4 {
+            color: #2C3E50;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            color: #4D4D4D;
+        }
+
+        .contact-card a {
+            color: #0B3D91;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: #092B66;
+        }
+
+        /* Pricing */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border: 1px solid #D1D1D1;
+        }
+
+        .pricing-highlight {
+            background: linear-gradient(135deg, #0B3D91, #2C3E50);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .pricing-highlight h3,
+        .pricing-highlight h4 {
+            color: white;
+        }
+
+        .pricing-table {
+            margin-top: 1.5rem;
+        }
+
+        .pricing-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #D1D1D1;
+        }
+
+        .pricing-row:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-label {
+            font-weight: 600;
+            color: #2C3E50;
+        }
+
+        .pricing-highlight .pricing-label {
+            color: white;
+        }
+
+        .pricing-value {
+            color: #4D4D4D;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .pricing-highlight .pricing-value {
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #2C3E50;
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: #D1D1D1;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #4D4D4D;
+            color: #8B8B8B;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #0B3D91, #2C3E50);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-section h2 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: #0B3D91;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-white:hover {
+            background: #F8F9FA;
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .header-cta {
+                order: -1;
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #2C3E50;
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            header {
+                background-attachment: scroll;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Focus styles */
+        *:focus {
+            outline: 2px solid #0B3D91;
+            outline-offset: 2px;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header role="banner">
+        <div class="container">
+            <div class="header-content">
+                <a href="#home" class="logo">Van Appia Advocaten</a>
+                <div class="header-cta">
+                    <a href="tel:+31205312999" class="header-phone">Bel nu: 020-531 2999</a>
+                    <button class="mobile-menu" onclick="toggleMenu()" aria-label="Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+                <nav role="navigation" aria-label="Hoofdnavigatie">
+                    <ul id="nav-menu">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#diensten">Diensten</a></li>
+                        <li><a href="#proces">Proces</a></li>
+                        <li><a href="#advocaat">Advocaat</a></li>
+                        <li><a href="#tarieven">Tarieven</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <h1>Uw specialist in juridische rechtsbijstand</h1>
+                    <p class="hero-tagline">Expert in strafrecht, vreemdelingenrecht, personen- en familierecht, en VOG-procedures. Kosteloos intakegesprek.</p>
+                    
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn-primary">Plan direct een intakegesprek</a>
+                        <a href="tel:+31205312999" class="btn-secondary">Bel ons nu</a>
+                    </div>
+                    
+                    <div class="hero-image">
+                        <img src="https://i.postimg.cc/NG8rv8DP/Van-appia-en-van-der-Lee-1-foto-by-Charline-Goud-MG-9800.jpg" alt="Mr Joseph van Appia, advocaat en oprichter van Van Appia Advocaten" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="diensten" class="section-gray">
+            <div class="container">
+                <h2>Onze specialisaties</h2>
+                <p class="section-subtitle">Wij bieden deskundige rechtsbijstand op de volgende rechtsgebieden met landelijke en internationale expertise.</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3>Strafrecht</h3>
+                        <p>Volledige bijstand bij strafzaken: dagvaardingen, strafbeschikkingen, politieverhoren en detentie. Specialisatie in fraude, TBS-zaken, zedenzaken, geweldsmisdrijven en internationaal strafrecht.</p>
+                        <a href="#contact" class="service-cta">Meer over strafrecht</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Vreemdelingenrecht</h3>
+                        <p>Particuliere en bedrijfsmatige aanvragen voor MVV (machtiging tot voorlopig verblijf), verblijfsvergunningen, tewerkstellingsvergunningen. Bijstand bij vreemdelingenbewaring en uitzettingsprocedures.</p>
+                        <a href="#contact" class="service-cta">Meer over vreemdelingenrecht</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Personen- en familierecht</h3>
+                        <p>Echtscheidingsprocedures, alimentatieregelingen, omgangsregelingen en internationale aspecten van familierecht. Specialisatie in complexe grensoverschrijdende familierechtelijke kwesties.</p>
+                        <a href="#contact" class="service-cta">Meer over familierecht</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>VOG-procedures</h3>
+                        <p>Volledige begeleiding bij Verklaring Omtrent Gedrag: zienswijzen, bezwaar- en beroepsprocedures tegen afwijzingen. Strategische aanpak voor succesvolle heroverweging.</p>
+                        <a href="#contact" class="service-cta">Meer over VOG-zaken</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3>Algemene rechtspraktijk</h3>
+                        <p>Sociale zekerheidszaken (uitkeringskwesties), algemeen bestuursrecht (bezwaar en beroep), CBR-zaken en verkeersovertredingen. Brede juridische ondersteuning.</p>
+                        <a href="#contact" class="service-cta">Meer over algemeen recht</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="proces">
+            <div class="container">
+                <h2>Hoe wij werken</h2>
+                <p class="section-subtitle">Een duidelijk proces met transparante communicatie en realistische verwachtingen.</p>
+                
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <div class="step-title">Contact opnemen</div>
+                        <div class="step-description">Neem telefonisch of per e-mail contact op. Wij reageren binnen 1-2 werkdagen voor een afspraak.</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <div class="step-title">Kosteloos intakegesprek</div>
+                        <div class="step-description">Uitgebreide bespreking van uw juridische situatie en mogelijkheden. Het intakegesprek is kosteloos.</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <div class="step-title">Strategie en kosteninschatting</div>
+                        <div class="step-description">Duidelijke strategie met realistische inschatting van kosten, doorlooptijd en succeskansen.</div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="step-number">4</div>
+                        <div class="step-title">Uitvoering met updates</div>
+                        <div class="step-description">Regelmatige updates over voortgang en belangrijke ontwikkelingen in uw zaak.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="advocaat" class="section-gray">
+            <div class="container">
+                <h2>Mr Joseph van Appia</h2>
+                <p class="section-subtitle">Oprichter en advocaat met meer dan 25 jaar ervaring</p>
+                
+                <div class="lawyer-profile">
+                    <div class="lawyer-bio">
+                        <p>Mr Joseph van Appia is oprichter van Van Appia Advocaten en heeft zijn opleiding Nederlands recht gevolgd aan de Universiteit van Amsterdam. Hij is gespecialiseerd in strafrecht, vreemdelingenrecht en personen- en familierecht.</p>
+                        
+                        <p>Als eerste Afrikaanse advocaat in Nederland heeft hij een unieke positie opgebouwd in de juridische wereld. Zijn internationale achtergrond en meertalige capaciteiten maken hem bij uitstek geschikt voor complexe grensoverschrijdende juridische kwesties.</p>
+                    </div>
+                    
+                    <div class="lawyer-languages">
+                        <h4>Meertalige rechtsbijstand</h4>
+                        <div class="languages-list">Nederlands • Engels • Hebreeuws • Twi</div>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <a href="tel:+31205312999" class="btn-primary">Plan een intakegesprek</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tarieven">
+            <div class="container">
+                <h2>Tarieven en financiering</h2>
+                <p class="section-subtitle">Transparante tariefstructuur met mogelijkheden voor gefinancierde rechtsbijstand</p>
+                
+                <div class="pricing-container">
+                    <div class="pricing-card pricing-highlight">
+                        <h3>Gefinancierde rechtsbijstand</h3>
+                        <p>Voor personen met een laag inkomen is gefinancierde rechtsbijstand mogelijk via een toevoeging.</p>
+                        
+                        <div class="pricing-table">
+                            <div class="pricing-row">
+                                <span class="pricing-label">Intakegesprek</span>
+                                <span class="pricing-value">Kosteloos</span>
+                            </div>
+                            <div class="pricing-row">
+                                <span class="pricing-label">Eigen bijdrage</span>
+                                <span class="pricing-value">Afhankelijk van inkomen</span>
+                            </div>
+                            <div class="pricing-row">
+                                <span class="pricing-label">Overige kosten</span>
+                                <span class="pricing-value">Gedekt door overheid</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="pricing-card">
+                        <h3>Betalende rechtsbijstand</h3>
+                        <p>Voor cliënten die niet in aanmerking komen voor gefinancierde rechtsbijstand.</p>
+                        
+                        <div class="pricing-table">
+                            <div class="pricing-row">
+                                <span class="pricing-label">Uurtarief</span>
+                                <span class="pricing-value">€150 - €300 excl. BTW</span>
+                            </div>
+                            <div class="pricing-row">
+                                <span class="pricing-label">Intakegesprek</span>
+                                <span class="pricing-value">Kosteloos</span>
+                            </div>
+                            <div class="pricing-row">
+                                <span class="pricing-label">Kosteninschatting</span>
+                                <span class="pricing-value">Vooraf transparant</span>
+                            </div>
+                        </div>
+                        
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #4D4D4D;">Tarieven zijn afhankelijk van complexiteit en urgentie van de zaak.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="cta-section">
+            <div class="container">
+                <h2>Heeft u juridische bijstand nodig?</h2>
+                <p>Neem direct contact op voor een kosteloos intakegesprek. Wij staan klaar om u te helpen.</p>
+                <div class="cta-buttons">
+                    <a href="tel:+31205312999" class="btn-white">Bel direct: 020-531 2999</a>
+                    <a href="mailto:vanappia@vanappiavanderlee.nl" class="btn-white">Stuur een e-mail</a>
+                </div>
+            </div>
+        </div>
+
+        <section id="contact" class="section-gray">
+            <div class="container">
+                <h2>Contact</h2>
+                <p class="section-subtitle">Bereikbaar voor spoedgevallen en reguliere juridische bijstand</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <h4>Kantooradres</h4>
+                        <p>
+                            Stadhouderskade 149-1h<br>
+                            1074BB Amsterdam<br>
+                            Nederland
+                        </p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h4>Telefoon</h4>
+                        <p>
+                            <a href="tel:+31205312999">020-531 2999</a><br>
+                            <a href="tel:+31650207991">06-5020 7991</a>
+                        </p>
+                        <p style="font-size: 0.9rem; color: #8B8B8B; margin-top: 0.5rem;">
+                            Internationaal: +31 20 531 2999
+                        </p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h4>E-mail</h4>
+                        <p><a href="mailto:vanappia@vanappiavanderlee.nl">vanappia@vanappiavanderlee.nl</a></p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <h4>Beschikbare talen</h4>
+                        <p>Nederlands, Engels,<br>Hebreeuws, Twi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Van Appia Advocaten</h4>
+                    <p>Stadhouderskade 149-1h<br>1074BB Amsterdam</p>
+                    <p><a href="tel:+31205312999">020-531 2999</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Rechtsgebieden</h4>
+                    <ul class="footer-links">
+                        <li><a href="#diensten">Strafrecht</a></li>
+                        <li><a href="#diensten">Vreemdelingenrecht</a></li>
+                        <li><a href="#diensten">Familierecht</a></li>
+                        <li><a href="#diensten">VOG-procedures</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Informatie</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:vanappia@vanappiavanderlee.nl">Algemene voorwaarden</a></li>
+                        <li><a href="mailto:vanappia@vanappiavanderlee.nl">Privacyverklaring</a></li>
+                        <li><a href="https://www.degeschillencommissie.nl" target="_blank" rel="noopener">Klachtenregeling</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Regulering</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://www.advocatenorde.nl" target="_blank" rel="noopener">Nederlandse Orde van Advocaten</a></li>
+                        <li><a href="https://www.degeschillencommissie.nl" target="_blank" rel="noopener">Geschillencommissie</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Van Appia Advocaten. Alle rechten voorbehouden.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.querySelector('nav');
+            const menu = document.getElementById('nav-menu');
+            if (!nav.contains(e.target) && menu.classList.contains('active')) {
+                menu.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

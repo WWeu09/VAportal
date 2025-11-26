@@ -292,6 +292,16 @@
      </div>
     </div>
    </div>
+  </section><!-- VERKOCHT / ARCHIEF -->
+  <section id="verkocht" class="bg-gray-100 py-8 sm:py-12 hidden">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-6 sm:mb-8">
+     <h2 class="text-xl sm:text-2xl font-bold mb-2 text-gray-700">Verkocht / Archief Modellen</h2>
+     <p class="text-gray-500 text-xs sm:text-sm">Deze voertuigen zijn reeds verkocht</p>
+    </div>
+    <div id="soldCarsGrid" class="mobile-grid-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"><!-- Sold cars will be inserted here -->
+    </div>
+   </div>
   </section><!-- DIENSTEN -->
   <section id="diensten" class="bg-white py-8 sm:py-12">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -484,6 +494,7 @@
 
     let allCarsData = [];
     let allCarsWithRDW = [];
+    let soldCarsWithRDW = [];
     let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
     let filterConfig = {
       search: '',
@@ -497,9 +508,12 @@
     let currentView = 'grid'; // 'grid' or 'slider'
 
     // Share function
-    async function shareVehicle(kenteken, car, rdw) {
-      const title = `Occasion – ${rdw?.merk || ''} ${rdw?.model || ''} ${formatPrice(car.Prijs)}`;
-      const description = `Bekijk deze auto bij Meyers Automotive – ${formatKm(car.Kilometerstand)}, ${rdw?.bouwjaar || ''}, ${car.Transmissie || ''}, ${car.Locatie || 'Amsterdam'}.`;
+    async function shareVehicle(kenteken, car, rdw, isSold = false) {
+      const soldText = isSold ? ' – DEZE AUTO IS VERKOCHT' : '';
+      const title = `Occasion – ${rdw?.merk || ''} ${rdw?.model || ''} ${formatPrice(car.Prijs)}${soldText}`;
+      const description = isSold 
+        ? `Deze auto is verkocht. Bekijk actuele voorraad bij Meyers Automotive – ${formatKm(car.Kilometerstand)}, ${rdw?.bouwjaar || ''}, ${car.Transmissie || ''}, ${car.Locatie || 'Amsterdam'}.`
+        : `Bekijk deze auto bij Meyers Automotive – ${formatKm(car.Kilometerstand)}, ${rdw?.bouwjaar || ''}, ${car.Transmissie || ''}, ${car.Locatie || 'Amsterdam'}.`;
       const url = window.location.href.split('#')[0] + '#' + kenteken;
       const image = car['Foto 1 – Voorkant'] || '';
 
@@ -592,6 +606,25 @@
       }
       
       modal.classList.remove('hidden');
+    }
+
+    // Render sold cars section
+    function renderSoldCars() {
+      const section = document.getElementById('verkocht');
+      const grid = document.getElementById('soldCarsGrid');
+      
+      if (soldCarsWithRDW.length === 0) {
+        section.classList.add('hidden');
+        return;
+      }
+      
+      grid.innerHTML = '';
+      soldCarsWithRDW.forEach(item => {
+        const card = renderSoldCard(item.car, item.rdw);
+        if (card) grid.appendChild(card);
+      });
+      
+      section.classList.remove('hidden');
     }
 
     // Mobile menu
@@ -816,6 +849,38 @@
       return card;
     }
 
+    // Render sold card
+    function renderSoldCard(car, rdw) {
+      const card = document.createElement('div');
+      
+      const foto1 = car['Foto 1 – Voorkant'] || '';
+      const validFoto = foto1 && typeof foto1 === 'string' && foto1.trim() && foto1.trim().startsWith('http') ? foto1.trim() : '';
+      
+      card.className = 'car-card car-card-mobile bg-white rounded-lg border-2 border-gray-300 overflow-hidden cursor-pointer shadow-sm opacity-75';
+      card.setAttribute('data-kenteken', car.Kenteken);
+      card.onclick = () => openCarDetail(car.Kenteken);
+      
+      const carIconSmall = '<svg class="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 20 20"><path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/></svg>';
+      
+      card.innerHTML = `
+        <div class="relative bg-gray-200 h-28 flex items-center justify-center overflow-hidden">
+          ${validFoto ? `<img src="${validFoto}" alt="${car.Kenteken}" class="w-full h-full object-cover filter grayscale-[30%]" loading="lazy" onerror="this.parentElement.innerHTML='${carIconSmall}'">` : carIconSmall}
+          <div class="absolute top-2 left-2 badge-verkocht text-xs">VERKOCHT</div>
+        </div>
+        <div class="p-2">
+          <div class="text-xs font-bold mb-1 text-gray-600">${formatPrice(car.Prijs)}</div>
+          <div class="kenteken-badge bg-gray-600 text-white rounded px-2 py-0.5 inline-block mb-1 font-mono font-bold text-xs">${car.Kenteken}</div>
+          ${rdw ? `<div class="text-xs font-semibold text-gray-700 mb-1 line-clamp-1">${rdw.merk || ''} ${rdw.model || ''}</div>` : '<div class="skeleton h-3 w-full mb-1 rounded"></div>'}
+          <div class="text-xs text-gray-500 space-y-0.5">
+            <div>${rdw?.bouwjaar || '...'} • ${formatKm(car.Kilometerstand)}</div>
+            <div>${car.Transmissie || '...'}</div>
+          </div>
+        </div>
+      `;
+      
+      return card;
+    }
+
     // Render mobile compact card
     function renderMobileCard(car, rdw) {
       const card = document.createElement('div');
@@ -981,7 +1046,9 @@
     // Open car detail
     async function openCarDetail(kenteken) {
       const car = allCarsData.find(c => c.Kenteken === kenteken);
-      if (!car || car.Beschikbaar?.toLowerCase() !== 'ja') return;
+      if (!car) return;
+      
+      const isSold = car.Beschikbaar?.toLowerCase() !== 'ja';
       
       const modal = document.getElementById('carModal');
       const content = document.getElementById('modalContent');
@@ -1065,6 +1132,13 @@
         ${galleryHTML}
         
         <div class="p-5 sm:p-6 lg:p-8">
+          ${isSold ? `
+          <div class="bg-red-50 border-2 border-red-500 rounded-lg p-4 mb-5 text-center">
+            <div class="badge-verkocht inline-block mb-2 text-sm">VERKOCHT – NIET BESCHIKBAAR</div>
+            <p class="text-sm text-gray-700">Dit voertuig is reeds verkocht. Bij Meyers Automotive wisselt de voorraad dagelijks — neem contact op voor actuele nieuwe binnenkomers.</p>
+          </div>
+          ` : ''}
+          
           <div class="mb-5 pb-5 border-b-2 border-gray-200">
             <div class="flex flex-col sm:flex-row sm:justify-between gap-3 mb-2">
               <div>
@@ -1072,7 +1146,7 @@
                 ${rdw ? `<p class="text-base sm:text-lg text-gray-600 font-medium">${rdw.merk || ''} ${rdw.model || ''}</p>` : ''}
               </div>
               <div class="sm:text-right">
-                <div class="text-2xl sm:text-3xl font-bold text-red-600">${formatPrice(car.Prijs)}</div>
+                <div class="text-2xl sm:text-3xl font-bold ${isSold ? 'text-gray-500 line-through' : 'text-red-600'}">${formatPrice(car.Prijs)}</div>
                 ${car.Locatie ? `<p class="text-sm text-gray-600 mt-1">📍 ${car.Locatie}</p>` : ''}
               </div>
             </div>
@@ -1132,6 +1206,30 @@
           </div>
           ` : ''}
           
+          ${isSold ? `
+          <div class="grid grid-cols-1 gap-3 mt-6">
+            <a href="#aanbod" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/><path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1v-5a1 1 0 00-.293-.707l-2-2A1 1 0 0015 7h-1z"/>
+              </svg>
+              Bekijk andere beschikbare voertuigen
+            </a>
+            <div class="grid grid-cols-2 gap-3">
+              <a href="tel:+31657160395" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                </svg>
+                Bel ons
+              </a>
+              <button onclick="shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'}, true)" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+                Delen
+              </button>
+            </div>
+          </div>
+          ` : `
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
             <a href="tel:+31657160395" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -1145,13 +1243,14 @@
               </svg>
               WhatsApp
             </a>
-            <button onclick="shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'})" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
+            <button onclick="shareVehicle('${car.Kenteken}', ${JSON.stringify(car).replace(/"/g, '&quot;')}, ${rdw ? JSON.stringify(rdw).replace(/"/g, '&quot;') : 'null'}, false)" class="bg-black hover:bg-gray-800 text-white font-bold py-3 px-4 rounded-lg text-center transition-colors text-sm flex items-center justify-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
               </svg>
               Delen
             </button>
           </div>
+          `}
         </div>
       `;
       
@@ -1479,15 +1578,22 @@
               return;
             }
             
+            // Separate available and sold cars
+            const availableCars = allCarsData.filter(car => car.Beschikbaar?.toLowerCase() === 'ja');
+            const soldCars = allCarsData.filter(car => car.Beschikbaar?.toLowerCase() !== 'ja');
+            
             // Phase 1: Show cars immediately
-            allCarsWithRDW = allCarsData.map(car => ({ car: car, rdw: null }));
+            allCarsWithRDW = availableCars.map(car => ({ car: car, rdw: null }));
+            soldCarsWithRDW = soldCars.map(car => ({ car: car, rdw: null }));
+            
             grid.innerHTML = '';
             renderFilteredCars(allCarsWithRDW);
             renderFeaturedCars();
+            renderSoldCars();
             initializeFilters();
             updateFavoritesCount();
             
-            // Phase 2: Load RDW data progressively
+            // Phase 2: Load RDW data progressively for both available and sold
             const BATCH_SIZE = 10;
             for (let i = 0; i < allCarsData.length; i += BATCH_SIZE) {
               const batch = allCarsData.slice(i, i + BATCH_SIZE);
@@ -1495,9 +1601,18 @@
               await Promise.all(batch.map(async (car) => {
                 try {
                   const rdw = await fetchRDWData(car.Kenteken);
-                  const index = allCarsWithRDW.findIndex(item => item.car.Kenteken === car.Kenteken);
-                  if (index !== -1) {
-                    allCarsWithRDW[index].rdw = rdw;
+                  
+                  // Update available cars
+                  const availableIndex = allCarsWithRDW.findIndex(item => item.car.Kenteken === car.Kenteken);
+                  if (availableIndex !== -1) {
+                    allCarsWithRDW[availableIndex].rdw = rdw;
+                    updateCardWithRDW(car.Kenteken, rdw);
+                  }
+                  
+                  // Update sold cars
+                  const soldIndex = soldCarsWithRDW.findIndex(item => item.car.Kenteken === car.Kenteken);
+                  if (soldIndex !== -1) {
+                    soldCarsWithRDW[soldIndex].rdw = rdw;
                     updateCardWithRDW(car.Kenteken, rdw);
                   }
                 } catch (err) {
@@ -1510,9 +1625,10 @@
               }
             }
             
-            // Refresh filters and featured with RDW data
+            // Refresh filters and sections with RDW data
             initializeFilters();
             renderFeaturedCars();
+            renderSoldCars();
           },
           error: function(err) {
             error.classList.remove('hidden');
@@ -1546,5 +1662,5 @@
 
     window.addEventListener('DOMContentLoaded', loadCars);
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a4c43a5a262751f',t:'MTc2NDE5MDI5MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a4c4cb3d56d2f85',t:'MTc2NDE5MDY2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

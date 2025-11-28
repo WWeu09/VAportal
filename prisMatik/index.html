@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Prismatikai - Geavanceerde AI-chatbots voor 24/7 klantinteractie. Transformeer uw bedrijf met intelligente automatisering en verhoog klanttevredenheid.">
+    <meta name="keywords" content="AI chatbot, klantservice, automatisering, Nederland, kunstmatige intelligentie">
+    <meta name="author" content="Prismatikai">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Prismatikai - AI Chatbot Solutions">
+    <meta property="og:description" content="De toekomst van klantinteractie met geavanceerde AI-chatbots">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://prismatikai.com">
+    
+    <title>Prismatikai - AI Chatbot Solutions | 24/7 Klantinteractie</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Color System - Optimized palette */
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --fresh-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --warm-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            
+            /* Core Colors */
+            --primary-blue: #4facfe;
+            --secondary-cyan: #00f2fe;
+            --accent-purple: #667eea;
+            --success-green: #38ef7d;
+            
+            /* Neutral System */
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #64748b;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            
+            /* Shadows - Reduced for performance */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        /* Reset and Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Loading Animation - Optimized */
+        .loading-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-cyan));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Navigation - Enhanced */
+        .nav-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .home-button {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Section - Improved */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--accent-purple) 100%);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.3rem);
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .cta-primary {
+            background: white;
+            color: var(--primary-blue);
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* 3D Banner - Performance Optimized */
+        .banner {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            position: relative;
+        }
+
+        .slider {
+            position: absolute;
+            width: 200px;
+            height: 250px;
+            transform-style: preserve-3d;
+            animation: autoRun 20s linear infinite;
+        }
+
+        @keyframes autoRun {
+            from { transform: perspective(1000px) rotateX(-16deg) rotateY(0deg); }
+            to { transform: perspective(1000px) rotateX(-16deg) rotateY(360deg); }
+        }
+
+        .slider .item {
+            position: absolute;
+            inset: 0;
+            transform: rotateY(calc((var(--position) - 1) * (360 / 10) * 1deg)) translateZ(300px);
+        }
+
+        .slider .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .banner .content {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .banner .content h1 {
+            font-size: clamp(3rem, 8vw, 8rem);
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 2px #fff;
+            position: relative;
+        }
+
+        .banner .content h1::before {
+            content: attr(data-content);
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textShine 3s ease-in-out infinite;
+        }
+
+        @keyframes textShine {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Main Content */
+        .main-content {
+            background: var(--white);
+            position: relative;
+            z-index: 10;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Stats Section - Enhanced */
+        .stats-section {
+            padding: 5rem 0;
+            text-align: center;
+            background: var(--light-gray);
+        }
+
+        .stats-section h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        /* Content Section */
+        .content {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            line-height: 1.7;
+        }
+
+        /* Features Grid - Improved */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-blue);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card ul {
+            list-style: none;
+        }
+
+        .feature-card li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--medium-gray);
+            position: relative;
+            padding-left: 2rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .feature-card li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Contact Form - Enhanced */
+        #contact {
+            background: var(--light-gray);
+            padding: 5rem 0;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-container h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-container input,
+        .form-container textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-container input:focus,
+        .form-container textarea:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+
+        .checkbox-group {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-weight: 400;
+        }
+
+        .form-container input[type="submit"] {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1.25rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .form-container input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Footer - Improved */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .social-media-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-media-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-media-links a:hover {
+            background: var(--primary-blue);
+            transform: translateY(-3px);
+        }
+
+        .social-media-links img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .powered-by {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .powered-by a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        /* Popup Styles - Enhanced */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+
+        .form-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+            z-index: 9999;
+            width: 600px;
+        }
+
+        .form-popup h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-popup ol {
+            margin: 2rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .form-popup li {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .form-popup ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .btn.cancel {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .btn.cancel:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hero-section {
+                padding: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .social-media-links {
+                gap: 1rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .form-popup {
+                width: 95vw;
+                padding: 2rem;
+            }
+
+            .banner .content h1 {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .form-container {
+                padding: 2rem;
+            }
+        }
+
+        /* Performance Optimizations */
+        .feature-card,
+        .stat-item {
+            will-change: transform;
+        }
+
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .slider {
+                animation: none;
+            }
+        }
+
+        /* Focus Styles */
+        button:focus,
+        input:focus,
+        textarea:focus,
+        a:focus {
+            outline: 2px solid var(--primary-blue);
+            outline-offset: 2px;
+        }
+
+        /* Print Styles */
+        @media print {
+            .loading-animation,
+            .nav-header,
+            .banner,
+            footer {
+                display: none;
+            }
+
+            .hero-section {
+                min-height: auto;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link for Screen Readers -->
+    <a href="#main-content" class="skip-link">Ga naar hoofdinhoud</a>
+
+    <!-- Loading Animation -->
+    <div class="loading-animation" aria-hidden="true">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-header" role="navigation" aria-label="Hoofdnavigatie">
+        <div class="nav-container">
+            <div class="logo" aria-label="Prismatikai logo">Prismatikai</div>
+            <a href="#home" class="home-button" onclick="scrollToSection('home'); return false;" aria-label="Ga naar home sectie">Home</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home" aria-labelledby="hero-title">
+        <div class="hero-content">
+            <h1 class="hero-title" id="hero-title">Welkom bij Prismatikai</h1>
+            <p class="hero-subtitle">De toekomst van klantinteractie met onze geavanceerde AI-chatbots. Transformeer uw bedrijf met intelligente automatisering.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="cta-button cta-primary" onclick="scrollToSection('contact'); return false;" aria-label="Start nu met Prismatikai">
+                    🚀 Start Nu
+                </a>
+                <a href="#features" class="cta-button cta-secondary" onclick="scrollToSection('features'); return false;" aria-label="Ontdek meer over onze features">
+                    🔍 Ontdek Meer
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Banner -->
+    <section class="banner" aria-label="Interactieve banner met bedrijfsafbeeldingen">
+        <div class="slider" style="--quantity: 10" aria-hidden="true">
+            <div class="item" style="--position: 1"><img src="https://i.postimg.cc/vZ1K70X2/try-it-today.png" alt="Try it Today" loading="lazy"></div>
+            <div class="item" style="--position: 2"><img src="https://i.postimg.cc/xjhMJgJ1/Minimal-effort-requiered.png" alt="Minimal Effort Required" loading="lazy"></div>
+            <div class="item" style="--position: 3"><img src="https://i.postimg.cc/DwdXNTCS/AUTOMATE-YOUR-BUSINESS.png" alt="Automate Your Business" loading="lazy"></div>
+            <div class="item" style="--position: 4"><img src="https://i.postimg.cc/T1FVTJmh/chat-pic3.png" alt="Chat Solutions" loading="lazy"></div>
+            <div class="item" style="--position: 5"><img src="https://i.postimg.cc/VL2gwmB4/everyhting-the-bot.png" alt="Everything the Bot" loading="lazy"></div>
+            <div class="item" style="--position: 6"><img src="https://i.postimg.cc/25Gn1Dvs/Prismatik.png" alt="Prismatik" loading="lazy"></div>
+            <div class="item" style="--position: 7"><img src="https://i.postimg.cc/YqFg1gYf/Helvetica-World.png" alt="Helvetica World" loading="lazy"></div>
+            <div class="item" style="--position: 8"><img src="https://i.postimg.cc/T17kgbbX/learn-now.png" alt="Learn Now" loading="lazy"></div>
+            <div class="item" style="--position: 9"><img src="https://i.postimg.cc/xjhMJgJ1/Minimal-effort-requiered.png" alt="Minimal Effort Required" loading="lazy"></div>
+            <div class="item" style="--position: 10"><img src="https://i.postimg.cc/T1RSrGHn/www-reallygreatsite-com.png" alt="Website" loading="lazy"></div>
+        </div>
+        <div class="content">
+            <h2 data-content="Prismatikai" aria-label="Prismatikai 3D logo">Prismatikai</h2>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content" id="main-content">
+        <div class="container">
+            <!-- Stats Section -->
+            <section class="stats-section" aria-labelledby="stats-title">
+                <h2 id="stats-title">Waarom Kiezen Voor Ons?</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" aria-label="24 uur per dag, 7 dagen per week">24/7</span>
+                        <span class="stat-label">Beschikbaarheid</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" aria-label="99 procent">99%</span>
+                        <span class="stat-label">Klanttevredenheid</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" aria-label="Meer dan 50">50+</span>
+                        <span class="stat-label">Tevreden Klanten</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" aria-label="Oneindige">∞</span>
+                        <span class="stat-label">Mogelijkheden</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content" id="features" aria-labelledby="features-title">
+                <h2 class="section-title" id="features-title">Ontdek de Kracht van Prismatik Chatbots</h2>
+                <p class="section-subtitle">In een wereld waar klantinteractie essentieel is, biedt Prismatik de oplossing die je nodig hebt om voorop te blijven. Onze geavanceerde chatbots transformeren de manier waarop bedrijven communiceren met hun klanten door efficiënte, 24/7 ondersteuning te bieden zonder de noodzaak van menselijke tussenkomst.</p>
+                
+                <div class="features-grid">
+                    <article class="feature-card">
+                        <h3>Altijd Beschikbaar</h3>
+                        <ul>
+                            <li>24/7 klantenservice zonder onderbrekingen</li>
+                            <li>Directe respons op klantvragen</li>
+                            <li>Geen wachttijden voor uw klanten</li>
+                            <li>Wereldwijde tijdzone ondersteuning</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <h3>Personalisatie op Maat</h3>
+                        <ul>
+                            <li>Chatbots afgestemd op uw bedrijf</li>
+                            <li>Naadloze integratie met uw merkstem</li>
+                            <li>Aangepaste workflows en processen</li>
+                            <li>Meertalige ondersteuning</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <h3>Efficiëntie en Kostenbesparing</h3>
+                        <ul>
+                            <li>Verlaag operationele kosten tot 70%</li>
+                            <li>Automatiseer routinematige taken</li>
+                            <li>Focus op strategische activiteiten</li>
+                            <li>Verhoog productiviteit van uw team</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <h3>Naadloze Integratie</h3>
+                        <ul>
+                            <li>Eenvoudige implementatie in 24 uur</li>
+                            <li>Compatibel met bestaande systemen</li>
+                            <li>Geen verstoring van huidige processen</li>
+                            <li>API-integraties met populaire platforms</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <h3>Data en Inzichten</h3>
+                        <ul>
+                            <li>Waardevolle klantinzichten in real-time</li>
+                            <li>Gedetailleerde rapportages en analytics</li>
+                            <li>Verbeter uw klantenservice continu</li>
+                            <li>Voorspellende analyses voor betere service</li>
+                        </ul>
+                    </article>
+                    
+                    <article class="feature-card">
+                        <h3>Toekomstbestendig</h3>
+                        <ul>
+                            <li>Schaalbare oplossingen voor groei</li>
+                            <li>Regelmatige AI-updates en verbeteringen</li>
+                            <li>Klaar voor de digitale toekomst</li>
+                            <li>Machine learning voor slimmere responses</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <div style="text-align: center; margin: 4rem 0;">
+                    <h3 class="section-title">Maak de Sprong naar de Toekomst</h3>
+                    <p class="section-subtitle">Klaar om jouw klantinteracties te revolutioneren en je bedrijf naar een hoger niveau te tillen? Ontdek hoe Prismatik jouw perfecte partner kan zijn voor klantgerichte AI-oplossingen.</p>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section id="contact" aria-labelledby="contact-title">
+                <div class="form-container">
+                    <form action="mailto:Prismatikai@outlook.com" method="post" enctype="text/plain" novalidate>
+                        <h3 id="contact-title">Start Uw AI-Transformatie</h3>
+                        
+                        <div class="form-row">
+                            <div>
+                                <label for="name">Naam *</label>
+                                <input type="text" id="name" name="name" placeholder="Uw volledige naam" required aria-required="true">
+                            </div>
+                            <div>
+                                <label for="company">Bedrijf *</label>
+                                <input type="text" id="company" name="company" placeholder="Uw bedrijfsnaam" required aria-required="true">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div>
+                                <label for="email">E-mailadres *</label>
+                                <input type="email" id="email" name="email" placeholder="uw.email@bedrijf.nl" required aria-required="true">
+                            </div>
+                            <div>
+                                <label for="phone">Telefoonnummer *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+31 6 12345678" required aria-required="true">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="message">Vertel ons over uw project *</label>
+                            <textarea id="message" name="message" rows="4" placeholder="Beschrijf uw behoeften en doelen..." required aria-required="true"></textarea>
+                        </div>
+                        
+                        <fieldset>
+                            <legend>Hoe heeft u van ons gehoord? *</legend>
+                            <div class="checkbox-group">
+                                <label><input type="radio" name="referral" value="Zoekmachine" required aria-required="true"> 🔍 Zoekmachine (Google, Bing)</label>
+                                <label><input type="radio" name="referral" value="Sociale Media" required> 📱 Sociale Media</label>
+                                <label><input type="radio" name="referral" value="Aanbeveling" required> 👥 Aanbeveling van collega/vriend</label>
+                                <label><input type="radio" name="referral" value="Anders" required> ✨ Anders</label>
+                                <input type="text" name="other-referral" placeholder="Specificeer indien 'Anders' geselecteerd" style="margin-top: 0.5rem;" aria-label="Specificeer andere bron">
+                            </div>
+                        </fieldset>
+                        
+                        <label style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;">
+                            <input type="checkbox" id="demo" name="demo" value="Ja" checked style="width: auto; margin: 0;">
+                            🎯 Ik wil graag een gratis demonstratie van 30 minuten
+                        </label>
+                        
+                        <input type="submit" value="🚀 Start Mijn AI-Transformatie" aria-label="Verstuur contactformulier">
+                    </form>
+                    
+                    <p style="text-align: center; margin-top: 2rem; opacity: 0.9; font-size: 0.9rem;">
+                        🔒 Uw gegevens zijn veilig bij ons. Door dit formulier in te vullen, stem je in met onze privacyverklaring.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer role="contentinfo">
+        <div class="social-media-links">
+            <a href="https://www.facebook.com/people/Prismatik/61566408536987/" target="_blank" rel="noopener noreferrer" aria-label="Bezoek onze Facebook pagina">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" loading="lazy">
+            </a>
+            <a href="https://www.instagram.com/prismatikofficial/" target="_blank" rel="noopener noreferrer" aria-label="Bezoek onze Instagram pagina">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" loading="lazy">
+            </a>
+            <a href="https://www.youtube.com/channel/UC1Gf5ezfop8wLp-SlIHuG7w" target="_blank" rel="noopener noreferrer" aria-label="Bezoek ons YouTube kanaal">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube" loading="lazy">
+            </a>
+            <a href="https://api.whatsapp.com/send/?phone=31626472332&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" aria-label="Contact ons via WhatsApp">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" loading="lazy">
+            </a>
+        </div>
+        
+        <p>&copy; 2024 Prismatik. Alle rechten voorbehouden.</p>
+        
+        <nav class="footer-links" aria-label="Footer navigatie">
+            <a href="#" onclick="openPrivacyPolicy()" aria-label="Lees ons privacybeleid">Privacybeleid</a>
+            <a href="#" onclick="openForm()" aria-label="Lees onze algemene voorwaarden">Algemene Voorwaarden</a>
+        </nav>
+        
+        <div class="powered-by">
+            <p>✨ Powered by <a href="https://vanappiah.com/" target="_blank" rel="noopener noreferrer">Van Appiah</a> - Digital Innovation Partner</p>
+        </div>
+    </footer>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay" aria-hidden="true"></div>
+
+    <!-- Privacy Policy Popup -->
+    <div class="form-popup" id="myPrivacyPolicy" role="dialog" aria-labelledby="privacy-title" aria-modal="true">
+        <h1 id="privacy-title">🔒 Privacybeleid Prismatik</h1>
+        <p>Bij Prismatik nemen we jouw privacy en de bescherming van jouw persoonlijke gegevens zeer serieus. Dit privacybeleid legt uit welke informatie we verzamelen, hoe we die gebruiken, en welke rechten je hebt met betrekking tot jouw gegevens.</p>
+        
+        <ol>
+            <li><strong>🏢 Wie we zijn</strong>
+                <p>Prismatik is een innovatief platform dat geavanceerde AI-chatbots biedt voor bedrijven om hun klantinteracties te revolutioneren. Voor vragen over dit beleid kun je contact met ons opnemen via Prismatikai@outlook.com.</p>
+            </li>
+            <li><strong>📊 Welke gegevens we verzamelen</strong>
+                <ul>
+                    <li>Identificatiegegevens: naam, bedrijfsnaam, e-mailadres en telefoonnummer</li>
+                    <li>Websitegebruik: interacties met onze website en voorkeuren</li>
+                    <li>Communicatie: berichten en feedback die je met ons deelt</li>
+                    <li>Technische gegevens: IP-adres, browsertype en apparaatinformatie</li>
+                </ul>
+            </li>
+            <li><strong>🎯 Hoe we jouw gegevens gebruiken</strong>
+                <ul>
+                    <li>Levering van onze AI-chatbot diensten</li>
+                    <li>Persoonlijke communicatie en klantenservice</li>
+                    <li>Verbetering en optimalisatie van onze services</li>
+                    <li>Marketing en promotionele activiteiten (met toestemming)</li>
+                </ul>
+            </li>
+            <li><strong>⚖️ Jouw rechten</strong>
+                <ul>
+                    <li>Recht op inzage van al jouw opgeslagen gegevens</li>
+                    <li>Recht op correctie van onjuiste of verouderde informatie</li>
+                    <li>Recht op verwijdering van jouw persoonlijke gegevens</li>
+                    <li>Recht op bezwaar tegen bepaalde verwerkingen</li>
+                    <li>Recht op dataportabiliteit naar andere dienstverleners</li>
+                </ul>
+            </li>
+        </ol>
+        
+        <button type="button" class="btn cancel" onclick="closePrivacyPolicy()" aria-label="Sluit privacybeleid">Sluiten</button>
+    </div>
+
+    <!-- Terms and Conditions Popup -->
+    <div class="form-popup" id="myForm" role="dialog" aria-labelledby="terms-title" aria-modal="true">
+        <h1 id="terms-title">📋 Algemene Voorwaarden Prismatik</h1>
+        <p>Welkom bij Prismatik, uw partner voor geavanceerde AI-chatbotoplossingen. Door gebruik te maken van onze website en diensten, stem je in met de volgende algemene voorwaarden.</p>
+        
+        <ol>
+            <li><strong>📖 Definities</strong>
+                <ul>
+                    <li><strong>Prismatik:</strong> de eigenaar van de website en aanbieder van AI-chatbotdiensten</li>
+                    <li><strong>Gebruiker:</strong> een persoon of bedrijf dat gebruikmaakt van onze diensten</li>
+                    <li><strong>Diensten:</strong> alle AI-chatbotoplossingen en gerelateerde services van Prismatik</li>
+                </ul>
+            </li>
+            <li><strong>🔧 Gebruik van de Dienst</strong>
+                <ul>
+                    <li>Registratie is vereist voor toegang tot premium functies</li>
+                    <li>Gebruikers zijn verantwoordelijk voor de beveiliging van hun accountgegevens</li>
+                    <li>Prismatik behoudt zich het recht voor om diensten te wijzigen of te beëindigen</li>
+                    <li>Misbruik van onze diensten is ten strengste verboden</li>
+                </ul>
+            </li>
+            <li><strong>💰 Betaling en Abonnementen</strong>
+                <ul>
+                    <li>Prijzen worden duidelijk gecommuniceerd voor aankoop</li>
+                    <li>Abonnementen worden automatisch verlengd tenzij opgezegd</li>
+                    <li>Annuleringen kunnen met inachtneming van de opzegtermijn</li>
+                </ul>
+            </li>
+            <li><strong>⚠️ Aansprakelijkheid</strong>
+                <ul>
+                    <li>Prismatik is niet aansprakelijk voor schade door normaal gebruik</li>
+                    <li>Gebruikers zijn verantwoordelijk voor schade door onjuist gebruik</li>
+                    <li>Onze aansprakelijkheid is beperkt tot de waarde van de dienst</li>
+                </ul>
+            </li>
+            <li><strong>🏛️ Toepasselijk Recht</strong>
+                <p>Op deze voorwaarden is het Nederlands recht van toepassing. Geschillen worden voorgelegd aan de bevoegde rechtbank in Nederland.</p>
+            </li>
+        </ol>
+        
+        <button type="button" class="btn cancel" onclick="closeForm()" aria-label="Sluit algemene voorwaarden">Sluiten</button>
+    </div>
+
+    <script>
+        // Performance optimized JavaScript
+        (function() {
+            'use strict';
+
+            // Privacy Policy Functions
+            function openPrivacyPolicy() {
+                const popup = document.getElementById("myPrivacyPolicy");
+                const overlay = document.getElementById("popupOverlay");
+                
+                popup.style.display = "block";
+                overlay.style.display = "block";
+                document.body.style.overflow = "hidden";
+                
+                // Focus management for accessibility
+                popup.focus();
+                popup.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+            
+            function closePrivacyPolicy() {
+                const popup = document.getElementById("myPrivacyPolicy");
+                const overlay = document.getElementById("popupOverlay");
+                
+                popup.style.display = "none";
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto";
+                
+                popup.setAttribute('aria-hidden', 'true');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+            
+            // Terms and Conditions Functions
+            function openForm() {
+                const popup = document.getElementById("myForm");
+                const overlay = document.getElementById("popupOverlay");
+                
+                popup.style.display = "block";
+                overlay.style.display = "block";
+                document.body.style.overflow = "hidden";
+                
+                popup.focus();
+                popup.setAttribute('aria-hidden', 'false');
+                overlay.setAttribute('aria-hidden', 'false');
+            }
+            
+            function closeForm() {
+                const popup = document.getElementById("myForm");
+                const overlay = document.getElementById("popupOverlay");
+                
+                popup.style.display = "none";
+                overlay.style.display = "none";
+                document.body.style.overflow = "auto";
+                
+                popup.setAttribute('aria-hidden', 'true');
+                overlay.setAttribute('aria-hidden', 'true');
+            }
+            
+            // Smooth scrolling function
+            function scrollToSection(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+            
+            // Make functions globally available
+            window.openPrivacyPolicy = openPrivacyPolicy;
+            window.closePrivacyPolicy = closePrivacyPolicy;
+            window.openForm = openForm;
+            window.closeForm = closeForm;
+            window.scrollToSection = scrollToSection;
+            
+            // Event Listeners
+            document.addEventListener('DOMContentLoaded', function() {
+                // Close popups when clicking overlay
+                const overlay = document.getElementById("popupOverlay");
+                if (overlay) {
+                    overlay.addEventListener('click', function() {
+                        closePrivacyPolicy();
+                        closeForm();
+                    });
+                }
+                
+                // Close popups with Escape key
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Escape') {
+                        closePrivacyPolicy();
+                        closeForm();
+                    }
+                });
+                
+                // Intersection Observer for animations
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                };
+                
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, observerOptions);
+                
+                // Observe elements for animation
+                const animateElements = document.querySelectorAll('.feature-card, .stat-item');
+                animateElements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                    observer.observe(el);
+                });
+                
+                // Form validation enhancement
+                const form = document.querySelector('form');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        const requiredFields = form.querySelectorAll('[required]');
+                        let isValid = true;
+                        
+                        requiredFields.forEach(field => {
+                            if (!field.value.trim()) {
+                                field.style.borderColor = '#ef4444';
+                                isValid = false;
+                            } else {
+                                field.style.borderColor = '';
+                            }
+                        });
+                        
+                        if (!isValid) {
+                            e.preventDefault();
+                            alert('Vul alle verplichte velden in.');
+                        }
+                    });
+                }
+            });
+            
+            // Loading animation
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    const loadingEl = document.querySelector('.loading-animation');
+                    if (loadingEl) {
+                        loadingEl.style.opacity = '0';
+                        setTimeout(() => {
+                            loadingEl.style.display = 'none';
+                        }, 500);
+                    }
+                }, 1000);
+            });
+            
+            // Navbar scroll effect
+            let lastScrollTop = 0;
+            const navbar = document.querySelector('.nav-header');
+            
+            window.addEventListener('scroll', function() {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+            }, { passive: true });
+            
+        })();
+    </script>
+</body>
+</html>

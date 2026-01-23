@@ -1,0 +1,1468 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garage Parts &amp; Merchandise</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&amp;family=Inter:wght@400;500;600;700;800&amp;family=Cormorant+Garamond:wght@400;600;700&amp;family=Montserrat:wght@400;500;600;700;800&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    /* Base Theme Styles */
+    .theme-classic {
+      --font-primary: 'Playfair Display', serif;
+      --font-secondary: 'Montserrat', sans-serif;
+      --card-radius: 12px;
+      --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.18);
+    }
+    
+    .theme-modern {
+      --font-primary: 'Inter', sans-serif;
+      --font-secondary: 'Inter', sans-serif;
+      --card-radius: 20px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 8px 20px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+    
+    .theme-luxe {
+      --font-primary: 'Cormorant Garamond', serif;
+      --font-secondary: 'Lato', sans-serif;
+      --card-radius: 8px;
+      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.15);
+      --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.25);
+      --shadow-lg: 0 24px 64px rgba(0, 0, 0, 0.35);
+    }
+    
+    /* Classic Color Schemes */
+    .theme-classic.scheme-ivory-amber {
+      --color-1: #FFFFF0;
+      --color-2: #A9A9A9;
+      --color-3: #4F4F4F;
+      --color-4: #FFB400;
+      --color-5: #E1E1E1;
+    }
+    
+    .theme-classic.scheme-cream-copper {
+      --color-1: #FFF8E7;
+      --color-2: #B87333;
+      --color-3: #8B7355;
+      --color-4: #CD7F32;
+      --color-5: #E8DCC8;
+    }
+    
+    .theme-classic.scheme-blue-grey {
+      --color-1: #E3F2FD;
+      --color-2: #90CAF9;
+      --color-3: #546E7A;
+      --color-4: #1976D2;
+      --color-5: #CFE8FC;
+    }
+    
+    .theme-classic.scheme-green-brown {
+      --color-1: #F1F8E9;
+      --color-2: #AED581;
+      --color-3: #6D4C41;
+      --color-4: #558B2F;
+      --color-5: #DCEDC8;
+    }
+    
+    .theme-classic.scheme-beige-ochre {
+      --color-1: #F5F5DC;
+      --color-2: #D2B48C;
+      --color-3: #4F4F4F;
+      --color-4: #CC8800;
+      --color-5: #E8E0CC;
+    }
+    
+    /* Modern Color Schemes */
+    .theme-modern.scheme-blue-grey {
+      --color-1: #F8F8F8;
+      --color-2: #C0C0C0;
+      --color-3: #78909C;
+      --color-4: #1E88E5;
+      --color-5: #ECEFF1;
+    }
+    
+    .theme-modern.scheme-mint-green {
+      --color-1: #F1F8F5;
+      --color-2: #A7D4C8;
+      --color-3: #2E7D5F;
+      --color-4: #00C853;
+      --color-5: #E0F2F1;
+    }
+    
+    .theme-modern.scheme-yellow-blue {
+      --color-1: #FFFEF7;
+      --color-2: #FFE082;
+      --color-3: #1565C0;
+      --color-4: #FDD835;
+      --color-5: #FFF9C4;
+    }
+    
+    .theme-modern.scheme-lilac-purple {
+      --color-1: #F3E5F5;
+      --color-2: #CE93D8;
+      --color-3: #6A1B9A;
+      --color-4: #9C27B0;
+      --color-5: #E1BEE7;
+    }
+    
+    .theme-modern.scheme-pink-cobalt {
+      --color-1: #FCE4EC;
+      --color-2: #F8BBD0;
+      --color-3: #0D47A1;
+      --color-4: #F06292;
+      --color-5: #F8BBD0;
+    }
+    
+    /* Luxe Color Schemes */
+    .theme-luxe.scheme-black-gold {
+      --color-1: #000000;
+      --color-2: #4B3B2A;
+      --color-3: #E1C699;
+      --color-4: #FFD700;
+      --color-5: #1A1A1A;
+    }
+    
+    .theme-luxe.scheme-purple-silver {
+      --color-1: #1A0033;
+      --color-2: #4A148C;
+      --color-3: #C0C0C0;
+      --color-4: #9C27B0;
+      --color-5: #2D1B3D;
+    }
+    
+    .theme-luxe.scheme-emerald-gold {
+      --color-1: #0A2E1F;
+      --color-2: #1B5E20;
+      --color-3: #FFD700;
+      --color-4: #00C853;
+      --color-5: #1C3A2E;
+    }
+    
+    .theme-luxe.scheme-burgundy-gold {
+      --color-1: #2C0A0A;
+      --color-2: #800020;
+      --color-3: #E1C699;
+      --color-4: #FFD700;
+      --color-5: #3D1414;
+    }
+    
+    .theme-luxe.scheme-navy-silver {
+      --color-1: #001F3F;
+      --color-2: #003D7A;
+      --color-3: #C0C0C0;
+      --color-4: #0074D9;
+      --color-5: #002B54;
+    }
+    
+    .app-wrapper {
+      background-color: var(--color-1);
+      color: var(--color-3);
+      font-family: var(--font-secondary);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+    }
+    
+    .hero-title, .section-title {
+      font-family: var(--font-primary);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .bg-surface {
+      background-color: var(--color-5);
+    }
+    
+    .text-primary {
+      color: var(--color-3);
+    }
+    
+    .text-secondary {
+      color: var(--color-2);
+    }
+    
+    .text-accent {
+      color: var(--color-4);
+    }
+    
+    .bg-accent {
+      background-color: var(--color-4);
+      color: var(--color-1);
+    }
+    
+    .border-color {
+      border-color: var(--color-2);
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      background: linear-gradient(135deg, var(--color-1) 0%, var(--color-5) 50%, var(--color-2) 100%);
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(45deg, transparent 30%, var(--color-4) 30%, var(--color-4) 31%, transparent 31%),
+        linear-gradient(-45deg, transparent 70%, var(--color-2) 70%, var(--color-2) 71%, transparent 71%);
+      opacity: 0.03;
+      pointer-events: none;
+    }
+    
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-lg);
+      animation: float 6s ease-in-out infinite;
+      position: relative;
+    }
+    
+    .hero-logo::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--color-4), var(--color-3));
+      opacity: 0.3;
+      filter: blur(12px);
+      animation: pulse 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.1); }
+    }
+    
+    /* Product Cards */
+    .product-card {
+      background-color: var(--color-1);
+      border: 2px solid var(--color-2);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--color-4), var(--color-3));
+      transform: scaleX(0);
+      transition: transform 0.5s ease;
+    }
+    
+    .product-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .theme-classic .product-card:hover {
+      transform: translateY(-12px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-4);
+    }
+    
+    .theme-modern .product-card:hover {
+      transform: scale(1.05) translateY(-8px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--color-4);
+    }
+    
+    .theme-luxe .product-card:hover {
+      transform: translateY(-16px) scale(1.03);
+      box-shadow: var(--shadow-lg), 0 0 40px var(--color-4);
+      border-color: var(--color-4);
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 280px;
+      background: linear-gradient(135deg, var(--color-5), var(--color-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: all 0.6s ease;
+    }
+    
+    .product-card:hover .product-image img {
+      transform: scale(1.15);
+    }
+    
+    .product-image::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, var(--color-4), transparent);
+      opacity: 0;
+      transform: rotate(45deg);
+      transition: opacity 0.6s ease;
+      z-index: 1;
+    }
+    
+    .product-card:hover .product-image::before {
+      opacity: 0.15;
+      animation: shimmer 1.5s ease-in-out;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%) rotate(45deg); }
+      100% { transform: translateX(100%) rotate(45deg); }
+    }
+    
+    .product-icon {
+      font-size: 80px;
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .product-card:hover .product-icon {
+      transform: scale(1.2) rotate(5deg);
+    }
+    
+    /* CTA Button */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      border-radius: var(--card-radius);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: var(--shadow-md);
+      border: none;
+      position: relative;
+      overflow: hidden;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+    
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: var(--shadow-lg), 0 0 30px var(--color-4);
+    }
+    
+    .btn-primary .arrow {
+      display: inline-block;
+      transition: transform 0.4s ease;
+    }
+    
+    .btn-primary:hover .arrow {
+      transform: translateX(8px);
+    }
+    
+    /* Category Badge */
+    .category-badge {
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      border-radius: 50px;
+      font-family: var(--font-secondary);
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+    }
+    
+    .product-card:hover .category-badge {
+      transform: scale(1.1);
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Style Switcher */
+    .style-menu-btn {
+      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+      color: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+      animation: menuPulse 3s ease-in-out infinite;
+      transition: all 0.4s ease;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    
+    @keyframes menuPulse {
+      0%, 100% { box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4); }
+      50% { box-shadow: 0 8px 32px rgba(139, 92, 246, 0.7), 0 0 40px rgba(139, 92, 246, 0.3); }
+    }
+    
+    .style-menu-btn:hover {
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 12px 32px rgba(139, 92, 246, 0.6);
+    }
+    
+    /* Style Menu Overlay */
+    .style-menu-overlay {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.4s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .style-menu-content {
+      animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .style-category {
+      background: rgba(255, 255, 255, 0.03);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 32px;
+      transition: all 0.4s ease;
+    }
+    
+    .style-category:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+    }
+    
+    .style-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: cardSlideUp 0.6s ease backwards;
+    }
+    
+    @keyframes cardSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .style-card:nth-child(1) { animation-delay: 0.1s; }
+    .style-card:nth-child(2) { animation-delay: 0.15s; }
+    .style-card:nth-child(3) { animation-delay: 0.2s; }
+    .style-card:nth-child(4) { animation-delay: 0.25s; }
+    .style-card:nth-child(5) { animation-delay: 0.3s; }
+    
+    .style-card:hover {
+      transform: translateY(-8px) scale(1.05);
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+      border-color: #FFD700;
+      box-shadow: 0 12px 32px rgba(255, 215, 0, 0.3);
+    }
+    
+    .style-card.active {
+      border-color: #FFD700;
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.3), 0 12px 32px rgba(255, 215, 0, 0.4);
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 215, 0, 0.05));
+    }
+    
+    .color-preview {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .color-preview:hover {
+      transform: scale(1.3);
+      border-color: white;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    }
+    
+    .color-preview::after {
+      content: attr(data-hex);
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background: rgba(0, 0, 0, 0.9);
+      color: white;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      pointer-events: none;
+      opacity: 0;
+    }
+    
+    .color-preview:hover::after {
+      transform: translateX(-50%) scale(1);
+      opacity: 1;
+    }
+    
+    .close-menu-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .close-menu-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: #FFD700;
+      transform: rotate(90deg) scale(1.1);
+    }
+    
+    /* Modal */
+    .modal-overlay {
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-content {
+      background-color: var(--color-1);
+      border: 2px solid var(--color-2);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-lg);
+      animation: modalSlideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    
+    @keyframes modalSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* Color & Size Selectors */
+    .color-swatch {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 3px solid var(--color-2);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      cursor: pointer;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .color-swatch:hover {
+      transform: scale(1.3);
+      border-color: var(--color-4);
+      box-shadow: 0 0 20px var(--color-4);
+    }
+    
+    .color-swatch.selected {
+      transform: scale(1.3);
+      border-color: var(--color-4);
+      box-shadow: 0 0 0 4px var(--color-1), 0 0 0 6px var(--color-4);
+    }
+    
+    .size-btn {
+      background-color: var(--color-1);
+      border: 2px solid var(--color-2);
+      color: var(--color-3);
+      border-radius: var(--card-radius);
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .size-btn:hover {
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      border-color: var(--color-4);
+      transform: scale(1.15);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .size-btn.selected {
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      border-color: var(--color-4);
+      transform: scale(1.15);
+      box-shadow: var(--shadow-md);
+    }
+    
+    /* Form Fields */
+    .input-field, .textarea-field {
+      background-color: var(--color-1);
+      border: 2px solid var(--color-2);
+      color: var(--color-3);
+      border-radius: var(--card-radius);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .input-field:focus, .textarea-field:focus {
+      border-color: var(--color-4);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(255, 180, 0, 0.1), var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    
+    /* Toast */
+    .toast {
+      animation: toastSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), toastSlideOut 0.4s ease 2.6s;
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow-lg);
+      font-weight: 600;
+    }
+    
+    @keyframes toastSlideIn {
+      from {
+        opacity: 0;
+        transform: translateX(400px) rotate(10deg);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+      }
+    }
+    
+    @keyframes toastSlideOut {
+      from {
+        opacity: 1;
+        transform: translateX(0) rotate(0deg);
+      }
+      to {
+        opacity: 0;
+        transform: translateX(400px) rotate(-10deg);
+      }
+    }
+    
+    /* Demo Badge */
+    .demo-badge {
+      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+      color: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(139, 92, 246, 0.4);
+      font-weight: 700;
+      letter-spacing: 1px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    /* Footer */
+    .footer-bg {
+      background: linear-gradient(180deg, var(--color-2), var(--color-5));
+      border-top: 2px solid var(--color-4);
+    }
+    
+    /* Modal Product Image */
+    .modal-product-image {
+      width: 100%;
+      height: 400px;
+      background: linear-gradient(135deg, var(--color-5), var(--color-2));
+      border-radius: var(--card-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .modal-product-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .modal-product-icon {
+      font-size: 120px;
+      filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero-logo {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .product-icon {
+        font-size: 60px;
+      }
+      
+      .style-category {
+        padding: 20px;
+      }
+      
+      .modal-product-image {
+        height: 300px;
+      }
+      
+      .modal-product-icon {
+        font-size: 80px;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="app-wrapper theme-classic scheme-ivory-amber h-full overflow-auto"><!-- Style Menu Button --> <button id="open-style-menu" class="style-menu-btn fixed top-6 right-6 z-50 px-6 py-3 text-sm flex items-center gap-2"> <span class="text-xl">🎨</span> <span>Stijl</span> </button> <!-- Demo Badge -->
+   <div class="demo-badge fixed top-6 left-6 z-50 px-4 py-2 text-xs">
+    🏷️ DEMO SITE
+   </div><!-- Hero Section -->
+   <section class="hero-section relative py-24 md:py-32 px-6 text-center">
+    <div class="max-w-5xl mx-auto relative z-10">
+     <div class="hero-logo mx-auto mb-8">
+      <svg class="w-16 h-16 text-white relative z-10" viewbox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="4" opacity="0.4" /> <circle cx="50" cy="50" r="22" stroke="currentColor" stroke-width="4" opacity="0.7" /> <circle cx="50" cy="50" r="10" fill="currentColor" /> <path d="M50 15 L50 25 M50 75 L50 85 M15 50 L25 50 M75 50 L85 50 M30 30 L35 35 M65 65 L70 70 M70 30 L65 35 M35 65 L30 70" stroke="currentColor" stroke-width="4" />
+      </svg>
+     </div>
+     <h1 id="hero-title" class="hero-title text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight text-primary leading-tight">Garage Parts &amp; Merchandise</h1>
+     <p id="hero-subtitle" class="text-xl md:text-3xl mb-10 text-secondary font-medium">Demo Product Website</p><button id="cta-button" onclick="scrollToProducts()" class="btn-primary px-10 py-5 text-lg relative z-10"> <span class="relative z-10">Browse Products <span class="arrow">→</span></span> </button>
+    </div>
+   </section><!-- Products Section -->
+   <section id="products" class="py-20 px-6 bg-surface">
+    <div class="max-w-7xl mx-auto">
+     <h2 class="section-title text-4xl md:text-6xl font-bold text-center mb-16 text-primary">Featured Products</h2>
+     <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"><!-- Products populated by JS -->
+     </div>
+    </div>
+   </section><!-- Footer -->
+   <footer class="footer-bg py-16 px-6">
+    <div class="max-w-4xl mx-auto text-center">
+     <div class="mb-8">
+      <svg class="w-16 h-16 mx-auto mb-4 text-primary opacity-70" viewbox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="3" opacity="0.5" /> <circle cx="50" cy="50" r="15" fill="currentColor" />
+      </svg>
+     </div>
+     <h3 id="company-name" class="section-title text-3xl font-bold mb-3 text-primary">Demo Auto Parts Co.</h3>
+     <p id="footer-tagline" class="mb-6 text-secondary text-lg">This is a demonstration website. No real products or transactions.</p>
+     <p class="text-sm text-secondary">Powered by <a href="https://vanappiah.com/" target="_blank" rel="noopener noreferrer" class="underline hover:opacity-70 text-accent transition-all">vanappiah.com</a></p>
+    </div>
+   </footer><!-- Style Menu Overlay -->
+   <div id="style-menu-overlay" class="style-menu-overlay fixed inset-0 z-[100] hidden items-center justify-center p-4">
+    <div class="style-menu-content w-full max-w-6xl max-h-[90%] overflow-y-auto">
+     <div class="flex justify-between items-center mb-8">
+      <h2 class="text-4xl font-bold text-white">Kies je Stijl</h2><button id="close-style-menu" class="close-menu-btn">✕</button>
+     </div>
+     <div class="grid gap-8"><!-- Classic -->
+      <div class="style-category">
+       <h3 class="text-2xl font-bold text-white mb-3">Classic</h3>
+       <p class="text-gray-400 mb-6 text-sm">Warm en elegant, perfect voor traditionele merken</p>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="style-card" data-theme="classic" data-scheme="ivory-amber">
+         <h4 class="text-white font-bold mb-3 text-sm">Ivory &amp; Amber</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #FFFFF0;" data-hex="#FFFFF0"></div>
+          <div class="color-preview" style="background: #E1E1E1;" data-hex="#E1E1E1"></div>
+          <div class="color-preview" style="background: #A9A9A9;" data-hex="#A9A9A9"></div>
+          <div class="color-preview" style="background: #4F4F4F;" data-hex="#4F4F4F"></div>
+          <div class="color-preview" style="background: #FFB400;" data-hex="#FFB400"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Klassiek en tijdloos</p>
+        </div>
+        <div class="style-card" data-theme="classic" data-scheme="cream-copper">
+         <h4 class="text-white font-bold mb-3 text-sm">Cream &amp; Copper</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #FFF8E7;" data-hex="#FFF8E7"></div>
+          <div class="color-preview" style="background: #E8DCC8;" data-hex="#E8DCC8"></div>
+          <div class="color-preview" style="background: #B87333;" data-hex="#B87333"></div>
+          <div class="color-preview" style="background: #8B7355;" data-hex="#8B7355"></div>
+          <div class="color-preview" style="background: #CD7F32;" data-hex="#CD7F32"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Vintage &amp; warm</p>
+        </div>
+        <div class="style-card" data-theme="classic" data-scheme="blue-grey">
+         <h4 class="text-white font-bold mb-3 text-sm">Blue &amp; Grey</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #E3F2FD;" data-hex="#E3F2FD"></div>
+          <div class="color-preview" style="background: #CFE8FC;" data-hex="#CFE8FC"></div>
+          <div class="color-preview" style="background: #90CAF9;" data-hex="#90CAF9"></div>
+          <div class="color-preview" style="background: #546E7A;" data-hex="#546E7A"></div>
+          <div class="color-preview" style="background: #1976D2;" data-hex="#1976D2"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Betrouwbaar &amp; professioneel</p>
+        </div>
+        <div class="style-card" data-theme="classic" data-scheme="green-brown">
+         <h4 class="text-white font-bold mb-3 text-sm">Green &amp; Brown</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #F1F8E9;" data-hex="#F1F8E9"></div>
+          <div class="color-preview" style="background: #DCEDC8;" data-hex="#DCEDC8"></div>
+          <div class="color-preview" style="background: #AED581;" data-hex="#AED581"></div>
+          <div class="color-preview" style="background: #6D4C41;" data-hex="#6D4C41"></div>
+          <div class="color-preview" style="background: #558B2F;" data-hex="#558B2F"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Natuurlijk &amp; organisch</p>
+        </div>
+        <div class="style-card" data-theme="classic" data-scheme="beige-ochre">
+         <h4 class="text-white font-bold mb-3 text-sm">Beige &amp; Ochre</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #F5F5DC;" data-hex="#F5F5DC"></div>
+          <div class="color-preview" style="background: #E8E0CC;" data-hex="#E8E0CC"></div>
+          <div class="color-preview" style="background: #D2B48C;" data-hex="#D2B48C"></div>
+          <div class="color-preview" style="background: #4F4F4F;" data-hex="#4F4F4F"></div>
+          <div class="color-preview" style="background: #CC8800;" data-hex="#CC8800"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Neutraal &amp; stijlvol</p>
+        </div>
+       </div>
+      </div><!-- Modern -->
+      <div class="style-category">
+       <h3 class="text-2xl font-bold text-white mb-3">Modern</h3>
+       <p class="text-gray-400 mb-6 text-sm">Frisse tech / SaaS look met hoge leesbaarheid</p>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="style-card" data-theme="modern" data-scheme="blue-grey">
+         <h4 class="text-white font-bold mb-3 text-sm">Blue &amp; Grey</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #F8F8F8;" data-hex="#F8F8F8"></div>
+          <div class="color-preview" style="background: #ECEFF1;" data-hex="#ECEFF1"></div>
+          <div class="color-preview" style="background: #C0C0C0;" data-hex="#C0C0C0"></div>
+          <div class="color-preview" style="background: #78909C;" data-hex="#78909C"></div>
+          <div class="color-preview" style="background: #1E88E5;" data-hex="#1E88E5"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Minimaal &amp; clean</p>
+        </div>
+        <div class="style-card" data-theme="modern" data-scheme="mint-green">
+         <h4 class="text-white font-bold mb-3 text-sm">Mint &amp; Green</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #F1F8F5;" data-hex="#F1F8F5"></div>
+          <div class="color-preview" style="background: #E0F2F1;" data-hex="#E0F2F1"></div>
+          <div class="color-preview" style="background: #A7D4C8;" data-hex="#A7D4C8"></div>
+          <div class="color-preview" style="background: #2E7D5F;" data-hex="#2E7D5F"></div>
+          <div class="color-preview" style="background: #00C853;" data-hex="#00C853"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Fris &amp; uitnodigend</p>
+        </div>
+        <div class="style-card" data-theme="modern" data-scheme="yellow-blue">
+         <h4 class="text-white font-bold mb-3 text-sm">Yellow &amp; Blue</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #FFFEF7;" data-hex="#FFFEF7"></div>
+          <div class="color-preview" style="background: #FFF9C4;" data-hex="#FFF9C4"></div>
+          <div class="color-preview" style="background: #FFE082;" data-hex="#FFE082"></div>
+          <div class="color-preview" style="background: #1565C0;" data-hex="#1565C0"></div>
+          <div class="color-preview" style="background: #FDD835;" data-hex="#FDD835"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Energiek &amp; optimistisch</p>
+        </div>
+        <div class="style-card" data-theme="modern" data-scheme="lilac-purple">
+         <h4 class="text-white font-bold mb-3 text-sm">Lilac &amp; Purple</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #F3E5F5;" data-hex="#F3E5F5"></div>
+          <div class="color-preview" style="background: #E1BEE7;" data-hex="#E1BEE7"></div>
+          <div class="color-preview" style="background: #CE93D8;" data-hex="#CE93D8"></div>
+          <div class="color-preview" style="background: #6A1B9A;" data-hex="#6A1B9A"></div>
+          <div class="color-preview" style="background: #9C27B0;" data-hex="#9C27B0"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Creatief &amp; innovatief</p>
+        </div>
+        <div class="style-card" data-theme="modern" data-scheme="pink-cobalt">
+         <h4 class="text-white font-bold mb-3 text-sm">Pink &amp; Cobalt</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #FCE4EC;" data-hex="#FCE4EC"></div>
+          <div class="color-preview" style="background: #F8BBD0;" data-hex="#F8BBD0"></div>
+          <div class="color-preview" style="background: #F8BBD0;" data-hex="#F8BBD0"></div>
+          <div class="color-preview" style="background: #0D47A1;" data-hex="#0D47A1"></div>
+          <div class="color-preview" style="background: #F06292;" data-hex="#F06292"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Bold &amp; eigenzinnig</p>
+        </div>
+       </div>
+      </div><!-- Luxe -->
+      <div class="style-category">
+       <h3 class="text-2xl font-bold text-white mb-3">Luxe</h3>
+       <p class="text-gray-400 mb-6 text-sm">Voor premium merken met een luxe uitstraling</p>
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div class="style-card" data-theme="luxe" data-scheme="black-gold">
+         <h4 class="text-white font-bold mb-3 text-sm">Black &amp; Gold</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #000000;" data-hex="#000000"></div>
+          <div class="color-preview" style="background: #1A1A1A;" data-hex="#1A1A1A"></div>
+          <div class="color-preview" style="background: #4B3B2A;" data-hex="#4B3B2A"></div>
+          <div class="color-preview" style="background: #E1C699;" data-hex="#E1C699"></div>
+          <div class="color-preview" style="background: #FFD700;" data-hex="#FFD700"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Ultiem luxe &amp; exclusief</p>
+        </div>
+        <div class="style-card" data-theme="luxe" data-scheme="purple-silver">
+         <h4 class="text-white font-bold mb-3 text-sm">Purple &amp; Silver</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #1A0033;" data-hex="#1A0033"></div>
+          <div class="color-preview" style="background: #2D1B3D;" data-hex="#2D1B3D"></div>
+          <div class="color-preview" style="background: #4A148C;" data-hex="#4A148C"></div>
+          <div class="color-preview" style="background: #C0C0C0;" data-hex="#C0C0C0"></div>
+          <div class="color-preview" style="background: #9C27B0;" data-hex="#9C27B0"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Mysterieus &amp; high-end</p>
+        </div>
+        <div class="style-card" data-theme="luxe" data-scheme="emerald-gold">
+         <h4 class="text-white font-bold mb-3 text-sm">Emerald &amp; Gold</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #0A2E1F;" data-hex="#0A2E1F"></div>
+          <div class="color-preview" style="background: #1C3A2E;" data-hex="#1C3A2E"></div>
+          <div class="color-preview" style="background: #1B5E20;" data-hex="#1B5E20"></div>
+          <div class="color-preview" style="background: #FFD700;" data-hex="#FFD700"></div>
+          <div class="color-preview" style="background: #00C853;" data-hex="#00C853"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Rijk &amp; verfijnd</p>
+        </div>
+        <div class="style-card" data-theme="luxe" data-scheme="burgundy-gold">
+         <h4 class="text-white font-bold mb-3 text-sm">Burgundy &amp; Gold</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #2C0A0A;" data-hex="#2C0A0A"></div>
+          <div class="color-preview" style="background: #3D1414;" data-hex="#3D1414"></div>
+          <div class="color-preview" style="background: #800020;" data-hex="#800020"></div>
+          <div class="color-preview" style="background: #E1C699;" data-hex="#E1C699"></div>
+          <div class="color-preview" style="background: #FFD700;" data-hex="#FFD700"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Dramatisch &amp; exclusief</p>
+        </div>
+        <div class="style-card" data-theme="luxe" data-scheme="navy-silver">
+         <h4 class="text-white font-bold mb-3 text-sm">Navy &amp; Silver</h4>
+         <div class="flex gap-2 mb-3">
+          <div class="color-preview" style="background: #001F3F;" data-hex="#001F3F"></div>
+          <div class="color-preview" style="background: #002B54;" data-hex="#002B54"></div>
+          <div class="color-preview" style="background: #003D7A;" data-hex="#003D7A"></div>
+          <div class="color-preview" style="background: #C0C0C0;" data-hex="#C0C0C0"></div>
+          <div class="color-preview" style="background: #0074D9;" data-hex="#0074D9"></div>
+         </div>
+         <p class="text-gray-400 text-xs">Corporate luxe</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Product Modal -->
+   <div id="product-modal" class="modal-overlay fixed inset-0 z-[90] hidden items-center justify-center p-4">
+    <div class="modal-content max-w-4xl w-full p-8 max-h-[90%] overflow-auto relative"><button onclick="closeModal()" class="absolute top-6 right-6 text-3xl hover:opacity-70 text-primary transition-all hover:rotate-90" style="transition: all 0.3s ease;">✕</button>
+     <div id="modal-content"><!-- Modal content populated by JS -->
+     </div>
+    </div>
+   </div><!-- Toast Container -->
+   <div id="toast-container" class="fixed bottom-6 right-6 z-[110]"></div>
+  </div>
+  <script>
+    const defaultConfig = {
+      hero_title: "Garage Parts & Merchandise",
+      hero_subtitle: "Demo Product Website",
+      cta_text: "Browse Products",
+      company_name: "Demo Auto Parts Co.",
+      footer_tagline: "This is a demonstration website. No real products or transactions."
+    };
+
+    let config = { ...defaultConfig };
+    let currentTheme = 'classic';
+    let currentScheme = 'ivory-amber';
+
+    const products = [
+      {
+        id: 1,
+        name: "Racing Brake Pads",
+        price: 89.99,
+        category: "Parts",
+        colors: ["#1a1a1a", "#dc2626", "#3b82f6"],
+        sizes: ["Front", "Rear", "Set"],
+        icon: "🛞",
+        image: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=500&h=500&fit=crop",
+        description: "High-performance ceramic brake pads designed for track and street use. Premium compound ensures consistent stopping power."
+      },
+      {
+        id: 2,
+        name: "Turbo Hoodie",
+        price: 59.99,
+        category: "Apparel",
+        colors: ["#1a1a1a", "#ffffff", "#4b5563"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        icon: "👕",
+        image: "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&h=500&fit=crop",
+        description: "Premium cotton hoodie with embroidered turbo design. Soft fleece interior for maximum comfort."
+      },
+      {
+        id: 3,
+        name: "Carbon Air Filter",
+        price: 149.99,
+        category: "Parts",
+        colors: ["#1a1a1a"],
+        sizes: ["Universal", "Sport", "Pro"],
+        icon: "🔧",
+        image: "https://images.unsplash.com/photo-1582639510494-c80b5de9f148?w=500&h=500&fit=crop",
+        description: "High-flow carbon fiber air filter for maximum performance. Washable and reusable for years of use."
+      },
+      {
+        id: 4,
+        name: "Mechanic Cap",
+        price: 29.99,
+        category: "Apparel",
+        colors: ["#1a1a1a", "#dc2626", "#1e40af"],
+        sizes: ["One Size"],
+        icon: "🧢",
+        image: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&h=500&fit=crop",
+        description: "Adjustable snapback cap with embroidered garage logo. Structured front panels with curved visor."
+      },
+      {
+        id: 5,
+        name: "LED Light Bar",
+        price: 199.99,
+        category: "Parts",
+        colors: ["#1a1a1a", "#ffffff"],
+        sizes: ["20\"", "32\"", "50\""],
+        icon: "💡",
+        image: "https://images.unsplash.com/photo-1612538498456-e861df91d4d0?w=500&h=500&fit=crop",
+        description: "Ultra-bright LED light bar for off-road adventures. Weather-resistant construction with spot/flood combo beam."
+      },
+      {
+        id: 6,
+        name: "Tool Roll Bag",
+        price: 79.99,
+        category: "Accessories",
+        colors: ["#1a1a1a", "#78350f", "#1e3a5f"],
+        sizes: ["Standard", "Pro"],
+        icon: "🧰",
+        image: "https://images.unsplash.com/photo-1585421514738-01798e348b17?w=500&h=500&fit=crop",
+        description: "Heavy-duty canvas tool roll with multiple pockets. Leather straps secure your essential tools on the go."
+      },
+      {
+        id: 7,
+        name: "Performance Coilovers",
+        price: 899.99,
+        category: "Parts",
+        colors: ["#dc2626", "#1a1a1a", "#f59e0b"],
+        sizes: ["Street", "Track", "Drift"],
+        icon: "⚙️",
+        image: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&h=500&fit=crop",
+        description: "Adjustable coilover suspension kit for ultimate handling. 32-way dampening adjustment and ride height control."
+      },
+      {
+        id: 8,
+        name: "Garage T-Shirt",
+        price: 34.99,
+        category: "Apparel",
+        colors: ["#1a1a1a", "#ffffff", "#dc2626", "#1e40af"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        icon: "👔",
+        image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop",
+        description: "Soft-touch premium tee with vintage garage graphics. Ribbed crew neck and durable screen print."
+      },
+      {
+        id: 9,
+        name: "Titanium Exhaust Tips",
+        price: 349.99,
+        category: "Parts",
+        colors: ["#c0c0c0", "#4b5563"],
+        sizes: ["2.5\"", "3\"", "4\""],
+        icon: "🔥",
+        image: "https://images.unsplash.com/photo-1615906655593-ad0386982a0f?w=500&h=500&fit=crop",
+        description: "Grade 2 titanium exhaust tips with heat-treated blue finish. Precision-welded for perfect fitment."
+      },
+      {
+        id: 10,
+        name: "Racing Gloves",
+        price: 89.99,
+        category: "Apparel",
+        colors: ["#1a1a1a", "#dc2626", "#3b82f6"],
+        sizes: ["S", "M", "L", "XL"],
+        icon: "🧤",
+        image: "https://images.unsplash.com/photo-1605408499391-6368c628ef42?w=500&h=500&fit=crop",
+        description: "FIA-approved racing gloves with external seams. Fire-resistant Nomex construction for maximum protection."
+      },
+      {
+        id: 11,
+        name: "Digital Boost Gauge",
+        price: 249.99,
+        category: "Accessories",
+        colors: ["#1a1a1a"],
+        sizes: ["52mm", "60mm"],
+        icon: "📊",
+        image: "https://images.unsplash.com/photo-1609373516369-2c264f2dc4c8?w=500&h=500&fit=crop",
+        description: "High-resolution OLED boost gauge with peak hold. Multi-color display and customizable warning alerts."
+      },
+      {
+        id: 12,
+        name: "Track Day Backpack",
+        price: 129.99,
+        category: "Accessories",
+        colors: ["#1a1a1a", "#dc2626"],
+        sizes: ["Standard"],
+        icon: "🎒",
+        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop",
+        description: "Water-resistant backpack with helmet compartment. Padded laptop sleeve and multiple organization pockets."
+      }
+    ];
+
+    function applyStyle(theme, scheme) {
+      const app = document.getElementById('app');
+      app.className = `app-wrapper theme-${theme} scheme-${scheme} h-full overflow-auto`;
+      
+      currentTheme = theme;
+      currentScheme = scheme;
+      
+      // Update active states
+      document.querySelectorAll('.style-card').forEach(card => {
+        card.classList.remove('active');
+        if (card.dataset.theme === theme && card.dataset.scheme === scheme) {
+          card.classList.add('active');
+        }
+      });
+      
+      // Close menu and show toast
+      setTimeout(() => {
+        closeStyleMenu();
+        showToast(`✨ Stijl gewijzigd naar ${getSchemeDisplayName(theme, scheme)}`);
+      }, 400);
+    }
+
+    function getSchemeDisplayName(theme, scheme) {
+      const schemes = {
+        classic: {
+          'ivory-amber': 'Classic Ivory & Amber',
+          'cream-copper': 'Classic Cream & Copper',
+          'blue-grey': 'Classic Blue & Grey',
+          'green-brown': 'Classic Green & Brown',
+          'beige-ochre': 'Classic Beige & Ochre'
+        },
+        modern: {
+          'blue-grey': 'Modern Blue & Grey',
+          'mint-green': 'Modern Mint & Green',
+          'yellow-blue': 'Modern Yellow & Blue',
+          'lilac-purple': 'Modern Lilac & Purple',
+          'pink-cobalt': 'Modern Pink & Cobalt'
+        },
+        luxe: {
+          'black-gold': 'Luxe Black & Gold',
+          'purple-silver': 'Luxe Purple & Silver',
+          'emerald-gold': 'Luxe Emerald & Gold',
+          'burgundy-gold': 'Luxe Burgundy & Gold',
+          'navy-silver': 'Luxe Navy & Silver'
+        }
+      };
+      return schemes[theme][scheme] || 'Stijl';
+    }
+
+    function openStyleMenu() {
+      const overlay = document.getElementById('style-menu-overlay');
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+    }
+
+    function closeStyleMenu() {
+      const overlay = document.getElementById('style-menu-overlay');
+      overlay.classList.add('hidden');
+      overlay.classList.remove('flex');
+    }
+
+    function scrollToProducts() {
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = products.map(product => `
+        <div class="product-card cursor-pointer" onclick="openProductModal(${product.id})">
+          <div class="product-image">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+            <span class="product-icon" style="${product.image ? 'display:none;' : ''}">${product.icon}</span>
+          </div>
+          <div class="p-6">
+            <span class="category-badge text-xs font-semibold uppercase tracking-wider px-4 py-2 inline-block mb-4">
+              ${product.category}
+            </span>
+            <h3 class="hero-title text-2xl font-bold mb-3 text-primary">${product.name}</h3>
+            <p class="text-3xl font-bold mb-4 text-accent">$${product.price.toFixed(2)}</p>
+            <div class="flex items-center justify-between">
+              <div class="flex gap-2">
+                ${product.colors.map(color => `
+                  <span class="w-6 h-6 rounded-full border-2 border-color" style="background-color: ${color};"></span>
+                `).join('')}
+              </div>
+              <span class="text-sm text-secondary font-medium">${product.sizes.length} size${product.sizes.length > 1 ? 's' : ''}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function openProductModal(productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      const modal = document.getElementById('product-modal');
+      const content = document.getElementById('modal-content');
+      
+      content.innerHTML = `
+        <div class="grid md:grid-cols-2 gap-10">
+          <div class="modal-product-image">
+            ${product.image ? `<img src="${product.image}" alt="${product.name}" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">` : ''}
+            <span class="modal-product-icon" style="${product.image ? 'display:none;' : ''}">${product.icon}</span>
+          </div>
+          <div>
+            <span class="category-badge text-xs font-semibold uppercase tracking-wider px-4 py-2 inline-block mb-4">
+              ${product.category}
+            </span>
+            <h2 class="hero-title text-4xl font-bold mb-3 text-primary">${product.name}</h2>
+            <p class="text-4xl font-bold mb-6 text-accent">$${product.price.toFixed(2)}</p>
+            <p class="mb-8 text-secondary leading-relaxed">${product.description}</p>
+            
+            <div class="mb-8">
+              <label class="block text-sm font-bold mb-4 text-primary uppercase tracking-wide">Select Color</label>
+              <div class="flex gap-3">
+                ${product.colors.map((color, i) => `
+                  <button class="color-swatch ${i === 0 ? 'selected' : ''}" 
+                    style="background-color: ${color};" 
+                    onclick="selectColor(this)"
+                    data-color="${color}"></button>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="mb-8">
+              <label class="block text-sm font-bold mb-4 text-primary uppercase tracking-wide">Select Size</label>
+              <div class="flex flex-wrap gap-3">
+                ${product.sizes.map((size, i) => `
+                  <button class="size-btn px-6 py-3 font-bold ${i === 0 ? 'selected' : ''}" 
+                    onclick="selectSize(this)"
+                    data-size="${size}">${size}</button>
+                `).join('')}
+              </div>
+            </div>
+            
+            <button onclick="openOrderForm(${product.id})" class="btn-primary w-full py-5 text-lg">
+              <span class="relative z-10">Request Order <span class="arrow">→</span></span>
+            </button>
+            
+            <p class="text-center text-sm mt-5 text-secondary">
+              📧 Demo inquiry only - no payment required
+            </p>
+          </div>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function selectColor(el) {
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function selectSize(el) {
+      document.querySelectorAll('.size-btn').forEach(s => s.classList.remove('selected'));
+      el.classList.add('selected');
+    }
+
+    function openOrderForm(productId) {
+      const product = products.find(p => p.id === productId);
+      const selectedColor = document.querySelector('.color-swatch.selected')?.dataset.color || product.colors[0];
+      const selectedSize = document.querySelector('.size-btn.selected')?.dataset.size || product.sizes[0];
+      
+      const content = document.getElementById('modal-content');
+      content.innerHTML = `
+        <div class="max-w-lg mx-auto">
+          <h2 class="hero-title text-3xl font-bold mb-3 text-center text-primary">Request Order</h2>
+          <p class="text-center mb-8 text-secondary">Demo inquiry for ${product.name}</p>
+          
+          <div class="p-6 rounded-xl mb-8 border-2 border-color bg-surface">
+            <div class="flex items-center gap-5">
+              <span class="text-5xl">${product.icon}</span>
+              <div>
+                <p class="font-bold text-lg text-primary">${product.name}</p>
+                <p class="text-sm text-secondary mt-1">
+                  <span class="inline-block w-5 h-5 rounded-full mr-2 border-2 border-color" style="background-color: ${selectedColor}; vertical-align: middle;"></span>
+                  ${selectedSize} • $${product.price.toFixed(2)}
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <form id="order-form" onsubmit="submitOrder(event, ${productId}, '${selectedColor}', '${selectedSize}')">
+            <div class="mb-5">
+              <label for="name" class="block text-sm font-bold mb-3 text-primary uppercase tracking-wide">Your Name</label>
+              <input type="text" id="name" required class="input-field w-full px-5 py-4 font-medium" placeholder="John Doe">
+            </div>
+            <div class="mb-5">
+              <label for="email" class="block text-sm font-bold mb-3 text-primary uppercase tracking-wide">Email Address</label>
+              <input type="email" id="email" required class="input-field w-full px-5 py-4 font-medium" placeholder="john@example.com">
+            </div>
+            <div class="mb-8">
+              <label for="message" class="block text-sm font-bold mb-3 text-primary uppercase tracking-wide">Message (Optional)</label>
+              <textarea id="message" rows="4" class="textarea-field w-full px-5 py-4 font-medium" placeholder="Any special requests?"></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full py-5 text-lg">
+              <span class="relative z-10">Send Demo Inquiry <span class="arrow">→</span></span>
+            </button>
+          </form>
+          
+          <p class="text-center text-xs mt-5 text-secondary">
+            This is a demo - no actual order will be placed
+          </p>
+        </div>
+      `;
+    }
+
+    function submitOrder(event, productId, color, size) {
+      event.preventDefault();
+      const product = products.find(p => p.id === productId);
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
+      closeModal();
+      showToast(`✅ Demo inquiry sent for ${product.name}!`);
+      
+      console.log('Demo Order:', { product: product.name, color, size, name, email, message });
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('product-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast px-8 py-4 font-bold';
+      toast.textContent = msg;
+      container.appendChild(toast);
+      
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    async function onConfigChange(cfg) {
+      document.getElementById('hero-title').textContent = cfg.hero_title || defaultConfig.hero_title;
+      document.getElementById('hero-subtitle').textContent = cfg.hero_subtitle || defaultConfig.hero_subtitle;
+      const ctaButton = document.getElementById('cta-button');
+      const newText = cfg.cta_text || defaultConfig.cta_text;
+      ctaButton.innerHTML = `<span class="relative z-10">${newText} <span class="arrow">→</span></span>`;
+      document.getElementById('company-name').textContent = cfg.company_name || defaultConfig.company_name;
+      document.getElementById('footer-tagline').textContent = cfg.footer_tagline || defaultConfig.footer_tagline;
+    }
+
+    function mapToCapabilities(cfg) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(cfg) {
+      return new Map([
+        ["hero_title", cfg.hero_title || defaultConfig.hero_title],
+        ["hero_subtitle", cfg.hero_subtitle || defaultConfig.hero_subtitle],
+        ["cta_text", cfg.cta_text || defaultConfig.cta_text],
+        ["company_name", cfg.company_name || defaultConfig.company_name],
+        ["footer_tagline", cfg.footer_tagline || defaultConfig.footer_tagline]
+      ]);
+    }
+
+    // Initialize
+    renderProducts();
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+
+    // Event listeners
+    document.getElementById('open-style-menu').addEventListener('click', openStyleMenu);
+    document.getElementById('close-style-menu').addEventListener('click', closeStyleMenu);
+    
+    document.getElementById('style-menu-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'style-menu-overlay') closeStyleMenu();
+    });
+
+    // Style card click handlers
+    document.querySelectorAll('.style-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const theme = card.dataset.theme;
+        const scheme = card.dataset.scheme;
+        applyStyle(theme, scheme);
+      });
+    });
+
+    document.getElementById('product-modal').addEventListener('click', (e) => {
+      if (e.target.id === 'product-modal') closeModal();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c256b562567ffef',t:'MTc2OTE1MTY4MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

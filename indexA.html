@@ -1,0 +1,1366 @@
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pro Garage - Demo Website | Automotive Management</title>
+  <meta name="description" content="Demo garage website showcasing modern automotive management features with customizable design themes and real-time status updates">
+  <meta name="keywords" content="garage, automotive, demo, website, car service, appointment booking">
+  <meta name="author" content="vanappiah.com"><!-- Open Graph -->
+  <meta property="og:title" content="Pro Garage - Demo Website">
+  <meta property="og:description" content="Modern garage management demo with customizable themes">
+  <meta property="og:type" content="website"><!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pro Garage Demo"><!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><!-- Optimized font loading - only 3 families with used weights -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;family=Cormorant+Garamond:wght@400;600&amp;family=Montserrat:wght@400;600&amp;family=Lato:wght@400;700&amp;display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;family=Cormorant+Garamond:wght@400;600&amp;family=Montserrat:wght@400;600&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Playfair+Display:wght@600;700&amp;family=Cormorant+Garamond:wght@400;600&amp;family=Montserrat:wght@400;600&amp;family=Lato:wght@400;700&amp;display=swap" rel="stylesheet">
+  </noscript>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+    
+    * {
+      transition: background-color 0.6s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, transform 0.3s ease;
+    }
+    
+    /* Reduced motion support */
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+    
+    /* Screen reader only */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+    
+    /* Improved focus states for accessibility */
+    *:focus-visible {
+      outline: 3px solid #FFB400;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      box-shadow: 0 0 0 4px rgba(255, 180, 0, 0.3);
+    }
+    
+    .style-card:focus-visible {
+      transform: scale(1.05);
+      border-color: #FFB400;
+      box-shadow: 0 0 0 4px rgba(255, 180, 0, 0.3), 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    :root {
+      --color-1: #FFFFF0;
+      --color-2: #8B8B8B;
+      --color-3: #2a2a2a;
+      --color-4: #FFB400;
+      --color-5: #E8E8E8;
+      
+      /* Typography scale */
+      --text-xs: clamp(0.75rem, 1.2vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 1.5vw, 1rem);
+      --text-base: clamp(1rem, 2vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 2.5vw, 1.25rem);
+      --text-xl: clamp(1.25rem, 3vw, 1.5rem);
+      --text-2xl: clamp(1.5rem, 3.5vw, 2rem);
+      --text-3xl: clamp(2rem, 4vw, 2.5rem);
+      --text-4xl: clamp(2.5rem, 5vw, 3.5rem);
+      --text-5xl: clamp(3rem, 6vw, 4.5rem);
+    }
+    
+    body[data-style="classic"] {
+      font-family: 'Montserrat', -apple-system, sans-serif;
+    }
+    
+    body[data-style="modern"] {
+      font-family: 'Inter', -apple-system, sans-serif;
+    }
+    
+    body[data-style="luxe"] {
+      font-family: 'Lato', -apple-system, sans-serif;
+    }
+    
+    .font-display-classic { font-family: 'Playfair Display', Georgia, serif; }
+    .font-display-modern { font-family: 'Inter', -apple-system, sans-serif; }
+    .font-display-luxe { font-family: 'Cormorant Garamond', Georgia, serif; }
+    
+    .bg-color-1 { background-color: var(--color-1); }
+    .bg-color-2 { background-color: var(--color-2); }
+    .bg-color-3 { background-color: var(--color-3); }
+    .bg-color-4 { background-color: var(--color-4); }
+    .bg-color-5 { background-color: var(--color-5); }
+    .text-color-1 { color: var(--color-1); }
+    .text-color-2 { color: var(--color-2); }
+    .text-color-3 { color: var(--color-3); }
+    .text-color-4 { color: var(--color-4); }
+    .text-color-5 { color: var(--color-5); }
+    .border-color-2 { border-color: var(--color-2); }
+    .border-color-3 { border-color: var(--color-3); }
+    .border-color-4 { border-color: var(--color-4); }
+    
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    body[data-style="classic"] .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      border-radius: 12px;
+    }
+    
+    body[data-style="modern"] .glass-panel {
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+      border-radius: 16px;
+      border: none;
+    }
+    
+    body[data-style="luxe"] .glass-panel {
+      background: rgba(0, 0, 0, 0.6);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+    }
+    
+    .btn-primary {
+      background-color: var(--color-4);
+      color: var(--color-3);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid var(--color-4);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.1);
+    }
+    
+    body[data-style="classic"] .btn-primary {
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    body[data-style="classic"] .btn-primary:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    
+    body[data-style="modern"] .btn-primary {
+      border-radius: 12px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: none;
+      border: none;
+    }
+    
+    body[data-style="modern"] .btn-primary:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+    
+    body[data-style="luxe"] .btn-primary {
+      border-radius: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      color: var(--color-1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--color-2);
+    }
+    
+    body[data-style="luxe"] .btn-primary:hover {
+      box-shadow: 0 6px 30px rgba(255, 255, 255, 0.2);
+      filter: brightness(1.2);
+    }
+    
+    .feature-card {
+      background-color: var(--color-5);
+      border: 1px solid var(--color-2);
+      padding: clamp(24px, 4vw, 32px);
+      transition: all 0.4s ease;
+    }
+    
+    body[data-style="classic"] .feature-card {
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    }
+    
+    body[data-style="classic"] .feature-card:hover {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+      transform: translateY(-4px);
+    }
+    
+    body[data-style="modern"] .feature-card {
+      border-radius: 20px;
+      border: none;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+    }
+    
+    body[data-style="modern"] .feature-card:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      transform: translateY(-6px) scale(1.01);
+    }
+    
+    body[data-style="luxe"] .feature-card {
+      border-radius: 20px;
+      border: 2px solid var(--color-2);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+    }
+    
+    body[data-style="luxe"] .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    body[data-style="luxe"] .feature-card:hover::before {
+      left: 100%;
+    }
+    
+    body[data-style="luxe"] .feature-card:hover {
+      border-color: var(--color-4);
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid var(--color-2);
+      background-color: var(--color-1);
+      color: var(--color-3);
+      transition: all 0.3s ease;
+      font-size: var(--text-base);
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--color-4);
+      box-shadow: 0 0 0 3px rgba(255, 180, 0, 0.2);
+    }
+    
+    body[data-style="classic"] .form-input {
+      border-radius: 8px;
+    }
+    
+    body[data-style="modern"] .form-input {
+      border-radius: 12px;
+      border-width: 1px;
+    }
+    
+    body[data-style="luxe"] .form-input {
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--color-1);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    body[data-style="luxe"] .form-input::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    body[data-style="luxe"] .form-input:focus {
+      background-color: rgba(255, 255, 255, 0.15);
+      border-color: var(--color-4);
+    }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: 2px solid;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    body[data-style="classic"] .status-badge {
+      border-radius: 12px;
+    }
+    
+    body[data-style="modern"] .status-badge {
+      border-radius: 20px;
+      font-weight: 600;
+    }
+    
+    body[data-style="luxe"] .status-badge {
+      border-radius: 16px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    
+    .status-open {
+      background-color: rgba(34, 197, 94, 0.15);
+      border-color: rgb(34, 197, 94);
+      color: rgb(22, 163, 74);
+    }
+    
+    .status-closed {
+      background-color: rgba(239, 68, 68, 0.15);
+      border-color: rgb(239, 68, 68);
+      color: rgb(220, 38, 38);
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 1; }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    body[data-style="classic"] .animate-float {
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    body[data-style="modern"] .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    body[data-style="luxe"] .animate-float {
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    
+    .icon-container {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--color-4);
+      color: var(--color-1);
+    }
+    
+    body[data-style="classic"] .icon-container {
+      border-radius: 10px;
+      background-color: var(--color-4);
+    }
+    
+    body[data-style="modern"] .icon-container {
+      border-radius: 16px;
+      background: var(--color-4);
+    }
+    
+    body[data-style="luxe"] .icon-container {
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--color-4), var(--color-3));
+      border: 1px solid var(--color-2);
+    }
+    
+    .toggle-switch {
+      position: relative;
+      width: 56px;
+      height: 28px;
+      background: var(--color-2);
+      border-radius: 14px;
+      cursor: pointer;
+      border: 2px solid var(--color-2);
+    }
+    
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      background: var(--color-1);
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    
+    .toggle-switch[aria-checked="true"] {
+      background: var(--color-4);
+      border-color: var(--color-4);
+    }
+    
+    .toggle-switch[aria-checked="true"]::after {
+      transform: translateX(28px);
+    }
+    
+    /* Style Switcher Overlay */
+    #styleOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9999;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    
+    #styleOverlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    
+    .style-card {
+      background: white;
+      border-radius: 24px;
+      padding: clamp(20px, 4vw, 32px);
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+      border: 3px solid transparent;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    #styleOverlay.active .style-card {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    
+    .style-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .style-card.active-scheme {
+      border-color: #FFD700;
+      box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.3), 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    
+    .color-preview {
+      width: clamp(36px, 8vw, 48px);
+      height: clamp(36px, 8vw, 48px);
+      border-radius: 12px;
+      border: 3px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .style-card:hover .color-preview {
+      transform: scale(1.1);
+      border-width: 2px;
+    }
+    
+    .style-button {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .style-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(102, 126, 234, 0.5);
+    }
+    
+    .style-button svg {
+      animation: spin 3s linear infinite;
+    }
+    
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    
+    .style-button:hover svg {
+      animation: spin 0.6s linear infinite;
+    }
+    
+    @keyframes slideInStagger {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    #styleOverlay.active .style-card:nth-child(1) { animation: slideInStagger 0.5s ease forwards 0.1s; }
+    #styleOverlay.active .style-card:nth-child(2) { animation: slideInStagger 0.5s ease forwards 0.2s; }
+    #styleOverlay.active .style-card:nth-child(3) { animation: slideInStagger 0.5s ease forwards 0.3s; }
+    #styleOverlay.active .style-card:nth-child(4) { animation: slideInStagger 0.5s ease forwards 0.15s; }
+    #styleOverlay.active .style-card:nth-child(5) { animation: slideInStagger 0.5s ease forwards 0.25s; }
+    #styleOverlay.active .style-card:nth-child(6) { animation: slideInStagger 0.5s ease forwards 0.35s; }
+    #styleOverlay.active .style-card:nth-child(7) { animation: slideInStagger 0.5s ease forwards 0.2s; }
+    #styleOverlay.active .style-card:nth-child(8) { animation: slideInStagger 0.5s ease forwards 0.3s; }
+    #styleOverlay.active .style-card:nth-child(9) { animation: slideInStagger 0.5s ease forwards 0.4s; }
+    #styleOverlay.active .style-card:nth-child(10) { animation: slideInStagger 0.5s ease forwards 0.25s; }
+    #styleOverlay.active .style-card:nth-child(11) { animation: slideInStagger 0.5s ease forwards 0.35s; }
+    #styleOverlay.active .style-card:nth-child(12) { animation: slideInStagger 0.5s ease forwards 0.45s; }
+    #styleOverlay.active .style-card:nth-child(13) { animation: slideInStagger 0.5s ease forwards 0.3s; }
+    #styleOverlay.active .style-card:nth-child(14) { animation: slideInStagger 0.5s ease forwards 0.4s; }
+    #styleOverlay.active .style-card:nth-child(15) { animation: slideInStagger 0.5s ease forwards 0.5s; }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-snap-type: y proximity;
+    }
+    
+    section {
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
+    }
+    
+    @media (max-width: 768px) {
+      .btn-primary {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+      
+      .feature-card {
+        padding: 20px;
+      }
+      
+      .style-button {
+        bottom: 16px;
+        right: 16px;
+        padding: 10px 18px;
+        font-size: 13px;
+        gap: 6px;
+      }
+      
+      .style-card {
+        padding: 20px;
+      }
+      
+      .color-preview {
+        width: 36px;
+        height: 36px;
+      }
+      
+      section {
+        padding: clamp(40px, 10vw, 96px) 16px !important;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-color-1 text-color-4 overflow-auto" data-style="classic"><!-- Style Switcher Button --> <button id="styleButton" class="style-button" onclick="toggleStyleOverlay()" aria-label="Open style theme selector" aria-expanded="false">
+   <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3" /> <path d="M12 1v6m0 6v6m5.2-14.8L13.8 7.6M10.2 16.4l-3.4 3.4m14.8-5.2h-6m-6 0H1m14.8 5.2l-3.4-3.4M7.6 10.2l-3.4-3.4" />
+   </svg> STIJL </button> <!-- Style Overlay Menu -->
+  <div id="styleOverlay" role="dialog" aria-modal="true" aria-labelledby="styleOverlayTitle">
+   <div class="w-full h-full overflow-y-auto p-8">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-12">
+      <h2 id="styleOverlayTitle" class="text-5xl font-bold text-white mb-4">Kies Jouw Stijl</h2>
+      <p class="text-xl text-gray-300">Klik op een schema om direct de hele site te transformeren</p>
+     </div><!-- Classic Section -->
+     <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8">
+       <h3 class="text-3xl font-bold text-white">Classic</h3><span class="text-gray-400 text-lg">— Traditioneel, elegant &amp; rustig</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Ivory + Amber color scheme" data-style="classic" data-scheme="0">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Ivory + Amber</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #FFFFF0;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #A9A9A9;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4F4F4F;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #FFB400;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Warm ivoor met gouden amber accenten</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Cream + Copper color scheme" data-style="classic" data-scheme="1">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Cream + Copper</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #FFF8E7;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #B8956A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #5C4A3A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #C87533;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Crème met rijke koper tinten</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Light Blue color scheme" data-style="classic" data-scheme="2">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Light Blue</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #E8F4F8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #7FA8B8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #2E5266;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #1E88E5;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Frisse lichtblauwe elegantie</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Soft Green color scheme" data-style="classic" data-scheme="3">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Soft Green</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #F0F4E8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #8B9A7A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4A5842;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #6B8E23;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Natuurlijke zachte groene rust</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Beige + Brown color scheme" data-style="classic" data-scheme="4">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Beige + Brown</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #F5F2E8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #A89968;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #5C4A3A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #B8860B;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Warme beige met bruine accenten</p>
+       </div>
+      </div>
+     </div><!-- Modern Section -->
+     <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8">
+       <h3 class="text-3xl font-bold text-white">Modern</h3><span class="text-gray-400 text-lg">— Minimalistisch, strak &amp; high-tech</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Offwhite + Blue color scheme" data-style="modern" data-scheme="0">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Offwhite + Blue</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #F8F8F8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #78909C;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #2E3A45;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #1E88E5;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Helder offwhite met technisch blauw</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Mint Green color scheme" data-style="modern" data-scheme="1">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Mint Green</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #F0F8F4;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #6B9B7F;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #2E5842;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #10B981;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Frisse mint met moderne uitstraling</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Pastel Yellow color scheme" data-style="modern" data-scheme="2">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Pastel Yellow</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #FFFEF0;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #A8A87A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4A4A3A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #FFC107;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Zachte gele moderne touch</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Lilac color scheme" data-style="modern" data-scheme="3">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Lilac</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #F8F4FF;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #9B7FA8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4A3A52;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #9C27B0;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Subtiele lila moderne stijl</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Soft Pink color scheme" data-style="modern" data-scheme="4">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Soft Pink</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #FFF0F5;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #C89AA8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #5C4A52;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #2563EB;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Zacht roze met moderne edge</p>
+       </div>
+      </div>
+     </div><!-- Luxe Section -->
+     <div class="mb-16">
+      <div class="flex items-center gap-4 mb-8">
+       <h3 class="text-3xl font-bold text-white">Luxe</h3><span class="text-gray-400 text-lg">— Premium, donker &amp; rijk contrast</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Black + Gold color scheme" data-style="luxe" data-scheme="0">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Black + Gold</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #000000;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #E1C699;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4B3B2A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #FFD700;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Iconische zwart met gouden luxe</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Dark Purple color scheme" data-style="luxe" data-scheme="1">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Dark Purple</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #1A0F2E;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #B8A8D0;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #4A3A5C;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #C0C0C0;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Diep paars met zilver glans</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Emerald color scheme" data-style="luxe" data-scheme="2">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Emerald</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #0A2F23;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #7CB89D;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #2F5842;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #FFD700;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Smaragd groen met goud details</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Bordeaux color scheme" data-style="luxe" data-scheme="3">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Bordeaux</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #2E0F1A;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #D4A8B8;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #5C3A42;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #FFD700;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Dieprood bordeaux met gouden touch</p>
+       </div>
+       <div class="style-card" role="button" tabindex="0" aria-label="Apply Night Blue color scheme" data-style="luxe" data-scheme="4">
+        <h4 class="font-bold text-xl mb-3 text-gray-800">Night Blue</h4>
+        <div class="flex gap-2 mb-4">
+         <div class="color-preview" style="background: #0F1A2E;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #A8C0D4;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #3A4A5C;" aria-hidden="true"></div>
+         <div class="color-preview" style="background: #C0C0C0;" aria-hidden="true"></div>
+        </div>
+        <p class="text-sm text-gray-600 leading-relaxed">Nachtelijk blauw met zilver accenten</p>
+       </div>
+      </div>
+     </div>
+     <div class="text-center pt-8"><button onclick="toggleStyleOverlay()" class="px-8 py-4 bg-white text-gray-800 rounded-full font-bold text-lg hover:bg-gray-100 transition-all"> Sluiten </button>
+     </div>
+    </div>
+   </div>
+  </div><!-- Navigation -->
+  <nav role="navigation" aria-label="Main navigation" class="fixed top-0 left-0 right-0 z-50 glass-panel">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+     <div class="flex items-center gap-3">
+      <div class="icon-container w-12 h-12">
+       <svg class="w-6 h-6" viewbox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="2" /> <path d="M12 20h16M20 12v16" stroke-width="2" stroke-linecap="round" />
+       </svg>
+      </div><span class="font-display-classic font-bold text-xl text-color-4">DEMO COMPANY</span>
+     </div>
+     <div class="hidden md:flex items-center gap-8"><a href="#features" class="text-color-4 hover:text-color-3 text-sm font-medium">Features</a> <a href="#status" class="text-color-4 hover:text-color-3 text-sm font-medium">Status</a> <a href="#contact" class="text-color-4 hover:text-color-3 text-sm font-medium">Contact</a> <button id="dashboardToggle" class="btn-primary text-sm"> Dashboard </button>
+     </div>
+    </div>
+   </div>
+  </nav><!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20" style="background: linear-gradient(135deg, var(--color-1) 0%, var(--color-2) 100%);">
+   <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 rounded-full animate-pulse-glow" style="background: var(--color-3); filter: blur(80px);"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full animate-pulse-glow" style="background: var(--color-4); filter: blur(100px); animation-delay: 1s;"></div>
+   </div>
+   <div class="relative z-10 text-center px-4 max-w-5xl mx-auto fade-in">
+    <div class="animate-float mb-12">
+     <div class="icon-container w-32 h-32 mx-auto" style="font-size: 48px;">
+      <svg class="w-20 h-20" viewbox="0 0 100 100" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="50" cy="50" r="40" stroke-width="3" /> <circle cx="50" cy="50" r="30" stroke-width="2" opacity="0.6" /> <circle cx="50" cy="50" r="20" stroke-width="3" /> <path d="M30 50h40M50 30v40" stroke-width="3" stroke-linecap="round" />
+      </svg>
+     </div>
+    </div>
+    <h1 id="heroHeadline" class="font-display-classic text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-color-4 leading-tight">Your Garage, Digitally Optimized</h1>
+    <p id="heroSubtext" class="text-color-3 text-xl sm:text-2xl md:text-3xl mb-12 font-light">Demo Pro Garage Website</p><button id="ctaButton" class="btn-primary text-lg"> Make an Appointment </button>
+    <div class="mt-20 grid grid-cols-3 gap-8 max-w-3xl mx-auto">
+     <div class="text-center fade-in" style="animation-delay: 0.2s;">
+      <div class="text-4xl md:text-5xl font-bold text-color-4 mb-2">
+       500+
+      </div>
+      <div class="text-color-3 text-sm">
+       Demo Clients
+      </div>
+     </div>
+     <div class="text-center fade-in" style="animation-delay: 0.4s;">
+      <div class="text-4xl md:text-5xl font-bold text-color-4 mb-2">
+       24/7
+      </div>
+      <div class="text-color-3 text-sm">
+       Demo Support
+      </div>
+     </div>
+     <div class="text-center fade-in" style="animation-delay: 0.6s;">
+      <div class="text-4xl md:text-5xl font-bold text-color-4 mb-2">
+       100%
+      </div>
+      <div class="text-color-3 text-sm">
+       Demo Quality
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Features Section -->
+  <section id="features" class="py-24 bg-color-2" aria-labelledby="features-heading">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-20 fade-in">
+     <h2 id="features-heading" class="font-display-classic text-4xl sm:text-5xl font-bold text-color-4 mb-6">Powerful Features</h2>
+     <p class="text-color-3 text-lg sm:text-xl max-w-3xl mx-auto">Everything you need to manage your automotive business digitally</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-8">
+     <article class="feature-card fade-in" style="animation-delay: 0.1s;">
+      <div class="icon-container mb-8">
+       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+       </svg>
+      </div>
+      <h3 class="font-display-classic text-2xl font-bold text-color-4 mb-4">HTML Email Templates</h3>
+      <p class="text-color-3 mb-6 leading-relaxed">Beautiful, responsive email templates for appointment confirmations, service updates, and promotions.</p>
+     </article>
+     <article class="feature-card fade-in" style="animation-delay: 0.3s;">
+      <div class="icon-container mb-8">
+       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+       </svg>
+      </div>
+      <h3 class="font-display-classic text-2xl font-bold text-color-4 mb-4">Smart Opening Hours</h3>
+      <p class="text-color-3 mb-6 leading-relaxed">Automatic status updates based on your schedule. Customers always know when you're available.</p>
+     </article>
+     <article class="feature-card fade-in" style="animation-delay: 0.5s;">
+      <div class="icon-container mb-8">
+       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+       </svg>
+      </div>
+      <h3 class="font-display-classic text-2xl font-bold text-color-4 mb-4">Dashboard Management</h3>
+      <p class="text-color-3 mb-6 leading-relaxed">Control everything from one intuitive dashboard. Update content, manage schedules, customize emails.</p>
+     </article>
+    </div>
+   </div>
+  </section><!-- Status Section -->
+  <section id="status" class="py-24 bg-color-1" aria-labelledby="status-heading">
+   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 id="status-heading" class="font-display-classic text-4xl sm:text-5xl font-bold text-color-4 mb-6 fade-in">Current Status</h2>
+    <p class="text-color-3 text-lg sm:text-xl mb-16 fade-in" style="animation-delay: 0.2s;">Real-time availability based on our schedule</p>
+    <div class="glass-panel rounded-3xl p-12 sm:p-16 inline-block fade-in" style="animation-delay: 0.4s;">
+     <div id="statusBadge" class="status-badge status-open mb-8"><span class="w-4 h-4 rounded-full bg-green-500 animate-pulse" aria-hidden="true"></span> <span id="statusText" class="font-display-classic text-2xl sm:text-3xl font-bold">OPEN</span>
+     </div>
+     <p id="statusMessage" class="text-color-3 text-lg mb-8">Open until 6:00 PM today</p>
+     <div class="pt-8 border-t" style="border-color: var(--color-3);">
+      <p class="text-color-3 text-sm mb-3">Demo Time:</p>
+      <p id="currentTime" class="font-display-classic text-xl text-color-4 font-bold"></p>
+     </div>
+    </div>
+   </div>
+  </section><!-- Contact Section -->
+  <section id="contact" class="py-24 bg-color-2" aria-labelledby="contact-heading">
+   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-16 fade-in">
+     <h2 id="contact-heading" class="font-display-classic text-4xl sm:text-5xl font-bold text-color-4 mb-6">Get In Touch</h2>
+     <p class="text-color-3 text-lg sm:text-xl">Send us a message and we'll respond within 24 hours</p>
+    </div>
+    <div class="glass-panel rounded-3xl p-8 sm:p-12 fade-in" style="animation-delay: 0.2s;">
+     <form id="contactForm" class="space-y-6">
+      <div class="grid sm:grid-cols-2 gap-6">
+       <div><label for="contact-name" class="block text-color-4 font-semibold mb-3">Name</label> <input type="text" id="contact-name" name="name" required class="form-input" placeholder="John Doe">
+       </div>
+       <div><label for="contact-email" class="block text-color-4 font-semibold mb-3">Email</label> <input type="email" id="contact-email" name="email" required class="form-input" placeholder="john@example.com">
+       </div>
+      </div>
+      <div><label for="contact-message" class="block text-color-4 font-semibold mb-3">Message</label> <textarea id="contact-message" name="message" rows="5" required class="form-input resize-none" placeholder="Tell us about your vehicle needs..."></textarea>
+      </div><button type="submit" class="w-full btn-primary text-lg"> Send Message </button>
+     </form>
+     <div id="emailPreview" class="hidden mt-10 pt-10 border-t" style="border-color: var(--color-3);">
+      <h3 class="font-display-classic text-2xl font-bold text-color-4 mb-6">📧 Demo Confirmation Email Preview</h3>
+      <div id="emailContent" class="bg-white text-gray-800 rounded-xl p-8 shadow-lg"></div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer role="contentinfo" class="py-16 bg-color-4 text-color-1">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-12 mb-12">
+     <div>
+      <div class="flex items-center gap-3 mb-6">
+       <div class="w-12 h-12 bg-color-1 rounded-lg flex items-center justify-center">
+        <svg class="w-6 h-6 text-color-4" viewbox="0 0 40 40" fill="none" stroke="currentColor" aria-hidden="true"><circle cx="20" cy="20" r="15" stroke-width="2" /> <path d="M12 20h16M20 12v16" stroke-width="2" stroke-linecap="round" />
+        </svg>
+       </div><span class="font-display-classic font-bold text-xl">DEMO COMPANY</span>
+      </div>
+      <p class="text-color-2 leading-relaxed">This is a demo website showcasing modern automotive garage management features.</p>
+     </div>
+     <div>
+      <h3 class="font-display-classic font-bold text-lg mb-6">Demo Contact</h3>
+      <p id="footerAddress" class="text-color-2 mb-3">123 Demo Street, Auto City</p>
+      <p class="text-color-2 mb-3">demo@company.example</p>
+      <p class="text-color-2">+1 (555) DEMO-123</p>
+     </div>
+     <div>
+      <h3 class="font-display-classic font-bold text-lg mb-6">Demo Hours</h3>
+      <p class="text-color-2 mb-3">Mon - Fri: 8:00 AM - 6:00 PM</p>
+      <p class="text-color-2 mb-3">Saturday: 9:00 AM - 2:00 PM</p>
+      <p class="text-color-2">Sunday: Closed</p>
+     </div>
+    </div>
+    <div class="pt-8 border-t text-center" style="border-color: var(--color-2);">
+     <p class="text-color-2 mb-3">Powered by <a href="https://vanappiah.com/" target="_blank" rel="noopener noreferrer" class="text-color-1 hover:underline font-semibold">vanappiah.com</a></p>
+     <p class="text-color-2 opacity-60 text-sm">This is a DEMO website with example data only</p>
+    </div>
+   </div>
+  </footer><!-- Dashboard Overlay -->
+  <aside id="dashboardOverlay" class="fixed inset-0 z-50 hidden" role="complementary" aria-label="Dashboard panel">
+   <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleDashboard()"></div>
+   <div class="absolute right-0 top-0 bottom-0 w-full max-w-2xl glass-panel overflow-y-auto">
+    <div class="p-8">
+     <div class="flex items-center justify-between mb-10">
+      <h2 class="font-display-classic text-3xl font-bold text-color-4">Dashboard</h2><button onclick="toggleDashboard()" aria-label="Close dashboard" class="w-12 h-12 rounded-full bg-color-2 flex items-center justify-center hover:bg-color-3 transition-colors">
+       <svg class="w-6 h-6 text-color-4" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+       </svg></button>
+     </div>
+     <div class="text-center py-5 px-8 rounded-xl mb-10" style="background: rgba(0,0,0,0.1); border: 2px solid var(--color-3);"><span class="text-color-4 font-bold text-lg">🎭 Demo Mode</span>
+      <p class="text-color-3 mt-2">All changes are visual only and won't persist</p>
+     </div>
+     <div class="glass-panel rounded-2xl p-8 mb-8">
+      <h3 class="font-display-classic text-xl font-bold text-color-4 mb-6 flex items-center gap-3">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+       </svg> Opening Hours</h3>
+      <div class="space-y-5">
+       <div class="flex items-center justify-between"><span class="text-color-3 font-medium">Override Status</span> <button id="overrideToggle" role="switch" aria-checked="false" aria-label="Override opening hours status" class="toggle-switch" onclick="toggleOverride()"> <span class="sr-only">Toggle override</span> </button>
+       </div>
+       <div id="overrideOptions" class="hidden space-y-4 pt-6 border-t" style="border-color: var(--color-3);"><label class="flex items-center gap-4 cursor-pointer"> <input type="radio" name="overrideStatus" value="open" class="w-5 h-5" onchange="setOverrideStatus('open')"> <span class="text-color-4 font-medium">Force Open</span> </label> <label class="flex items-center gap-4 cursor-pointer"> <input type="radio" name="overrideStatus" value="closed" class="w-5 h-5" onchange="setOverrideStatus('closed')"> <span class="text-color-4 font-medium">Force Closed</span> </label>
+       </div>
+      </div>
+     </div>
+     <div class="glass-panel rounded-2xl p-8 mb-8">
+      <h3 class="font-display-classic text-xl font-bold text-color-4 mb-6 flex items-center gap-3">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+       </svg> Email Template</h3>
+      <div class="space-y-5">
+       <div><label for="emailSubject" class="block text-color-3 font-semibold mb-2">Subject Line</label> <input type="text" id="emailSubject" class="form-input" value="Thank you for contacting Demo Company!" oninput="updateEmailPreview()">
+       </div>
+       <div><label for="emailGreeting" class="block text-color-3 font-semibold mb-2">Greeting</label> <input type="text" id="emailGreeting" class="form-input" value="Dear Customer," oninput="updateEmailPreview()">
+       </div>
+       <div><label for="emailBody" class="block text-color-3 font-semibold mb-2">Body Message</label> <textarea id="emailBody" rows="3" class="form-input resize-none" oninput="updateEmailPreview()">Thank you for reaching out. We have received your message and will get back to you within 24 hours.</textarea>
+       </div>
+       <div><label for="emailSignature" class="block text-color-3 font-semibold mb-2">Signature</label> <input type="text" id="emailSignature" class="form-input" value="The Demo Company Team" oninput="updateEmailPreview()">
+       </div>
+      </div>
+     </div>
+     <div class="glass-panel rounded-2xl p-8">
+      <h3 class="font-display-classic text-xl font-bold text-color-4 mb-6 flex items-center gap-3">
+       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+       </svg> Site Content</h3>
+      <div class="space-y-5">
+       <div><label for="dashHeadline" class="block text-color-3 font-semibold mb-2">Hero Headline</label> <input type="text" id="dashHeadline" class="form-input" oninput="updateSiteContent()">
+       </div>
+       <div><label for="dashSubtext" class="block text-color-3 font-semibold mb-2">Hero Subtext</label> <input type="text" id="dashSubtext" class="form-input" oninput="updateSiteContent()">
+       </div>
+       <div><label for="dashCta" class="block text-color-3 font-semibold mb-2">CTA Button Text</label> <input type="text" id="dashCta" class="form-input" oninput="updateSiteContent()">
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </aside>
+  <div id="toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 hidden" role="status" aria-live="polite">
+   <div class="glass-panel px-8 py-5 rounded-xl flex items-center gap-4 shadow-2xl">
+    <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewbox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+    </svg><span id="toastMessage" class="text-color-4 font-semibold"></span>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      hero_headline: 'Your Garage, Digitally Optimized',
+      hero_subtext: 'Demo Pro Garage Website',
+      cta_text: 'Make an Appointment',
+      footer_address: '123 Demo Street, Auto City',
+      current_style: 'classic',
+      current_scheme: 0
+    };
+
+    let config = { ...defaultConfig };
+    let overrideStatus = null;
+
+    const styleSchemes = {
+      classic: {
+        name: 'Classic',
+        fontBody: 'Montserrat',
+        fontDisplay: 'Playfair Display',
+        schemes: [
+          { name: 'Ivory + Amber', colors: ['#FFFFF0', '#A9A9A9', '#4F4F4F', '#FFB400', '#D3D3D3'] },
+          { name: 'Cream + Copper', colors: ['#FFF8E7', '#B8956A', '#5C4A3A', '#C87533', '#E6D5B8'] },
+          { name: 'Light Blue', colors: ['#E8F4F8', '#7FA8B8', '#2E5266', '#1E88E5', '#BCD4E0'] },
+          { name: 'Soft Green', colors: ['#F0F4E8', '#8B9A7A', '#4A5842', '#6B8E23', '#C8D5B9'] },
+          { name: 'Beige + Brown', colors: ['#F5F2E8', '#A89968', '#5C4A3A', '#B8860B', '#DDD4B8'] }
+        ]
+      },
+      modern: {
+        name: 'Modern',
+        fontBody: 'Inter',
+        fontDisplay: 'Inter',
+        schemes: [
+          { name: 'Offwhite + Blue', colors: ['#F8F8F8', '#78909C', '#2E3A45', '#1E88E5', '#E3E8EB'] },
+          { name: 'Mint Green', colors: ['#F0F8F4', '#6B9B7F', '#2E5842', '#10B981', '#C8E6D7'] },
+          { name: 'Pastel Yellow', colors: ['#FFFEF0', '#A8A87A', '#4A4A3A', '#FFC107', '#F0EECC'] },
+          { name: 'Lilac', colors: ['#F8F4FF', '#9B7FA8', '#4A3A52', '#9C27B0', '#DDD4E6'] },
+          { name: 'Soft Pink', colors: ['#FFF0F5', '#C89AA8', '#5C4A52', '#2563EB', '#F0D4DD'] }
+        ]
+      },
+      luxe: {
+        name: 'Luxe',
+        fontBody: 'Lato',
+        fontDisplay: 'Cormorant Garamond',
+        schemes: [
+          { name: 'Black + Gold', colors: ['#000000', '#E1C699', '#4B3B2A', '#FFD700', '#1A1A1A'] },
+          { name: 'Dark Purple', colors: ['#1A0F2E', '#B8A8D0', '#4A3A5C', '#C0C0C0', '#2E1F42'] },
+          { name: 'Emerald', colors: ['#0A2F23', '#7CB89D', '#2F5842', '#FFD700', '#1F4A38'] },
+          { name: 'Bordeaux', colors: ['#2E0F1A', '#D4A8B8', '#5C3A42', '#FFD700', '#421F2E'] },
+          { name: 'Night Blue', colors: ['#0F1A2E', '#A8C0D4', '#3A4A5C', '#C0C0C0', '#1F2E42'] }
+        ]
+      }
+    };
+
+    function setColors(colors) {
+      document.documentElement.style.setProperty('--color-1', colors[0]);
+      document.documentElement.style.setProperty('--color-2', colors[1]);
+      document.documentElement.style.setProperty('--color-3', colors[2]);
+      document.documentElement.style.setProperty('--color-4', colors[3]);
+      document.documentElement.style.setProperty('--color-5', colors[4]);
+    }
+
+    function setStyle(styleName, schemeIndex = 0) {
+      document.body.dataset.style = styleName;
+      const styleData = styleSchemes[styleName];
+      const scheme = styleData.schemes[schemeIndex];
+      
+      setColors(scheme.colors);
+      
+      updateActiveSchemeCard(styleName, schemeIndex);
+      
+      document.querySelectorAll('.font-display-classic, .font-display-modern, .font-display-luxe').forEach(el => {
+        el.classList.remove('font-display-classic', 'font-display-modern', 'font-display-luxe');
+        el.classList.add(`font-display-${styleName}`);
+      });
+      
+      config.current_style = styleName;
+      config.current_scheme = schemeIndex;
+      if (window.elementSdk) {
+        window.elementSdk.setConfig({ current_style: styleName, current_scheme: schemeIndex });
+      }
+    }
+
+    function updateActiveSchemeCard(styleName, schemeIndex) {
+      document.querySelectorAll('.style-card').forEach(card => {
+        card.classList.remove('active-scheme');
+      });
+      
+      const activeCard = document.querySelector(`.style-card[data-style="${styleName}"][data-scheme="${schemeIndex}"]`);
+      if (activeCard) {
+        activeCard.classList.add('active-scheme');
+      }
+    }
+
+    function toggleStyleOverlay() {
+      const overlay = document.getElementById('styleOverlay');
+      const button = document.getElementById('styleButton');
+      const isActive = overlay.classList.toggle('active');
+      
+      document.body.style.overflow = isActive ? 'hidden' : '';
+      button.setAttribute('aria-expanded', isActive);
+    }
+
+    // Event delegation for style cards
+    document.getElementById('styleOverlay').addEventListener('click', function(e) {
+      const card = e.target.closest('.style-card');
+      if (card) {
+        const style = card.dataset.style;
+        const scheme = parseInt(card.dataset.scheme);
+        setStyle(style, scheme);
+        showToast(`Stijl gewijzigd naar ${styleSchemes[style].schemes[scheme].name}!`);
+        setTimeout(() => toggleStyleOverlay(), 400);
+      } else if (e.target === this) {
+        toggleStyleOverlay();
+      }
+    });
+    
+    // Keyboard support for style cards
+    document.querySelectorAll('.style-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = { ...defaultConfig, ...newConfig };
+          applyConfig();
+        },
+        mapToCapabilities: (cfg) => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['hero_headline', cfg.hero_headline || defaultConfig.hero_headline],
+          ['hero_subtext', cfg.hero_subtext || defaultConfig.hero_subtext],
+          ['cta_text', cfg.cta_text || defaultConfig.cta_text],
+          ['footer_address', cfg.footer_address || defaultConfig.footer_address]
+        ])
+      });
+    }
+
+    function applyConfig() {
+      document.getElementById('heroHeadline').textContent = config.hero_headline || defaultConfig.hero_headline;
+      document.getElementById('heroSubtext').textContent = config.hero_subtext || defaultConfig.hero_subtext;
+      document.getElementById('ctaButton').textContent = config.cta_text || defaultConfig.cta_text;
+      document.getElementById('footerAddress').textContent = config.footer_address || defaultConfig.footer_address;
+      
+      document.getElementById('dashHeadline').value = config.hero_headline || defaultConfig.hero_headline;
+      document.getElementById('dashSubtext').value = config.hero_subtext || defaultConfig.hero_subtext;
+      document.getElementById('dashCta').value = config.cta_text || defaultConfig.cta_text;
+      
+      if (config.current_style && config.current_scheme !== undefined) {
+        setStyle(config.current_style, config.current_scheme);
+      }
+    }
+
+    function toggleDashboard() {
+      const overlay = document.getElementById('dashboardOverlay');
+      overlay.classList.toggle('hidden');
+      document.body.style.overflow = overlay.classList.contains('hidden') ? '' : 'hidden';
+    }
+
+    document.getElementById('dashboardToggle').addEventListener('click', toggleDashboard);
+
+    function updateStatus() {
+      const now = new Date();
+      const hour = now.getHours();
+      const day = now.getDay();
+      
+      let isOpen = false;
+      let message = '';
+      
+      if (overrideStatus !== null) {
+        isOpen = overrideStatus === 'open';
+        message = isOpen ? 'Status manually set to OPEN' : 'Status manually set to CLOSED';
+      } else {
+        if (day === 0) {
+          isOpen = false;
+          message = "We're closed on Sundays. See you Monday!";
+        } else if (day === 6) {
+          isOpen = hour >= 9 && hour < 14;
+          message = isOpen ? 'Open until 2:00 PM today' : "Saturday hours: 9 AM - 2 PM";
+        } else {
+          isOpen = hour >= 8 && hour < 18;
+          message = isOpen ? 'Open until 6:00 PM today' : "Weekday hours: 8 AM - 6 PM";
+        }
+      }
+      
+      const statusBadge = document.getElementById('statusBadge');
+      const statusText = document.getElementById('statusText');
+      const statusMessage = document.getElementById('statusMessage');
+      
+      if (isOpen) {
+        statusBadge.className = 'status-badge status-open';
+        statusText.textContent = 'OPEN';
+      } else {
+        statusBadge.className = 'status-badge status-closed';
+        statusText.textContent = 'CLOSED';
+      }
+      
+      statusMessage.textContent = message;
+      
+      const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const dayStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      document.getElementById('currentTime').textContent = `${dayStr} • ${timeStr}`;
+    }
+
+    function toggleOverride() {
+      const toggle = document.getElementById('overrideToggle');
+      const options = document.getElementById('overrideOptions');
+      const isActive = toggle.classList.toggle('active');
+      
+      toggle.setAttribute('aria-checked', isActive);
+      options.classList.toggle('hidden');
+      
+      if (!isActive) {
+        overrideStatus = null;
+        document.querySelectorAll('input[name="overrideStatus"]').forEach(r => r.checked = false);
+        updateStatus();
+      }
+    }
+
+    function setOverrideStatus(status) {
+      overrideStatus = status;
+      updateStatus();
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const message = document.getElementById('contact-message').value;
+      
+      showEmailPreview(name, email, message);
+      showToast('Demo message sent! Check the email preview below.');
+      
+      this.reset();
+    });
+
+    function showEmailPreview(name, email, message) {
+      const preview = document.getElementById('emailPreview');
+      const content = document.getElementById('emailContent');
+      
+      const subject = document.getElementById('emailSubject').value;
+      const greeting = document.getElementById('emailGreeting').value;
+      const body = document.getElementById('emailBody').value;
+      const signature = document.getElementById('emailSignature').value;
+      
+      const currentColors = [
+        getComputedStyle(document.documentElement).getPropertyValue('--color-1'),
+        getComputedStyle(document.documentElement).getPropertyValue('--color-2'),
+        getComputedStyle(document.documentElement).getPropertyValue('--color-3'),
+        getComputedStyle(document.documentElement).getPropertyValue('--color-4')
+      ];
+      
+      content.innerHTML = `
+        <div style="border-bottom: 3px solid ${currentColors[3]}; padding-bottom: 20px; margin-bottom: 24px;">
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <div style="width: 56px; height: 56px; background: linear-gradient(135deg, ${currentColors[3]}, ${currentColors[2]}); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+              <span style="color: white; font-size: 28px; font-weight: bold;">D</span>
+            </div>
+            <div>
+              <div style="font-weight: bold; font-size: 20px; color: #1a1a1a;">DEMO COMPANY</div>
+              <div style="color: #666; font-size: 13px;">Professional Services</div>
+            </div>
+          </div>
+        </div>
+        
+        <div style="color: ${currentColors[2]}; font-size: 12px; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px;">SUBJECT</div>
+        <div style="font-size: 20px; font-weight: bold; color: #1a1a1a; margin-bottom: 28px;">${subject}</div>
+        
+        <p style="color: #1a1a1a; margin-bottom: 20px; font-size: 16px;">${greeting.replace('Customer', name)}</p>
+        
+        <p style="color: #4a4a5a; line-height: 1.8; margin-bottom: 20px; font-size: 15px;">${body}</p>
+        
+        <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin: 28px 0; border-left: 4px solid ${currentColors[3]};">
+          <div style="color: #666; font-size: 12px; margin-bottom: 10px; font-weight: bold;">YOUR MESSAGE:</div>
+          <div style="color: #1a1a1a; font-style: italic; line-height: 1.6;">"${message}"</div>
+        </div>
+        
+        <p style="color: #4a4a5a; margin-bottom: 10px;">Best regards,</p>
+        <p style="color: ${currentColors[2]}; font-weight: bold; font-size: 16px; margin-bottom: 28px;">${signature}</p>
+        
+        <div style="border-top: 2px solid #eee; padding-top: 24px; margin-top: 28px; text-align: center; color: #999; font-size: 13px;">
+          <p style="margin-bottom: 8px;">Demo Company • 123 Demo Street, Auto City</p>
+          <p>This is a demo email preview</p>
+        </div>
+      `;
+      
+      preview.classList.remove('hidden');
+      preview.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function updateEmailPreview() {
+      const preview = document.getElementById('emailPreview');
+      if (!preview.classList.contains('hidden')) {
+        showEmailPreview('Demo User', 'demo@example.com', 'Demo message content');
+      }
+    }
+
+    function updateSiteContent() {
+      const headline = document.getElementById('dashHeadline').value;
+      const subtext = document.getElementById('dashSubtext').value;
+      const cta = document.getElementById('dashCta').value;
+      
+      document.getElementById('heroHeadline').textContent = headline;
+      document.getElementById('heroSubtext').textContent = subtext;
+      document.getElementById('ctaButton').textContent = cta;
+      
+      if (window.elementSdk) {
+        window.elementSdk.setConfig({
+          hero_headline: headline,
+          hero_subtext: subtext,
+          cta_text: cta
+        });
+      }
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMessage').textContent = message;
+      toast.classList.remove('hidden');
+      
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+
+    document.getElementById('ctaButton').addEventListener('click', () => {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    updateStatus();
+    setInterval(updateStatus, 1000);
+    applyConfig();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c256aee628c8071',t:'MTc2OTE1MTY2NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

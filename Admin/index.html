@@ -1,1 +1,1922 @@
+<!DOCTYPE html>
+<html lang="nl" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Amstel & Appiah - Admin Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-main: #0e0e0f;
+      --bg-panel: #141416;
+      --bg-soft: #1c1c1f;
+      
+      --text-main: #f5f5f7;
+      --text-soft: #b5b5bd;
+      --text-muted: #7d7d86;
+      
+      --accent-gold: #d4af37;
+      --accent-gold-soft: rgba(212, 175, 55, 0.15);
+      
+      --success: #4ade80;
+      --warning: #facc15;
+      --error: #ef4444;
+      --info: #3b82f6;
+      
+      --border-soft: rgba(255,255,255,0.06);
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow: hidden;
+    }
+
+    #app {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(14, 14, 15, 0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-soft);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      width: 100%;
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      white-space: nowrap;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex: 1;
+      overflow-x: auto;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .nav-tabs::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .nav-tabs::-webkit-scrollbar-thumb {
+      background: var(--border-soft);
+      border-radius: 2px;
+    }
+
+    .nav-tab {
+      padding: 10px 14px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s ease;
+      position: relative;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+
+    .nav-tab:hover {
+      color: var(--text-soft);
+    }
+
+    .nav-tab.active {
+      color: var(--text-main);
+    }
+
+    .nav-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent-gold);
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { width: 0; left: 50%; }
+      to { width: 100%; left: 0; }
+    }
+
+    .header-search {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .search-input {
+      padding: 8px 12px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      width: 250px;
+      transition: all 0.2s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: var(--bg-soft);
+      box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      margin-top: 64px;
+      overflow-y: auto;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.5px;
+    }
+
+    .page-subtitle {
+      color: var(--text-muted);
+      font-size: 14px;
+      margin-bottom: 2rem;
+    }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .controls-group {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #e8c158;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-soft);
+      color: var(--text-main);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-soft);
+      border-color: var(--text-muted);
+    }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--error);
+    }
+
+    .btn-danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: var(--error);
+    }
+
+    .btn-small {
+      padding: 8px 12px;
+      font-size: 0.85rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    /* ===== STATS GRID ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-panel);
+      padding: 18px;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid var(--border-soft);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== CHARTS ===== */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .chart-container {
+      background: var(--bg-panel);
+      padding: 1.5rem;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-soft);
+    }
+
+    .chart-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chart-canvas {
+      max-height: 300px;
+    }
+
+    /* ===== FILTERS ===== */
+    .filter-section {
+      background: var(--bg-panel);
+      padding: 1.5rem;
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: flex-end;
+      border: 1px solid var(--border-soft);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 8px 12px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .filter-group select:focus,
+    .filter-group input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: var(--bg-soft);
+      box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    }
+
+    /* ===== TABLE ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-panel);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid var(--border-soft);
+    }
+
+    .data-table thead {
+      background: var(--bg-soft);
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .data-table th {
+      padding: 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease;
+    }
+
+    .data-table th:hover {
+      color: var(--text-soft);
+    }
+
+    .data-table td {
+      padding: 14px;
+      border-top: 1px solid var(--border-soft);
+      font-size: 14px;
+    }
+
+    .data-table tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    .data-table tbody tr:hover {
+      background: var(--bg-soft);
+    }
+
+    .data-table tbody tr.selected {
+      background: var(--accent-gold-soft);
+    }
+
+    .checkbox {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--accent-gold);
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-edit, .btn-delete {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      font-weight: 500;
+      font-family: inherit;
+    }
+
+    .btn-edit {
+      background: var(--accent-gold);
+      color: #000;
+    }
+
+    .btn-edit:hover {
+      background: #e8c158;
+    }
+
+    .btn-delete {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--error);
+    }
+
+    .btn-delete:hover {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* ===== TABS ===== */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ===== MODALS ===== */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .modal-backdrop.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      background: var(--bg-panel);
+      border-radius: 20px;
+      padding: 24px;
+      max-width: 700px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid var(--border-soft);
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .modal-title {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: color 0.2s ease;
+      padding: 0;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-close:hover {
+      color: var(--text-main);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-soft);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 10px 12px;
+      background: var(--bg-soft);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background: var(--bg-soft);
+      box-shadow: 0 0 0 3px var(--accent-gold-soft);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-error {
+      color: var(--error);
+      font-size: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: flex-end;
+    }
+
+    /* ===== TOASTS ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .toast {
+      background: var(--bg-panel);
+      color: var(--text-main);
+      padding: 14px 16px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      font-weight: 500;
+      animation: slideInRight 0.3s ease;
+      min-width: 300px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-left: 3px solid var(--accent-gold);
+    }
+
+    .toast.success {
+      border-left-color: var(--success);
+    }
+
+    .toast.error {
+      border-left-color: var(--error);
+    }
+
+    .toast.warning {
+      border-left-color: var(--warning);
+    }
+
+    @keyframes slideInRight {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* ===== BADGES ===== */
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-success {
+      background: rgba(74, 222, 128, 0.15);
+      color: var(--success);
+    }
+
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--error);
+    }
+
+    .badge-warning {
+      background: rgba(250, 204, 21, 0.15);
+      color: var(--warning);
+    }
+
+    .badge-info {
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--info);
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== BULK ACTIONS ===== */
+    .bulk-actions {
+      background: var(--accent-gold-soft);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: none;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .bulk-actions.active {
+      display: flex;
+    }
+
+    .bulk-count {
+      color: var(--accent-gold);
+      font-weight: 600;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .charts-grid {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 0 1rem;
+      }
+
+      .header-content {
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 0.95rem;
+      }
+
+      .nav-tabs {
+        width: 100%;
+      }
+
+      .search-input {
+        width: 150px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .chart-container {
+        padding: 1rem;
+      }
+
+      .data-table {
+        font-size: 0.85rem;
+      }
+
+      .data-table th,
+      .data-table td {
+        padding: 10px;
+      }
+
+      .modal {
+        max-width: 95%;
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .filter-section {
+        flex-direction: column;
+      }
+
+      .filter-group {
+        width: 100%;
+      }
+
+      main {
+        padding: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav-tab {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+      }
+
+      .controls {
+        flex-direction: column;
+      }
+
+      .controls-group {
+        width: 100%;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .search-input {
+        width: 100%;
+      }
+
+      .toast {
+        min-width: auto;
+        width: calc(100vw - 2rem);
+      }
+    }
+  </style>
+</head>
+<body class="h-full">
+  <div id="app">
+    <!-- HEADER -->
+    <header>
+      <div class="header-content">
+        <div class="logo">✨ Amstel & Appiah</div>
+        <nav class="nav-tabs">
+          <button class="nav-tab active" onclick="switchTab('products')">📦 Products</button>
+          <button class="nav-tab" onclick="switchTab('users')">👥 Users</button>
+          <button class="nav-tab" onclick="switchTab('payments')">💳 Payments</button>
+          <button class="nav-tab" onclick="switchTab('subscriptions')">📅 Subscriptions</button>
+          <button class="nav-tab" onclick="switchTab('categories')">📂 Categories</button>
+          <button class="nav-tab" onclick="switchTab('analytics')">📊 Analytics</button>
+          <button class="nav-tab" onclick="switchTab('api-test')">🧪 API Test</button>
+        </nav>
+        <div class="header-search">
+          <input type="text" id="global-search" class="search-input" placeholder="Search...">
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <!-- PRODUCTS TAB -->
+      <div id="tab-products" class="tab-content active">
+        <div class="container">
+          <h1>📦 Products</h1>
+          <p class="page-subtitle">Manage all products in your database</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add Product</button>
+              <button class="btn btn-secondary" onclick="exportData('products')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <div class="bulk-actions" id="bulk-actions-products">
+            <span class="bulk-count" id="bulk-count-products">0 selected</span>
+            <button class="btn btn-small btn-primary" onclick="bulkUpdateStatus('products')">Update Status</button>
+            <button class="btn btn-small btn-danger" onclick="bulkDelete('products')">Delete Selected</button>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Category</label>
+              <select id="filter-category" onchange="applyFilters('products')">
+                <option value="">All Categories</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-product-status" onchange="applyFilters('products')">
+                <option value="">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Min Price</label>
+              <input type="number" id="filter-price-min" placeholder="Min" onchange="applyFilters('products')">
+            </div>
+            <div class="filter-group">
+              <label>Max Price</label>
+              <input type="number" id="filter-price-max" placeholder="Max" onchange="applyFilters('products')">
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('products')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="product-count">0</div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-products">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-price">€0</div>
+              <div class="stat-label">Avg Price</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-value">€0</div>
+              <div class="stat-label">Total Value</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('products', this)"></th>
+                  <th onclick="sortTable('products', 'ID')">ID</th>
+                  <th onclick="sortTable('products', 'Name')">Name</th>
+                  <th onclick="sortTable('products', 'Category')">Category</th>
+                  <th onclick="sortTable('products', 'Price')">Price</th>
+                  <th>Status</th>
+                  <th>Owner</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS TAB -->
+      <div id="tab-users" class="tab-content">
+        <div class="container">
+          <h1>👥 Users</h1>
+          <p class="page-subtitle">Manage user accounts and subscriptions</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add User</button>
+              <button class="btn btn-secondary" onclick="exportData('users')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <div class="bulk-actions" id="bulk-actions-users">
+            <span class="bulk-count" id="bulk-count-users">0 selected</span>
+            <button class="btn btn-small btn-primary" onclick="bulkUpdatePaid('users')">Toggle Paid</button>
+            <button class="btn btn-small btn-danger" onclick="bulkDelete('users')">Delete Selected</button>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Paid Status</label>
+              <select id="filter-paid" onchange="applyFilters('users')">
+                <option value="">All Status</option>
+                <option value="true">Paid</option>
+                <option value="false">Unpaid</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Subscription</label>
+              <select id="filter-sub-type" onchange="applyFilters('users')">
+                <option value="">All Types</option>
+                <option value="Free">Free</option>
+                <option value="Premium">Premium</option>
+                <option value="Enterprise">Enterprise</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('users')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="user-count">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="paid-users">0</div>
+              <div class="stat-label">Paid Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="premium-users">0</div>
+              <div class="stat-label">Premium</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('users', this)"></th>
+                  <th onclick="sortTable('users', 'User ID')">User ID</th>
+                  <th onclick="sortTable('users', 'Name')">Name</th>
+                  <th onclick="sortTable('users', 'Email')">Email</th>
+                  <th>Paid</th>
+                  <th>Subscription</th>
+                  <th onclick="sortTable('users', 'Date Joined')">Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS TAB -->
+      <div id="tab-payments" class="tab-content">
+        <div class="container">
+          <h1>💳 Payments</h1>
+          <p class="page-subtitle">Track all transactions</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add Payment</button>
+              <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-payment-status" onchange="applyFilters('payments')">
+                <option value="">All Status</option>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Failed">Failed</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Method</label>
+              <select id="filter-method" onchange="applyFilters('payments')">
+                <option value="">All Methods</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('payments')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="payment-count">0</div>
+              <div class="stat-label">Total Payments</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-revenue">€0</div>
+              <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-payment">€0</div>
+              <div class="stat-label">Avg Payment</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('payments', 'Payment ID')">Payment ID</th>
+                  <th onclick="sortTable('payments', 'User Email')">Email</th>
+                  <th onclick="sortTable('payments', 'Amount')">Amount</th>
+                  <th>Status</th>
+                  <th>Method</th>
+                  <th onclick="sortTable('payments', 'Payment Date')">Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="payments-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTIONS TAB -->
+      <div id="tab-subscriptions" class="tab-content">
+        <div class="container">
+          <h1>📅 Subscriptions</h1>
+          <p class="page-subtitle">Manage subscription data</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add Subscription</button>
+              <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-sub-status" onchange="applyFilters('subscriptions')">
+                <option value="">All Status</option>
+                <option value="true">Active</option>
+                <option value="false">Cancelled</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Type</label>
+              <select id="filter-sub-type2" onchange="applyFilters('subscriptions')">
+                <option value="">All Types</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('subscriptions')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="sub-count">0</div>
+              <div class="stat-label">Total Subscriptions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-subs">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="cancelled-subs">0</div>
+              <div class="stat-label">Cancelled</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('subscriptions', 'Sub ID')">Sub ID</th>
+                  <th onclick="sortTable('subscriptions', 'User Email')">Email</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th onclick="sortTable('subscriptions', 'Date Subscribed')">Subscribed</th>
+                  <th>Unsubscribed</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subscriptions-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES TAB -->
+      <div id="tab-categories" class="tab-content">
+        <div class="container">
+          <h1>📂 Categories</h1>
+          <p class="page-subtitle">Manage product categories</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add Category</button>
+              <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-cat-status" onchange="applyFilters('categories')">
+                <option value="">All Status</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('categories')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="category-count">0</div>
+              <div class="stat-label">Total Categories</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-categories">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('categories', 'Category ID')">ID</th>
+                  <th onclick="sortTable('categories', 'Category Name')">Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="categories-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS TAB -->
+      <div id="tab-analytics" class="tab-content">
+        <div class="container">
+          <h1>📊 Analytics & Reports</h1>
+          <p class="page-subtitle">Visual data insights and trends</p>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh Analytics</button>
+          </div>
+
+          <!-- OVERVIEW STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="total-products">0</div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-users">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-transactions">0</div>
+              <div class="stat-label">Total Transactions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-revenue-analytics">€0</div>
+              <div class="stat-label">Total Revenue</div>
+            </div>
+          </div>
+
+          <!-- CHARTS -->
+          <div class="charts-grid">
+            <div class="chart-container">
+              <div class="chart-title">Products by Category</div>
+              <canvas class="chart-canvas" id="chart-category"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Payment Status Distribution</div>
+              <canvas class="chart-canvas" id="chart-payment-status"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Users by Subscription</div>
+              <canvas class="chart-canvas" id="chart-subscription"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Product Status</div>
+              <canvas class="chart-canvas" id="chart-product-status"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Revenue Breakdown</div>
+              <canvas class="chart-canvas" id="chart-revenue"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Subscriptions Status</div>
+              <canvas class="chart-canvas" id="chart-subscriptions-status"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API TEST TAB -->
+      <div id="tab-api-test" class="tab-content">
+        <div class="container">
+          <h1>🧪 API Testing & Debug</h1>
+          <p class="page-subtitle">Test endpoints and view responses</p>
+
+          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; margin-bottom: 1.5rem; border: 1px solid var(--border-soft);">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">GET Request Tester</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Tab</label>
+                <select id="test-tab">
+                  <option value="products">Products</option>
+                  <option value="users">Users</option>
+                  <option value="payments">Payments</option>
+                  <option value="subscriptions">Subscriptions</option>
+                  <option value="categories">Categories</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="testGet()">🔍 Execute GET</button>
+          </div>
+
+          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--border-soft);">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Response</div>
+            <pre id="test-response" style="background: var(--bg-soft); padding: 1rem; border-radius: 8px; max-height: 400px; overflow: auto; color: var(--text-soft); font-size: 12px;">Execute a test...</pre>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MODALS -->
+    <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Add Item</h2>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <form id="form-main" onsubmit="submitForm(event)"></form>
+      </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
+      <div class="modal" style="max-width: 400px;" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title">⚠️ Confirm Delete</h2>
+          <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+        </div>
+        <p id="delete-message" style="margin-bottom: 1.5rem; color: var(--text-soft);"></p>
+        <div class="form-actions">
+          <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+          <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+  </div>
+
+  <script>
+    // ===== CONFIG =====
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz6C5grHGbF2I2FJaA8sN70arFg1aJG-Abw4-tZ9B7NEZWLQZYOr-s_4aicQmDLSl1k/exec';
+
+    // ===== STATE =====
+    let appState = {
+      products: [],
+      users: [],
+      payments: [],
+      subscriptions: [],
+      categories: [],
+      currentTab: 'products',
+      currentSort: { field: '', order: 'asc' },
+      selectedRows: {},
+      editingRecord: null,
+      charts: {},
+      deleteCallback: null
+    };
+
+    const FORM_CONFIGS = {
+      products: {
+        title: 'Product',
+        fields: [
+          { name: 'Category', type: 'select', required: true, options: 'categories' },
+          { name: 'Name', type: 'text', required: true },
+          { name: 'Description', type: 'textarea', required: true },
+          { name: 'Price', type: 'number', required: true, step: '0.01' },
+          { name: 'Affiliate Link', type: 'url' },
+          { name: 'Images Link', type: 'url' },
+          { name: 'Owner Email', type: 'email', required: true },
+          { name: 'Status', type: 'select', required: true, options: ['Active', 'Inactive'] }
+        ]
+      },
+      users: {
+        title: 'User',
+        fields: [
+          { name: 'User ID', type: 'text', required: true },
+          { name: 'Name', type: 'text', required: true },
+          { name: 'Email', type: 'email', required: true },
+          { name: 'Subscription Type', type: 'select', required: true, options: ['Free', 'Premium', 'Enterprise'] },
+          { name: 'Paid', type: 'checkbox' },
+          { name: 'Notes', type: 'textarea' }
+        ]
+      },
+      payments: {
+        title: 'Payment',
+        fields: [
+          { name: 'Payment ID', type: 'text', required: true },
+          { name: 'User Email', type: 'email', required: true },
+          { name: 'Amount', type: 'number', required: true, step: '0.01' },
+          { name: 'Payment Status', type: 'select', required: true, options: ['Completed', 'Pending', 'Failed'] },
+          { name: 'Payment Method', type: 'select', required: true, options: ['Credit Card', 'PayPal', 'Bank Transfer'] },
+          { name: 'Payment Date', type: 'date', required: true }
+        ]
+      },
+      subscriptions: {
+        title: 'Subscription',
+        fields: [
+          { name: 'Sub ID', type: 'text', required: true },
+          { name: 'User Email', type: 'email', required: true },
+          { name: 'Subscription Type', type: 'select', required: true, options: ['Monthly', 'Yearly'] },
+          { name: 'Subscribed', type: 'checkbox' },
+          { name: 'Date Subscribed', type: 'date' },
+          { name: 'Date Unsubscribed', type: 'date' }
+        ]
+      },
+      categories: {
+        title: 'Category',
+        fields: [
+          { name: 'Category ID', type: 'text', required: true },
+          { name: 'Category Name', type: 'text', required: true },
+          { name: 'Description', type: 'textarea' },
+          { name: 'Active', type: 'checkbox' }
+        ]
+      }
+    };
+
+    // ===== INITIALIZATION =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      console.log('🚀 Initializing Admin Dashboard');
+      await loadAllData();
+      setupEventListeners();
+    });
+
+    function setupEventListeners() {
+      document.getElementById('global-search').addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        applyFilters(appState.currentTab, query);
+      });
+    }
+
+    // ===== DATA LOADING =====
+    async function fetchTab(tab) {
+      try {
+        const response = await fetch(`${API_URL}?tab=${tab}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        if (data.status === 'success') {
+          console.log(`✓ ${tab}: ${data.count} records`);
+          return data.data || [];
+        } else {
+          throw new Error(data.message);
+        }
+      } catch (error) {
+        console.error(`❌ Error fetching ${tab}:`, error);
+        showToast(`Error loading ${tab}`, 'error');
+        return [];
+      }
+    }
+
+    async function loadAllData() {
+      const [products, users, payments, subscriptions, categories] = await Promise.all([
+        fetchTab('products'),
+        fetchTab('users'),
+        fetchTab('payments'),
+        fetchTab('subscriptions'),
+        fetchTab('categories')
+      ]);
+
+      appState.products = products;
+      appState.users = users;
+      appState.payments = payments;
+      appState.subscriptions = subscriptions;
+      appState.categories = categories;
+
+      populateAllSelects();
+      renderAllTabs();
+      console.log('✓ All data loaded');
+    }
+
+    async function loadProducts() {
+      appState.products = await fetchTab('products');
+      renderProducts();
+    }
+
+    async function loadUsers() {
+      appState.users = await fetchTab('users');
+      renderUsers();
+    }
+
+    async function loadPayments() {
+      appState.payments = await fetchTab('payments');
+      renderPayments();
+    }
+
+    async function loadSubscriptions() {
+      appState.subscriptions = await fetchTab('subscriptions');
+      renderSubscriptions();
+    }
+
+    async function loadCategories() {
+      appState.categories = await fetchTab('categories');
+      renderCategories();
+      populateAllSelects();
+    }
+
+    async function loadAnalytics() {
+      renderCharts();
+    }
+
+    function renderAllTabs() {
+      renderProducts();
+      renderUsers();
+      renderPayments();
+      renderSubscriptions();
+      renderCategories();
+      renderCharts();
+    }
+
+    // ===== RENDERING =====
+    function renderProducts() {
+      const tbody = document.getElementById('products-table');
+      const filtered = getFilteredData('products');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">No products found</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((p, i) => `
+        <tr class="data-row" data-index="${i}" data-tab="products">
+          <td><input type="checkbox" class="checkbox" onchange="toggleRow('products', ${i}, this)"></td>
+          <td>${p['ID'] || '-'}</td>
+          <td><strong>${p['Name'] || '-'}</strong></td>
+          <td>${p['Category'] || '-'}</td>
+          <td>€${parseFloat(p['Price'] || 0).toFixed(2)}</td>
+          <td><span class="badge badge-${(p['Status'] || 'Active').toLowerCase() === 'active' ? 'success' : 'danger'}">${p['Status'] || 'Inactive'}</span></td>
+          <td style="font-size: 12px;">${(p['Owner Email'] || '-').substring(0, 20)}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-edit" onclick="openEditModal('products', ${i})">Edit</button>
+              <button class="btn-delete" onclick="openDeleteModal('products', ${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      updateStats('products');
+    }
+
+    function renderUsers() {
+      const tbody = document.getElementById('users-table');
+      const filtered = getFilteredData('users');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">No users found</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((u, i) => `
+        <tr class="data-row" data-index="${i}" data-tab="users">
+          <td><input type="checkbox" class="checkbox" onchange="toggleRow('users', ${i}, this)"></td>
+          <td>${u['User ID'] || '-'}</td>
+          <td><strong>${u['Name'] || '-'}</strong></td>
+          <td style="font-size: 12px;">${u['Email'] || '-'}</td>
+          <td><span class="badge ${isPaid(u) ? 'badge-success' : 'badge-danger'}">${isPaid(u) ? 'Paid' : 'Unpaid'}</span></td>
+          <td>${u['Subscription Type'] || '-'}</td>
+          <td>${formatDate(u['Date Joined'])}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-edit" onclick="openEditModal('users', ${i})">Edit</button>
+              <button class="btn-delete" onclick="openDeleteModal('users', ${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      updateStats('users');
+    }
+
+    function renderPayments() {
+      const tbody = document.getElementById('payments-table');
+      const filtered = getFilteredData('payments');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No payments found</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((p, i) => `
+        <tr class="data-row" data-index="${i}" data-tab="payments">
+          <td><strong>${p['Payment ID'] || '-'}</strong></td>
+          <td style="font-size: 12px;">${p['User Email'] || '-'}</td>
+          <td><strong>€${parseFloat(p['Amount'] || 0).toFixed(2)}</strong></td>
+          <td><span class="badge badge-${getPaymentStatusBadge(p['Payment Status'])}">${p['Payment Status'] || '-'}</span></td>
+          <td>${p['Payment Method'] || '-'}</td>
+          <td>${formatDate(p['Payment Date'])}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-edit" onclick="openEditModal('payments', ${i})">Edit</button>
+              <button class="btn-delete" onclick="openDeleteModal('payments', ${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      updateStats('payments');
+    }
+
+    function renderSubscriptions() {
+      const tbody = document.getElementById('subscriptions-table');
+      const filtered = getFilteredData('subscriptions');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No subscriptions found</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((s, i) => `
+        <tr class="data-row" data-index="${i}" data-tab="subscriptions">
+          <td><strong>${s['Sub ID'] || '-'}</strong></td>
+          <td style="font-size: 12px;">${s['User Email'] || '-'}</td>
+          <td>${s['Subscription Type'] || '-'}</td>
+          <td><span class="badge ${isSubscribed(s) ? 'badge-success' : 'badge-danger'}">${isSubscribed(s) ? 'Active' : 'Cancelled'}</span></td>
+          <td>${formatDate(s['Date Subscribed'])}</td>
+          <td>${formatDate(s['Date Unsubscribed'])}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-edit" onclick="openEditModal('subscriptions', ${i})">Edit</button>
+              <button class="btn-delete" onclick="openDeleteModal('subscriptions', ${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      updateStats('subscriptions');
+    }
+
+    function renderCategories() {
+      const tbody = document.getElementById('categories-table');
+      const filtered = getFilteredData('categories');
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">No categories found</div></td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map((c, i) => `
+        <tr class="data-row" data-index="${i}" data-tab="categories">
+          <td>${c['Category ID'] || '-'}</td>
+          <td><strong>${c['Category Name'] || '-'}</strong></td>
+          <td>${(c['Description'] || '-').substring(0, 40)}</td>
+          <td><span class="badge ${isActive(c) ? 'badge-success' : 'badge-danger'}">${isActive(c) ? 'Active' : 'Inactive'}</span></td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-edit" onclick="openEditModal('categories', ${i})">Edit</button>
+              <button class="btn-delete" onclick="openDeleteModal('categories', ${i})">Delete</button>
+            </div>
+          </td>
+        </tr>
+      `).join('');
+
+      updateStats('categories');
+    }
+
+    function renderCharts() {
+      const categoryData = {};
+      appState.products.forEach(p => {
+        const cat = p['Category'] || 'Unknown';
+        categoryData[cat] = (categoryData[cat] || 0) + 1;
+      });
+
+      createChart('chart-category', 'doughnut', Object.keys(categoryData), Object.values(categoryData));
+
+      const paymentStatus = {};
+      appState.payments.forEach(p => {
+        const status = p['Payment Status'] || 'Unknown';
+        paymentStatus[status] = (paymentStatus[status] || 0) + 1;
+      });
+
+      createChart('chart-payment-status', 'doughnut', Object.keys(paymentStatus), Object.values(paymentStatus));
+
+      const subType = {};
+      appState.users.forEach(u => {
+        const type = u['Subscription Type'] || 'Unknown';
+        subType[type] = (subType[type] || 0) + 1;
+      });
+
+      createChart('chart-subscription', 'bar', Object.keys(subType), Object.values(subType));
+
+      const prodStatus = {
+        'Active': appState.products.filter(p => (p['Status'] || 'Active') === 'Active').length,
+        'Inactive': appState.products.filter(p => (p['Status'] || 'Active') !== 'Active').length
+      };
+
+      createChart('chart-product-status', 'doughnut', ['Active', 'Inactive'], [prodStatus['Active'], prodStatus['Inactive']]);
+
+      const revenueByMethod = {};
+      appState.payments.forEach(p => {
+        const method = p['Payment Method'] || 'Unknown';
+        revenueByMethod[method] = (revenueByMethod[method] || 0) + (parseFloat(p['Amount']) || 0);
+      });
+
+      createChart('chart-revenue', 'bar', Object.keys(revenueByMethod), Object.values(revenueByMethod));
+
+      const subStatus = {
+        'Active': appState.subscriptions.filter(s => isSubscribed(s)).length,
+        'Cancelled': appState.subscriptions.filter(s => !isSubscribed(s)).length
+      };
+
+      createChart('chart-subscriptions-status', 'doughnut', ['Active', 'Cancelled'], [subStatus['Active'], subStatus['Cancelled']]);
+
+      const totalRevenue = appState.payments.reduce((sum, p) => sum + (parseFloat(p['Amount']) || 0), 0);
+      document.getElementById('total-products').textContent = appState.products.length;
+      document.getElementById('total-users').textContent = appState.users.length;
+      document.getElementById('total-transactions').textContent = appState.payments.length;
+      document.getElementById('total-revenue-analytics').textContent = '€' + totalRevenue.toFixed(2);
+    }
+
+    function createChart(canvasId, type, labels, data) {
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      
+      if (appState.charts[canvasId]) {
+        appState.charts[canvasId].destroy();
+      }
+
+      const colors = ['#d4af37', '#4ade80', '#ef4444', '#facc15', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4'];
+
+      appState.charts[canvasId] = new Chart(ctx, {
+        type: type,
+        data: {
+          labels: labels,
+          datasets: [{
+            data: data,
+            backgroundColor: colors.slice(0, labels.length),
+            borderColor: 'transparent'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: {
+                color: 'var(--text-soft)',
+                font: { size: 11, family: "'Inter', sans-serif" }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // ===== UTILITIES =====
+    function updateStats(tab) {
+      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
+      
+      if (tab === 'products') {
+        document.getElementById('product-count').textContent = data.length;
+        const active = data.filter(p => (p['Status'] || 'Active') === 'Active').length;
+        document.getElementById('active-products').textContent = active;
+        const prices = data.map(p => parseFloat(p['Price'] || 0));
+        const avg = prices.length > 0 ? (prices.reduce((a, b) => a + b) / prices.length).toFixed(2) : '0';
+        document.getElementById('avg-price').textContent = '€' + avg;
+        const total = prices.reduce((a, b) => a + b, 0).toFixed(2);
+        document.getElementById('total-value').textContent = '€' + total;
+      } else if (tab === 'users') {
+        document.getElementById('user-count').textContent = data.length;
+        const paid = data.filter(u => isPaid(u)).length;
+        document.getElementById('paid-users').textContent = paid;
+        const premium = data.filter(u => u['Subscription Type'] === 'Premium').length;
+        document.getElementById('premium-users').textContent = premium;
+      } else if (tab === 'payments') {
+        document.getElementById('payment-count').textContent = data.length;
+        const total = data.reduce((sum, p) => sum + (parseFloat(p['Amount']) || 0), 0).toFixed(2);
+        document.getElementById('total-revenue').textContent = '€' + total;
+        const avg = data.length > 0 ? (total / data.length).toFixed(2) : '0';
+        document.getElementById('avg-payment').textContent = '€' + avg;
+      } else if (tab === 'subscriptions') {
+        document.getElementById('sub-count').textContent = data.length;
+        const active = data.filter(s => isSubscribed(s)).length;
+        document.getElementById('active-subs').textContent = active;
+        const cancelled = data.filter(s => !isSubscribed(s)).length;
+        document.getElementById('cancelled-subs').textContent = cancelled;
+      } else if (tab === 'categories') {
+        document.getElementById('category-count').textContent = data.length;
+        const active = data.filter(c => isActive(c)).length;
+        document.getElementById('active-categories').textContent = active;
+      }
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '-';
+      try {
+        return new Date(dateStr).toLocaleDateString('nl-NL');
+      } catch {
+        return dateStr;
+      }
+    }
+
+    function isPaid(user) {
+      return user['Paid'] === true || user['Paid'] === 'true' || user['Paid'] === 1;
+    }
+
+    function isSubscribed(sub) {
+      return sub['Subscribed'] === true || sub['Subscribed'] === 'true' || sub['Subscribed'] === 1;
+    }
+
+    function isActive(item) {
+      return item['Active'] === true || item['Active'] === 'true' || item['Active'] === 1;
+    }
+
+    function getPaymentStatusBadge(status) {
+      if (status === 'Completed') return 'success';
+      if (status === 'Failed') return 'danger';
+      return 'warning';
+    }
+
+    // ===== FILTERING & SORTING =====
+    function getFilteredData(tab) {
+      let data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
+      const globalSearch = document.getElementById('global-search').value.toLowerCase();
+
+      if (tab === 'products') {
+        const category = document.getElementById('filter-category')?.value || '';
+        const status = document.getElementById('filter-product-status')?.value || '';
+        const priceMin = document.getElementById('filter-price-min')?.value || '';
+        const priceMax = document.getElementById('filter-price-max')?.value || '';
+
+        data = data.filter(p => {
+          if (category && p['Category'] !== category) return false;
+          if (status && p['Status'] !== status) return false;
+          if (priceMin && parseFloat(p['Price']) < parseFloat(priceMin)) return false;
+          if (priceMax && parseFloat(p['Price']) > parseFloat(priceMax)) return false;
+          if (globalSearch && !JSON.stringify(p).toLowerCase().includes(globalSearch)) return false;
+          return true;
+        });
+      } else if (tab === 'users') {
+        const paid = document.getElementById('filter-paid')?.value || '';
+        const subType = document.getElementById('filter-sub-type')?.value || '';
+
+        data = data.filter(u => {
+          if (paid === 'true' && !isPaid(u)) return false;
+          if (paid === 'false' && isPaid(u)) return false;
+          if (subType && u['Subscription Type'] !== subType) return false;
+          if (globalSearch && !JSON.stringify(u).toLowerCase().includes(globalSearch)) return false;
+          return true;
+        });
+      } else if (tab === 'payments') {
+        const status = document.getElementById('filter-payment-status')?.value || '';
+        const method = document.getElementById('filter-method')?.value || '';
+
+        data = data.filter(p => {
+          if (status && p['Payment Status'] !== status) return false;
+          if (method && p['Payment Method'] !== method) return false;
+          if (globalSearch && !JSON.stringify(p).toLowerCase().includes(globalSearch)) return false;
+          return true;
+        });
+      } else if (tab === 'subscriptions') {
+        const status = document.getElementById('filter-sub-status')?.value || '';
+        const type = document.getElementById('filter-sub-type2')?.value || '';
+
+        data = data.filter(s => {
+          if (status === 'true' && !isSubscribed(s)) return false;
+          if (status === 'false' && isSubscribed(s)) return false;
+          if (type && s['Subscription Type'] !== type) return false;
+          if (globalSearch && !JSON.stringify(s).toLowerCase().includes(globalSearch)) return false;
+          return true;
+        });
+      } else if (tab === 'categories') {
+        const status = document.getElementById('filter-cat-status')?.value || '';
+
+        data = data.filter(c => {
+          if (status === 'true' && !isActive(c)) return false;
+          if (status === 'false' && isActive(c)) return false;
+          if (globalSearch && !JSON.stringify(c).toLowerCase().includes(globalSearch)) return false;
+          return true;
+   

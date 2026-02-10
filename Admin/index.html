@@ -1,11 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl" class="h-full">
- <head>
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amstel &amp; Appiah - Admin Dashboard</title>
+  <title>Amstel & Appiah - Admin Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     body {
       box-sizing: border-box;
@@ -67,13 +67,14 @@
       left: 0;
       right: 0;
       height: 64px;
-      background: rgba(14, 14, 15, 0.85);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-soft);
+      background: linear-gradient(135deg, rgba(14, 14, 15, 0.95) 0%, rgba(20, 20, 22, 0.95) 100%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
       z-index: 50;
       display: flex;
       align-items: center;
       padding: 0 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .header-content {
@@ -90,6 +91,10 @@
       font-weight: 700;
       letter-spacing: -0.5px;
       white-space: nowrap;
+      background: linear-gradient(135deg, var(--accent-gold) 0%, #e8c158 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     .nav-tabs {
@@ -100,7 +105,7 @@
     }
 
     .nav-tabs::-webkit-scrollbar {
-      height: 4px;
+      height: 3px;
     }
 
     .nav-tabs::-webkit-scrollbar-track {
@@ -108,7 +113,7 @@
     }
 
     .nav-tabs::-webkit-scrollbar-thumb {
-      background: var(--border-soft);
+      background: var(--accent-gold);
       border-radius: 2px;
     }
 
@@ -120,18 +125,20 @@
       cursor: pointer;
       font-size: 0.95rem;
       font-weight: 500;
-      transition: color 0.2s ease;
+      transition: all 0.3s ease;
       position: relative;
       white-space: nowrap;
       font-family: inherit;
+      letter-spacing: 0.3px;
     }
 
     .nav-tab:hover {
-      color: var(--text-soft);
+      color: var(--accent-gold);
+      transform: translateY(-2px);
     }
 
     .nav-tab.active {
-      color: var(--text-main);
+      color: var(--accent-gold);
     }
 
     .nav-tab.active::after {
@@ -140,9 +147,11 @@
       bottom: -1px;
       left: 0;
       right: 0;
-      height: 2px;
-      background: var(--accent-gold);
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
       animation: slideIn 0.3s ease;
+      border-radius: 3px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
     }
 
     @keyframes slideIn {
@@ -778,7 +787,9 @@
     @media (max-width: 768px) {
       header {
         padding: 0 0.75rem;
-        height: 56px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(14, 14, 15, 0.98) 0%, rgba(20, 20, 22, 0.98) 100%);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
       }
 
       .header-content {
@@ -786,9 +797,12 @@
       }
 
       .logo {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         font-weight: 700;
-        white-space: nowrap;
+        background: linear-gradient(135deg, var(--accent-gold) 0%, #e8c158 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
       }
 
       .nav-tabs {
@@ -796,12 +810,48 @@
         gap: 0;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding: 0 0.5rem;
       }
 
       .nav-tab {
-        padding: 8px 12px;
-        font-size: 0.8rem;
+        padding: 8px 10px;
+        font-size: 0.75rem;
         white-space: nowrap;
+        letter-spacing: 0.2px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border-radius: 8px;
+        margin: 0 2px;
+      }
+
+      .nav-tab:active {
+        transform: scale(0.95);
+      }
+
+      .nav-tab:hover {
+        background: rgba(212, 175, 55, 0.08);
+        color: var(--accent-gold);
+        transform: translateY(-1px);
+      }
+
+      .nav-tab.active {
+        background: rgba(212, 175, 55, 0.12);
+        color: var(--accent-gold);
+        box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.15);
+      }
+
+      .nav-tab.active::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        background: var(--accent-gold);
+        border-radius: 50%;
+        box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
       }
 
       .header-search {
@@ -812,841 +862,590 @@
         width: 150px;
       }
 
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.75rem;
-      }
-
-      .stat-card {
-        padding: 12px;
-      }
-
-      .stat-value {
-        font-size: 22px;
-      }
-
-      .stat-label {
-        font-size: 11px;
-      }
-
-      .chart-container {
-        padding: 1rem;
-      }
-
-      .charts-grid {
-        gap: 1rem;
-      }
-
-      .data-table {
-        font-size: 0.85rem;
-      }
-
-      .data-table th,
-      .data-table td {
-        padding: 10px;
-      }
-
-      .modal {
-        max-width: 95%;
-        padding: 1.5rem;
-      }
-
-      h1 {
-        font-size: 20px;
-      }
-
-      .filter-section {
-        flex-direction: column;
-      }
-
-      .filter-group {
-        width: 100%;
-      }
-
       main {
         padding: 1rem;
-        margin-top: 56px;
-      }
-
-      .controls {
-        gap: 0.5rem;
-      }
-
-      .btn {
-        padding: 10px 14px;
-        font-size: 0.9rem;
-      }
-
-      .action-buttons {
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-
-      .btn-edit, .btn-delete {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-      }
-
-      .filter-section {
-        padding: 1rem;
-      }
-
-      .toast {
-        min-width: auto;
-        width: calc(100vw - 2rem);
+        margin-top: 60px;
       }
     }
 
     @media (max-width: 480px) {
       header {
-        height: 50px;
+        height: 56px;
         padding: 0 0.5rem;
+        gap: 0;
       }
 
       .header-content {
         gap: 0.25rem;
       }
 
-      main {
-        padding: 0.75rem;
-        margin-top: 50px;
+      .logo {
+        font-size: 0.75rem;
+        font-weight: 700;
       }
 
-      .logo {
-        font-size: 0.8rem;
+      .nav-tabs {
+        width: 100%;
+        gap: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding: 0 0.25rem;
       }
 
       .nav-tab {
         padding: 6px 8px;
-        font-size: 0.75rem;
+        font-size: 0.65rem;
+        white-space: nowrap;
+        letter-spacing: 0.1px;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        border-radius: 6px;
+        margin: 0 1px;
+        min-height: 32px;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-tab:active {
+        transform: scale(0.92);
       }
 
       .nav-tab.active::after {
-        height: 2px;
+        width: 3px;
+        height: 3px;
+        bottom: 1px;
       }
 
-      .stats-grid {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-      }
-
-      .stat-card {
-        padding: 10px;
-        border-radius: 10px;
-      }
-
-      .stat-value {
-        font-size: 18px;
-      }
-
-      .stat-label {
-        font-size: 10px;
-      }
-
-      .page-subtitle {
-        font-size: 12px;
-        margin-bottom: 1rem;
-      }
-
-      h1 {
-        font-size: 18px;
-        margin-bottom: 0.1rem;
-      }
-
-      .controls {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .controls-group {
-        width: 100%;
-        flex-direction: column;
-      }
-
-      .btn {
-        width: 100%;
-        justify-content: center;
-        padding: 10px 12px;
-        font-size: 0.85rem;
-      }
-
-      .btn-small {
-        padding: 6px 10px;
-      }
-
-      .filter-section {
+      main {
         padding: 0.75rem;
-        gap: 0.5rem;
-        flex-direction: column;
-      }
-
-      .filter-group {
-        width: 100%;
-      }
-
-      .filter-group label {
-        font-size: 11px;
-      }
-
-      .filter-group select,
-      .filter-group input {
-        padding: 8px 10px;
-        font-size: 14px;
-      }
-
-      .table-wrapper {
-        margin-bottom: 1rem;
-        border-radius: 10px;
-      }
-
-      .data-table {
-        font-size: 0.75rem;
-      }
-
-      .data-table th {
-        padding: 8px 6px;
-        font-size: 10px;
-      }
-
-      .data-table td {
-        padding: 8px 6px;
-        font-size: 12px;
-      }
-
-      .checkbox {
-        width: 16px;
-        height: 16px;
-      }
-
-      .action-buttons {
-        flex-direction: column;
-        gap: 0.25rem;
-      }
-
-      .btn-edit, .btn-delete {
-        padding: 5px 8px;
-        font-size: 0.75rem;
-      }
-
-      .modal {
-        max-width: 95%;
-        max-height: 95vh;
-        padding: 1rem;
-        border-radius: 16px;
-      }
-
-      .modal-header {
-        margin-bottom: 1rem;
-        padding-bottom: 0.75rem;
-      }
-
-      .modal-title {
-        font-size: 16px;
-      }
-
-      .modal-close {
-        font-size: 20px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-
-      .form-group input,
-      .form-group select,
-      .form-group textarea {
-        padding: 10px;
-        font-size: 16px;
-      }
-
-      .form-group textarea {
-        min-height: 80px;
-      }
-
-      .form-actions {
-        gap: 0.5rem;
-        flex-direction: column;
-      }
-
-      .form-actions .btn {
-        width: 100%;
-      }
-
-      .badge {
-        padding: 3px 8px;
-        font-size: 10px;
-      }
-
-      .toast {
-        min-width: auto;
-        width: calc(100vw - 1rem);
-        margin: 0 0.5rem;
-        padding: 12px 14px;
-        font-size: 0.85rem;
-      }
-
-      .toast-container {
-        bottom: 1rem;
-        right: 0.5rem;
-      }
-
-      .bulk-actions {
-        padding: 0.75rem;
-        font-size: 0.85rem;
-      }
-
-      .bulk-count {
-        font-size: 12px;
-      }
-
-      .charts-grid {
-        grid-template-columns: 1fr;
-        gap: 0.75rem;
-      }
-
-      .chart-container {
-        padding: 0.75rem;
-        border-radius: 12px;
-      }
-
-      .chart-title {
-        font-size: 12px;
-        margin-bottom: 0.75rem;
-      }
-
-      .chart-canvas {
-        max-height: 250px;
-      }
-
-      .empty-state {
-        padding: 2rem 1rem;
-      }
-
-      .empty-state-icon {
-        font-size: 2rem;
-      }
-
-      /* Touch-friendly improvements */
-      button, a, input, select, textarea {
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-      }
-
-      input, select, textarea {
-        -webkit-user-select: text;
-      }
-
-      /* Prevent zoom on focus */
-      input, select, textarea {
-        font-size: 16px;
-      }
-
-      /* Better tap targets */
-      .btn, .nav-tab, .checkbox, input[type="checkbox"] {
-        min-height: 44px;
-        min-width: 44px;
-      }
-
-      /* Table mobile view */
-      .data-table {
-        display: block;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .data-table thead {
-        display: none;
-      }
-
-      .data-table tbody {
-        display: block;
-      }
-
-      .data-table tr {
-        display: block;
-        margin-bottom: 1rem;
-        background: var(--bg-panel);
-        border-radius: 8px;
-        padding: 1rem;
-        border: 1px solid var(--border-soft);
-      }
-
-      .data-table td {
-        display: block;
-        padding: 0.5rem 0;
-        border: none;
-        text-align: left;
-      }
-
-      .data-table td::before {
-        content: attr(data-label);
-        font-weight: 600;
-        color: var(--text-muted);
-        font-size: 10px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        display: block;
-        margin-bottom: 0.25rem;
-      }
-
-      .data-table td:first-child::before {
-        display: none;
-      }
-
-      .data-table .checkbox {
-        display: inline-block;
-        margin-right: 0.5rem;
+        margin-top: 56px;
       }
     }
   </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
- </head>
- <body class="h-full">
-  <div id="app"><!-- HEADER -->
-   <header>
-    <div class="header-content">
-     <div class="logo">
-      ✨ Amstel &amp; Appiah
-     </div>
-     <nav class="nav-tabs"><button class="nav-tab active" onclick="switchTab('products')">📦 Products</button> <button class="nav-tab" onclick="switchTab('users')">👥 Users</button> <button class="nav-tab" onclick="switchTab('payments')">💳 Payments</button> <button class="nav-tab" onclick="switchTab('subscriptions')">📅 Subscriptions</button> <button class="nav-tab" onclick="switchTab('categories')">📂 Categories</button> <button class="nav-tab" onclick="switchTab('analytics')">📊 Analytics</button> <button class="nav-tab" onclick="switchTab('api-test')">🧪 API Test</button>
-     </nav>
-     <div class="header-search"><input type="text" id="global-search" class="search-input" placeholder="Search...">
-     </div>
+</head>
+<body class="h-full">
+  <div id="app">
+    <!-- HEADER -->
+    <header>
+      <div class="header-content">
+        <div class="logo">✨ Amstel & Appiah</div>
+        <nav class="nav-tabs">
+          <button class="nav-tab active" onclick="switchTab('products')">🎁 Products</button>
+          <button class="nav-tab" onclick="switchTab('users')">👑 Users</button>
+          <button class="nav-tab" onclick="switchTab('payments')">💎 Payments</button>
+          <button class="nav-tab" onclick="switchTab('subscriptions')">🔑 Plans</button>
+          <button class="nav-tab" onclick="switchTab('categories')">🏛️ Categories</button>
+          <button class="nav-tab" onclick="switchTab('analytics')">📈 Analytics</button>
+          <button class="nav-tab" onclick="switchTab('api-test')">⚙️ Settings</button>
+        </nav>
+        <div class="header-search">
+          <input type="text" id="global-search" class="search-input" placeholder="Search...">
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <!-- PRODUCTS TAB -->
+      <div id="tab-products" class="tab-content active">
+        <div class="container">
+          <h1>🎁 Premium Products</h1>
+          <p class="page-subtitle">Curate & manage your exclusive collection</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add Product</button>
+              <button class="btn btn-secondary" onclick="exportData('products')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <div class="bulk-actions" id="bulk-actions-products">
+            <span class="bulk-count" id="bulk-count-products">0 selected</span>
+            <button class="btn btn-small btn-primary" onclick="bulkUpdateStatus('products')">Update Status</button>
+            <button class="btn btn-small btn-danger" onclick="bulkDelete('products')">Delete Selected</button>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Category</label>
+              <select id="filter-category" onchange="applyFilters('products')">
+                <option value="">All Categories</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-product-status" onchange="applyFilters('products')">
+                <option value="">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Min Price</label>
+              <input type="number" id="filter-price-min" placeholder="Min" onchange="applyFilters('products')">
+            </div>
+            <div class="filter-group">
+              <label>Max Price</label>
+              <input type="number" id="filter-price-max" placeholder="Max" onchange="applyFilters('products')">
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('products')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="product-count">0</div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-products">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-price">€0</div>
+              <div class="stat-label">Avg Price</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-value">€0</div>
+              <div class="stat-label">Total Value</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('products', this)"></th>
+                  <th onclick="sortTable('products', 'ID')">ID</th>
+                  <th onclick="sortTable('products', 'Name')">Name</th>
+                  <th onclick="sortTable('products', 'Category')">Category</th>
+                  <th onclick="sortTable('products', 'Price')">Price</th>
+                  <th>Status</th>
+                  <th>Owner</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- USERS TAB -->
+      <div id="tab-users" class="tab-content">
+        <div class="container">
+          <h1>👑 Elite Members</h1>
+          <p class="page-subtitle">Manage VIP user accounts & memberships</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add User</button>
+              <button class="btn btn-secondary" onclick="exportData('users')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <div class="bulk-actions" id="bulk-actions-users">
+            <span class="bulk-count" id="bulk-count-users">0 selected</span>
+            <button class="btn btn-small btn-primary" onclick="bulkUpdatePaid('users')">Toggle Paid</button>
+            <button class="btn btn-small btn-danger" onclick="bulkDelete('users')">Delete Selected</button>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Paid Status</label>
+              <select id="filter-paid" onchange="applyFilters('users')">
+                <option value="">All Status</option>
+                <option value="true">Paid</option>
+                <option value="false">Unpaid</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Subscription</label>
+              <select id="filter-sub-type" onchange="applyFilters('users')">
+                <option value="">All Types</option>
+                <option value="Free">Free</option>
+                <option value="Premium">Premium</option>
+                <option value="Enterprise">Enterprise</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('users')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="user-count">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="paid-users">0</div>
+              <div class="stat-label">Paid Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="premium-users">0</div>
+              <div class="stat-label">Premium</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('users', this)"></th>
+                  <th onclick="sortTable('users', 'User ID')">User ID</th>
+                  <th onclick="sortTable('users', 'Name')">Name</th>
+                  <th onclick="sortTable('users', 'Email')">Email</th>
+                  <th>Paid</th>
+                  <th>Subscription</th>
+                  <th onclick="sortTable('users', 'Date Joined')">Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- PAYMENTS TAB -->
+      <div id="tab-payments" class="tab-content">
+        <div class="container">
+          <h1>💎 Premium Transactions</h1>
+          <p class="page-subtitle">Track all revenue & payments</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add Payment</button>
+              <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-payment-status" onchange="applyFilters('payments')">
+                <option value="">All Status</option>
+                <option value="Completed">Completed</option>
+                <option value="Pending">Pending</option>
+                <option value="Failed">Failed</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Method</label>
+              <select id="filter-method" onchange="applyFilters('payments')">
+                <option value="">All Methods</option>
+                <option value="Credit Card">Credit Card</option>
+                <option value="PayPal">PayPal</option>
+                <option value="Bank Transfer">Bank Transfer</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('payments')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="payment-count">0</div>
+              <div class="stat-label">Total Payments</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-revenue">€0</div>
+              <div class="stat-label">Total Revenue</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="avg-payment">€0</div>
+              <div class="stat-label">Avg Payment</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('payments', 'Payment ID')">Payment ID</th>
+                  <th onclick="sortTable('payments', 'User Email')">Email</th>
+                  <th onclick="sortTable('payments', 'Amount')">Amount</th>
+                  <th>Status</th>
+                  <th>Method</th>
+                  <th onclick="sortTable('payments', 'Payment Date')">Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="payments-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUBSCRIPTIONS TAB -->
+      <div id="tab-subscriptions" class="tab-content">
+        <div class="container">
+          <h1>🔑 Membership Plans</h1>
+          <p class="page-subtitle">Manage subscription tiers & renewals</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add Subscription</button>
+              <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-sub-status" onchange="applyFilters('subscriptions')">
+                <option value="">All Status</option>
+                <option value="true">Active</option>
+                <option value="false">Cancelled</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label>Type</label>
+              <select id="filter-sub-type2" onchange="applyFilters('subscriptions')">
+                <option value="">All Types</option>
+                <option value="Monthly">Monthly</option>
+                <option value="Yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('subscriptions')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="sub-count">0</div>
+              <div class="stat-label">Total Subscriptions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-subs">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="cancelled-subs">0</div>
+              <div class="stat-label">Cancelled</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('subscriptions', 'Sub ID')">Sub ID</th>
+                  <th onclick="sortTable('subscriptions', 'User Email')">Email</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th onclick="sortTable('subscriptions', 'Date Subscribed')">Subscribed</th>
+                  <th>Unsubscribed</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="subscriptions-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES TAB -->
+      <div id="tab-categories" class="tab-content">
+        <div class="container">
+          <h1>🏛️ Collections</h1>
+          <p class="page-subtitle">Organize premium product categories</p>
+
+          <div class="controls">
+            <div class="controls-group">
+              <button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button>
+              <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add Category</button>
+              <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export CSV</button>
+            </div>
+          </div>
+
+          <!-- FILTERS -->
+          <div class="filter-section">
+            <div class="filter-group">
+              <label>Status</label>
+              <select id="filter-cat-status" onchange="applyFilters('categories')">
+                <option value="">All Status</option>
+                <option value="true">Active</option>
+                <option value="false">Inactive</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <button class="btn btn-small btn-secondary" onclick="resetFilters('categories')">Reset</button>
+            </div>
+          </div>
+
+          <!-- STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="category-count">0</div>
+              <div class="stat-label">Total Categories</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="active-categories">0</div>
+              <div class="stat-label">Active</div>
+            </div>
+          </div>
+
+          <!-- TABLE -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th onclick="sortTable('categories', 'Category ID')">ID</th>
+                  <th onclick="sortTable('categories', 'Category Name')">Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="categories-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS TAB -->
+      <div id="tab-analytics" class="tab-content">
+        <div class="container">
+          <h1>📈 Executive Dashboard</h1>
+          <p class="page-subtitle">Real-time business intelligence & insights</p>
+
+          <div class="controls">
+            <button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh Analytics</button>
+          </div>
+
+          <!-- OVERVIEW STATS -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="total-products">0</div>
+              <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-users">0</div>
+              <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-transactions">0</div>
+              <div class="stat-label">Total Transactions</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="total-revenue-analytics">€0</div>
+              <div class="stat-label">Total Revenue</div>
+            </div>
+          </div>
+
+          <!-- CHARTS -->
+          <div class="charts-grid">
+            <div class="chart-container">
+              <div class="chart-title">Products by Category</div>
+              <canvas class="chart-canvas" id="chart-category"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Payment Status Distribution</div>
+              <canvas class="chart-canvas" id="chart-payment-status"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Users by Subscription</div>
+              <canvas class="chart-canvas" id="chart-subscription"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Product Status</div>
+              <canvas class="chart-canvas" id="chart-product-status"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Revenue Breakdown</div>
+              <canvas class="chart-canvas" id="chart-revenue"></canvas>
+            </div>
+            <div class="chart-container">
+              <div class="chart-title">Subscriptions Status</div>
+              <canvas class="chart-canvas" id="chart-subscriptions-status"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API TEST TAB -->
+      <div id="tab-api-test" class="tab-content">
+        <div class="container">
+          <h1>⚙️ System Console</h1>
+          <p class="page-subtitle">Advanced API testing & diagnostics</p>
+
+          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; margin-bottom: 1.5rem; border: 1px solid var(--border-soft);">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">GET Request Tester</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Tab</label>
+                <select id="test-tab">
+                  <option value="products">Products</option>
+                  <option value="users">Users</option>
+                  <option value="payments">Payments</option>
+                  <option value="subscriptions">Subscriptions</option>
+                  <option value="categories">Categories</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" onclick="testGet()">🔍 Execute GET</button>
+          </div>
+
+          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--border-soft);">
+            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Response</div>
+            <pre id="test-response" style="background: var(--bg-soft); padding: 1rem; border-radius: 8px; max-height: 400px; overflow: auto; color: var(--text-soft); font-size: 12px;">Execute a test...</pre>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- MODALS -->
+    <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
+      <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Add Item</h2>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <form id="form-main" onsubmit="submitForm(event)"></form>
+      </div>
     </div>
-   </header><!-- MAIN CONTENT -->
-   <main><!-- PRODUCTS TAB -->
-    <div id="tab-products" class="tab-content active">
-     <div class="container">
-      <h1>📦 Products</h1>
-      <p class="page-subtitle">Manage all products in your database</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add Product</button> <button class="btn btn-secondary" onclick="exportData('products')">📥 Export CSV</button>
-       </div>
+
+    <!-- Delete Modal -->
+    <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
+      <div class="modal" style="max-width: 400px;" onclick="event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title">⚠️ Confirm Delete</h2>
+          <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+        </div>
+        <p id="delete-message" style="margin-bottom: 1.5rem; color: var(--text-soft);"></p>
+        <div class="form-actions">
+          <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+          <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+        </div>
       </div>
-      <div class="bulk-actions" id="bulk-actions-products"><span class="bulk-count" id="bulk-count-products">0 selected</span> <button class="btn btn-small btn-primary" onclick="bulkUpdateStatus('products')">Update Status</button> <button class="btn btn-small btn-danger" onclick="bulkDelete('products')">Delete Selected</button>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Category</label> <select id="filter-category" onchange="applyFilters('products')"> <option value="">All Categories</option> </select>
-       </div>
-       <div class="filter-group"><label>Status</label> <select id="filter-product-status" onchange="applyFilters('products')"> <option value="">All Status</option> <option value="Active">Active</option> <option value="Inactive">Inactive</option> </select>
-       </div>
-       <div class="filter-group"><label>Min Price</label> <input type="number" id="filter-price-min" placeholder="Min" onchange="applyFilters('products')">
-       </div>
-       <div class="filter-group"><label>Max Price</label> <input type="number" id="filter-price-max" placeholder="Max" onchange="applyFilters('products')">
-       </div>
-       <div class="filter-group"><button class="btn btn-small btn-secondary" onclick="resetFilters('products')">Reset</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="product-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Products
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-products">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="avg-price">
-         €0
-        </div>
-        <div class="stat-label">
-         Avg Price
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-value">
-         €0
-        </div>
-        <div class="stat-label">
-         Total Value
-        </div>
-       </div>
-      </div><!-- TABLE -->
-      <div class="table-wrapper">
-       <table class="data-table">
-        <thead>
-         <tr>
-          <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('products', this)"></th>
-          <th onclick="sortTable('products', 'ID')">ID</th>
-          <th onclick="sortTable('products', 'Name')">Name</th>
-          <th onclick="sortTable('products', 'Category')">Category</th>
-          <th onclick="sortTable('products', 'Price')">Price</th>
-          <th>Status</th>
-          <th>Owner</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody id="products-table"></tbody>
-       </table>
-      </div>
-     </div>
-    </div><!-- USERS TAB -->
-    <div id="tab-users" class="tab-content">
-     <div class="container">
-      <h1>👥 Users</h1>
-      <p class="page-subtitle">Manage user accounts and subscriptions</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add User</button> <button class="btn btn-secondary" onclick="exportData('users')">📥 Export CSV</button>
-       </div>
-      </div>
-      <div class="bulk-actions" id="bulk-actions-users"><span class="bulk-count" id="bulk-count-users">0 selected</span> <button class="btn btn-small btn-primary" onclick="bulkUpdatePaid('users')">Toggle Paid</button> <button class="btn btn-small btn-danger" onclick="bulkDelete('users')">Delete Selected</button>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Paid Status</label> <select id="filter-paid" onchange="applyFilters('users')"> <option value="">All Status</option> <option value="true">Paid</option> <option value="false">Unpaid</option> </select>
-       </div>
-       <div class="filter-group"><label>Subscription</label> <select id="filter-sub-type" onchange="applyFilters('users')"> <option value="">All Types</option> <option value="Free">Free</option> <option value="Premium">Premium</option> <option value="Enterprise">Enterprise</option> </select>
-       </div>
-       <div class="filter-group"><button class="btn btn-small btn-secondary" onclick="resetFilters('users')">Reset</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="user-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="paid-users">
-         0
-        </div>
-        <div class="stat-label">
-         Paid Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="premium-users">
-         0
-        </div>
-        <div class="stat-label">
-         Premium
-        </div>
-       </div>
-      </div><!-- TABLE -->
-      <div class="table-wrapper">
-       <table class="data-table">
-        <thead>
-         <tr>
-          <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('users', this)"></th>
-          <th onclick="sortTable('users', 'User ID')">User ID</th>
-          <th onclick="sortTable('users', 'Name')">Name</th>
-          <th onclick="sortTable('users', 'Email')">Email</th>
-          <th>Paid</th>
-          <th>Subscription</th>
-          <th onclick="sortTable('users', 'Date Joined')">Joined</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody id="users-table"></tbody>
-       </table>
-      </div>
-     </div>
-    </div><!-- PAYMENTS TAB -->
-    <div id="tab-payments" class="tab-content">
-     <div class="container">
-      <h1>💳 Payments</h1>
-      <p class="page-subtitle">Track all transactions</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add Payment</button> <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export CSV</button>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-payment-status" onchange="applyFilters('payments')"> <option value="">All Status</option> <option value="Completed">Completed</option> <option value="Pending">Pending</option> <option value="Failed">Failed</option> </select>
-       </div>
-       <div class="filter-group"><label>Method</label> <select id="filter-method" onchange="applyFilters('payments')"> <option value="">All Methods</option> <option value="Credit Card">Credit Card</option> <option value="PayPal">PayPal</option> <option value="Bank Transfer">Bank Transfer</option> </select>
-       </div>
-       <div class="filter-group"><button class="btn btn-small btn-secondary" onclick="resetFilters('payments')">Reset</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="payment-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Payments
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-revenue">
-         €0
-        </div>
-        <div class="stat-label">
-         Total Revenue
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="avg-payment">
-         €0
-        </div>
-        <div class="stat-label">
-         Avg Payment
-        </div>
-       </div>
-      </div><!-- TABLE -->
-      <div class="table-wrapper">
-       <table class="data-table">
-        <thead>
-         <tr>
-          <th onclick="sortTable('payments', 'Payment ID')">Payment ID</th>
-          <th onclick="sortTable('payments', 'User Email')">Email</th>
-          <th onclick="sortTable('payments', 'Amount')">Amount</th>
-          <th>Status</th>
-          <th>Method</th>
-          <th onclick="sortTable('payments', 'Payment Date')">Date</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody id="payments-table"></tbody>
-       </table>
-      </div>
-     </div>
-    </div><!-- SUBSCRIPTIONS TAB -->
-    <div id="tab-subscriptions" class="tab-content">
-     <div class="container">
-      <h1>📅 Subscriptions</h1>
-      <p class="page-subtitle">Manage subscription data</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add Subscription</button> <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export CSV</button>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-sub-status" onchange="applyFilters('subscriptions')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Cancelled</option> </select>
-       </div>
-       <div class="filter-group"><label>Type</label> <select id="filter-sub-type2" onchange="applyFilters('subscriptions')"> <option value="">All Types</option> <option value="Monthly">Monthly</option> <option value="Yearly">Yearly</option> </select>
-       </div>
-       <div class="filter-group"><button class="btn btn-small btn-secondary" onclick="resetFilters('subscriptions')">Reset</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="sub-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Subscriptions
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-subs">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="cancelled-subs">
-         0
-        </div>
-        <div class="stat-label">
-         Cancelled
-        </div>
-       </div>
-      </div><!-- TABLE -->
-      <div class="table-wrapper">
-       <table class="data-table">
-        <thead>
-         <tr>
-          <th onclick="sortTable('subscriptions', 'Sub ID')">Sub ID</th>
-          <th onclick="sortTable('subscriptions', 'User Email')">Email</th>
-          <th>Type</th>
-          <th>Status</th>
-          <th onclick="sortTable('subscriptions', 'Date Subscribed')">Subscribed</th>
-          <th>Unsubscribed</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody id="subscriptions-table"></tbody>
-       </table>
-      </div>
-     </div>
-    </div><!-- CATEGORIES TAB -->
-    <div id="tab-categories" class="tab-content">
-     <div class="container">
-      <h1>📂 Categories</h1>
-      <p class="page-subtitle">Manage product categories</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add Category</button> <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export CSV</button>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-cat-status" onchange="applyFilters('categories')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Inactive</option> </select>
-       </div>
-       <div class="filter-group"><button class="btn btn-small btn-secondary" onclick="resetFilters('categories')">Reset</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="category-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Categories
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-categories">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-      </div><!-- TABLE -->
-      <div class="table-wrapper">
-       <table class="data-table">
-        <thead>
-         <tr>
-          <th onclick="sortTable('categories', 'Category ID')">ID</th>
-          <th onclick="sortTable('categories', 'Category Name')">Name</th>
-          <th>Description</th>
-          <th>Status</th>
-          <th>Actions</th>
-         </tr>
-        </thead>
-        <tbody id="categories-table"></tbody>
-       </table>
-      </div>
-     </div>
-    </div><!-- ANALYTICS TAB -->
-    <div id="tab-analytics" class="tab-content">
-     <div class="container">
-      <h1>📊 Analytics &amp; Reports</h1>
-      <p class="page-subtitle">Visual data insights and trends</p>
-      <div class="controls"><button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh Analytics</button>
-      </div><!-- OVERVIEW STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="total-products">
-         0
-        </div>
-        <div class="stat-label">
-         Total Products
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-users">
-         0
-        </div>
-        <div class="stat-label">
-         Total Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-transactions">
-         0
-        </div>
-        <div class="stat-label">
-         Total Transactions
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-revenue-analytics">
-         €0
-        </div>
-        <div class="stat-label">
-         Total Revenue
-        </div>
-       </div>
-      </div><!-- CHARTS -->
-      <div class="charts-grid">
-       <div class="chart-container">
-        <div class="chart-title">
-         Products by Category
-        </div>
-        <canvas class="chart-canvas" id="chart-category"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Payment Status Distribution
-        </div>
-        <canvas class="chart-canvas" id="chart-payment-status"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Users by Subscription
-        </div>
-        <canvas class="chart-canvas" id="chart-subscription"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Product Status
-        </div>
-        <canvas class="chart-canvas" id="chart-product-status"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Revenue Breakdown
-        </div>
-        <canvas class="chart-canvas" id="chart-revenue"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Subscriptions Status
-        </div>
-        <canvas class="chart-canvas" id="chart-subscriptions-status"></canvas>
-       </div>
-      </div>
-     </div>
-    </div><!-- API TEST TAB -->
-    <div id="tab-api-test" class="tab-content">
-     <div class="container">
-      <h1>🧪 API Testing &amp; Debug</h1>
-      <p class="page-subtitle">Test endpoints and view responses</p>
-      <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; margin-bottom: 1.5rem; border: 1px solid var(--border-soft);">
-       <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
-        GET Request Tester
-       </div>
-       <div class="form-grid">
-        <div class="form-group"><label>Tab</label> <select id="test-tab"> <option value="products">Products</option> <option value="users">Users</option> <option value="payments">Payments</option> <option value="subscriptions">Subscriptions</option> <option value="categories">Categories</option> </select>
-        </div>
-       </div><button class="btn btn-primary" onclick="testGet()">🔍 Execute GET</button>
-      </div>
-      <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--border-soft);">
-       <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
-        Response
-       </div>
-       <pre id="test-response" style="background: var(--bg-soft); padding: 1rem; border-radius: 8px; max-height: 400px; overflow: auto; color: var(--text-soft); font-size: 12px;">Execute a test...</pre>
-      </div>
-     </div>
     </div>
-   </main><!-- MODALS -->
-   <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
-    <div class="modal" onclick="event.stopPropagation()">
-     <div class="modal-header">
-      <h2 class="modal-title" id="modal-title">Add Item</h2><button class="modal-close" onclick="closeModal()">✕</button>
-     </div>
-     <form id="form-main" onsubmit="submitForm(event)"></form>
-    </div>
-   </div><!-- Delete Modal -->
-   <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
-    <div class="modal" style="max-width: 400px;" onclick="event.stopPropagation()">
-     <div class="modal-header">
-      <h2 class="modal-title">⚠️ Confirm Delete</h2><button class="modal-close" onclick="closeDeleteModal()">✕</button>
-     </div>
-     <p id="delete-message" style="margin-bottom: 1.5rem; color: var(--text-soft);"></p>
-     <div class="form-actions"><button class="btn btn-danger" onclick="confirmDelete()">Delete</button> <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
-     </div>
-    </div>
-   </div><!-- Toast Container -->
-   <div class="toast-container" id="toast-container"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
   </div>
+
   <script>
     // ===== CONFIG =====
     const API_URL = 'https://script.google.com/macros/s/AKfycbz6C5grHGbF2I2FJaA8sN70arFg1aJG-Abw4-tZ9B7NEZWLQZYOr-s_4aicQmDLSl1k/exec';
@@ -2697,5 +2496,5 @@
       }
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cba0cf2e4e3560e',t:'MTc3MDcxMDE5My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>

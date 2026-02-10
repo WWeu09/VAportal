@@ -1,517 +1,552 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="nl" class="h-full">
-<head>
+ <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Amstel & Appiah - Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1">
+  <title>Amstel &amp; Appiah - Admin Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
-    body {
-      box-sizing: border-box;
-    }
-
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    :root {
-      --bg-main: #0e0e0f;
-      --bg-panel: #141416;
-      --bg-soft: #1c1c1f;
-      
-      --text-main: #f5f5f7;
-      --text-soft: #b5b5bd;
-      --text-muted: #7d7d86;
-      
-      --accent-gold: #d4af37;
-      --accent-gold-soft: rgba(212, 175, 55, 0.15);
-      
-      --success: #4ade80;
-      --warning: #facc15;
-      --error: #ef4444;
-      --info: #3b82f6;
-      
-      --border-soft: rgba(255,255,255,0.06);
-    }
-
     html, body {
-      height: 100%;
       width: 100%;
-      margin: 0;
-      padding: 0;
+      max-width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overscroll-behavior: none;
+      touch-action: pan-y;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
     }
 
     body {
+      box-sizing: border-box;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: var(--bg-main);
-      color: var(--text-main);
+      background: #0e0e0f;
+      color: #f5f5f7;
       line-height: 1.6;
-      overflow: hidden;
+      -webkit-overflow-scrolling: touch;
+      position: fixed;
+      width: 100%;
+      height: 100vh;
     }
 
     #app {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      position: fixed;
     }
 
     /* ===== HEADER ===== */
     header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: linear-gradient(135deg, rgba(14, 14, 15, 0.95) 0%, rgba(20, 20, 22, 0.95) 100%);
+      position: relative;
+      height: 56px;
+      background: linear-gradient(135deg, rgba(14, 14, 15, 0.98) 0%, rgba(20, 20, 22, 0.98) 100%);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid rgba(212, 175, 55, 0.1);
       z-index: 50;
       display: flex;
       align-items: center;
-      padding: 0 2rem;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      padding: 0 1rem;
+      gap: 1rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 100%;
     }
 
     .header-content {
       display: flex;
       align-items: center;
-      gap: 3rem;
       width: 100%;
-      max-width: 1600px;
-      margin: 0 auto;
+      gap: 1rem;
     }
 
     .logo {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: -0.5px;
       white-space: nowrap;
-      background: linear-gradient(135deg, var(--accent-gold) 0%, #e8c158 100%);
+      background: linear-gradient(135deg, #d4af37 0%, #e8c158 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 0.5rem;
-      flex: 1;
-      overflow-x: auto;
-    }
-
-    .nav-tabs::-webkit-scrollbar {
-      height: 3px;
-    }
-
-    .nav-tabs::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .nav-tabs::-webkit-scrollbar-thumb {
-      background: var(--accent-gold);
-      border-radius: 2px;
-    }
-
-    .nav-tab {
-      padding: 10px 14px;
-      background: none;
-      border: none;
-      color: var(--text-muted);
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      position: relative;
-      white-space: nowrap;
-      font-family: inherit;
-      letter-spacing: 0.3px;
-    }
-
-    .nav-tab:hover {
-      color: var(--accent-gold);
-      transform: translateY(-2px);
-    }
-
-    .nav-tab.active {
-      color: var(--accent-gold);
-    }
-
-    .nav-tab.active::after {
-      content: '';
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
-      animation: slideIn 0.3s ease;
-      border-radius: 3px;
-      box-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
-    }
-
-    @keyframes slideIn {
-      from { width: 0; left: 50%; }
-      to { width: 100%; left: 0; }
+      min-width: max-content;
     }
 
     .header-search {
-      display: flex;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    .search-input {
-      padding: 8px 12px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 8px;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      width: 250px;
-      transition: all 0.2s ease;
-    }
-
-    .search-input::placeholder {
-      color: var(--text-muted);
-    }
-
-    .search-input:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background: var(--bg-soft);
-      box-shadow: 0 0 0 3px var(--accent-gold-soft);
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    main {
       flex: 1;
-      margin-top: 64px;
-      overflow-y: auto;
-      padding: 2rem;
-    }
-
-    .container {
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.5px;
-    }
-
-    .page-subtitle {
-      color: var(--text-muted);
-      font-size: 14px;
-      margin-bottom: 2rem;
-    }
-
-    /* ===== CONTROLS ===== */
-    .controls {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-
-    .controls-group {
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-    }
-
-    .btn {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--accent-gold);
-      color: #000;
-    }
-
-    .btn-primary:hover {
-      background: #e8c158;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid var(--border-soft);
-      color: var(--text-main);
-    }
-
-    .btn-secondary:hover {
-      background: var(--bg-soft);
-      border-color: var(--text-muted);
-    }
-
-    .btn-danger {
-      background: transparent;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: var(--error);
-    }
-
-    .btn-danger:hover {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: var(--error);
-    }
-
-    .btn-small {
-      padding: 8px 12px;
-      font-size: 0.85rem;
-    }
-
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    /* ===== STATS GRID ===== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .stat-card {
-      background: var(--bg-panel);
-      padding: 18px;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: 1px solid var(--border-soft);
-    }
-
-    .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
-    }
-
-    .stat-value {
-      font-size: 28px;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
-    }
-
-    .stat-label {
-      color: var(--text-muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ===== CHARTS ===== */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .chart-container {
-      background: var(--bg-panel);
-      padding: 1.5rem;
-      border-radius: 14px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-soft);
-    }
-
-    .chart-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      color: var(--text-main);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .chart-canvas {
-      max-height: 300px;
-    }
-
-    /* ===== FILTERS ===== */
-    .filter-section {
-      background: var(--bg-panel);
-      padding: 1.5rem;
-      border-radius: 14px;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: flex-end;
-      border: 1px solid var(--border-soft);
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .filter-group label {
-      font-weight: 600;
-      font-size: 12px;
-      color: var(--text-soft);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .filter-group select,
-    .filter-group input {
-      padding: 8px 12px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
-      border-radius: 8px;
-      color: var(--text-main);
-      font-size: 0.95rem;
-      transition: all 0.2s ease;
-      font-family: inherit;
-    }
-
-    .filter-group select:focus,
-    .filter-group input:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background: var(--bg-soft);
-      box-shadow: 0 0 0 3px var(--accent-gold-soft);
-    }
-
-    /* ===== TABLE ===== */
-    .table-wrapper {
-      overflow-x: auto;
-      margin-bottom: 2rem;
-    }
-
-    .data-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: var(--bg-panel);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid var(--border-soft);
-    }
-
-    .data-table thead {
-      background: var(--bg-soft);
-      border-bottom: 1px solid var(--border-soft);
-    }
-
-    .data-table th {
-      padding: 14px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      cursor: pointer;
-      user-select: none;
-      transition: color 0.2s ease;
-    }
-
-    .data-table th:hover {
-      color: var(--text-soft);
-    }
-
-    .data-table td {
-      padding: 14px;
-      border-top: 1px solid var(--border-soft);
-      font-size: 14px;
-    }
-
-    .data-table tbody tr {
-      transition: background 0.2s ease;
-    }
-
-    .data-table tbody tr:hover {
-      background: var(--bg-soft);
-    }
-
-    .data-table tbody tr.selected {
-      background: var(--accent-gold-soft);
-    }
-
-    .checkbox {
-      width: 20px;
-      height: 20px;
-      cursor: pointer;
-      accent-color: var(--accent-gold);
-    }
-
-    .action-buttons {
-      display: flex;
-      gap: 0.5rem;
-    }
-
-    .btn-edit, .btn-delete {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-      font-weight: 500;
-      font-family: inherit;
-    }
-
-    .btn-edit {
-      background: var(--accent-gold);
-      color: #000;
-    }
-
-    .btn-edit:hover {
-      background: #e8c158;
-    }
-
-    .btn-delete {
-      background: transparent;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: var(--error);
-    }
-
-    .btn-delete:hover {
-      background: rgba(239, 68, 68, 0.1);
-    }
-
-    /* ===== TABS ===== */
-    .tab-content {
       display: none;
-      animation: fadeIn 0.3s ease;
     }
 
-    .tab-content.active {
+    .mobile-menu-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: #f5f5f7;
+      padding: 0;
+      margin-left: auto;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .mobile-menu-button:active {
+      transform: scale(0.9);
+    }
+
+    /* ===== MOBILE MENU DROPDOWN ===== */
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .mobile-menu-overlay.active {
       display: block;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, rgba(20, 20, 22, 0.98) 0%, rgba(28, 28, 31, 0.98) 100%);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      z-index: 100;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      max-height: calc(100vh - 56px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      animation: slideDown 0.3s ease;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .mobile-menu-item {
+      padding: 1rem 1.5rem;
+      background: none;
+      border: none;
+      color: #b5b5bd;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      text-align: left;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .mobile-menu-item:active {
+      background: rgba(212, 175, 55, 0.1);
+    }
+
+    .mobile-menu-item.active {
+      background: rgba(212, 175, 55, 0.12);
+      color: #d4af37;
+      border-left: 3px solid #d4af37;
+      padding-left: calc(1.5rem - 3px);
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 1rem;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.5px;
+      word-wrap: break-word;
+    }
+
+    .page-subtitle {
+      color: #b5b5bd;
+      font-size: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== STATS GRID ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .stat-card {
+      background: #141416;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .stat-card:active {
+      transform: scale(0.98);
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: #f5f5f7;
+      margin-bottom: 0.25rem;
+      word-wrap: break-word;
+    }
+
+    .stat-label {
+      color: #7d7d86;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ===== CONTROLS ===== */
+    .controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .controls-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .btn {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: inherit;
+      white-space: nowrap;
+      min-height: 36px;
+      flex-shrink: 0;
+    }
+
+    .btn-primary {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .btn-primary:active {
+      background: #e8c158;
+      transform: scale(0.95);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #f5f5f7;
+    }
+
+    .btn-secondary:active {
+      background: #1c1c1f;
+    }
+
+    .btn-danger {
+      background: transparent;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .btn-danger:active {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    /* ===== FILTER SECTION ===== */
+    .filter-section {
+      background: #141416;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      width: 100%;
+    }
+
+    .filter-group label {
+      font-weight: 600;
+      font-size: 11px;
+      color: #b5b5bd;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .filter-group select,
+    .filter-group input {
+      padding: 8px 10px;
+      background: #1c1c1f;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      color: #f5f5f7;
+      font-size: 0.9rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      width: 100%;
+      max-width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
+      padding-right: 30px;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b5b5bd' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 8px center;
+      background-size: 16px;
+      padding-right: 32px;
+    }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+    }
+
+    /* ===== TABLES ON MOBILE → CARDS ===== */
+    .table-wrapper {
+      overflow-x: hidden;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .data-table {
+      display: none;
+    }
+
+    .mobile-card-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .mobile-data-card {
+      background: #141416;
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      display: grid;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .card-row {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      gap: 0.5rem;
+      align-items: start;
+    }
+
+    .card-label {
+      font-size: 11px;
+      color: #7d7d86;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .card-value {
+      font-size: 13px;
+      color: #f5f5f7;
+      word-wrap: break-word;
+      font-weight: 500;
+    }
+
+    .card-value strong {
+      color: #d4af37;
+    }
+
+    .card-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      width: fit-content;
+    }
+
+    .badge-success {
+      background: rgba(74, 222, 128, 0.15);
+      color: #4ade80;
+    }
+
+    .badge-danger {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+    }
+
+    .badge-warning {
+      background: rgba(250, 204, 21, 0.15);
+      color: #facc15;
+    }
+
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 0.75rem;
+    }
+
+    .btn-card {
+      padding: 8px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    .btn-card-edit {
+      background: #d4af37;
+      color: #000;
+    }
+
+    .btn-card-edit:active {
+      background: #e8c158;
+      transform: scale(0.95);
+    }
+
+    .btn-card-delete {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-card-delete:active {
+      background: rgba(239, 68, 68, 0.2);
+    }
+
+    /* ===== CHARTS ===== */
+    .charts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .chart-container {
+      background: #141416;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .chart-title {
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: #f5f5f7;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chart-canvas {
+      max-height: 250px;
+      width: 100%;
+      max-width: 100%;
     }
 
     /* ===== MODALS ===== */
@@ -521,32 +556,34 @@
       inset: 0;
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(6px);
-      z-index: 100;
+      z-index: 101;
       animation: fadeIn 0.2s ease;
     }
 
     .modal-backdrop.active {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
     }
 
     .modal {
-      background: var(--bg-panel);
-      border-radius: 20px;
-      padding: 24px;
-      max-width: 700px;
-      width: 90%;
-      max-height: 90vh;
+      background: #141416;
+      border-radius: 16px 16px 0 0;
+      padding: 1.5rem 1rem;
+      width: 100%;
+      max-width: 100%;
+      max-height: 85vh;
       overflow-y: auto;
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-      border: 1px solid var(--border-soft);
+      -webkit-overflow-scrolling: touch;
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.1);
+      border-radius: 20px 20px 0 0;
       animation: slideUp 0.3s ease;
     }
 
     @keyframes slideUp {
       from {
-        transform: translateY(20px);
+        transform: translateY(100%);
         opacity: 0;
       }
       to {
@@ -559,13 +596,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .modal-title {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
       letter-spacing: -0.5px;
     }
@@ -575,7 +612,7 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
-      color: var(--text-muted);
+      color: #7d7d86;
       transition: color 0.2s ease;
       padding: 0;
       width: 32px;
@@ -583,33 +620,32 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
-    .modal-close:hover {
-      color: var(--text-main);
+    .modal-close:active {
+      color: #f5f5f7;
     }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 1.5rem;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-    }
-
-    .form-group.full {
-      grid-column: 1 / -1;
+      gap: 0.4rem;
+      width: 100%;
     }
 
     .form-group label {
       font-weight: 600;
-      font-size: 12px;
-      color: var(--text-soft);
+      font-size: 11px;
+      color: #b5b5bd;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
@@ -618,27 +654,17 @@
     .form-group select,
     .form-group textarea {
       padding: 10px 12px;
-      background: var(--bg-soft);
-      border: 1px solid var(--border-soft);
+      background: #1c1c1f;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      color: var(--text-main);
+      color: #f5f5f7;
       font-size: 0.95rem;
       font-family: inherit;
       transition: all 0.2s ease;
-    }
-
-    .form-group input::placeholder,
-    .form-group textarea::placeholder {
-      color: var(--text-muted);
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent-gold);
-      background: var(--bg-soft);
-      box-shadow: 0 0 0 3px var(--accent-gold-soft);
+      width: 100%;
+      max-width: 100%;
+      -webkit-appearance: none;
+      appearance: none;
     }
 
     .form-group textarea {
@@ -646,55 +672,91 @@
       min-height: 100px;
     }
 
-    .form-error {
-      color: var(--error);
-      font-size: 0.85rem;
-      margin-top: 0.25rem;
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #d4af37;
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
     }
 
     .form-actions {
-      display: flex;
-      gap: 1rem;
-      margin-top: 2rem;
-      justify-content: flex-end;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+      width: 100%;
+    }
+
+    .form-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #7d7d86;
+    }
+
+    .empty-state-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    /* ===== TABS ===== */
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.3s ease;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .tab-content.active {
+      display: block;
     }
 
     /* ===== TOASTS ===== */
     .toast-container {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 1rem;
+      right: 1rem;
+      left: 1rem;
       z-index: 200;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 0.75rem;
+      max-width: calc(100% - 2rem);
     }
 
     .toast {
-      background: var(--bg-panel);
-      color: var(--text-main);
-      padding: 14px 16px;
-      border-radius: 12px;
+      background: #1c1c1f;
+      color: #f5f5f7;
+      padding: 12px 14px;
+      border-radius: 10px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
       font-weight: 500;
       animation: slideInRight 0.3s ease;
-      min-width: 300px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      border-left: 3px solid var(--accent-gold);
+      gap: 10px;
+      border-left: 3px solid #d4af37;
+      font-size: 13px;
+      word-wrap: break-word;
+      max-width: 100%;
     }
 
     .toast.success {
-      border-left-color: var(--success);
+      border-left-color: #4ade80;
     }
 
     .toast.error {
-      border-left-color: var(--error);
+      border-left-color: #ef4444;
     }
 
     .toast.warning {
-      border-left-color: var(--warning);
+      border-left-color: #facc15;
     }
 
     @keyframes slideInRight {
@@ -708,60 +770,19 @@
       }
     }
 
-    /* ===== BADGES ===== */
-    .badge {
-      display: inline-block;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .badge-success {
-      background: rgba(74, 222, 128, 0.15);
-      color: var(--success);
-    }
-
-    .badge-danger {
-      background: rgba(239, 68, 68, 0.15);
-      color: var(--error);
-    }
-
-    .badge-warning {
-      background: rgba(250, 204, 21, 0.15);
-      color: var(--warning);
-    }
-
-    .badge-info {
-      background: rgba(59, 130, 246, 0.15);
-      color: var(--info);
-    }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--text-muted);
-    }
-
-    .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
     /* ===== BULK ACTIONS ===== */
     .bulk-actions {
-      background: var(--accent-gold-soft);
-      padding: 1rem;
+      background: rgba(212, 175, 55, 0.12);
+      padding: 0.75rem;
       border-radius: 8px;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       display: none;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 0.5rem;
       align-items: center;
       border: 1px solid rgba(212, 175, 55, 0.2);
+      width: 100%;
+      max-width: 100%;
     }
 
     .bulk-actions.active {
@@ -769,683 +790,391 @@
     }
 
     .bulk-count {
-      color: var(--accent-gold);
+      color: #d4af37;
       font-weight: 600;
+      font-size: 0.9rem;
+      flex: 1;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 1024px) {
-      .charts-grid {
-        grid-template-columns: 1fr;
-      }
-
-      main {
-        padding: 1.5rem;
-      }
+    /* ===== HIDE DESKTOP ELEMENTS ON MOBILE ===== */
+    .desktop-only {
+      display: none;
     }
 
-    @media (max-width: 768px) {
-      header {
-        padding: 0 0.75rem;
-        height: 60px;
-        background: linear-gradient(135deg, rgba(14, 14, 15, 0.98) 0%, rgba(20, 20, 22, 0.98) 100%);
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-      }
-
-      .header-content {
-        gap: 0.5rem;
-      }
-
-      .logo {
-        font-size: 0.9rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, var(--accent-gold) 0%, #e8c158 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-
-      .nav-tabs {
-        width: 100%;
-        gap: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        padding: 0 0.5rem;
-      }
-
-      .nav-tab {
-        padding: 8px 10px;
-        font-size: 0.75rem;
-        white-space: nowrap;
-        letter-spacing: 0.2px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        border-radius: 8px;
-        margin: 0 2px;
-      }
-
-      .nav-tab:active {
-        transform: scale(0.95);
-      }
-
-      .nav-tab:hover {
-        background: rgba(212, 175, 55, 0.08);
-        color: var(--accent-gold);
-        transform: translateY(-1px);
-      }
-
-      .nav-tab.active {
-        background: rgba(212, 175, 55, 0.12);
-        color: var(--accent-gold);
-        box-shadow: inset 0 0 12px rgba(212, 175, 55, 0.15);
-      }
-
-      .nav-tab.active::after {
-        content: '';
-        position: absolute;
-        bottom: 2px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 4px;
-        height: 4px;
-        background: var(--accent-gold);
-        border-radius: 50%;
-        box-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
-      }
-
-      .header-search {
-        display: none;
-      }
-
-      .search-input {
-        width: 150px;
-      }
-
-      main {
-        padding: 1rem;
-        margin-top: 60px;
-      }
+    /* ===== SCROLLBAR STYLING ===== */
+    main::-webkit-scrollbar {
+      width: 6px;
     }
 
-    @media (max-width: 480px) {
-      header {
-        height: 56px;
-        padding: 0 0.5rem;
-        gap: 0;
-      }
+    main::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-      .header-content {
-        gap: 0.25rem;
-      }
+    main::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 3px;
+    }
 
-      .logo {
-        font-size: 0.75rem;
-        font-weight: 700;
-      }
+    main::-webkit-scrollbar-thumb:active {
+      background: rgba(212, 175, 55, 0.6);
+    }
 
-      .nav-tabs {
-        width: 100%;
-        gap: 0;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        padding: 0 0.25rem;
-      }
+    .mobile-menu::-webkit-scrollbar {
+      width: 4px;
+    }
 
-      .nav-tab {
-        padding: 6px 8px;
-        font-size: 0.65rem;
-        white-space: nowrap;
-        letter-spacing: 0.1px;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        border-radius: 6px;
-        margin: 0 1px;
-        min-height: 32px;
-        display: flex;
-        align-items: center;
-      }
+    .mobile-menu::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
-      .nav-tab:active {
-        transform: scale(0.92);
-      }
-
-      .nav-tab.active::after {
-        width: 3px;
-        height: 3px;
-        bottom: 1px;
-      }
-
-      main {
-        padding: 0.75rem;
-        margin-top: 56px;
-      }
+    .mobile-menu::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 2px;
     }
   </style>
-</head>
-<body class="h-full">
-  <div id="app">
-    <!-- HEADER -->
-    <header>
-      <div class="header-content">
-        <div class="logo">✨ Amstel & Appiah</div>
-        <nav class="nav-tabs">
-          <button class="nav-tab active" onclick="switchTab('products')">🎁 Products</button>
-          <button class="nav-tab" onclick="switchTab('users')">👑 Users</button>
-          <button class="nav-tab" onclick="switchTab('payments')">💎 Payments</button>
-          <button class="nav-tab" onclick="switchTab('subscriptions')">🔑 Plans</button>
-          <button class="nav-tab" onclick="switchTab('categories')">🏛️ Categories</button>
-          <button class="nav-tab" onclick="switchTab('analytics')">📈 Analytics</button>
-          <button class="nav-tab" onclick="switchTab('api-test')">⚙️ Settings</button>
-        </nav>
-        <div class="header-search">
-          <input type="text" id="global-search" class="search-input" placeholder="Search...">
-        </div>
-      </div>
-    </header>
-
-    <!-- MAIN CONTENT -->
-    <main>
-      <!-- PRODUCTS TAB -->
-      <div id="tab-products" class="tab-content active">
-        <div class="container">
-          <h1>🎁 Premium Products</h1>
-          <p class="page-subtitle">Curate & manage your exclusive collection</p>
-
-          <div class="controls">
-            <div class="controls-group">
-              <button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button>
-              <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add Product</button>
-              <button class="btn btn-secondary" onclick="exportData('products')">📥 Export CSV</button>
-            </div>
-          </div>
-
-          <div class="bulk-actions" id="bulk-actions-products">
-            <span class="bulk-count" id="bulk-count-products">0 selected</span>
-            <button class="btn btn-small btn-primary" onclick="bulkUpdateStatus('products')">Update Status</button>
-            <button class="btn btn-small btn-danger" onclick="bulkDelete('products')">Delete Selected</button>
-          </div>
-
-          <!-- FILTERS -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label>Category</label>
-              <select id="filter-category" onchange="applyFilters('products')">
-                <option value="">All Categories</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Status</label>
-              <select id="filter-product-status" onchange="applyFilters('products')">
-                <option value="">All Status</option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Min Price</label>
-              <input type="number" id="filter-price-min" placeholder="Min" onchange="applyFilters('products')">
-            </div>
-            <div class="filter-group">
-              <label>Max Price</label>
-              <input type="number" id="filter-price-max" placeholder="Max" onchange="applyFilters('products')">
-            </div>
-            <div class="filter-group">
-              <button class="btn btn-small btn-secondary" onclick="resetFilters('products')">Reset</button>
-            </div>
-          </div>
-
-          <!-- STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="product-count">0</div>
-              <div class="stat-label">Total Products</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="active-products">0</div>
-              <div class="stat-label">Active</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="avg-price">€0</div>
-              <div class="stat-label">Avg Price</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="total-value">€0</div>
-              <div class="stat-label">Total Value</div>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('products', this)"></th>
-                  <th onclick="sortTable('products', 'ID')">ID</th>
-                  <th onclick="sortTable('products', 'Name')">Name</th>
-                  <th onclick="sortTable('products', 'Category')">Category</th>
-                  <th onclick="sortTable('products', 'Price')">Price</th>
-                  <th>Status</th>
-                  <th>Owner</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="products-table"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- USERS TAB -->
-      <div id="tab-users" class="tab-content">
-        <div class="container">
-          <h1>👑 Elite Members</h1>
-          <p class="page-subtitle">Manage VIP user accounts & memberships</p>
-
-          <div class="controls">
-            <div class="controls-group">
-              <button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button>
-              <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add User</button>
-              <button class="btn btn-secondary" onclick="exportData('users')">📥 Export CSV</button>
-            </div>
-          </div>
-
-          <div class="bulk-actions" id="bulk-actions-users">
-            <span class="bulk-count" id="bulk-count-users">0 selected</span>
-            <button class="btn btn-small btn-primary" onclick="bulkUpdatePaid('users')">Toggle Paid</button>
-            <button class="btn btn-small btn-danger" onclick="bulkDelete('users')">Delete Selected</button>
-          </div>
-
-          <!-- FILTERS -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label>Paid Status</label>
-              <select id="filter-paid" onchange="applyFilters('users')">
-                <option value="">All Status</option>
-                <option value="true">Paid</option>
-                <option value="false">Unpaid</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Subscription</label>
-              <select id="filter-sub-type" onchange="applyFilters('users')">
-                <option value="">All Types</option>
-                <option value="Free">Free</option>
-                <option value="Premium">Premium</option>
-                <option value="Enterprise">Enterprise</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <button class="btn btn-small btn-secondary" onclick="resetFilters('users')">Reset</button>
-            </div>
-          </div>
-
-          <!-- STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="user-count">0</div>
-              <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="paid-users">0</div>
-              <div class="stat-label">Paid Users</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="premium-users">0</div>
-              <div class="stat-label">Premium</div>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th><input type="checkbox" class="checkbox" onchange="toggleSelectAll('users', this)"></th>
-                  <th onclick="sortTable('users', 'User ID')">User ID</th>
-                  <th onclick="sortTable('users', 'Name')">Name</th>
-                  <th onclick="sortTable('users', 'Email')">Email</th>
-                  <th>Paid</th>
-                  <th>Subscription</th>
-                  <th onclick="sortTable('users', 'Date Joined')">Joined</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="users-table"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAYMENTS TAB -->
-      <div id="tab-payments" class="tab-content">
-        <div class="container">
-          <h1>💎 Premium Transactions</h1>
-          <p class="page-subtitle">Track all revenue & payments</p>
-
-          <div class="controls">
-            <div class="controls-group">
-              <button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button>
-              <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add Payment</button>
-              <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export CSV</button>
-            </div>
-          </div>
-
-          <!-- FILTERS -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label>Status</label>
-              <select id="filter-payment-status" onchange="applyFilters('payments')">
-                <option value="">All Status</option>
-                <option value="Completed">Completed</option>
-                <option value="Pending">Pending</option>
-                <option value="Failed">Failed</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Method</label>
-              <select id="filter-method" onchange="applyFilters('payments')">
-                <option value="">All Methods</option>
-                <option value="Credit Card">Credit Card</option>
-                <option value="PayPal">PayPal</option>
-                <option value="Bank Transfer">Bank Transfer</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <button class="btn btn-small btn-secondary" onclick="resetFilters('payments')">Reset</button>
-            </div>
-          </div>
-
-          <!-- STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="payment-count">0</div>
-              <div class="stat-label">Total Payments</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="total-revenue">€0</div>
-              <div class="stat-label">Total Revenue</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="avg-payment">€0</div>
-              <div class="stat-label">Avg Payment</div>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th onclick="sortTable('payments', 'Payment ID')">Payment ID</th>
-                  <th onclick="sortTable('payments', 'User Email')">Email</th>
-                  <th onclick="sortTable('payments', 'Amount')">Amount</th>
-                  <th>Status</th>
-                  <th>Method</th>
-                  <th onclick="sortTable('payments', 'Payment Date')">Date</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="payments-table"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- SUBSCRIPTIONS TAB -->
-      <div id="tab-subscriptions" class="tab-content">
-        <div class="container">
-          <h1>🔑 Membership Plans</h1>
-          <p class="page-subtitle">Manage subscription tiers & renewals</p>
-
-          <div class="controls">
-            <div class="controls-group">
-              <button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button>
-              <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add Subscription</button>
-              <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export CSV</button>
-            </div>
-          </div>
-
-          <!-- FILTERS -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label>Status</label>
-              <select id="filter-sub-status" onchange="applyFilters('subscriptions')">
-                <option value="">All Status</option>
-                <option value="true">Active</option>
-                <option value="false">Cancelled</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <label>Type</label>
-              <select id="filter-sub-type2" onchange="applyFilters('subscriptions')">
-                <option value="">All Types</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <button class="btn btn-small btn-secondary" onclick="resetFilters('subscriptions')">Reset</button>
-            </div>
-          </div>
-
-          <!-- STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="sub-count">0</div>
-              <div class="stat-label">Total Subscriptions</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="active-subs">0</div>
-              <div class="stat-label">Active</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="cancelled-subs">0</div>
-              <div class="stat-label">Cancelled</div>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th onclick="sortTable('subscriptions', 'Sub ID')">Sub ID</th>
-                  <th onclick="sortTable('subscriptions', 'User Email')">Email</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th onclick="sortTable('subscriptions', 'Date Subscribed')">Subscribed</th>
-                  <th>Unsubscribed</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="subscriptions-table"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- CATEGORIES TAB -->
-      <div id="tab-categories" class="tab-content">
-        <div class="container">
-          <h1>🏛️ Collections</h1>
-          <p class="page-subtitle">Organize premium product categories</p>
-
-          <div class="controls">
-            <div class="controls-group">
-              <button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button>
-              <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add Category</button>
-              <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export CSV</button>
-            </div>
-          </div>
-
-          <!-- FILTERS -->
-          <div class="filter-section">
-            <div class="filter-group">
-              <label>Status</label>
-              <select id="filter-cat-status" onchange="applyFilters('categories')">
-                <option value="">All Status</option>
-                <option value="true">Active</option>
-                <option value="false">Inactive</option>
-              </select>
-            </div>
-            <div class="filter-group">
-              <button class="btn btn-small btn-secondary" onclick="resetFilters('categories')">Reset</button>
-            </div>
-          </div>
-
-          <!-- STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="category-count">0</div>
-              <div class="stat-label">Total Categories</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="active-categories">0</div>
-              <div class="stat-label">Active</div>
-            </div>
-          </div>
-
-          <!-- TABLE -->
-          <div class="table-wrapper">
-            <table class="data-table">
-              <thead>
-                <tr>
-                  <th onclick="sortTable('categories', 'Category ID')">ID</th>
-                  <th onclick="sortTable('categories', 'Category Name')">Name</th>
-                  <th>Description</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="categories-table"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- ANALYTICS TAB -->
-      <div id="tab-analytics" class="tab-content">
-        <div class="container">
-          <h1>📈 Executive Dashboard</h1>
-          <p class="page-subtitle">Real-time business intelligence & insights</p>
-
-          <div class="controls">
-            <button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh Analytics</button>
-          </div>
-
-          <!-- OVERVIEW STATS -->
-          <div class="stats-grid">
-            <div class="stat-card">
-              <div class="stat-value" id="total-products">0</div>
-              <div class="stat-label">Total Products</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="total-users">0</div>
-              <div class="stat-label">Total Users</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="total-transactions">0</div>
-              <div class="stat-label">Total Transactions</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-value" id="total-revenue-analytics">€0</div>
-              <div class="stat-label">Total Revenue</div>
-            </div>
-          </div>
-
-          <!-- CHARTS -->
-          <div class="charts-grid">
-            <div class="chart-container">
-              <div class="chart-title">Products by Category</div>
-              <canvas class="chart-canvas" id="chart-category"></canvas>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">Payment Status Distribution</div>
-              <canvas class="chart-canvas" id="chart-payment-status"></canvas>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">Users by Subscription</div>
-              <canvas class="chart-canvas" id="chart-subscription"></canvas>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">Product Status</div>
-              <canvas class="chart-canvas" id="chart-product-status"></canvas>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">Revenue Breakdown</div>
-              <canvas class="chart-canvas" id="chart-revenue"></canvas>
-            </div>
-            <div class="chart-container">
-              <div class="chart-title">Subscriptions Status</div>
-              <canvas class="chart-canvas" id="chart-subscriptions-status"></canvas>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- API TEST TAB -->
-      <div id="tab-api-test" class="tab-content">
-        <div class="container">
-          <h1>⚙️ System Console</h1>
-          <p class="page-subtitle">Advanced API testing & diagnostics</p>
-
-          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; margin-bottom: 1.5rem; border: 1px solid var(--border-soft);">
-            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">GET Request Tester</div>
-            <div class="form-grid">
-              <div class="form-group">
-                <label>Tab</label>
-                <select id="test-tab">
-                  <option value="products">Products</option>
-                  <option value="users">Users</option>
-                  <option value="payments">Payments</option>
-                  <option value="subscriptions">Subscriptions</option>
-                  <option value="categories">Categories</option>
-                </select>
-              </div>
-            </div>
-            <button class="btn btn-primary" onclick="testGet()">🔍 Execute GET</button>
-          </div>
-
-          <div style="background: var(--bg-panel); padding: 1.5rem; border-radius: 14px; border: 1px solid var(--border-soft);">
-            <div style="font-size: 14px; font-weight: 600; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Response</div>
-            <pre id="test-response" style="background: var(--bg-soft); padding: 1rem; border-radius: 8px; max-height: 400px; overflow: auto; color: var(--text-soft); font-size: 12px;">Execute a test...</pre>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- MODALS -->
-    <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
-      <div class="modal" onclick="event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title" id="modal-title">Add Item</h2>
-          <button class="modal-close" onclick="closeModal()">✕</button>
-        </div>
-        <form id="form-main" onsubmit="submitForm(event)"></form>
-      </div>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app"><!-- HEADER -->
+   <header>
+    <div class="header-content">
+     <div class="logo">
+      ✨ A&amp;A
+     </div><button class="mobile-menu-button" onclick="toggleMobileMenu()">☰</button>
     </div>
-
-    <!-- Delete Modal -->
-    <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
-      <div class="modal" style="max-width: 400px;" onclick="event.stopPropagation()">
-        <div class="modal-header">
-          <h2 class="modal-title">⚠️ Confirm Delete</h2>
-          <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+   </header><!-- MOBILE MENU OVERLAY -->
+   <div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="closeMobileMenu()"></div><!-- MOBILE MENU -->
+   <div class="mobile-menu" id="mobile-menu"><button class="mobile-menu-item active" onclick="switchTabMobile('products')">🎁 Products</button> <button class="mobile-menu-item" onclick="switchTabMobile('users')">👑 Users</button> <button class="mobile-menu-item" onclick="switchTabMobile('payments')">💎 Payments</button> <button class="mobile-menu-item" onclick="switchTabMobile('subscriptions')">🔑 Plans</button> <button class="mobile-menu-item" onclick="switchTabMobile('categories')">🏛️ Categories</button> <button class="mobile-menu-item" onclick="switchTabMobile('analytics')">📈 Analytics</button> <button class="mobile-menu-item" onclick="switchTabMobile('api-test')">⚙️ Settings</button>
+   </div><!-- MAIN CONTENT -->
+   <main><!-- PRODUCTS TAB -->
+    <div id="tab-products" class="tab-content active">
+     <div class="container">
+      <h1>🎁 Products</h1>
+      <p class="page-subtitle">Manage your collection</p>
+      <div class="controls">
+       <div class="controls-group"><button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('products')">📥 Export</button>
+       </div>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="product-count">
+         0
         </div>
-        <p id="delete-message" style="margin-bottom: 1.5rem; color: var(--text-soft);"></p>
-        <div class="form-actions">
-          <button class="btn btn-danger" onclick="confirmDelete()">Delete</button>
-          <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+        <div class="stat-label">
+         Total Products
         </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="active-products">
+         0
+        </div>
+        <div class="stat-label">
+         Active
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="avg-price">
+         €0
+        </div>
+        <div class="stat-label">
+         Avg Price
+        </div>
+       </div>
+      </div><!-- FILTERS -->
+      <div class="filter-section">
+       <div class="filter-group"><label>Category</label> <select id="filter-category" onchange="applyFilters('products')"> <option value="">All Categories</option> </select>
+       </div>
+       <div class="filter-group"><label>Status</label> <select id="filter-product-status" onchange="applyFilters('products')"> <option value="">All Status</option> <option value="Active">Active</option> <option value="Inactive">Inactive</option> </select>
+       </div>
+      </div><!-- MOBILE CARD LIST -->
+      <div class="table-wrapper">
+       <div class="mobile-card-list" id="products-list"></div>
       </div>
+     </div>
+    </div><!-- USERS TAB -->
+    <div id="tab-users" class="tab-content">
+     <div class="container">
+      <h1>👑 Users</h1>
+      <p class="page-subtitle">Manage members</p>
+      <div class="controls">
+       <div class="controls-group"><button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('users')">📥 Export</button>
+       </div>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="user-count">
+         0
+        </div>
+        <div class="stat-label">
+         Total Users
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="paid-users">
+         0
+        </div>
+        <div class="stat-label">
+         Paid Users
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="premium-users">
+         0
+        </div>
+        <div class="stat-label">
+         Premium
+        </div>
+       </div>
+      </div><!-- FILTERS -->
+      <div class="filter-section">
+       <div class="filter-group"><label>Subscription</label> <select id="filter-sub-type" onchange="applyFilters('users')"> <option value="">All Types</option> <option value="Free">Free</option> <option value="Premium">Premium</option> <option value="Enterprise">Enterprise</option> </select>
+       </div>
+       <div class="filter-group"><label>Paid Status</label> <select id="filter-paid" onchange="applyFilters('users')"> <option value="">All Status</option> <option value="true">Paid</option> <option value="false">Unpaid</option> </select>
+       </div>
+      </div><!-- MOBILE CARD LIST -->
+      <div class="table-wrapper">
+       <div class="mobile-card-list" id="users-list"></div>
+      </div>
+     </div>
+    </div><!-- PAYMENTS TAB -->
+    <div id="tab-payments" class="tab-content">
+     <div class="container">
+      <h1>💎 Payments</h1>
+      <p class="page-subtitle">Track revenue</p>
+      <div class="controls">
+       <div class="controls-group"><button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export</button>
+       </div>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="payment-count">
+         0
+        </div>
+        <div class="stat-label">
+         Total Payments
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="total-revenue">
+         €0
+        </div>
+        <div class="stat-label">
+         Revenue
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="avg-payment">
+         €0
+        </div>
+        <div class="stat-label">
+         Avg Payment
+        </div>
+       </div>
+      </div><!-- FILTERS -->
+      <div class="filter-section">
+       <div class="filter-group"><label>Status</label> <select id="filter-payment-status" onchange="applyFilters('payments')"> <option value="">All Status</option> <option value="Completed">Completed</option> <option value="Pending">Pending</option> <option value="Failed">Failed</option> </select>
+       </div>
+       <div class="filter-group"><label>Method</label> <select id="filter-method" onchange="applyFilters('payments')"> <option value="">All Methods</option> <option value="Credit Card">Card</option> <option value="PayPal">PayPal</option> <option value="Bank Transfer">Bank</option> </select>
+       </div>
+      </div><!-- MOBILE CARD LIST -->
+      <div class="table-wrapper">
+       <div class="mobile-card-list" id="payments-list"></div>
+      </div>
+     </div>
+    </div><!-- SUBSCRIPTIONS TAB -->
+    <div id="tab-subscriptions" class="tab-content">
+     <div class="container">
+      <h1>🔑 Plans</h1>
+      <p class="page-subtitle">Manage subscriptions</p>
+      <div class="controls">
+       <div class="controls-group"><button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export</button>
+       </div>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="sub-count">
+         0
+        </div>
+        <div class="stat-label">
+         Total Subs
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="active-subs">
+         0
+        </div>
+        <div class="stat-label">
+         Active
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="cancelled-subs">
+         0
+        </div>
+        <div class="stat-label">
+         Cancelled
+        </div>
+       </div>
+      </div><!-- FILTERS -->
+      <div class="filter-section">
+       <div class="filter-group"><label>Status</label> <select id="filter-sub-status" onchange="applyFilters('subscriptions')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Cancelled</option> </select>
+       </div>
+       <div class="filter-group"><label>Type</label> <select id="filter-sub-type2" onchange="applyFilters('subscriptions')"> <option value="">All Types</option> <option value="Monthly">Monthly</option> <option value="Yearly">Yearly</option> </select>
+       </div>
+      </div><!-- MOBILE CARD LIST -->
+      <div class="table-wrapper">
+       <div class="mobile-card-list" id="subscriptions-list"></div>
+      </div>
+     </div>
+    </div><!-- CATEGORIES TAB -->
+    <div id="tab-categories" class="tab-content">
+     <div class="container">
+      <h1>🏛️ Categories</h1>
+      <p class="page-subtitle">Organize collections</p>
+      <div class="controls">
+       <div class="controls-group"><button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export</button>
+       </div>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="category-count">
+         0
+        </div>
+        <div class="stat-label">
+         Total Categories
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="active-categories">
+         0
+        </div>
+        <div class="stat-label">
+         Active
+        </div>
+       </div>
+      </div><!-- FILTERS -->
+      <div class="filter-section">
+       <div class="filter-group"><label>Status</label> <select id="filter-cat-status" onchange="applyFilters('categories')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Inactive</option> </select>
+       </div>
+      </div><!-- MOBILE CARD LIST -->
+      <div class="table-wrapper">
+       <div class="mobile-card-list" id="categories-list"></div>
+      </div>
+     </div>
+    </div><!-- ANALYTICS TAB -->
+    <div id="tab-analytics" class="tab-content">
+     <div class="container">
+      <h1>📈 Analytics</h1>
+      <p class="page-subtitle">Business overview</p>
+      <div class="controls"><button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh</button>
+      </div><!-- STATS -->
+      <div class="stats-grid">
+       <div class="stat-card">
+        <div class="stat-value" id="total-products">
+         0
+        </div>
+        <div class="stat-label">
+         Products
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="total-users">
+         0
+        </div>
+        <div class="stat-label">
+         Users
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="total-transactions">
+         0
+        </div>
+        <div class="stat-label">
+         Transactions
+        </div>
+       </div>
+       <div class="stat-card">
+        <div class="stat-value" id="total-revenue-analytics">
+         €0
+        </div>
+        <div class="stat-label">
+         Revenue
+        </div>
+       </div>
+      </div><!-- CHARTS -->
+      <div class="charts-grid">
+       <div class="chart-container">
+        <div class="chart-title">
+         Products by Category
+        </div>
+        <canvas class="chart-canvas" id="chart-category"></canvas>
+       </div>
+       <div class="chart-container">
+        <div class="chart-title">
+         Payment Status
+        </div>
+        <canvas class="chart-canvas" id="chart-payment-status"></canvas>
+       </div>
+       <div class="chart-container">
+        <div class="chart-title">
+         Users by Subscription
+        </div>
+        <canvas class="chart-canvas" id="chart-subscription"></canvas>
+       </div>
+       <div class="chart-container">
+        <div class="chart-title">
+         Product Status
+        </div>
+        <canvas class="chart-canvas" id="chart-product-status"></canvas>
+       </div>
+      </div>
+     </div>
+    </div><!-- API TEST TAB -->
+    <div id="tab-api-test" class="tab-content">
+     <div class="container">
+      <h1>⚙️ Settings</h1>
+      <p class="page-subtitle">System console</p>
+      <div style="background: #141416; padding: 1rem; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.1);">
+       <div style="font-size: 12px; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+        API Test
+       </div>
+       <div class="filter-section">
+        <div class="filter-group"><label>Select Tab</label> <select id="test-tab"> <option value="products">Products</option> <option value="users">Users</option> <option value="payments">Payments</option> <option value="subscriptions">Subscriptions</option> <option value="categories">Categories</option> </select>
+        </div>
+       </div><button class="btn btn-primary" onclick="testGet()" style="width: 100%; margin-top: 0.75rem;">🔍 Execute GET</button>
+      </div>
+      <div style="background: #141416; padding: 1rem; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.1); margin-top: 1rem;">
+       <div style="font-size: 12px; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
+        Response
+       </div>
+       <pre id="test-response" style="background: #1c1c1f; padding: 0.75rem; border-radius: 8px; max-height: 300px; overflow: auto; color: #b5b5bd; font-size: 11px;">Execute a test...</pre>
+      </div>
+     </div>
     </div>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
+   </main><!-- MODALS -->
+   <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+     <div class="modal-header">
+      <h2 class="modal-title" id="modal-title">Add Item</h2><button class="modal-close" onclick="closeModal()">✕</button>
+     </div>
+     <form id="form-main" onsubmit="submitForm(event)"></form>
+    </div>
+   </div><!-- Delete Modal -->
+   <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+     <div class="modal-header">
+      <h2 class="modal-title">⚠️ Confirm Delete</h2><button class="modal-close" onclick="closeDeleteModal()">✕</button>
+     </div>
+     <p id="delete-message" style="margin-bottom: 1rem; color: #b5b5bd; font-size: 13px;"></p>
+     <div class="form-actions"><button class="btn btn-danger" onclick="confirmDelete()" style="width: 100%; justify-content: center;">Delete</button> <button class="btn btn-secondary" onclick="closeDeleteModal()" style="width: 100%; justify-content: center;">Cancel</button>
+     </div>
+    </div>
+   </div><!-- Toast Container -->
+   <div class="toast-container" id="toast-container"></div>
   </div>
-
   <script>
     // ===== CONFIG =====
     const API_URL = 'https://script.google.com/macros/s/AKfycbz6C5grHGbF2I2FJaA8sN70arFg1aJG-Abw4-tZ9B7NEZWLQZYOr-s_4aicQmDLSl1k/exec';
@@ -1458,11 +1187,10 @@
       subscriptions: [],
       categories: [],
       currentTab: 'products',
-      currentSort: { field: '', order: 'asc' },
-      selectedRows: {},
       editingRecord: null,
       charts: {},
-      deleteCallback: null
+      deleteCallback: null,
+      menuOpen: false
     };
 
     const FORM_CONFIGS = {
@@ -1525,16 +1253,36 @@
 
     // ===== INITIALIZATION =====
     document.addEventListener('DOMContentLoaded', async () => {
-      console.log('🚀 Initializing Admin Dashboard');
       await loadAllData();
-      setupEventListeners();
     });
 
-    function setupEventListeners() {
-      document.getElementById('global-search').addEventListener('input', (e) => {
-        const query = e.target.value.toLowerCase();
-        applyFilters(appState.currentTab, query);
-      });
+    // ===== MOBILE MENU =====
+    function toggleMobileMenu() {
+      appState.menuOpen = !appState.menuOpen;
+      const menu = document.getElementById('mobile-menu');
+      const overlay = document.getElementById('mobile-menu-overlay');
+      
+      if (appState.menuOpen) {
+        menu.classList.add('active');
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        menu.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function closeMobileMenu() {
+      appState.menuOpen = false;
+      document.getElementById('mobile-menu').classList.remove('active');
+      document.getElementById('mobile-menu-overlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function switchTabMobile(tabName) {
+      switchTab(tabName);
+      closeMobileMenu();
     }
 
     // ===== DATA LOADING =====
@@ -1544,13 +1292,12 @@
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         if (data.status === 'success') {
-          console.log(`✓ ${tab}: ${data.count} records`);
           return data.data || [];
         } else {
           throw new Error(data.message);
         }
       } catch (error) {
-        console.error(`❌ Error fetching ${tab}:`, error);
+        console.error(`Error fetching ${tab}:`, error);
         showToast(`Error loading ${tab}`, 'error');
         return [];
       }
@@ -1573,38 +1320,14 @@
 
       populateAllSelects();
       renderAllTabs();
-      console.log('✓ All data loaded');
     }
 
-    async function loadProducts() {
-      appState.products = await fetchTab('products');
-      renderProducts();
-    }
-
-    async function loadUsers() {
-      appState.users = await fetchTab('users');
-      renderUsers();
-    }
-
-    async function loadPayments() {
-      appState.payments = await fetchTab('payments');
-      renderPayments();
-    }
-
-    async function loadSubscriptions() {
-      appState.subscriptions = await fetchTab('subscriptions');
-      renderSubscriptions();
-    }
-
-    async function loadCategories() {
-      appState.categories = await fetchTab('categories');
-      renderCategories();
-      populateAllSelects();
-    }
-
-    async function loadAnalytics() {
-      renderCharts();
-    }
+    async function loadProducts() { appState.products = await fetchTab('products'); renderProducts(); }
+    async function loadUsers() { appState.users = await fetchTab('users'); renderUsers(); }
+    async function loadPayments() { appState.payments = await fetchTab('payments'); renderPayments(); }
+    async function loadSubscriptions() { appState.subscriptions = await fetchTab('subscriptions'); renderSubscriptions(); }
+    async function loadCategories() { appState.categories = await fetchTab('categories'); renderCategories(); populateAllSelects(); }
+    async function loadAnalytics() { renderCharts(); }
 
     function renderAllTabs() {
       renderProducts();
@@ -1617,145 +1340,124 @@
 
     // ===== RENDERING =====
     function renderProducts() {
-      const tbody = document.getElementById('products-table');
+      const list = document.getElementById('products-list');
       const filtered = getFilteredData('products');
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">No products found</div></td></tr>`;
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div>No products found</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((p, i) => `
-        <tr class="data-row" data-index="${i}" data-tab="products">
-          <td data-label=""><input type="checkbox" class="checkbox" onchange="toggleRow('products', ${i}, this)"></td>
-          <td data-label="ID">${p['ID'] || '-'}</td>
-          <td data-label="Name"><strong>${p['Name'] || '-'}</strong></td>
-          <td data-label="Category">${p['Category'] || '-'}</td>
-          <td data-label="Price">€${parseFloat(p['Price'] || 0).toFixed(2)}</td>
-          <td data-label="Status"><span class="badge badge-${(p['Status'] || 'Active').toLowerCase() === 'active' ? 'success' : 'danger'}">${p['Status'] || 'Inactive'}</span></td>
-          <td data-label="Owner">${(p['Owner Email'] || '-').substring(0, 20)}</td>
-          <td data-label="Actions">
-            <div class="action-buttons">
-              <button class="btn-edit" onclick="openEditModal('products', ${i})">Edit</button>
-              <button class="btn-delete" onclick="openDeleteModal('products', ${i})">Delete</button>
-            </div>
-          </td>
-        </tr>
+      list.innerHTML = filtered.map((p, i) => `
+        <div class="mobile-data-card">
+          <div class="card-row"><div class="card-label">Product</div><div class="card-value"><strong>${p['Name'] || '-'}</strong></div></div>
+          <div class="card-row"><div class="card-label">Category</div><div class="card-value">${p['Category'] || '-'}</div></div>
+          <div class="card-row"><div class="card-label">Price</div><div class="card-value">€${parseFloat(p['Price'] || 0).toFixed(2)}</div></div>
+          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge badge-${(p['Status'] || 'Active').toLowerCase() === 'active' ? 'success' : 'danger'}">${p['Status'] || 'Inactive'}</span></div></div>
+          <div class="card-actions">
+            <button class="btn-card btn-card-edit" onclick="openEditModal('products', ${i})">Edit</button>
+            <button class="btn-card btn-card-delete" onclick="openDeleteModal('products', ${i})">Delete</button>
+          </div>
+        </div>
       `).join('');
 
       updateStats('products');
     }
 
     function renderUsers() {
-      const tbody = document.getElementById('users-table');
+      const list = document.getElementById('users-list');
       const filtered = getFilteredData('users');
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state">No users found</div></td></tr>`;
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">👤</div>No users found</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((u, i) => `
-        <tr class="data-row" data-index="${i}" data-tab="users">
-          <td data-label=""><input type="checkbox" class="checkbox" onchange="toggleRow('users', ${i}, this)"></td>
-          <td data-label="User ID">${u['User ID'] || '-'}</td>
-          <td data-label="Name"><strong>${u['Name'] || '-'}</strong></td>
-          <td data-label="Email">${u['Email'] || '-'}</td>
-          <td data-label="Paid"><span class="badge ${isPaid(u) ? 'badge-success' : 'badge-danger'}">${isPaid(u) ? 'Paid' : 'Unpaid'}</span></td>
-          <td data-label="Subscription">${u['Subscription Type'] || '-'}</td>
-          <td data-label="Joined">${formatDate(u['Date Joined'])}</td>
-          <td data-label="Actions">
-            <div class="action-buttons">
-              <button class="btn-edit" onclick="openEditModal('users', ${i})">Edit</button>
-              <button class="btn-delete" onclick="openDeleteModal('users', ${i})">Delete</button>
-            </div>
-          </td>
-        </tr>
+      list.innerHTML = filtered.map((u, i) => `
+        <div class="mobile-data-card">
+          <div class="card-row"><div class="card-label">Name</div><div class="card-value"><strong>${u['Name'] || '-'}</strong></div></div>
+          <div class="card-row"><div class="card-label">Email</div><div class="card-value">${(u['Email'] || '-').substring(0, 25)}</div></div>
+          <div class="card-row"><div class="card-label">Subscription</div><div class="card-value">${u['Subscription Type'] || '-'}</div></div>
+          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isPaid(u) ? 'badge-success' : 'badge-danger'}">${isPaid(u) ? 'Paid' : 'Unpaid'}</span></div></div>
+          <div class="card-actions">
+            <button class="btn-card btn-card-edit" onclick="openEditModal('users', ${i})">Edit</button>
+            <button class="btn-card btn-card-delete" onclick="openDeleteModal('users', ${i})">Delete</button>
+          </div>
+        </div>
       `).join('');
 
       updateStats('users');
     }
 
     function renderPayments() {
-      const tbody = document.getElementById('payments-table');
+      const list = document.getElementById('payments-list');
       const filtered = getFilteredData('payments');
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No payments found</div></td></tr>`;
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div>No payments found</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((p, i) => `
-        <tr class="data-row" data-index="${i}" data-tab="payments">
-          <td data-label="Payment ID"><strong>${p['Payment ID'] || '-'}</strong></td>
-          <td data-label="Email">${p['User Email'] || '-'}</td>
-          <td data-label="Amount"><strong>€${parseFloat(p['Amount'] || 0).toFixed(2)}</strong></td>
-          <td data-label="Status"><span class="badge badge-${getPaymentStatusBadge(p['Payment Status'])}">${p['Payment Status'] || '-'}</span></td>
-          <td data-label="Method">${p['Payment Method'] || '-'}</td>
-          <td data-label="Date">${formatDate(p['Payment Date'])}</td>
-          <td data-label="Actions">
-            <div class="action-buttons">
-              <button class="btn-edit" onclick="openEditModal('payments', ${i})">Edit</button>
-              <button class="btn-delete" onclick="openDeleteModal('payments', ${i})">Delete</button>
-            </div>
-          </td>
-        </tr>
+      list.innerHTML = filtered.map((p, i) => `
+        <div class="mobile-data-card">
+          <div class="card-row"><div class="card-label">Payment ID</div><div class="card-value"><strong>${p['Payment ID'] || '-'}</strong></div></div>
+          <div class="card-row"><div class="card-label">Amount</div><div class="card-value">€${parseFloat(p['Amount'] || 0).toFixed(2)}</div></div>
+          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge badge-${getPaymentStatusBadge(p['Payment Status'])}">${p['Payment Status'] || '-'}</span></div></div>
+          <div class="card-row"><div class="card-label">Method</div><div class="card-value">${p['Payment Method'] || '-'}</div></div>
+          <div class="card-actions">
+            <button class="btn-card btn-card-edit" onclick="openEditModal('payments', ${i})">Edit</button>
+            <button class="btn-card btn-card-delete" onclick="openDeleteModal('payments', ${i})">Delete</button>
+          </div>
+        </div>
       `).join('');
 
       updateStats('payments');
     }
 
     function renderSubscriptions() {
-      const tbody = document.getElementById('subscriptions-table');
+      const list = document.getElementById('subscriptions-list');
       const filtered = getFilteredData('subscriptions');
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state">No subscriptions found</div></td></tr>`;
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div>No subscriptions found</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((s, i) => `
-        <tr class="data-row" data-index="${i}" data-tab="subscriptions">
-          <td data-label="Sub ID"><strong>${s['Sub ID'] || '-'}</strong></td>
-          <td data-label="Email">${s['User Email'] || '-'}</td>
-          <td data-label="Type">${s['Subscription Type'] || '-'}</td>
-          <td data-label="Status"><span class="badge ${isSubscribed(s) ? 'badge-success' : 'badge-danger'}">${isSubscribed(s) ? 'Active' : 'Cancelled'}</span></td>
-          <td data-label="Subscribed">${formatDate(s['Date Subscribed'])}</td>
-          <td data-label="Unsubscribed">${formatDate(s['Date Unsubscribed'])}</td>
-          <td data-label="Actions">
-            <div class="action-buttons">
-              <button class="btn-edit" onclick="openEditModal('subscriptions', ${i})">Edit</button>
-              <button class="btn-delete" onclick="openDeleteModal('subscriptions', ${i})">Delete</button>
-            </div>
-          </td>
-        </tr>
+      list.innerHTML = filtered.map((s, i) => `
+        <div class="mobile-data-card">
+          <div class="card-row"><div class="card-label">Sub ID</div><div class="card-value"><strong>${s['Sub ID'] || '-'}</strong></div></div>
+          <div class="card-row"><div class="card-label">Email</div><div class="card-value">${(s['User Email'] || '-').substring(0, 25)}</div></div>
+          <div class="card-row"><div class="card-label">Type</div><div class="card-value">${s['Subscription Type'] || '-'}</div></div>
+          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isSubscribed(s) ? 'badge-success' : 'badge-danger'}">${isSubscribed(s) ? 'Active' : 'Cancelled'}</span></div></div>
+          <div class="card-actions">
+            <button class="btn-card btn-card-edit" onclick="openEditModal('subscriptions', ${i})">Edit</button>
+            <button class="btn-card btn-card-delete" onclick="openDeleteModal('subscriptions', ${i})">Delete</button>
+          </div>
+        </div>
       `).join('');
 
       updateStats('subscriptions');
     }
 
     function renderCategories() {
-      const tbody = document.getElementById('categories-table');
+      const list = document.getElementById('categories-list');
       const filtered = getFilteredData('categories');
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state">No categories found</div></td></tr>`;
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📁</div>No categories found</div>';
         return;
       }
 
-      tbody.innerHTML = filtered.map((c, i) => `
-        <tr class="data-row" data-index="${i}" data-tab="categories">
-          <td data-label="ID">${c['Category ID'] || '-'}</td>
-          <td data-label="Name"><strong>${c['Category Name'] || '-'}</strong></td>
-          <td data-label="Description">${(c['Description'] || '-').substring(0, 40)}</td>
-          <td data-label="Status"><span class="badge ${isActive(c) ? 'badge-success' : 'badge-danger'}">${isActive(c) ? 'Active' : 'Inactive'}</span></td>
-          <td data-label="Actions">
-            <div class="action-buttons">
-              <button class="btn-edit" onclick="openEditModal('categories', ${i})">Edit</button>
-              <button class="btn-delete" onclick="openDeleteModal('categories', ${i})">Delete</button>
-            </div>
-          </td>
-        </tr>
+      list.innerHTML = filtered.map((c, i) => `
+        <div class="mobile-data-card">
+          <div class="card-row"><div class="card-label">Category</div><div class="card-value"><strong>${c['Category Name'] || '-'}</strong></div></div>
+          <div class="card-row"><div class="card-label">Description</div><div class="card-value">${(c['Description'] || '-').substring(0, 40)}</div></div>
+          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isActive(c) ? 'badge-success' : 'badge-danger'}">${isActive(c) ? 'Active' : 'Inactive'}</span></div></div>
+          <div class="card-actions">
+            <button class="btn-card btn-card-edit" onclick="openEditModal('categories', ${i})">Edit</button>
+            <button class="btn-card btn-card-delete" onclick="openDeleteModal('categories', ${i})">Delete</button>
+          </div>
+        </div>
       `).join('');
 
       updateStats('categories');
@@ -1767,7 +1469,6 @@
         const cat = p['Category'] || 'Unknown';
         categoryData[cat] = (categoryData[cat] || 0) + 1;
       });
-
       createChart('chart-category', 'doughnut', Object.keys(categoryData), Object.values(categoryData));
 
       const paymentStatus = {};
@@ -1775,7 +1476,6 @@
         const status = p['Payment Status'] || 'Unknown';
         paymentStatus[status] = (paymentStatus[status] || 0) + 1;
       });
-
       createChart('chart-payment-status', 'doughnut', Object.keys(paymentStatus), Object.values(paymentStatus));
 
       const subType = {};
@@ -1783,30 +1483,13 @@
         const type = u['Subscription Type'] || 'Unknown';
         subType[type] = (subType[type] || 0) + 1;
       });
-
       createChart('chart-subscription', 'bar', Object.keys(subType), Object.values(subType));
 
       const prodStatus = {
         'Active': appState.products.filter(p => (p['Status'] || 'Active') === 'Active').length,
         'Inactive': appState.products.filter(p => (p['Status'] || 'Active') !== 'Active').length
       };
-
       createChart('chart-product-status', 'doughnut', ['Active', 'Inactive'], [prodStatus['Active'], prodStatus['Inactive']]);
-
-      const revenueByMethod = {};
-      appState.payments.forEach(p => {
-        const method = p['Payment Method'] || 'Unknown';
-        revenueByMethod[method] = (revenueByMethod[method] || 0) + (parseFloat(p['Amount']) || 0);
-      });
-
-      createChart('chart-revenue', 'bar', Object.keys(revenueByMethod), Object.values(revenueByMethod));
-
-      const subStatus = {
-        'Active': appState.subscriptions.filter(s => isSubscribed(s)).length,
-        'Cancelled': appState.subscriptions.filter(s => !isSubscribed(s)).length
-      };
-
-      createChart('chart-subscriptions-status', 'doughnut', ['Active', 'Cancelled'], [subStatus['Active'], subStatus['Cancelled']]);
 
       const totalRevenue = appState.payments.reduce((sum, p) => sum + (parseFloat(p['Amount']) || 0), 0);
       document.getElementById('total-products').textContent = appState.products.length;
@@ -1817,10 +1500,7 @@
 
     function createChart(canvasId, type, labels, data) {
       const ctx = document.getElementById(canvasId).getContext('2d');
-      
-      if (appState.charts[canvasId]) {
-        appState.charts[canvasId].destroy();
-      }
+      if (appState.charts[canvasId]) appState.charts[canvasId].destroy();
 
       const colors = ['#d4af37', '#4ade80', '#ef4444', '#facc15', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4'];
 
@@ -1841,8 +1521,8 @@
             legend: {
               position: 'bottom',
               labels: {
-                color: 'var(--text-soft)',
-                font: { size: 11, family: "'Inter', sans-serif" }
+                color: '#b5b5bd',
+                font: { size: 10, family: "'Inter', sans-serif" }
               }
             }
           }
@@ -1861,8 +1541,6 @@
         const prices = data.map(p => parseFloat(p['Price'] || 0));
         const avg = prices.length > 0 ? (prices.reduce((a, b) => a + b) / prices.length).toFixed(2) : '0';
         document.getElementById('avg-price').textContent = '€' + avg;
-        const total = prices.reduce((a, b) => a + b, 0).toFixed(2);
-        document.getElementById('total-value').textContent = '€' + total;
       } else if (tab === 'users') {
         document.getElementById('user-count').textContent = data.length;
         const paid = data.filter(u => isPaid(u)).length;
@@ -1888,91 +1566,54 @@
       }
     }
 
-    function formatDate(dateStr) {
-      if (!dateStr) return '-';
-      try {
-        return new Date(dateStr).toLocaleDateString('nl-NL');
-      } catch {
-        return dateStr;
-      }
-    }
+    function isPaid(user) { return user['Paid'] === true || user['Paid'] === 'true' || user['Paid'] === 1; }
+    function isSubscribed(sub) { return sub['Subscribed'] === true || sub['Subscribed'] === 'true' || sub['Subscribed'] === 1; }
+    function isActive(item) { return item['Active'] === true || item['Active'] === 'true' || item['Active'] === 1; }
+    function getPaymentStatusBadge(status) { if (status === 'Completed') return 'success'; if (status === 'Failed') return 'danger'; return 'warning'; }
 
-    function isPaid(user) {
-      return user['Paid'] === true || user['Paid'] === 'true' || user['Paid'] === 1;
-    }
-
-    function isSubscribed(sub) {
-      return sub['Subscribed'] === true || sub['Subscribed'] === 'true' || sub['Subscribed'] === 1;
-    }
-
-    function isActive(item) {
-      return item['Active'] === true || item['Active'] === 'true' || item['Active'] === 1;
-    }
-
-    function getPaymentStatusBadge(status) {
-      if (status === 'Completed') return 'success';
-      if (status === 'Failed') return 'danger';
-      return 'warning';
-    }
-
-    // ===== FILTERING & SORTING =====
+    // ===== FILTERING =====
     function getFilteredData(tab) {
       let data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      const globalSearch = document.getElementById('global-search').value.toLowerCase();
 
       if (tab === 'products') {
         const category = document.getElementById('filter-category')?.value || '';
         const status = document.getElementById('filter-product-status')?.value || '';
-        const priceMin = document.getElementById('filter-price-min')?.value || '';
-        const priceMax = document.getElementById('filter-price-max')?.value || '';
-
         data = data.filter(p => {
           if (category && p['Category'] !== category) return false;
           if (status && p['Status'] !== status) return false;
-          if (priceMin && parseFloat(p['Price']) < parseFloat(priceMin)) return false;
-          if (priceMax && parseFloat(p['Price']) > parseFloat(priceMax)) return false;
-          if (globalSearch && !JSON.stringify(p).toLowerCase().includes(globalSearch)) return false;
           return true;
         });
       } else if (tab === 'users') {
         const paid = document.getElementById('filter-paid')?.value || '';
         const subType = document.getElementById('filter-sub-type')?.value || '';
-
         data = data.filter(u => {
           if (paid === 'true' && !isPaid(u)) return false;
           if (paid === 'false' && isPaid(u)) return false;
           if (subType && u['Subscription Type'] !== subType) return false;
-          if (globalSearch && !JSON.stringify(u).toLowerCase().includes(globalSearch)) return false;
           return true;
         });
       } else if (tab === 'payments') {
         const status = document.getElementById('filter-payment-status')?.value || '';
         const method = document.getElementById('filter-method')?.value || '';
-
         data = data.filter(p => {
           if (status && p['Payment Status'] !== status) return false;
           if (method && p['Payment Method'] !== method) return false;
-          if (globalSearch && !JSON.stringify(p).toLowerCase().includes(globalSearch)) return false;
           return true;
         });
       } else if (tab === 'subscriptions') {
         const status = document.getElementById('filter-sub-status')?.value || '';
         const type = document.getElementById('filter-sub-type2')?.value || '';
-
         data = data.filter(s => {
           if (status === 'true' && !isSubscribed(s)) return false;
           if (status === 'false' && isSubscribed(s)) return false;
           if (type && s['Subscription Type'] !== type) return false;
-          if (globalSearch && !JSON.stringify(s).toLowerCase().includes(globalSearch)) return false;
           return true;
         });
       } else if (tab === 'categories') {
         const status = document.getElementById('filter-cat-status')?.value || '';
-
         data = data.filter(c => {
           if (status === 'true' && !isActive(c)) return false;
           if (status === 'false' && isActive(c)) return false;
-          if (globalSearch && !JSON.stringify(c).toLowerCase().includes(globalSearch)) return false;
           return true;
         });
       }
@@ -1981,57 +1622,6 @@
     }
 
     function applyFilters(tab) {
-      const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
-      render();
-    }
-
-    function resetFilters(tab) {
-      if (tab === 'products') {
-        document.getElementById('filter-category').value = '';
-        document.getElementById('filter-product-status').value = '';
-        document.getElementById('filter-price-min').value = '';
-        document.getElementById('filter-price-max').value = '';
-      } else if (tab === 'users') {
-        document.getElementById('filter-paid').value = '';
-        document.getElementById('filter-sub-type').value = '';
-      } else if (tab === 'payments') {
-        document.getElementById('filter-payment-status').value = '';
-        document.getElementById('filter-method').value = '';
-      } else if (tab === 'subscriptions') {
-        document.getElementById('filter-sub-status').value = '';
-        document.getElementById('filter-sub-type2').value = '';
-      } else if (tab === 'categories') {
-        document.getElementById('filter-cat-status').value = '';
-      }
-      applyFilters(tab);
-    }
-
-    function sortTable(tab, field) {
-      if (appState.currentSort.field === field) {
-        appState.currentSort.order = appState.currentSort.order === 'asc' ? 'desc' : 'asc';
-      } else {
-        appState.currentSort.field = field;
-        appState.currentSort.order = 'asc';
-      }
-
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-
-      data.sort((a, b) => {
-        let aVal = a[field];
-        let bVal = b[field];
-
-        if (!isNaN(aVal) && !isNaN(bVal)) {
-          aVal = parseFloat(aVal);
-          bVal = parseFloat(bVal);
-        }
-
-        if (appState.currentSort.order === 'asc') {
-          return aVal > bVal ? 1 : -1;
-        } else {
-          return aVal < bVal ? 1 : -1;
-        }
-      });
-
       const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
       render();
     }
@@ -2048,16 +1638,18 @@
     function openAddModal(tab) {
       appState.editingRecord = null;
       const config = FORM_CONFIGS[tab];
-      document.getElementById('modal-title').textContent = `Add New ${config.title}`;
+      document.getElementById('modal-title').textContent = `Add ${config.title}`;
       
       const form = document.getElementById('form-main');
       form.innerHTML = '';
       form.dataset.tab = tab;
-      form.dataset.mode = 'add';
+
+      const grid = document.createElement('div');
+      grid.className = 'form-grid';
 
       config.fields.forEach(field => {
         const group = document.createElement('div');
-        group.className = field.type === 'textarea' ? 'form-group full' : 'form-group';
+        group.className = 'form-group';
         
         let input;
         if (field.type === 'checkbox') {
@@ -2074,7 +1666,6 @@
         } else if (field.type === 'select') {
           const label = document.createElement('label');
           label.textContent = field.name;
-          if (field.required) label.innerHTML += ' <span style="color: var(--error);">*</span>';
           group.appendChild(label);
 
           input = document.createElement('select');
@@ -2100,7 +1691,6 @@
         } else {
           const label = document.createElement('label');
           label.textContent = field.name;
-          if (field.required) label.innerHTML += ' <span style="color: var(--error);">*</span>';
           group.appendChild(label);
 
           input = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
@@ -2112,8 +1702,10 @@
           group.appendChild(input);
         }
 
-        form.appendChild(group);
+        grid.appendChild(group);
       });
+
+      form.appendChild(grid);
 
       const actions = document.createElement('div');
       actions.className = 'form-actions';
@@ -2137,11 +1729,13 @@
       const form = document.getElementById('form-main');
       form.innerHTML = '';
       form.dataset.tab = tab;
-      form.dataset.mode = 'edit';
+
+      const grid = document.createElement('div');
+      grid.className = 'form-grid';
 
       config.fields.forEach(field => {
         const group = document.createElement('div');
-        group.className = field.type === 'textarea' ? 'form-group full' : 'form-group';
+        group.className = 'form-group';
 
         let input;
         if (field.type === 'checkbox') {
@@ -2159,7 +1753,6 @@
         } else if (field.type === 'select') {
           const label = document.createElement('label');
           label.textContent = field.name;
-          if (field.required) label.innerHTML += ' <span style="color: var(--error);">*</span>';
           group.appendChild(label);
 
           input = document.createElement('select');
@@ -2186,7 +1779,6 @@
         } else {
           const label = document.createElement('label');
           label.textContent = field.name;
-          if (field.required) label.innerHTML += ' <span style="color: var(--error);">*</span>';
           group.appendChild(label);
 
           input = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
@@ -2198,8 +1790,10 @@
           group.appendChild(input);
         }
 
-        form.appendChild(group);
+        grid.appendChild(group);
       });
+
+      form.appendChild(grid);
 
       const actions = document.createElement('div');
       actions.className = 'form-actions';
@@ -2221,7 +1815,6 @@
       event.preventDefault();
       const form = document.getElementById('form-main');
       const tab = form.dataset.tab;
-      const mode = form.dataset.mode;
 
       const formData = new FormData(form);
       const data = Object.fromEntries(formData);
@@ -2234,25 +1827,23 @@
       if (!validateForm(data, tab)) return;
 
       try {
-        if (mode === 'add') {
-          if (!data['Date Added'] && tab === 'products') data['Date Added'] = new Date().toISOString();
-          if (!data['Date Joined'] && tab === 'users') data['Date Joined'] = new Date().toISOString();
+        if (!data['Date Added'] && tab === 'products') data['Date Added'] = new Date().toISOString();
+        if (!data['Date Joined'] && tab === 'users') data['Date Joined'] = new Date().toISOString();
 
-          const response = await fetch(`${API_URL}?tab=${tab}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
+        const response = await fetch(`${API_URL}?tab=${tab}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
 
-          const result = await response.json();
-          if (result.status === 'success') {
-            showToast(`✓ ${FORM_CONFIGS[tab].title} added!`, 'success');
-            closeModal();
-            const load = tab === 'products' ? loadProducts : tab === 'users' ? loadUsers : tab === 'payments' ? loadPayments : tab === 'subscriptions' ? loadSubscriptions : loadCategories;
-            await load();
-          } else {
-            throw new Error(result.message);
-          }
+        const result = await response.json();
+        if (result.status === 'success') {
+          showToast(`✓ ${FORM_CONFIGS[tab].title} added!`, 'success');
+          closeModal();
+          const load = tab === 'products' ? loadProducts : tab === 'users' ? loadUsers : tab === 'payments' ? loadPayments : tab === 'subscriptions' ? loadSubscriptions : loadCategories;
+          await load();
+        } else {
+          throw new Error(result.message);
         }
       } catch (error) {
         showToast(`Error: ${error.message}`, 'error');
@@ -2275,11 +1866,6 @@
         return false;
       }
 
-      if ((data['Price'] || data['Amount']) && isNaN(parseFloat(data['Price'] || data['Amount']))) {
-        showToast('Price/Amount must be a number', 'error');
-        return false;
-      }
-
       return true;
     }
 
@@ -2289,7 +1875,7 @@
       const record = data[index];
       const displayName = record['Name'] || record['Category Name'] || record['User ID'] || record['Payment ID'] || record['Sub ID'] || 'this record';
 
-      document.getElementById('delete-message').textContent = `Are you sure you want to delete "${displayName}"? This action cannot be undone.`;
+      document.getElementById('delete-message').textContent = `Delete "${displayName}"? This action cannot be undone.`;
       document.getElementById('modal-delete').classList.add('active');
     }
 
@@ -2307,107 +1893,6 @@
 
       const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
       render();
-    }
-
-    // ===== BULK ACTIONS =====
-    function toggleRow(tab, index, checkbox) {
-      if (!appState.selectedRows[tab]) appState.selectedRows[tab] = new Set();
-
-      if (checkbox.checked) {
-        appState.selectedRows[tab].add(index);
-      } else {
-        appState.selectedRows[tab].delete(index);
-      }
-
-      updateBulkUI(tab);
-    }
-
-    function toggleSelectAll(tab, checkbox) {
-      if (!appState.selectedRows[tab]) appState.selectedRows[tab] = new Set();
-
-      const rows = document.querySelectorAll(`[data-tab="${tab}"] input.checkbox`);
-      if (checkbox.checked) {
-        rows.forEach((row, i) => {
-          row.checked = true;
-          appState.selectedRows[tab].add(i);
-        });
-      } else {
-        rows.forEach(row => row.checked = false);
-        appState.selectedRows[tab].clear();
-      }
-
-      updateBulkUI(tab);
-    }
-
-    function updateBulkUI(tab) {
-      const count = appState.selectedRows[tab]?.size || 0;
-      const bulkDiv = document.getElementById(`bulk-actions-${tab}`);
-      const countSpan = document.getElementById(`bulk-count-${tab}`);
-
-      if (count > 0) {
-        bulkDiv.classList.add('active');
-        countSpan.textContent = `${count} selected`;
-      } else {
-        bulkDiv.classList.remove('active');
-      }
-    }
-
-    function bulkDelete(tab) {
-      const count = appState.selectedRows[tab]?.size || 0;
-      if (count === 0) {
-        showToast('Select records to delete', 'warning');
-        return;
-      }
-
-      if (confirm(`Delete ${count} records?`)) {
-        const indices = Array.from(appState.selectedRows[tab]).sort((a, b) => b - a);
-        const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-
-        indices.forEach(i => data.splice(i, 1));
-        appState.selectedRows[tab].clear();
-
-        showToast(`${count} records deleted`, 'success');
-        const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
-        render();
-      }
-    }
-
-    function bulkUpdateStatus(tab) {
-      const count = appState.selectedRows[tab]?.size || 0;
-      if (count === 0) {
-        showToast('Select records to update', 'warning');
-        return;
-      }
-
-      const newStatus = prompt('Enter new status (Active/Inactive):');
-      if (!newStatus) return;
-
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      appState.selectedRows[tab].forEach(i => {
-        data[i]['Status'] = newStatus;
-      });
-
-      appState.selectedRows[tab].clear();
-      showToast(`${count} records updated`, 'success');
-      const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
-      render();
-    }
-
-    function bulkUpdatePaid(tab) {
-      const count = appState.selectedRows[tab]?.size || 0;
-      if (count === 0) {
-        showToast('Select records to update', 'warning');
-        return;
-      }
-
-      const data = appState[tab === 'users' ? 'users' : 'users'];
-      appState.selectedRows[tab].forEach(i => {
-        data[i]['Paid'] = !isPaid(data[i]);
-      });
-
-      appState.selectedRows[tab].clear();
-      showToast(`${count} records updated`, 'success');
-      renderUsers();
     }
 
     // ===== EXPORT =====
@@ -2448,14 +1933,12 @@
     // ===== TAB SWITCHING =====
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.mobile-menu-item').forEach(item => item.classList.remove('active'));
 
       document.getElementById(`tab-${tabName}`).classList.add('active');
-      event.target.classList.add('active');
+      document.querySelector(`.mobile-menu-item:nth-child(${['products', 'users', 'payments', 'subscriptions', 'categories', 'analytics', 'api-test'].indexOf(tabName) + 1})`).classList.add('active');
 
       appState.currentTab = tabName;
-      appState.selectedRows[tabName] = new Set();
-
       window.scrollTo(0, 0);
     }
 
@@ -2480,7 +1963,7 @@
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
-      toast.innerHTML = `<span style="flex: 1;">${message}</span>`;
+      toast.innerHTML = `<span>${message}</span>`;
       container.appendChild(toast);
 
       setTimeout(() => {
@@ -2493,8 +1976,9 @@
       if (e.key === 'Escape') {
         closeModal();
         closeDeleteModal();
+        closeMobileMenu();
       }
     });
   </script>
-</body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cba1903d5f3663c',t:'MTc3MDcxMDY4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

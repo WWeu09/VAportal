@@ -1,245 +1,474 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Myers Solutions - One challenge, many financial solutions!</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-     Header 
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h2>Myers Solutions</h2>
-                 Added tagline under logo for direct positioning 
-                <p class="tagline">Uw financiële partner voor groei</p>
-            </div>
-            <nav class="nav">
-                <a href="#diensten">Diensten</a>
-                <a href="#over">Over</a>
-                <a href="#waarom-ons">Waarom ons</a>
-                <a href="#contact">Contact</a>
-            </nav>
-            <div class="mobile-menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Myers Solutions - Financieel advies, administratie, opleidingen en BI/Data Warehousing">
+  <title>Myers Solutions | Financieel Advies &amp; BI Oplossingen</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --bg-dark: #111315;
+      --bg-secondary: #1A1D21;
+      --bg-card: #22262B;
+      --border: #2E3338;
+      --hover: #3A4047;
+      --text-primary: #F2F4F6;
+      --text-secondary: #A0A7AF;
+      --accent: #5A6570;
+      --accent-hover: #6F7A86;
+    }
+    
+    html, body { height: 100%; background: var(--bg-dark); color: var(--text-primary); }
+    
+    .fade-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
+    .fade-scroll.visible { opacity: 1; transform: translateY(0); }
+    
+    .navbar-sticky { position: fixed; top: 0; left: 0; right: 0; z-50; background: rgba(17,19,21,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+    .navbar-sticky nav { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 16px 6%; }
+    .navbar-sticky a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; margin: 0 20px; }
+    .navbar-sticky a:hover, .navbar-sticky a.active { color: var(--text-primary); }
+    
+    .btn-primary { background: var(--accent); color: var(--text-primary); padding: 12px 28px; border-radius: 10px; transition: all 0.3s; border: none; cursor: pointer; font-weight: 500; }
+    .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    
+    .btn-secondary { background: transparent; border: 1px solid var(--hover); color: var(--text-secondary); padding: 12px 28px; border-radius: 10px; transition: all 0.3s; cursor: pointer; font-weight: 500; }
+    .btn-secondary:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+    
+    .card { background: rgba(34,38,43,0.6); backdrop-filter: blur(10px); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: all 0.3s; }
+    .card:hover { border-color: var(--accent); }
+    
+    .hero-gradient { background: linear-gradient(180deg, #111315 0%, #1A1D21 100%); }
+    
+    .accordion-button { width: 100%; text-align: left; background: rgba(34,38,43,0.6); border: 1px solid var(--border); color: var(--text-primary); padding: 16px; border-radius: 10px; cursor: pointer; transition: all 0.3s; font-size: 16px; font-weight: 500; }
+    .accordion-button:hover { border-color: var(--accent); background: rgba(34,38,43,0.8); }
+    .accordion-button.active { background: var(--accent); border-color: var(--accent); }
+    .accordion-button::after { content: '▼'; float: right; transition: transform 0.3s; font-size: 12px; }
+    .accordion-button.active::after { transform: rotate(180deg); }
+    
+    .accordion-content { display: none; background: rgba(17,19,21,0.5); border: 1px solid var(--border); border-top: none; padding: 20px; border-radius: 0 0 10px 10px; margin-top: -1px; }
+    .accordion-content.show { display: block; animation: slideDown 0.3s ease-out; }
+    
+    @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+    
+    input, textarea, select { width: 100%; background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); padding: 12px; margin-bottom: 12px; font-family: 'Inter', sans-serif; transition: all 0.3s; }
+    input::placeholder, textarea::placeholder { color: var(--text-secondary); }
+    input:focus, textarea:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(90,101,112,0.2); outline: none; }
+    
+    label { display: block; margin-bottom: 8px; color: var(--text-secondary); font-size: 14px; font-weight: 500; }
+    
+    .success-message { background: rgba(34,197,94,0.2); border: 1px solid #22c55e; color: #86efac; padding: 16px; border-radius: 8px; display: none; margin-bottom: 16px; animation: slideDown 0.3s ease-out; }
+    .success-message.show { display: block; }
+    
+    .error-message { background: rgba(239,68,68,0.2); border: 1px solid #ef4444; color: #fca5a5; padding: 16px; border-radius: 8px; display: none; margin-bottom: 16px; }
+    .error-message.show { display: block; }
+    
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-overlay.show { display: flex; }
+    .modal-content { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 16px; padding: 40px; max-width: 600px; max-height: 90%; overflow-y: auto; position: relative; }
+    .modal-close { position: absolute; top: 20px; right: 20px; background: none; border: none; color: var(--text-secondary); font-size: 28px; cursor: pointer; }
+    .modal-close:hover { color: var(--text-primary); }
+    
+    .section { padding: 80px 6%; max-width: 1400px; margin: 0 auto; }
+    .section h2 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+    .section-subtitle { font-size: 14px; color: var(--accent); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; }
+    
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    
+    .stat-box { text-align: center; padding: 24px; }
+    .stat-number { font-size: 36px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+    .stat-label { color: var(--text-secondary); font-size: 14px; }
+    
+    .hamburger { display: none; background: none; border: none; color: var(--text-primary); font-size: 24px; cursor: pointer; }
+    
+    @media (max-width: 768px) {
+      .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .modal-content { padding: 24px; }
+      .card { padding: 20px; }
+      .section { padding: 60px 4%; }
+      .section h2 { font-size: 28px; }
+      .navbar-sticky nav { flex-wrap: wrap; }
+      .navbar-sticky a { margin: 8px 16px; }
+      .hamburger { display: block; }
+      .nav-links { display: none; width: 100%; }
+      .nav-links.active { display: flex; flex-direction: column; width: 100%; }
+    }
+    
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(242,244,246,0.3); border-top-color: var(--text-primary); border-radius: 50%; animation: spin 0.6s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- NAVBAR -->
+   <div class="navbar-sticky">
+    <nav>
+     <div style="font-size: 20px; font-weight: 700;">
+      M<span style="color: var(--accent);">S</span>
+     </div>
+     <div class="nav-links"><a href="#home" class="scrollspy-link active">Home</a> <a href="#diensten" class="scrollspy-link">Diensten</a> <a href="#over-mij" class="scrollspy-link">Over Mij</a> <a href="#contact" class="scrollspy-link">Contact</a>
+     </div><button class="btn-primary" onclick="document.getElementById('appointment-modal').classList.add('show')">Maak Afspraak</button> <button class="hamburger" onclick="toggleMobileMenu()">☰</button>
+    </nav>
+   </div><!-- HERO SECTION -->
+   <section id="home" class="hero-gradient pt-40 pb-20 fade-scroll visible" style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+    <div class="section text-center">
+     <h1 id="hero-title" style="font-size: 56px; font-weight: 700; margin-bottom: 20px; line-height: 1.2;">One challenge, many financial solutions.</h1>
+     <p id="hero-subtitle" style="font-size: 20px; color: var(--text-secondary); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto;">Deskundig financieel advies, administratie en praktische Excel- en BI-oplossingen voor ondernemers en particulieren.</p>
+     <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;"><button class="btn-primary" onclick="document.getElementById('appointment-modal').classList.add('show')" style="font-size: 16px; padding: 14px 32px;">Maak een Afspraak</button> <button class="btn-secondary" onclick="document.getElementById('diensten').scrollIntoView({behavior:'smooth'})" style="font-size: 16px; padding: 14px 32px;">Meer Informatie</button>
+     </div>
+    </div>
+   </section><!-- DIENSTEN SECTION -->
+   <section id="diensten" class="section fade-scroll">
+    <div class="section-subtitle">
+     Services
+    </div>
+    <h2>Onze Diensten</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 48px; max-width: 600px;">Klik op een dienst om meer details te lezen. We bieden maatwerk oplossingen voor jouw financiële uitdagingen.</p>
+    <div class="grid-2" id="services-grid"><!-- Services worden hier ingevuld door JS -->
+    </div>
+   </section><!-- OVER MIJ SECTION -->
+   <section id="over-mij" class="section fade-scroll">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+     <div>
+      <div class="section-subtitle">
+       Over Mij
+      </div>
+      <h2 id="about-title" style="margin-bottom: 20px;">Mijn Financiële Reis</h2>
+      <p id="about-text" style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px;">Mijn financiële opleiding in het bank- en verzekeringswezen vormde de basis van mijn professionele ontwikkeling. Vanuit daar heb ik mijn expertise verder uitgebouwd binnen financiële dienstverlening en rapportageontwikkeling.</p>
+      <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 32px;">Met een persoonlijke benadering ondersteun ik ondernemers en particulieren bij het creëren van overzicht, stabiliteit en groei.</p>
+      <div class="grid-2" style="margin-top: 40px;">
+       <div class="stat-box" style="border: 1px solid var(--border); border-radius: 12px;">
+        <div class="stat-number">
+         10+
         </div>
-    </header>
-
-     Hero Section 
-    <section class="hero">
-        <div class="container">
-            <h1>One challenge, many financial solutions!</h1>
-             Added supporting text under main slogan 
-            <p class="hero-subtitle">Professionele financiële begeleiding die uw bedrijf vooruit helpt</p>
-             Added dual CTA buttons 
-            <div class="hero-buttons">
-                <a href="#contact" class="cta-button primary">Maak een afspraak</a>
-                <a href="#diensten" class="cta-button secondary">Bekijk diensten</a>
-            </div>
+        <div class="stat-label">
+         Jaar Ervaring
         </div>
-    </section>
-
-     Services Section 
-    <section id="diensten" class="services">
-        <div class="container">
-            <h2>SERVICES</h2>
-            <div class="services-grid">
-                <div class="service-item">
-                     Added professional SVG icon 
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zm-2-8h-3V8h3v3zm-5 0H6V8h3v3zm5 5h-3v-3h3v3zm-5 0H6v-3h3v3z" fill="#1e3a8a"/>
-                        </svg>
-                    </div>
-                    <h3>Financieel advies & begeleiding</h3>
-                     Shorter, active sentences 
-                    <p>Krijg professionele ondersteuning bij strategische financiële beslissingen.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <polyline points="14,2 14,8 20,8" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Financiën & Administratie</h3>
-                    <p>Optimaliseer uw systemen met DWH, BI-tools en Excel-rapportages.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <circle cx="9" cy="7" r="4" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <path d="m22 21-3-3m0 0a2 2 0 1 1-2.83-2.83 2 2 0 0 1 2.83 2.83Z" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Excel-training & Support</h3>
-                    <p>Beheers Excel volledig met persoonlijke training en maatwerk oplossingen.</p>
-                </div>
-                <div class="service-item">
-                    <div class="service-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <line x1="8" y1="21" x2="16" y2="21" stroke="#1e3a8a" stroke-width="2"/>
-                            <line x1="12" y1="17" x2="12" y2="21" stroke="#1e3a8a" stroke-width="2"/>
-                        </svg>
-                    </div>
-                    <h3>Administratieve begeleiding</h3>
-                    <p>Stroomlijn uw financiële administratie voor maximale efficiëntie.</p>
-                </div>
-            </div>
-             Added CTA at bottom of services section 
-            <div class="services-cta">
-                <a href="#contact" class="cta-button">Start vandaag nog</a>
-            </div>
+       </div>
+       <div class="stat-box" style="border: 1px solid var(--border); border-radius: 12px;">
+        <div class="stat-number">
+         500+
         </div>
-    </section>
-
-     Mijn Verhaal Section 
-    <section class="mijn-verhaal">
-        <div class="container">
-            <h2>MIJN VERHAAL</h2>
-            <h3>Waarom ik anders ben dan andere adviseurs</h3>
-             Focused on unique personal aspect, removed repetition 
-            <p>Ik combineer technische Excel-expertise met strategisch financieel inzicht. Waar anderen alleen advies geven, bouw ik ook de tools die uw bedrijf echt vooruit helpen. Van complexe rapportages tot gebruiksvriendelijke dashboards - ik spreek zowel de taal van cijfers als van praktische oplossingen.</p>
+        <div class="stat-label">
+         Projecten
         </div>
-    </section>
-
-     Waarom Ons Section 
-    <section id="waarom-ons" class="waarom-ons">
-        <div class="container">
-            <h2>WAAROM MET MIJ WERKEN</h2>
-            <div class="waarom-grid">
-                <div class="waarom-item">
-                     Replaced emoji with professional SVG icon 
-                    <div class="waarom-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 3v18h18V3H3zm16 16H5V5h14v14z" fill="#1e3a8a"/>
-                            <path d="M7 12l3 3 7-7" stroke="white" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Rapporten bouwen</h3>
-                    <p>Heldere, inzichtelijke rapporten voor betere beslissingen.</p>
-                </div>
-                <div class="waarom-item">
-                    <div class="waarom-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <circle cx="12" cy="7" r="4" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Persoonlijke aanpak</h3>
-                    <p>Begeleiding op maat voor uw specifieke financiële doelen.</p>
-                </div>
-                <div class="waarom-item">
-                    <div class="waarom-icon">
-                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="12" cy="12" r="10" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                            <polyline points="12,6 12,12 16,14" stroke="#1e3a8a" stroke-width="2" fill="none"/>
-                        </svg>
-                    </div>
-                    <h3>Bespaar tijd</h3>
-                    <p>Uitbesteden zodat u tijd vrijmaakt voor uw kernactiviteiten.</p>
-                </div>
-            </div>
-             Added closing sentence 
-            <p class="waarom-closing">Uw resultaat staat centraal.</p>
-            <a href="#contact" class="cta-button">Maak een afspraak</a>
+       </div>
+       <div class="stat-box" style="border: 1px solid var(--border); border-radius: 12px;">
+        <div class="stat-number">
+         150+
         </div>
-    </section>
-
-     Over Mij Section 
-    <section id="over" class="over-mij">
-        <div class="container">
-            <h2>OVER MIJ</h2>
-             Added professional photo placeholder 
-            <div class="over-mij-content">
-                <div class="profile-photo">
-                    <img src="/placeholder.svg?height=300&width=300" alt="Myers - Financieel Adviseur" />
-                </div>
-                <div class="profile-text">
-                     Shortened text, focused on authority and trust 
-                    <p>Als ervaren financieel specialist help ik bedrijven hun financiële processen te optimaliseren. Met jarenlange expertise in Excel, BI-tools en financiële rapportages, lever ik betrouwbare oplossingen die uw bedrijf naar een hoger niveau tillen.</p>
-                </div>
-            </div>
+        <div class="stat-label">
+         Klanten
         </div>
-    </section>
-
-     Contact Section 
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2>NEEM CONTACT OP</h2>
-            <p>Bereik me voor advies</p>
-            
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <strong>Tel:</strong> <a href="tel:+31611418432">+31 611418432</a>
-                    </div>
-                    <div class="contact-item">
-                        <strong>Email:</strong> <a href="mailto:info@myerssolutions.nl">info@myerssolutions.nl</a>
-                    </div>
-                     Added location for trust 
-                    <div class="contact-item">
-                        <strong>Locatie:</strong> Nederland (landelijk actief)
-                    </div>
-                </div>
-                
-                <form class="contact-form" id="contactForm">
-                     Added success and error message containers 
-                    <div class="success-message" id="successMessage">
-                        Bedankt! Uw bericht is verzonden. Ik neem zo snel mogelijk contact met u op.
-                    </div>
-                    <div class="error-message" id="errorMessage">
-                        Er is een fout opgetreden. Probeer het opnieuw of neem direct contact op.
-                    </div>
-                    
-                    <input type="hidden" name="timestamp" id="timestamp">
-                    <div class="form-group">
-                        <input type="text" name="naam" placeholder="Naam *" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="E-mail *" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" name="onderwerp" placeholder="Onderwerp">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="bericht" placeholder="Bericht *" rows="5" required></textarea>
-                    </div>
-                     Updated button text 
-                    <button type="submit" class="cta-button">Stuur mijn bericht</button>
-                </form>
-            </div>
+       </div>
+       <div class="stat-box" style="border: 1px solid var(--border); border-radius: 12px;">
+        <div class="stat-number">
+         ✓
         </div>
-    </section>
-
-     Footer 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <p>Myers Solutions – +31 611418432</p>
-                     Added privacy and terms links 
-                    <div class="footer-links">
-                        <a href="#privacy">Privacybeleid</a>
-                        <a href="#voorwaarden">Algemene Voorwaarden</a>
-                    </div>
-                </div>
-                <div class="footer-powered">
-                    <span>Powered by </span>
-                    <a href="https://vanappiah.com" target="_blank">
-                        <img src="https://i.postimg.cc/CK4nsPKR/eriv-V1logo.png" alt="VanAppiah Logo"/>
-                    </a>
-                </div>
-            </div>
+        <div class="stat-label">
+         KVK 95033424
         </div>
-    </footer>
+       </div>
+      </div>
+     </div>
+     <div class="card" style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+      <div style="width: 120px; height: 120px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px;"><span style="font-size: 48px; font-weight: 700;">MS</span>
+      </div>
+      <h3 style="font-size: 24px; font-weight: 600; margin-bottom: 8px;">Myers Solutions</h3>
+      <p style="color: var(--text-secondary); margin-bottom: 20px;">Financieel advies &amp; Data Intelligence</p>
+      <p style="font-size: 12px; color: var(--text-secondary);">Handelsnamen: Myers Solutions, M&amp;M Drive</p>
+     </div>
+    </div>
+   </section><!-- WAAROM ONS SECTION -->
+   <section class="section fade-scroll">
+    <div class="section-subtitle">
+     Voordelen
+    </div>
+    <h2 style="margin-bottom: 48px;">Waarom kiezen voor Myers Solutions?</h2>
+    <div class="grid-2">
+     <div class="card">
+      <div style="font-size: 32px; margin-bottom: 16px;">
+       ✔
+      </div>
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Persoonlijke Aanpak</h3>
+      <p style="color: var(--text-secondary);">Geen standaardoplossingen, maar begeleiding afgestemd op uw situatie.</p>
+     </div>
+     <div class="card">
+      <div style="font-size: 32px; margin-bottom: 16px;">
+       ✔
+      </div>
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Praktische Rapportages</h3>
+      <p style="color: var(--text-secondary);">Heldere, inzichtelijke rapporten die helpen bij weloverwogen beslissingen.</p>
+     </div>
+     <div class="card">
+      <div style="font-size: 32px; margin-bottom: 16px;">
+       ✔
+      </div>
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Transparante Communicatie</h3>
+      <p style="color: var(--text-secondary);">U weet altijd waar u aan toe bent. Geen verborgen kosten.</p>
+     </div>
+     <div class="card">
+      <div style="font-size: 32px; margin-bottom: 16px;">
+       ✔
+      </div>
+      <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 12px;">Tijd Besparen</h3>
+      <p style="color: var(--text-secondary);">Focus op uw onderneming terwijl wij zorgen voor structuur en overzicht.</p>
+     </div>
+    </div>
+   </section><!-- CONTACT SECTION -->
+   <section id="contact" class="section fade-scroll">
+    <div class="section-subtitle">
+     Contact
+    </div>
+    <h2 style="margin-bottom: 48px;">Neem Contact Op</h2>
+    <div class="grid-2" style="align-items: start;">
+     <div>
+      <p style="color: var(--text-secondary); margin-bottom: 32px;">Vragen? Neem direct contact op of vul het formulier in. We nemen snel contact met u op.</p>
+      <div style="margin-bottom: 24px;"><label style="color: var(--text-secondary); font-size: 12px; text-transform: uppercase;">Telefoonnummer</label> <a id="phone-link" href="tel:+31611418432" style="color: var(--accent); text-decoration: none; font-size: 18px; font-weight: 600;">+31 6 11418432</a>
+      </div>
+      <div style="margin-bottom: 24px;"><label style="color: var(--text-secondary); font-size: 12px; text-transform: uppercase;">E-mailadres</label> <a id="email-link" href="mailto:info@myerssolutions.nl" style="color: var(--accent); text-decoration: none; font-size: 18px; font-weight: 600;">info@myerssolutions.nl</a>
+      </div>
+      <div style="margin-bottom: 24px;"><label style="color: var(--text-secondary); font-size: 12px; text-transform: uppercase;">KVK-nummer</label>
+       <p id="kvk-number" style="font-size: 18px; font-weight: 600;">95033424</p>
+      </div>
+     </div>
+     <form id="contact-form" class="card">
+      <div id="form-success" class="success-message"></div>
+      <div id="form-error" class="error-message"></div><label for="contact-name">Naam *</label> <input type="text" id="contact-name" required> <label for="contact-email">E-mailadres *</label> <input type="email" id="contact-email" required> <label for="contact-phone">Telefoonnummer</label> <input type="tel" id="contact-phone"> <label for="contact-subject">Onderwerp *</label> <input type="text" id="contact-subject" required> <label for="contact-message">Bericht *</label> <textarea id="contact-message" rows="4" required></textarea> <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">Verstuur Bericht</button>
+     </form>
+    </div>
+   </section><!-- FOOTER -->
+   <footer style="border-top: 1px solid var(--border); background: #0D0F11; padding: 40px 6%;">
+    <div style="max-width: 1400px; margin: 0 auto;">
+     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
+      <div>
+       <h4 style="font-weight: 600; margin-bottom: 16px;">Myers Solutions</h4>
+       <p style="color: var(--text-secondary); font-size: 14px; line-height: 1.8;">Financiële dienstverlening en het geven van financiële cursussen.</p>
+      </div>
+      <div>
+       <h4 style="font-weight: 600; margin-bottom: 16px;">Bedrijfsgegevens</h4>
+       <p style="color: var(--text-secondary); font-size: 14px;"><strong>KVK:</strong> 95033424</p>
+       <p style="color: var(--text-secondary); font-size: 14px;"><strong>Vestigingsnummer:</strong> 000060470712</p>
+       <p style="color: var(--text-secondary); font-size: 14px;"><strong>Type:</strong> Eenmanszaak</p>
+      </div>
+      <div>
+       <h4 style="font-weight: 600; margin-bottom: 16px;">Handelsnamen</h4>
+       <p style="color: var(--text-secondary); font-size: 14px;">Myers Solutions</p>
+       <p style="color: var(--text-secondary); font-size: 14px;">M&amp;M Drive</p>
+      </div>
+     </div>
+     <div style="border-top: 1px solid var(--border); padding-top: 20px; text-align: center; color: var(--text-secondary); font-size: 14px;">
+      <p>© 2024 Myers Solutions. Alle rechten voorbehouden.</p>
+      <div style="margin-top: 16px;"><a href="#privacy" style="color: var(--accent); text-decoration: none; margin: 0 12px;">Privacybeleid</a> <a href="#terms" style="color: var(--accent); text-decoration: none; margin: 0 12px;">Algemene Voorwaarden</a> <a href="#cookies" style="color: var(--accent); text-decoration: none; margin: 0 12px;">Cookies</a>
+      </div>
+     </div>
+    </div>
+   </footer><!-- APPOINTMENT MODAL -->
+   <div id="appointment-modal" class="modal-overlay">
+    <div class="modal-content"><button class="modal-close" onclick="document.getElementById('appointment-modal').classList.remove('show')">✕</button>
+     <h2 style="margin-bottom: 8px;">Plan Uw Afspraak</h2>
+     <p style="color: var(--text-secondary); margin-bottom: 24px;">Vul uw gegevens in en we nemen contact met u op ter bevestiging.</p>
+     <form id="appointment-form">
+      <div id="appt-success" class="success-message" style="margin-bottom: 24px;"></div>
+      <div id="appt-error" class="error-message" style="margin-bottom: 24px;"></div><label for="appt-name">Naam *</label> <input type="text" id="appt-name" required> <label for="appt-email">E-mailadres *</label> <input type="email" id="appt-email" required> <label for="appt-phone">Telefoonnummer *</label> <input type="tel" id="appt-phone" required> <label for="appt-date">Gewenste Datum *</label> <input type="date" id="appt-date" required> <label for="appt-time">Gewenste Tijd *</label> <input type="time" id="appt-time" required> <label for="appt-subject">Onderwerp *</label> <select id="appt-subject" required> <option value="">-- Selecteer een onderwerp --</option> <option value="Financieel Advies">Financieel Advies</option> <option value="Administratie">Administratie</option> <option value="Opleidingen &amp; Workshops">Opleidingen &amp; Workshops</option> <option value="Data &amp; Rapportages">Data &amp; Rapportages</option> <option value="Overig">Overig</option> </select> <label for="appt-message">Bericht</label> <textarea id="appt-message" rows="3"></textarea> <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">Afspraak Aanvragen</button>
+     </form>
+    </div>
+   </div><!-- SERVICE DETAILS MODAL -->
+   <div id="service-modal" class="modal-overlay">
+    <div class="modal-content"><button class="modal-close" onclick="document.getElementById('service-modal').classList.remove('show')">✕</button>
+     <h2 id="modal-service-title" style="margin-bottom: 16px;"></h2>
+     <div id="modal-service-content" style="color: var(--text-secondary); line-height: 1.8;"></div>
+    </div>
+   </div>
+  </div>
+  <script>
+    // Config
+    const defaultConfig = {
+      hero_title: 'One challenge, many financial solutions.',
+      hero_subtitle: 'Deskundig financieel advies, administratie en praktische Excel- en BI-oplossingen voor ondernemers en particulieren.',
+      service_1: 'Financieel Advies',
+      service_2: 'Administratie',
+      service_3: 'Opleidingen & Workshops',
+      service_4: 'Data & Rapportages',
+      about_title: 'Mijn Financiële Reis',
+      about_text: 'Mijn financiële opleiding in het bank- en verzekeringswezen vormde de basis van mijn professionele ontwikkeling. Vanuit daar heb ik mijn expertise verder uitgebouwd binnen financiële dienstverlening en rapportageontwikkeling.',
+      phone: '+31 6 11418432',
+      email: 'info@myerssolutions.nl',
+      kvk_number: '95033424'
+    };
 
-    <script src="script.js"></script>
-</body>
+    const serviceDetails = {
+      'Financieel Advies': 'Wij bieden ondersteuning bij: Financiële analyses, Cashflow inzicht, Budgettering, Jaarrekeningondersteuning, Rapportageontwikkeling, Bedrijfsoptimalisatie. Doel: heldere cijfers en betere besluitvorming.',
+      'Administratie': 'Begeleiding bij: Inrichting van financiële administratie, Structureren van boekhoudprocessen, Optimalisatie van werkprocessen, Controle en ondersteuning bij jaarafsluiting.',
+      'Opleidingen & Workshops': 'Trainingen gericht op: Excel (basis tot gevorderd), Rapportagebouw, Financiële basiskennis, Data-analyse. Maatwerk mogelijk voor bedrijven.',
+      'Data & Rapportages': 'Opzetten van DWH-structuren, Dashboard ontwikkeling, KPI-rapportages, Datavisualisatie, Procesautomatisering.'
+    };
+
+    // Data SDK Handler
+    let appointmentRecords = [];
+    const dataHandler = {
+      onDataChanged(data) {
+        appointmentRecords = data;
+      }
+    };
+
+    // Initialize SDK
+    async function initializeApp() {
+      if (window.dataSdk) {
+        const result = await window.dataSdk.init(dataHandler);
+        if (!result.isOk) console.error('Data SDK init failed');
+      }
+
+      // Set up Element SDK
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange: updateConfig,
+          mapToCapabilities: () => ({
+            recolorables: [],
+            borderables: [],
+            fontEditable: undefined,
+            fontSizeable: undefined
+          }),
+          mapToEditPanelValues: () => new Map(Object.entries(defaultConfig))
+        });
+      }
+
+      renderServices();
+      setupScrollSpy();
+      setupFadeScroll();
+      setupFormHandlers();
+    }
+
+    function updateConfig(config) {
+      if (config.hero_title) document.getElementById('hero-title').textContent = config.hero_title;
+      if (config.hero_subtitle) document.getElementById('hero-subtitle').textContent = config.hero_subtitle;
+      if (config.about_title) document.getElementById('about-title').textContent = config.about_title;
+      if (config.about_text) document.getElementById('about-text').textContent = config.about_text;
+      if (config.phone) document.getElementById('phone-link').href = `tel:${config.phone}`;
+      if (config.email) document.getElementById('email-link').href = `mailto:${config.email}`;
+      if (config.kvk_number) document.getElementById('kvk-number').textContent = config.kvk_number;
+    }
+
+    function renderServices() {
+      const grid = document.getElementById('services-grid');
+      const services = ['Financieel Advies', 'Administratie', 'Opleidingen & Workshops', 'Data & Rapportages'];
+      
+      grid.innerHTML = services.map(service => `
+        <div class="card" style="cursor: pointer;" onclick="showServiceModal('${service}')">
+          <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 12px;">${service}</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 16px;">${serviceDetails[service].substring(0, 100)}...</p>
+          <button class="btn-secondary" style="cursor: pointer;">Lees Meer →</button>
+        </div>
+      `).join('');
+    }
+
+    function showServiceModal(service) {
+      document.getElementById('modal-service-title').textContent = service;
+      document.getElementById('modal-service-content').textContent = serviceDetails[service];
+      document.getElementById('service-modal').classList.add('show');
+    }
+
+    function setupScrollSpy() {
+      const links = document.querySelectorAll('.scrollspy-link');
+      const sections = ['home', 'diensten', 'over-mij', 'contact'];
+      
+      window.addEventListener('scroll', () => {
+        sections.forEach((section, i) => {
+          const element = document.getElementById(section);
+          if (element) {
+            const rect = element.getBoundingClientRect();
+            if (rect.top <= 200 && rect.bottom >= 200) {
+              links.forEach(link => link.classList.remove('active'));
+              links[i].classList.add('active');
+            }
+          }
+        });
+      });
+    }
+
+    function setupFadeScroll() {
+      const elements = document.querySelectorAll('.fade-scroll');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.1 });
+      
+      elements.forEach(el => observer.observe(el));
+    }
+
+    function setupFormHandlers() {
+      document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const successDiv = document.getElementById('form-success');
+        const errorDiv = document.getElementById('form-error');
+        errorDiv.classList.remove('show');
+        successDiv.classList.remove('show');
+        
+        successDiv.textContent = '✓ Bedankt! Uw bericht is verzonden.';
+        successDiv.classList.add('show');
+        
+        setTimeout(() => {
+          e.target.reset();
+          successDiv.classList.remove('show');
+        }, 3000);
+      });
+
+      document.getElementById('appointment-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const successDiv = document.getElementById('appt-success');
+        const errorDiv = document.getElementById('appt-error');
+        errorDiv.classList.remove('show');
+        successDiv.classList.remove('show');
+
+        const data = {
+          naam: document.getElementById('appt-name').value,
+          email: document.getElementById('appt-email').value,
+          telefoon: document.getElementById('appt-phone').value,
+          gewenste_datum: document.getElementById('appt-date').value,
+          gewenste_tijd: document.getElementById('appt-time').value,
+          onderwerp: document.getElementById('appt-subject').value,
+          bericht: document.getElementById('appt-message').value,
+          status: 'nieuw',
+          created_at: new Date().toISOString()
+        };
+
+        if (window.dataSdk) {
+          const result = await window.dataSdk.create(data);
+          if (result.isOk) {
+            successDiv.textContent = '✓ Afspraak aangevraagd! We nemen snel contact met u op.';
+            successDiv.classList.add('show');
+            e.target.reset();
+            setTimeout(() => {
+              document.getElementById('appointment-modal').classList.remove('show');
+              successDiv.classList.remove('show');
+            }, 2500);
+          } else {
+            errorDiv.textContent = '✕ Er is een fout opgetreden. Probeer het later opnieuw.';
+            errorDiv.classList.add('show');
+          }
+        }
+      });
+    }
+
+    function toggleMobileMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      navLinks.classList.toggle('active');
+    }
+
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d165e459507210f',t:'MTc3MTY3ODIxNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

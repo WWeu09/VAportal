@@ -1,0 +1,1838 @@
+<!doctype html>
+<html lang="nl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Michaela's Beauty Bar - Professionele Lashes, Brows, Toothgems &amp; Nails in Amsterdam Noord. Boek je afspraak vandaag!">
+  <meta name="keywords" content="beauty salon, lashes, brows, toothgems, nails, Amsterdam Noord">
+  <meta property="og:title" content="Michaela's Beauty Bar - Amsterdam Noord">
+  <meta property="og:description" content="Lashes, Brows, Toothgems &amp; Nails in Amsterdam Noord">
+  <meta property="og:type" content="business.business">
+  <meta property="og:image" content="https://i.postimg.cc/jLss81mB/Michaela.jpg">
+  <title>Michaela's Beauty Bar - Amsterdam Noord | Lashes, Brows &amp; More</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%234b4037' width='100' height='100'/%3E%3Ctext x='50' y='70' font-size='60' font-weight='bold' font-family='serif' fill='%23d8cfc4' text-anchor='middle'%3EMB%3C/text%3E%3C/svg%3E">
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <style>
+    :root {
+      --primary: #4b4037;
+      --accent: #d4a574;
+      --accent-dark: #b8956a;
+      --background: #ffffff;
+      --surface: rgba(255, 255, 255, 0.95);
+      --text-primary: #2d2d2d;
+      --text-secondary: #666666;
+      --border: rgba(212, 165, 116, 0.15);
+      --glass-light: rgba(255, 255, 255, 0.8);
+      --glass-border: rgba(212, 165, 116, 0.2);
+      --blur: blur(8px);
+      --shadow-soft: rgba(75, 64, 55, 0.05);
+      --shadow-medium: rgba(75, 64, 55, 0.1);
+      --shadow-strong: rgba(75, 64, 55, 0.15);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-primary);
+      background-color: var(--background);
+      line-height: 1.6;
+    }
+
+    .main-wrapper {
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(75, 64, 55, 0.08);
+      transform: translateY(0);
+    }
+
+    nav.nav-hidden {
+      transform: translateY(-100%);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--primary);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+      transition: var(--transition);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-logo:hover {
+      color: var(--accent);
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 6px;
+      background: none;
+      border: none;
+      padding: 0;
+      position: absolute;
+      right: 0;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(10px, 10px);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: nowrap;
+      width: auto;
+      flex: 1;
+    }
+
+    .nav-menu li {
+      position: relative;
+      height: auto;
+    }
+
+    .nav-menu a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      cursor: pointer;
+      display: inline-block;
+      padding: 0.4rem 0;
+      position: relative;
+      white-space: nowrap;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      color: var(--accent);
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* DROPDOWN MENUS */
+    .nav-menu li > ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 165, 116, 0.2);
+      padding: 0.8rem 0;
+      border-radius: var(--radius-lg);
+      min-width: 200px;
+      box-shadow: 0 8px 32px rgba(75, 64, 55, 0.15);
+      list-style: none;
+      margin-top: 0.5rem;
+      z-index: 1001;
+      animation: dropdownSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes dropdownSlide {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    .nav-menu li:hover > ul {
+      display: block;
+    }
+
+    .nav-menu li ul li {
+      padding: 0;
+    }
+
+    .nav-menu li ul li a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .nav-menu li ul li a::after {
+      display: none;
+    }
+
+    .nav-menu li ul li a:hover {
+      background: rgba(212, 165, 116, 0.1);
+      color: var(--accent);
+    }
+
+    .nav-cta {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.55rem 1.4rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.8rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .nav-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(212, 165, 116, 0.3);
+    }
+
+    /* PAGES */
+    .page {
+      display: none;
+      padding-top: 100px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 4rem 2rem;
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--primary);
+      margin-bottom: 3rem;
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      background: linear-gradient(135deg, var(--primary) 0%, #5d4e45 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin-top: 0;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+
+    .hero-subtitle {
+      font-size: 1.25rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 0.875rem 2rem;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--shadow-medium);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: white;
+      border: 2px solid white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-light {
+      background: var(--glass-light);
+      color: var(--primary);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--blur);
+      padding: 0.875rem 2rem;
+      border-radius: var(--radius-md);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-light:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--shadow-soft);
+    }
+
+    /* TREATMENTS SECTION */
+    .treatments {
+      background: var(--background);
+    }
+
+    .treatments-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2rem;
+    }
+
+    .treatment-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      background: var(--glass-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--shadow-soft);
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--blur);
+    }
+
+    .treatment-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 20px var(--shadow-medium);
+    }
+
+    .card-image {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 140px;
+    }
+
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      color: white;
+      opacity: 0.9;
+    }
+
+    .card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.3px;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      align-self: flex-start;
+    }
+
+    .card-btn:hover {
+      background: var(--accent-dark);
+      transform: translateX(3px);
+    }
+
+    /* ABOUT SECTION */
+    .about {
+      background: white;
+    }
+
+    .about-content {
+      display: grid;
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-text {
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+      background: var(--glass-light);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      box-shadow: 0 2px 8px var(--shadow-soft);
+    }
+
+    /* TEAM SECTION */
+    .team {
+      background: var(--background);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .team-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--glass-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 2px 8px var(--shadow-soft);
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: var(--blur);
+      height: 100%;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px var(--shadow-medium);
+    }
+
+    .team-image {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
+      display: block;
+    }
+
+    .team-info {
+      padding: 1.8rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.2px;
+      margin: 0;
+    }
+
+    .team-role {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* REVIEWS SECTION */
+    .reviews {
+      background: white;
+    }
+
+    .review-container {
+      background: var(--glass-light);
+      backdrop-filter: var(--blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      max-width: 800px;
+      margin: 2rem auto;
+      min-height: 200px;
+      box-shadow: 0 2px 8px var(--shadow-soft);
+    }
+
+    .review-item {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .review-item.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .review-stars {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+    }
+
+    .review-text {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .review-author {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .review-controls {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .review-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-md);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .review-btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+
+    .review-dots {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(75, 64, 55, 0.3);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .dot.active {
+      background: var(--accent);
+      width: 24px;
+      border-radius: 5px;
+    }
+
+    /* BOOKING SECTION */
+    .booking {
+      background: var(--background);
+    }
+
+    .booking-widget {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 4px 16px var(--shadow-soft);
+      border: 1px solid var(--border);
+      height: 800px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .booking-widget iframe {
+      width: 100% !important;
+      height: 100% !important;
+      border: none;
+    }
+
+    /* CONTACT CTA SECTION */
+    .contact-cta {
+      background: linear-gradient(135deg, var(--primary) 0%, #5d4e45 100%);
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+
+    .contact-cta-text {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      opacity: 0.95;
+    }
+
+    .contact-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* TREATMENT DETAIL CARDS */
+    .treatments-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .treatment-detail-card {
+      background: var(--glass-light);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 2px 8px var(--shadow-soft);
+      transition: var(--transition);
+      overflow: hidden;
+      backdrop-filter: var(--blur);
+    }
+
+    .treatment-detail-card:hover {
+      box-shadow: 0 8px 20px var(--shadow-medium);
+      transform: translateY(-4px);
+    }
+
+    .detail-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
+      padding: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+
+    .detail-icon-wrapper {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.8rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .detail-icon {
+      width: 32px;
+      height: 32px;
+      color: white;
+    }
+
+    .detail-title-section {
+      flex: 1;
+      color: white;
+    }
+
+    .detail-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.2px;
+    }
+
+    .detail-subtitle {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .detail-body {
+      padding: 1.5rem;
+    }
+
+    .detail-description {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .treatments-list {
+      margin: 1rem 0;
+    }
+
+    .treatments-list-title {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+    }
+
+    .treatments-ul {
+      list-style: none;
+      margin-bottom: 1rem;
+    }
+
+    .treatments-ul li {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 0.6rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .treatment-bullet {
+      width: 5px;
+      height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 2rem 2rem 1.5rem;
+      margin-top: auto;
+      width: 100%;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.2px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-section a:hover {
+      color: var(--accent);
+    }
+
+    .footer-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.15);
+      margin: 1.5rem 0;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      font-size: 0.8rem;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .footer-credit {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .footer-credit a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-credit a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-bottom-text {
+      text-align: center;
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 1rem;
+    }
+
+    /* FLOATING BUTTONS */
+    .float-buttons {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      z-index: 100;
+    }
+
+    .float-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px var(--shadow-medium);
+      color: white;
+    }
+
+    .float-whatsapp {
+      background: #25d366;
+    }
+
+    .float-whatsapp:hover {
+      background: #1ebc56;
+      transform: scale(1.1);
+    }
+
+    .float-call {
+      background: var(--primary);
+    }
+
+    .float-call:hover {
+      background: var(--accent-dark);
+      transform: scale(1.1);
+    }
+
+    .float-icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 1rem 1.2rem;
+        gap: 1rem;
+        flex-direction: row;
+        justify-content: space-between;
+      }
+
+      .nav-top {
+        width: auto;
+        gap: 1rem;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+
+      .nav-menu {
+        display: none;
+        position: fixed;
+        left: 0;
+        top: 70px;
+        width: 100%;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        gap: 0;
+        padding: 0;
+        border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+        z-index: 999;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+        border-radius: 0;
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .nav-menu li {
+        width: 100%;
+        padding: 0;
+        height: auto;
+      }
+
+      .nav-menu li a {
+        display: block;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        font-size: 0.95rem;
+      }
+
+      .nav-menu li a::after {
+        display: none;
+      }
+
+      .nav-menu li > ul {
+        position: static;
+        display: none;
+        background: rgba(212, 165, 116, 0.08);
+        transform: none;
+        animation: none;
+        box-shadow: none;
+        border: none;
+        margin-top: 0;
+        border-radius: 0;
+        min-width: auto;
+      }
+
+      .nav-menu li:hover > ul {
+        display: block;
+      }
+
+      .nav-menu li ul li a {
+        padding: 0.75rem 1.5rem 0.75rem 3rem;
+        border-bottom: none;
+        font-size: 0.9rem;
+      }
+
+      .nav-cta {
+        width: auto;
+        padding: 0.65rem 1.2rem;
+        font-size: 0.85rem;
+        margin: 0;
+      }
+
+      .page {
+        padding-top: 120px;
+      }
+
+      .hero {
+        padding: 3rem 1.5rem;
+      }
+
+      .hero-title {
+        font-size: 2.2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
+      section {
+        padding: 3rem 1.5rem;
+      }
+
+      .treatments-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .team-image {
+        height: 240px;
+      }
+
+      .team-info {
+        padding: 1.2rem;
+        gap: 0.6rem;
+      }
+
+      .team-name {
+        font-size: 1.1rem;
+      }
+
+      .team-role {
+        font-size: 0.8rem;
+      }
+
+      .contact-buttons {
+        flex-direction: column;
+      }
+
+      .btn-light {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .float-buttons {
+        bottom: 1rem;
+        right: 1rem;
+        left: auto;
+        gap: 0.6rem;
+      }
+
+      .float-btn {
+        width: 48px;
+        height: 48px;
+      }
+
+      .float-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-logo {
+        font-size: 1rem;
+      }
+
+      .nav-top {
+        width: 100%;
+      }
+
+      .hero-title {
+        font-size: 1.8rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-image {
+        height: 220px;
+      }
+
+      .treatment-card {
+        margin: 0;
+      }
+
+      section {
+        padding: 2rem 1rem;
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .card-btn {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .float-buttons {
+        bottom: 0.8rem;
+        right: 0.8rem;
+      }
+
+      .float-btn {
+        width: 44px;
+        height: 44px;
+      }
+
+      .float-icon {
+        width: 18px;
+        height: 18px;
+      }
+
+      .hero-buttons {
+        gap: 0.8rem;
+      }
+
+      .contact-buttons {
+        gap: 0.8rem;
+      }
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="main-wrapper">
+   <nav id="navbar">
+    <div class="nav-container"><a href="#home" class="nav-logo" onclick="navigateTo('home', event)">Michaela's Beauty Bar</a> <button class="hamburger" id="hamburger" aria-label="Menu"> <span></span> <span></span> <span></span> </button>
+     <ul class="nav-menu" id="navMenu">
+      <li><a onclick="navigateTo('home', event)">Home</a></li>
+      <li><a href="#">Behandelingen</a>
+       <ul>
+        <li><a onclick="navigateTo('treatments', event)">Alle Behandelingen</a></li>
+        <li><a onclick="navigateTo('treatments', event)">Lash Extensions</a></li>
+        <li><a onclick="navigateTo('treatments', event)">Brow Treatments</a></li>
+        <li><a onclick="navigateTo('treatments', event)">Nails</a></li>
+       </ul></li>
+      <li><a onclick="navigateTo('classes', event)">Classes</a></li>
+      <li><a onclick="navigateTo('masterclass', event)">Masterclass</a></li>
+      <li><a onclick="navigateTo('rf-treatment', event)">RF Treatment</a></li>
+      <li><a onclick="navigateTo('team', event)">Team</a></li>
+      <li><a onclick="navigateTo('contact', event)">Contact</a></li>
+      <li><button class="nav-cta" onclick="navigateTo('booking', event)">Boek Nu</button></li>
+     </ul>
+    </div>
+   </nav><!-- HOME PAGE -->
+   <div id="home" class="page active">
+    <section class="hero">
+     <div class="hero-content">
+      <h1 class="hero-title">Michaela's Beauty Bar</h1>
+      <p class="hero-subtitle">Lashes, Brows, Toothgems &amp; Nails in Amsterdam Noord</p>
+      <div class="hero-buttons"><button class="btn btn-primary" onclick="navigateTo('booking', event)">Boek Afspraak</button> <button class="btn btn-secondary" onclick="navigateTo('treatments', event)">Bekijk Behandelingen</button>
+      </div>
+     </div>
+    </section>
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">Populaire Behandelingen</h2>
+      <div class="treatments-grid">
+       <div class="treatment-card">
+        <div class="card-image"><i class="card-icon" data-lucide="sparkles"></i>
+        </div>
+        <div class="card-content">
+         <h3 class="card-title">Lash Extensions</h3>
+         <p class="card-description">Professionele wimperverlenging voor een dramatisch effect. 30-45 minuten.</p><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-card">
+        <div class="card-image"><i class="card-icon" data-lucide="eye"></i>
+        </div>
+        <div class="card-content">
+         <h3 class="card-title">Brows</h3>
+         <p class="card-description">Perfecte wenkbrauwen met onze expert styling. Langdurig resultaat.</p><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-card">
+        <div class="card-image"><i class="card-icon" data-lucide="gem"></i>
+        </div>
+        <div class="card-content">
+         <h3 class="card-title">Tooth Gems</h3>
+         <p class="card-description">Schitterende diamanten op je tanden. Een unieke look!</p><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-card">
+        <div class="card-image"><i class="card-icon" data-lucide="flower"></i>
+        </div>
+        <div class="card-content">
+         <h3 class="card-title">Nails</h3>
+         <p class="card-description">Professionele nagelverzorging en design naar jouw wens.</p><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-card">
+        <div class="card-image"><i class="card-icon" data-lucide="zap"></i>
+        </div>
+        <div class="card-content">
+         <h3 class="card-title">RF Tightening</h3>
+         <p class="card-description">Geavanceerde huidverstrakking met RF technologie.</p><button class="card-btn" onclick="navigateTo('rf-treatment', event)">Meer Info</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="about">
+     <div class="section-container">
+      <h2 class="section-title">Over Michaela's Beauty Bar</h2>
+      <div class="about-content">
+       <p class="about-text">Welkom bij Michaela's Beauty Bar, je premium beauty destination in Amsterdam Noord! Wij specialiseren ons in de nieuwste beauty treatments: professionele lash extensions, perfecte wenkbrauwen, schitterende toothgems en nagelkunst. Al onze behandelingen worden uitgevoerd door ervaren professionals in een hygiënische en ontspannen omgeving. Elke sessie duurt 30-45 minuten en je voelt je direct fantastisch!</p>
+       <p class="about-text">Wij bieden ook professionele lash extensions cursussen aan voor iedereen die in deze kunst wil investeren. Leer van de besten en start je eigen beautybusiness!</p>
+      </div>
+     </div>
+    </section>
+    <section class="team">
+     <div class="section-container">
+      <h2 class="section-title">Ons Professionele Team</h2>
+      <div class="team-grid">
+       <div class="team-card"><img src="https://i.postimg.cc/jLss81mB/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Michaela</h3>
+         <p class="team-role">Eigenaar &amp; Specialist</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/56xxPrTT/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Danique</h3>
+         <p class="team-role">Beauty Expert</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/GHccMfVW/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Kaoutar</h3>
+         <p class="team-role">Lash Specialist</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/1f99Wd2L/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Nina</h3>
+         <p class="team-role">Beauty Professional</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="reviews">
+     <div class="section-container">
+      <h2 class="section-title">Wat Onze Klanten Zeggen</h2>
+      <div class="review-container">
+       <div class="review-item active">
+        <div class="review-stars">
+         ★★★★★
+        </div>
+        <p class="review-text">"Michaela's Beauty Bar is fantastisch! De lash extensions zijn perfect en ik voelde me direct welkom. Zeker terug!"</p>
+        <p class="review-author">- Maria K.</p>
+       </div>
+       <div class="review-item">
+        <div class="review-stars">
+         ★★★★★
+        </div>
+        <p class="review-text">"Professioneel, schoon en vriendelijk. De RF treatment heeft mijn huid echt verbeterd. Top aanrader!"</p>
+        <p class="review-author">- Sophie D.</p>
+       </div>
+       <div class="review-item">
+        <div class="review-stars">
+         ★★★★★
+        </div>
+        <p class="review-text">"De toothgems zijn geweldig! Michaela deed het perfect en het ziet er prachtig uit. Iedereen vraagt me ernaar!"</p>
+        <p class="review-author">- Lisa M.</p>
+       </div>
+      </div>
+      <div class="review-controls"><button class="review-btn" onclick="prevReview()"><i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i> Vorige</button> <button class="review-btn" onclick="nextReview()">Volgende <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i></button>
+      </div>
+      <div class="review-dots" id="reviewDots"></div>
+     </div>
+    </section>
+    <section class="contact-cta">
+     <div class="section-container">
+      <p class="contact-cta-text">Neem gerust contact met ons op via email of WhatsApp</p>
+      <div class="contact-buttons"><a href="https://wa.me/31684927988" target="_blank" rel="noopener noreferrer" class="btn-light"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i> WhatsApp</a> <a href="mailto:info@lashesbymickey.nl" class="btn-light"><i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email</a>
+      </div>
+     </div>
+    </section>
+    <section class="booking">
+     <div class="section-container">
+      <h2 class="section-title">Boek je Afspraak</h2>
+      <div class="booking-widget"><iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
+      </div>
+     </div>
+    </section>
+   </div><!-- TREATMENTS PAGE -->
+   <div id="treatments" class="page">
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">Alle Behandelingen</h2>
+      <div class="treatments-detail-grid">
+       <div class="treatment-detail-card">
+        <div class="detail-header">
+         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="sparkles"></i>
+         </div>
+         <div class="detail-title-section">
+          <h3 class="detail-title">Lash Extensions</h3>
+          <p class="detail-subtitle">Professionele wimperextensions voor een volle, elegante look</p>
+         </div>
+        </div>
+        <div class="detail-body">
+         <p class="detail-description">Onze stylists creëren verschillende stijlen van natuurlijk tot extra volume, perfect afgestemd op jouw ogen en gewenste uitstraling.</p>
+         <div class="treatments-list">
+          <h4 class="treatments-list-title">Behandelingen:</h4>
+          <ul class="treatments-ul">
+           <li><span class="treatment-bullet"></span> New Set Super Volume</li>
+           <li><span class="treatment-bullet"></span> New Set Medium Volume</li>
+           <li><span class="treatment-bullet"></span> New Set Light Volume</li>
+           <li><span class="treatment-bullet"></span> Half Lift Half Extend</li>
+           <li><span class="treatment-bullet"></span> Refill</li>
+          </ul>
+         </div><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-detail-card">
+        <div class="detail-header">
+         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="eye"></i>
+         </div>
+         <div class="detail-title-section">
+          <h3 class="detail-title">Brow Treatments</h3>
+          <p class="detail-subtitle">Perfect gevormde wenkbrauwen die jouw gezicht versterken</p>
+         </div>
+        </div>
+        <div class="detail-body">
+         <p class="detail-description">Onze brow treatments liften, stylen en kleuren je wenkbrauwen voor een langdurig en verzorgd resultaat.</p>
+         <div class="treatments-list">
+          <h4 class="treatments-list-title">Behandelingen:</h4>
+          <ul class="treatments-ul">
+           <li><span class="treatment-bullet"></span> Brow Lamination</li>
+           <li><span class="treatment-bullet"></span> Shaping &amp; Tinting</li>
+           <li><span class="treatment-bullet"></span> Brow Shaping</li>
+           <li><span class="treatment-bullet"></span> Brow Tinting</li>
+          </ul>
+         </div><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+       <div class="treatment-detail-card">
+        <div class="detail-header">
+         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="zap"></i>
+         </div>
+         <div class="detail-title-section">
+          <h3 class="detail-title">Body Treatments</h3>
+          <p class="detail-subtitle">Geavanceerde behandelingen voor huidversteviging</p>
+         </div>
+        </div>
+        <div class="detail-body">
+         <p class="detail-description">Geavanceerde behandelingen gericht op huidversteviging en huidverbetering met moderne technologie.</p>
+         <div class="treatments-list">
+          <h4 class="treatments-list-title">Behandelingen:</h4>
+          <ul class="treatments-ul">
+           <li><span class="treatment-bullet"></span> RF Double Chin</li>
+           <li><span class="treatment-bullet"></span> RF Double Chin &amp; Cheekbones</li>
+           <li><span class="treatment-bullet"></span> Spray Tan</li>
+          </ul>
+         </div><button class="card-btn" onclick="navigateTo('rf-treatment', event)">Meer Info</button>
+        </div>
+       </div>
+       <div class="treatment-detail-card">
+        <div class="detail-header">
+         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="wind"></i>
+         </div>
+         <div class="detail-title-section">
+          <h3 class="detail-title">Facial Hair Removal</h3>
+          <p class="detail-subtitle">Professionele ontharing voor gladde huid</p>
+         </div>
+        </div>
+        <div class="detail-body">
+         <p class="detail-description">Professionele ontharing van het gezicht met threading of wax voor een gladde en verzorgde huid.</p>
+         <div class="treatments-list">
+          <h4 class="treatments-list-title">Behandelingen:</h4>
+          <ul class="treatments-ul">
+           <li><span class="treatment-bullet"></span> Full Face Hair Removal</li>
+          </ul>
+         </div><button class="card-btn" onclick="navigateTo('booking', event)">Boek Nu</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div><!-- CLASSES PAGE -->
+   <div id="classes" class="page">
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">Lash Extensions Cursus</h2>
+      <div style="max-width: 800px; margin: 0 auto; background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 3rem; border-radius: var(--radius-lg); text-align: center; box-shadow: 0 4px 16px var(--shadow-soft);">
+       <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; letter-spacing: -0.5px;">Professionele Training</h3>
+       <p style="font-size: 1.2rem; color: var(--accent); font-weight: 700; margin-bottom: 2rem;">Vanaf €850</p>
+       <div style="text-align: left; margin-bottom: 2rem;">
+        <h4 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem;">Wat is inbegrepen:</h4>
+        <ul style="list-style: none; font-size: 1.05rem; line-height: 2;">
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Praktische training (2-3 dagen)</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Professioneel certificaat</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Hands-on oefening met modellen</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Introductie tot business management</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Certificering van Michaela's Beauty Bar</li>
+        </ul>
+       </div><button class="btn btn-primary" onclick="navigateTo('booking', event)" style="margin-top: 2rem;">Schrijf je In</button>
+      </div>
+     </div>
+    </section>
+   </div><!-- MASTERCLASS PAGE -->
+   <div id="masterclass" class="page">
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">Online Masterclass</h2>
+      <div style="max-width: 800px; margin: 0 auto; background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 3rem; border-radius: var(--radius-lg); box-shadow: 0 4px 16px var(--shadow-soft);">
+       <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; letter-spacing: -0.5px;">Beauty Masterclass Online</h3>
+       <div style="margin-bottom: 2rem;">
+        <h4 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="book" style="width: 24px; height: 24px;"></i> Wat je gaat leren:</h4>
+        <ul style="list-style: none; font-size: 1rem; line-height: 1.8; margin-left: 1rem;">
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> De geheimen van perfecte lash extensions</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Wenkbrauw design en styling technieken</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Professionele make-up application</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Klantenbinding en business tips</li>
+        </ul>
+       </div><button class="btn btn-primary" onclick="navigateTo('booking', event)" style="width: 100%; margin-top: 1rem;">Inschrijven</button>
+      </div>
+     </div>
+    </section>
+   </div><!-- RF TREATMENT PAGE -->
+   <div id="rf-treatment" class="page">
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">RF Tightening Treatment</h2>
+      <div style="max-width: 900px; margin: 0 auto; background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 3rem; border-radius: var(--radius-lg); box-shadow: 0 4px 16px var(--shadow-soft);">
+       <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--primary); margin-bottom: 1.5rem; letter-spacing: -0.5px;">Geavanceerde Huidverstrakking</h3>
+       <div style="margin-bottom: 2rem;">
+        <h4 style="color: var(--primary); margin-bottom: 1rem; font-size: 1.3rem; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="zap" style="width: 24px; height: 24px;"></i> Voordelen:</h4>
+        <ul style="list-style: none; font-size: 1rem; line-height: 2; margin-left: 1rem;">
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Zichtbare huidverstrakking na 1 sessie</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Vermindert fijne lijnen en rimpels</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Verbetert huidtextuur en glans</li>
+         <li style="display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="check" style="width: 20px; height: 20px; color: var(--accent);"></i> Non-invasief - geen downtime</li>
+        </ul>
+       </div><button class="btn btn-primary" onclick="navigateTo('booking', event)" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Boek Je RF Treatment</button>
+      </div>
+     </div>
+    </section>
+   </div><!-- TEAM PAGE -->
+   <div id="team" class="page">
+    <section class="team">
+     <div class="section-container">
+      <h2 class="section-title">Ons Team</h2>
+      <div class="team-grid">
+       <div class="team-card"><img src="https://i.postimg.cc/jLss81mB/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Michaela</h3>
+         <p class="team-role">Eigenaar &amp; Founder</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/56xxPrTT/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Danique</h3>
+         <p class="team-role">Beauty Expert</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/GHccMfVW/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Kaoutar</h3>
+         <p class="team-role">Lash Specialist</p>
+        </div>
+       </div>
+       <div class="team-card"><img src="https://i.postimg.cc/1f99Wd2L/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <div class="team-info">
+         <h3 class="team-name">Nina</h3>
+         <p class="team-role">Beauty Professional</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </div><!-- CONTACT PAGE -->
+   <div id="contact" class="page">
+    <section class="treatments">
+     <div class="section-container">
+      <h2 class="section-title">Neem Contact Op</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem;">
+       <div>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 2rem; letter-spacing: -0.5px;">Contact Informatie</h3>
+        <div style="background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem; box-shadow: 0 4px 16px var(--shadow-soft);">
+         <h4 style="color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="map-pin" style="width: 20px; height: 20px;"></i> Adres</h4>
+         <p style="font-size: 1rem; line-height: 1.8; color: #666;">Johan van Hasseltweg 112<br>
+           1022 WZ Amsterdam<br>
+           Noord-Holland, Netherlands</p>
+        </div>
+        <div style="background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 2rem; border-radius: var(--radius-lg); margin-bottom: 1.5rem; box-shadow: 0 4px 16px var(--shadow-soft);">
+         <h4 style="color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="phone" style="width: 20px; height: 20px;"></i> Telefoon</h4><a href="tel:+31684927988" style="font-size: 1.1rem; color: var(--accent); text-decoration: none; font-weight: 600;">+31 6 84 92 79 88</a>
+        </div>
+        <div style="background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 2rem; border-radius: var(--radius-lg); box-shadow: 0 4px 16px var(--shadow-soft);">
+         <h4 style="color: var(--primary); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;"><i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email</h4><a href="mailto:info@lashesbymickey.nl" style="font-size: 1.1rem; color: var(--accent); text-decoration: none; font-weight: 600;">info@lashesbymickey.nl</a>
+        </div>
+       </div>
+       <div>
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 2rem; letter-spacing: -0.5px;">Stuur een Bericht</h3>
+        <form id="contactForm" style="background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 2rem; border-radius: var(--radius-lg); box-shadow: 0 4px 16px var(--shadow-soft);">
+         <div style="margin-bottom: 1.5rem;"><label for="name" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Naam *</label> <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
+         </div>
+         <div style="margin-bottom: 1.5rem;"><label for="email" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Email *</label> <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
+         </div>
+         <div style="margin-bottom: 1.5rem;"><label for="message" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Bericht *</label> <textarea id="message" name="message" required rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; resize: vertical;"></textarea>
+         </div><button type="submit" class="btn btn-primary" style="width: 100%;">Verzend Bericht</button>
+         <p id="formMessage" style="margin-top: 1rem; text-align: center; color: var(--accent);"></p>
+        </form>
+       </div>
+      </div>
+      <div style="margin-top: 3rem;">
+       <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 1.5rem; letter-spacing: -0.5px;">Vind Ons</h3><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2438.5282757819745!2d4.916662!3d52.385866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c5cdb0c5c5c5c5%3A0x5c5c5c5c5c5c5c5c!2sJohan%20van%20Hasseltweg%20112%2C%201022%20WZ%20Amsterdam!5e0!3m2!1snl!2snl!4v1234567890" width="100%" height="400" style="border:none;border-radius:var(--radius-lg);" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+     </div>
+    </section>
+   </div><!-- BOOKING PAGE -->
+   <div id="booking" class="page">
+    <section class="booking">
+     <div class="section-container">
+      <h2 class="section-title">Boek je Afspraak</h2>
+      <div class="booking-widget"><iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
+      </div>
+     </div>
+    </section>
+   </div><!-- FOOTER -->
+   <footer>
+    <div class="footer-container">
+     <div class="footer-section">
+      <h3>Michaela's Beauty Bar</h3>
+      <p style="line-height: 1.8; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem;">Premium beauty treatments in Amsterdam Noord. Lashes, Brows, Toothgems &amp; Nails.</p>
+     </div>
+     <div class="footer-section">
+      <h3>Navigatie</h3>
+      <ul>
+       <li><a onclick="navigateTo('home', event)">Home</a></li>
+       <li><a onclick="navigateTo('treatments', event)">Behandelingen</a></li>
+       <li><a onclick="navigateTo('classes', event)">Classes</a></li>
+       <li><a onclick="navigateTo('team', event)">Team</a></li>
+       <li><a onclick="navigateTo('contact', event)">Contact</a></li>
+      </ul>
+     </div>
+     <div class="footer-section">
+      <h3>Contact</h3>
+      <ul>
+       <li><a href="tel:+31684927988"><i class="footer-icon" data-lucide="phone"></i> +31 6 84 92 79 88</a></li>
+       <li><a href="mailto:info@lashesbymickey.nl"><i class="footer-icon" data-lucide="mail"></i> info@lashesbymickey.nl</a></li>
+       <li><a href="https://wa.me/31684927988" target="_blank" rel="noopener noreferrer"><i class="footer-icon" data-lucide="message-circle"></i> WhatsApp</a></li>
+      </ul>
+     </div>
+     <div class="footer-section">
+      <h3>Adres</h3>
+      <p style="line-height: 1.8; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem;">Johan van Hasseltweg 112<br>
+        1022 WZ Amsterdam<br>
+        Nederland</p>
+     </div>
+    </div>
+    <div class="footer-divider"></div>
+    <div class="footer-bottom">
+     <p style="margin-bottom: 1rem; font-size: 0.9rem;"><strong>Lashes by Mickey</strong></p>
+     <p style="font-size: 0.8rem; opacity: 0.8; margin-bottom: 0.5rem;">Schoonheidsspecialiste | KVK: 77398181 | Eenmanszaak</p>
+     <p style="font-size: 0.8rem; opacity: 0.8;">© 2025 Michaela's Beauty Bar. Alle rechten voorbehouden.</p>
+     <div class="footer-credit">
+      Powered by <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer">Van Appiah</a>
+     </div>
+    </div>
+   </footer><!-- FLOATING BUTTONS -->
+   <div class="float-buttons"><button class="float-btn float-whatsapp" onclick="window.open('https://wa.me/31684927988', '_blank')" title="WhatsApp" aria-label="WhatsApp"> <i class="float-icon" data-lucide="message-circle"></i> </button> <button class="float-btn float-call" onclick="window.location.href='tel:+31684927988'" title="Call" aria-label="Call"> <i class="float-icon" data-lucide="phone"></i> </button>
+   </div>
+  </div>
+  <script>
+    // ELEMENT SDK INITIALIZATION
+    const defaultConfig = {
+      salon_name: "Michaela's Beauty Bar",
+      salon_phone: "+31 6 84 92 79 88",
+      salon_email: "info@lashesbymickey.nl",
+      salon_address: "Johan van Hasseltweg 112, Amsterdam Noord",
+      hero_subtitle: "Lashes, Brows, Toothgems & Nails in Amsterdam Noord"
+    };
+
+    let config = { ...defaultConfig };
+
+    const elementConfig = {
+      defaultConfig,
+      onConfigChange: async (newConfig) => {
+        config = newConfig;
+        
+        const heroSubtitle = document.querySelector('.hero-subtitle');
+        if (heroSubtitle) {
+          heroSubtitle.textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+        }
+      },
+      mapToCapabilities: (config) => ({
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ["salon_name", config.salon_name || defaultConfig.salon_name],
+        ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+        ["salon_phone", config.salon_phone || defaultConfig.salon_phone],
+        ["salon_email", config.salon_email || defaultConfig.salon_email]
+      ])
+    };
+
+    if (window.elementSdk) {
+      window.elementSdk.init(elementConfig);
+    }
+
+    // REVIEWS SLIDER
+    const reviews = document.querySelectorAll('.review-item');
+    let currentReview = 0;
+    const reviewDots = document.getElementById('reviewDots');
+
+    function initReviewDots() {
+      reviews.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (index === 0) dot.classList.add('active');
+        dot.onclick = () => showReview(index);
+        reviewDots.appendChild(dot);
+      });
+    }
+
+    function showReview(index) {
+      reviews.forEach(r => r.classList.remove('active'));
+      document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+      
+      reviews[index].classList.add('active');
+      document.querySelectorAll('.dot')[index].classList.add('active');
+      currentReview = index;
+    }
+
+    function nextReview() {
+      currentReview = (currentReview + 1) % reviews.length;
+      showReview(currentReview);
+    }
+
+    function prevReview() {
+      currentReview = (currentReview - 1 + reviews.length) % reviews.length;
+      showReview(currentReview);
+    }
+
+    initReviewDots();
+    setInterval(nextReview, 6000);
+
+    // NAVIGATION & PAGE ROUTING
+    function navigateTo(page, event) {
+      if (event) {
+        event.preventDefault();
+      }
+      
+      document.querySelectorAll('.page').forEach(p => {
+        p.classList.remove('active');
+      });
+      
+      const selectedPage = document.getElementById(page);
+      if (selectedPage) {
+        selectedPage.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      
+      closeMenu();
+    }
+
+    // SCROLL ANIMATION FOR NAVBAR
+    let lastScrollTop = 0;
+    const navbar = document.getElementById('navbar');
+
+    window.addEventListener('scroll', () => {
+      let st = window.pageYOffset || document.documentElement.scrollTop;
+      if (st > lastScrollTop && st > 50) {
+        navbar.classList.add('nav-hidden');
+      } else {
+        navbar.classList.remove('nav-hidden');
+      }
+      lastScrollTop = st <= 0 ? 0 : st;
+    });
+
+    // MOBILE MENU
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('active');
+      navMenu.classList.remove('active');
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // CONTACT FORM
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        formMessage.textContent = 'Bedankt! We nemen snel contact met je op.';
+        formMessage.style.color = '#25d366';
+        contactForm.reset();
+        
+        setTimeout(() => {
+          formMessage.textContent = '';
+        }, 5000);
+      });
+    }
+
+    // LUCIDE ICONS
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddf780da6920e28',t:'MTc3Mzc4NjkwNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

@@ -570,11 +570,8 @@
       object-position: center top;
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
       display: block;
+      image-rendering: -webkit-optimize-contrast;
       image-rendering: crisp-edges;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      backface-visibility: hidden;
-      transform: translateZ(0);
     }
 
     .team-info {
@@ -991,7 +988,19 @@
     }
 
     /* RESPONSIVE DESIGN */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
     @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
       .nav-container {
         padding: 0.65rem 1rem;
         gap: 1rem;
@@ -1367,21 +1376,21 @@
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/F7pRbRcD/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Danique</h3>
          <p class="team-role">Nail Stylist</p>
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/7f96167K/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Kaoutar</h3>
          <p class="team-role">Lash Stylist</p>
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/svmXPXS6/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Nina</h3>
          <p class="team-role">Brow Stylist</p>
@@ -1602,28 +1611,28 @@
       <h2 class="section-title">Ons Team</h2>
       <div class="team-grid">
        <div class="team-card">
-        <img src="https://i.postimg.cc/jLss81mB/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Michaela</h3>
          <p class="team-role">Eigenaar &amp; Founder</p>
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/56xxPrTT/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Danique</h3>
          <p class="team-role">Beauty Expert</p>
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/GHccMfVW/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Kaoutar</h3>
          <p class="team-role">Lash Specialist</p>
         </div>
        </div>
        <div class="team-card">
-        <img src="https://i.postimg.cc/1f99Wd2L/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Nina</h3>
          <p class="team-role">Beauty Professional</p>
@@ -1886,5 +1895,5 @@
     // LUCIDE ICONS
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddfc4c3f6366632',t:'MTc3Mzc5MDA1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddfcceca6e3b927',t:'MTc3Mzc5MDM4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

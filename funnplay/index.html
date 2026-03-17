@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun 'n Play - Indoor Entertainment</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="apple-mobile-web-app-title" content="Fun 'n Play">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&amp;family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body { font-family: 'Nunito', sans-serif; }
+    .font-heading { font-family: 'Fredoka One', cursive; }
+
+    @keyframes bobble { 0%, 100% { transform: translateY(0px) rotate(-3deg); } 50% { transform: translateY(-12px) rotate(3deg); } }
+    @keyframes wiggle { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+    @keyframes titlePop { 0% { transform: scale(0) rotate(-15deg); opacity: 0; } 60% { transform: scale(1.1) rotate(3deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+    @keyframes popIn { 0% { transform: scale(0) rotate(-10deg); opacity: 0; } 60% { transform: scale(1.1) rotate(2deg); opacity: 1; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+    @keyframes slideUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+    @keyframes slideLeft { 0% { transform: translateX(30px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+
+    .anim-bobble { animation: bobble 3s ease-in-out infinite; }
+    .anim-wiggle { animation: wiggle 2.5s ease-in-out infinite; }
+    .anim-pop { animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; opacity: 0; }
+    .anim-slide { animation: slideUp 0.7s ease-out forwards; opacity: 0; }
+    .anim-pop-d1 { animation-delay: 0.1s; }
+    .anim-pop-d2 { animation-delay: 0.2s; }
+    .anim-pop-d3 { animation-delay: 0.3s; }
+    .anim-pop-d4 { animation-delay: 0.4s; }
+    .anim-slide-d1 { animation-delay: 0.15s; }
+    .anim-slide-d2 { animation-delay: 0.3s; }
+    .anim-slide-d3 { animation-delay: 0.45s; }
+    .anim-slide-d4 { animation-delay: 0.6s; }
+
+    .play-card {
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+    .play-card:hover {
+      transform: translateY(-8px) rotate(1deg);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    }
+
+    .btn-fun {
+      border-radius: 50px;
+      font-family: 'Fredoka One', cursive;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    }
+    .btn-fun:hover {
+      transform: scale(1.06);
+      filter: brightness(1.1);
+    }
+    .btn-fun:active {
+      transform: scale(0.98);
+    }
+
+    .games-dot:hover {
+      background: rgba(209,16,45,0.5);
+    }
+
+    .fun-input {
+      border-radius: 16px;
+      border: 3px solid #4A90E2;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-family: 'Nunito', sans-serif;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(8px);
+    }
+    .fun-input:focus {
+      outline: none;
+      border-color: #D1102D;
+      box-shadow: 0 0 0 5px rgba(209,16,45,0.15);
+      background: rgba(255,255,255,0.98);
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+      opacity: 0;
+      z-index: 1000;
+    }
+    .toast-msg.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .social-btn {
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    }
+    .social-btn:hover {
+      transform: scale(1.2) rotate(-5deg);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: rgba(255,184,77,0.3); }
+    ::-webkit-scrollbar-thumb { background: #D1102D; border-radius: 10px; }
+
+    .games-carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      background: #f5f5f5;
+    }
+    .games-carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .games-carousel-slide {
+      flex-shrink: 0;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 4/3;
+    }
+    .games-carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      background: rgba(255,255,255,0.95);
+    }
+    .games-carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      z-index: 20;
+      background: rgba(209,16,45,0.9);
+      backdrop-filter: blur(12px);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(209,16,45,0.3);
+    }
+    .games-carousel-btn:hover {
+      transform: translateY(-50%) scale(1.15);
+      background: rgba(209,16,45,0.95);
+      box-shadow: 0 12px 32px rgba(209,16,45,0.4);
+    }
+    .games-carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+    .games-carousel-prev { left: 20px; }
+    .games-carousel-next { right: 20px; }
+    
+    .games-carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      padding-bottom: 8px;
+    }
+    .games-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: rgba(209,16,45,0.25);
+      border: 2px solid rgba(209,16,45,0.4);
+    }
+    .games-dot.active {
+      transform: scale(1.4);
+      background: #D1102D;
+      border-color: #D1102D;
+      box-shadow: 0 4px 12px rgba(209,16,45,0.3);
+    }
+
+    @media (max-width: 768px) {
+      .games-carousel-slide { 
+        aspect-ratio: 16/9;
+      }
+      .games-carousel-btn { width: 42px; height: 42px; font-size: 18px; }
+      .games-carousel-prev { left: 10px; }
+      .games-carousel-next { right: 10px; }
+      .games-carousel-dots { gap: 8px; }
+      .games-dot { width: 10px; height: 10px; }
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #FFB84D;">
+   <!-- NAV -->
+   <nav id="main-nav" class="sticky top-0 z-50 px-4 py-3" style="background: rgba(255,184,77,0.75); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.3);">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <img src="https://i.postimg.cc/SKytT56t/. . 12398425941-n.jpg" alt="Fun 'n Play logo" loading="lazy" style="width: 50px; height: 50px; object-fit: contain; border-radius: 8px;" onerror="console.error('Logo failed:', this.src); this.style.background='#D1102D';"> <span id="nav-title" class="font-heading text-lg hidden sm:inline" style="color: #D1102D;">Fun 'n Play</span>
+     </div>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#games" class="font-bold text-sm transition-all hover:scale-110" style="color: #D1102D;">Spellen</a> <a href="#food" class="font-bold text-sm transition-all hover:scale-110" style="color: #D1102D;">Eten</a> <a href="#info" class="font-bold text-sm transition-all hover:scale-110" style="color: #D1102D;">Info</a> <a href="#contact" class="font-bold text-sm transition-all hover:scale-110" style="color: #D1102D;">Contact</a>
+     </div><button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl transition-transform hover:scale-110" style="color: #D1102D;" aria-label="Menu openen"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden mt-3 rounded-2xl p-4" style="background: rgba(242,242,242,0.92); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.5);">
+     <a href="#games" class="block py-2 font-bold text-center transition-colors" style="color: #D1102D;">Spellen</a> <a href="#food" class="block py-2 font-bold text-center transition-colors" style="color: #D1102D;">Eten</a> <a href="#info" class="block py-2 font-bold text-center transition-colors" style="color: #D1102D;">Info</a> <a href="#contact" class="block py-2 font-bold text-center transition-colors" style="color: #D1102D;">Contact</a>
+    </div>
+   </nav><!-- HERO SECTION -->
+   <header class="relative overflow-hidden px-4 py-16 md:py-24 text-center">
+    <div class="shape w-40 h-40 top-8 left-8 anim-bobble" style="background-color: rgba(74,144,226,0.2);"></div>
+    <div class="shape w-28 h-28 top-24 right-10 anim-wiggle" style="background-color: rgba(209,16,45,0.2);"></div>
+    <div class="relative z-10 max-w-5xl mx-auto">
+     <div class="anim-pop inline-block mb-6">
+      <h1 id="hero-title" class="font-heading text-5xl md:text-6xl" style="color: #D1102D;">Fun 'n Play</h1>
+     </div>
+     <p id="hero-tagline" class="text-xl md:text-2xl font-bold mb-10 anim-pop anim-pop-d2" style="color: #ffffff; text-shadow: 0 2px 8px rgba(0,0,0,0.1);">Indoor entertainment voor kinderen! 🎉</p>
+     <div class="flex flex-col md:flex-row gap-5 justify-center">
+      <button class="btn-fun px-8 py-4 text-lg text-white anim-pop anim-pop-d3 shadow-lg" style="background: linear-gradient(135deg, #D1102D 0%, rgba(209,16,45,0.85) 100%);" onclick="document.getElementById('games').scrollIntoView({behavior:'smooth'})"> Bekijk spellen 🕹️ </button> <a href="#contact" class="btn-fun px-8 py-4 text-lg text-white anim-pop anim-pop-d4 inline-block shadow-lg" style="background: linear-gradient(135deg, #4A90E2 0%, rgba(74,144,226,0.85) 100%);"> Contact 📞 </a>
+     </div>
+    </div>
+   </header><!-- ENTRANCE IMAGE SECTION -->
+   <section class="px-4 py-16 md:py-20" style="background: linear-gradient(135deg, #FFB84D 0%, rgba(255,184,77,0.8) 100%);">
+    <div class="max-w-5xl mx-auto">
+     <div class="play-card rounded-3xl overflow-hidden shadow-2xl anim-slide" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5);">
+      <img src="https://i.postimg.cc/G2MDwWCG/2B0357C950BF466F9EF6B59FE4DA8D32-IMG-0469.jpg" alt="Fun 'n Play ingang" loading="lazy" style="width: 100%; height: 420px; object-fit: cover; display: block;" onerror="console.error('Image failed:', this.src); this.style.background='#FFB84D'; this.alt='Afbeelding niet beschikbaar';">
+      <div class="p-8 text-center">
+       <p class="font-heading text-2xl" style="color: #D1102D;">🎪 Welkom bij Fun 'n Play!</p>
+       <p class="text-base mt-3" style="color: #666;">Ontdek het speelplezier!</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- GAMES SLIDER SECTION -->
+   <section id="games" class="py-16 md:py-24 px-4" style="background: linear-gradient(135deg, rgba(242,242,242,1) 0%, rgba(242,242,242,0.95) 100%);">
+    <div class="max-w-6xl mx-auto"><!-- Large Slider -->
+     <div class="mb-16 anim-slide">
+      <div class="games-carousel-container">
+       <div class="games-carousel-track" id="games-carousel-track"><!-- Slides will be dynamically loaded -->
+       </div><button class="games-carousel-btn games-carousel-prev" onclick="moveGamesCarousel(-1)" aria-label="Vorige foto">❮</button> <button class="games-carousel-btn games-carousel-next" onclick="moveGamesCarousel(1)" aria-label="Volgende foto">❯</button>
+      </div>
+      <div class="games-carousel-dots" id="games-carousel-dots"></div>
+     </div><!-- Text under slider - with logo card -->
+     <div class="grid md:grid-cols-3 gap-8 mb-16 anim-slide anim-slide-d1">
+      <!-- Logo Card -->
+      <div class="md:col-span-1 play-card rounded-3xl p-8 text-center" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.1); display: flex; flex-direction: column; justify-content: center; align-items: center;">
+       <img src="https://i.postimg.cc/SKytT56t/. . 12398425941-n.jpg" alt="Fun 'n Play logo" loading="lazy" style="width: 100%; max-width: 180px; height: auto; object-fit: contain; margin-bottom: 16px; border-radius: 12px;" onerror="console.error('Logo failed:', this.src); this.style.background='#D1102D'; this.alt='Logo niet beschikbaar';">
+       <h3 class="font-heading text-2xl mb-3" style="color: #D1102D;">Speelplezier Pur!</h3>
+       <p class="text-xs font-semibold" style="color: #666;">Verschillende leuke spellen, simulatoren en attracties voor kinderen en families.</p>
+      </div><!-- Games Grid -->
+      <div class="md:col-span-2">
+       <div class="space-y-4">
+        <!-- Category 1 -->
+        <div class="rounded-2xl p-5" style="background: rgba(209,16,45,0.08); border-left: 4px solid #D1102D;">
+         <h3 class="font-heading text-lg mb-3" style="color:#D1102D;">⚽ Sport- en Actiespellen</h3>
+         <div class="space-y-1">
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🏒 Airhockey</strong> – Meerdere tafels waar spelers de puck in het doel slaan.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🏀 Basketball</strong> – Gooi basketballen door de ring!</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🥊 Boksbalautomaten</strong> – Test je slagkracht.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🎳 Skee-ball</strong> – Rol ballen en win tickets.</p>
+         </div>
+        </div><!-- Category 2 -->
+        <div class="rounded-2xl p-5" style="background: rgba(74,144,226,0.08); border-left: 4px solid #4A90E2;">
+         <h3 class="font-heading text-lg mb-3" style="color:#D1102D;">🎮 Simulatoren en VR</h3>
+         <div class="space-y-1">
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🥽 VR 360 Simulator</strong> – Volledig draaibare VR-ervaring.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🎬 Motion Ride 9D</strong> – Bewegende simulatorfilm.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🏍️ Motor Simulator</strong> – Spannende racegame.</p>
+         </div>
+        </div><!-- Category 3 -->
+        <div class="rounded-2xl p-5" style="background: rgba(255,184,77,0.15); border-left: 4px solid #FFB84D;">
+         <h3 class="font-heading text-lg mb-3" style="color:#D1102D;">👶 Kinderspellen</h3>
+         <div class="space-y-1">
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🚂 Thomas Trein</strong> – Treintje voor jonge kinderen.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🚔 Police Ride</strong> – Bewegende politiemotor.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🐸 Whack-a-Mole</strong> – Sla kikkers omhoog.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🧸 Grijpmachines</strong> – Win knuffels en prijzen!</p>
+         </div>
+        </div><!-- Category 4 -->
+        <div class="rounded-2xl p-5" style="background: rgba(209,16,45,0.08); border-left: 4px solid #D1102D;">
+         <h3 class="font-heading text-lg mb-3" style="color:#D1102D;">🎰 Automaten</h3>
+         <div class="space-y-1">
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🍬 Snoepautomaat</strong> – Snoep en verrassingen.</p>
+          <p class="text-xs" style="color: #666;"><strong style="color:#D1102D;">🎡 Rad van Fortuin</strong> – Win tickets met geluk!</p>
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- FACILITIES SECTION -->
+   <section id="info" class="py-20 px-4" style="background: linear-gradient(135deg, #FFB84D 0%, rgba(255,184,77,0.85) 100%);">
+    <div class="max-w-5xl mx-auto">
+     <h2 class="font-heading text-4xl md:text-5xl text-center mb-14" style="color: #D1102D;">🎪 Faciliteiten</h2>
+     <div class="grid md:grid-cols-3 gap-8">
+      <div class="play-card rounded-3xl p-8 text-center anim-slide anim-slide-d2" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.1);">
+       <div class="text-6xl mb-5 inline-block p-5 rounded-2xl" style="background: rgba(74,144,226,0.3);">
+        🍕
+       </div>
+       <h3 class="font-heading text-2xl mb-3" style="color: #D1102D;">Eten &amp; Drinken</h3>
+       <p class="text-base font-semibold" style="color: #555;">Heerlijke snacks en kindermaaltijden.</p>
+       <div class="mt-4 pt-4 border-t-2" style="border-color: rgba(74,144,226,0.4);">
+        <p class="text-sm font-bold" style="color: #D1102D;">📞 0681410522</p>
+       </div>
+      </div>
+      <div class="play-card rounded-3xl p-8 text-center anim-slide anim-slide-d3" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.1);">
+       <div class="text-6xl mb-5 inline-block p-5 rounded-2xl" style="background: rgba(209,16,45,0.3);">
+        🎮
+       </div>
+       <h3 class="font-heading text-2xl mb-3" style="color: #D1102D;">Speelactiviteiten</h3>
+       <p class="text-base font-semibold" style="color: #555;">Alles wat je nodig hebt voor een super dag!</p>
+       <div class="mt-4 pt-4 border-t-2" style="border-color: rgba(209,16,45,0.4);">
+        <p class="text-sm font-bold" style="color: #D1102D;">🎉 Voor alle leeftijden!</p>
+       </div>
+      </div>
+      <div class="play-card rounded-3xl p-8 text-center anim-slide anim-slide-d3" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.1);">
+       <div class="text-6xl mb-5 inline-block p-5 rounded-2xl" style="background: rgba(255,184,77,0.3);">
+        🚻
+       </div>
+       <h3 class="font-heading text-2xl mb-3" style="color: #D1102D;">Toiletten</h3>
+       <p class="text-base font-semibold" style="color: #555;">Schone, kindvriendelijke toiletten.</p>
+       <div class="mt-4 pt-4 border-t-2" style="border-color: rgba(255,184,77,0.4);">
+        <p class="text-sm font-bold" style="color: #D1102D;">🕐 Weekend open</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- HOURS SECTION -->
+   <section class="py-20 px-4" style="background: linear-gradient(135deg, rgba(242,242,242,1) 0%, rgba(242,242,242,0.95) 100%);">
+    <div class="max-w-4xl mx-auto">
+     <h2 class="font-heading text-4xl md:text-5xl text-center mb-14" style="color: #D1102D;">⏰ Openingstijden</h2>
+     <div class="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+      <div class="play-card rounded-3xl p-8 text-center" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.08);">
+       <div class="text-5xl mb-5 inline-block p-4 rounded-2xl" style="background: rgba(255,184,77,0.3);">
+        📅
+       </div>
+       <h3 class="font-heading text-2xl mb-4" style="color: #D1102D;">Weekdagen</h3>
+       <p id="hours-weekday" class="font-bold text-lg" style="color: #333;">Ma-Vr: 10:00 - 18:00</p>
+       <p class="text-sm mt-3" style="color: #999;">Gesloten op wettelijke feestdagen</p>
+      </div>
+      <div class="play-card rounded-3xl p-8 text-center" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 15px 45px rgba(0,0,0,0.08);">
+       <div class="text-5xl mb-5 inline-block p-4 rounded-2xl" style="background: rgba(74,144,226,0.3);">
+        🎉
+       </div>
+       <h3 class="font-heading text-2xl mb-4" style="color: #D1102D;">Weekends</h3>
+       <p id="hours-weekend" class="font-bold text-lg" style="color: #333;">Za-Zo: 10:00 - 19:00</p>
+       <p class="text-sm mt-3" style="color: #999;">Langer open voor meer plezier!</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- SOCIAL SECTION -->
+   <section class="py-20 px-4" style="background: linear-gradient(135deg, rgba(242,242,242,0.95) 0%, rgba(242,242,242,1) 100%);">
+    <div class="max-w-3xl mx-auto text-center">
+     <h2 class="font-heading text-4xl md:text-5xl mb-5" style="color: #D1102D;">📱 Volg ons!</h2>
+     <p class="text-lg font-semibold mb-10" style="color: #555;">Blijf op de hoogte van al het plezier!</p>
+     <div class="flex justify-center gap-8">
+      <a href="https://www.facebook.com/p/Funn-Play-Beverwijk-./" target="_blank" rel="noopener noreferrer" class="social-btn w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl shadow-lg" style="background: linear-gradient(135deg, #4A90E2 0%, rgba(74,144,226,0.85) 100%);" aria-label="Facebook">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+       </svg></a> <a href="https://www.instagram.com/funnplaybeverwijk6/" target="_blank" rel="noopener noreferrer" class="social-btn w-20 h-20 rounded-full flex items-center justify-center text-white text-3xl shadow-lg" style="background: linear-gradient(135deg, #D1102D 0%, rgba(209,16,45,0.85) 100%);" aria-label="Instagram">
+       <svg width="32" height="32" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" /><circle cx="17.5" cy="6.5" r="1.5" />
+       </svg></a>
+     </div>
+    </div>
+   </section><!-- FOOD SECTION -->
+   <section id="food" class="py-20 px-4" style="background: linear-gradient(135deg, #FFB84D 0%, rgba(255,184,77,0.85) 100%);">
+    <div class="max-w-5xl mx-auto">
+     <h2 id="food-heading" class="font-heading text-4xl md:text-5xl text-center mb-12" style="color: #D1102D;">🍽️ Eten &amp; Pauze</h2>
+     <div class="grid md:grid-cols-2 gap-8 items-center mb-10">
+      <div class="play-card rounded-3xl overflow-hidden shadow-2xl" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5);">
+       <img src="https://i.postimg.cc/VsX51vCt/Whats-App-Image-2026-03-14-at-18-46-12_(4).jpg" alt="Keuken" loading="lazy" style="width: 100%; height: 300px; object-fit: cover;" onerror="console.error('Image failed:', this.src); this.style.background='#FFB84D'; this.alt='Afbeelding niet beschikbaar';">
+      </div>
+      <div>
+       <h3 class="font-heading text-3xl mb-4" style="color: #D1102D;">👨‍🍳 Heerlijke Gerechten</h3>
+       <p class="text-lg mb-4 font-semibold" style="color: #333;">Wij bieden een ruime keuze aan lekkere snacks en maaltijden voor de hele familie!</p>
+       <ul class="space-y-3">
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Kindermaaltijden</li>
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Gezonde opties</li>
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Drankjes &amp; Desserts</li>
+       </ul>
+      </div>
+     </div>
+     <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+       <h3 class="font-heading text-3xl mb-4" style="color: #D1102D;">☕ Gezellige Zitruimte</h3>
+       <p class="text-lg mb-4 font-semibold" style="color: #333;">Rust even uit terwijl je kinderen spelen. Onze eetruimte is comfortabel en schoon!</p>
+       <ul class="space-y-3">
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Ruim en schoon</li>
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Uitzicht op speelzone</li>
+        <li class="flex items-center gap-3" style="color: #555;"><span style="color: #D1102D; font-size: 1.3em;">✓</span> Perfect voor gezinnen</li>
+       </ul>
+      </div>
+      <div class="play-card rounded-3xl overflow-hidden shadow-2xl" style="background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5);">
+       <img src="https://i.postimg.cc/XN9X3qCF/Whats_App_Image_2026_03_14_at_18_46_12_(3).jpg" alt="Eetruimte" loading="lazy" style="width: 100%; height: 300px; object-fit: cover; object-position: top;" onerror="console.error('Image failed:', this.src); this.style.background='#FFB84D'; this.alt='Afbeelding niet beschikbaar';">
+      </div>
+     </div>
+    </div>
+   </section><!-- CONTACT SECTION -->
+   <section id="contact" class="py-20 px-4" style="background: linear-gradient(135deg, #FFB84D 0%, rgba(255,184,77,0.85) 100%);">
+    <div class="max-w-2xl mx-auto">
+     <h2 id="contact-heading" class="font-heading text-4xl md:text-5xl text-center mb-10" style="color: #D1102D;">✉️ Heb je vragen?</h2>
+     <form id="contact-form" class="rounded-3xl p-8 md:p-10 shadow-2xl" style="background: rgba(255,255,255,0.97); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.5);">
+      <div class="mb-6">
+       <label for="cf-name" class="block font-bold mb-2 text-sm" style="color: #D1102D;">Naam</label> <input type="text" id="cf-name" class="fun-input w-full px-5 py-3" placeholder="Jouw naam..." required>
+      </div>
+      <div class="mb-6">
+       <label for="cf-email" class="block font-bold mb-2 text-sm" style="color: #D1102D;">E-mail</label> <input type="email" id="cf-email" class="fun-input w-full px-5 py-3" placeholder="jij@voorbeeld.nl" required>
+      </div>
+      <div class="mb-6">
+       <label for="cf-subject" class="block font-bold mb-2 text-sm" style="color: #D1102D;">Onderwerp</label> <select id="cf-subject" class="fun-input w-full px-5 py-3" style="background: rgba(255,255,255,0.9);"> <option value="vraag">Ik heb een vraag</option> <option value="reservering">Reservering</option> <option value="feedback">Feedback</option> <option value="anders">Anders</option> </select>
+      </div>
+      <div class="mb-8">
+       <label for="cf-message" class="block font-bold mb-2 text-sm" style="color: #D1102D;">Bericht</label> <textarea id="cf-message" rows="4" class="fun-input w-full px-5 py-3" placeholder="Typ je berichtje hier..." required></textarea>
+      </div><button type="submit" class="btn-fun w-full py-4 text-lg text-white shadow-lg" style="background: linear-gradient(135deg, #D1102D 0%, rgba(209,16,45,0.85) 100%);"> Verstuur bericht 🚀 </button>
+      <div id="form-success" class="hidden mt-5 text-center p-5 rounded-2xl font-bold shadow-lg" style="background: rgba(255,184,77,0.4); color: #D1102D; border: 2px solid #D1102D;">
+       🎉 Bedankt! We nemen snel contact met je op!
+      </div>
+     </form>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="py-12 px-4 text-center" style="background: linear-gradient(135deg, #D1102D 0%, rgba(209,16,45,0.9) 100%);">
+    <div class="max-w-4xl mx-auto">
+     <div class="flex justify-center gap-6 mb-6">
+      <a href="https://www.facebook.com/p/Funn-Play-Beverwijk-./" target="_blank" rel="noopener noreferrer" class="social-btn w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(8px);" aria-label="Facebook">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="white"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+       </svg></a> <a href="https://www.instagram.com/funnplaybeverwijk6/" target="_blank" rel="noopener noreferrer" class="social-btn w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(8px);" aria-label="Instagram">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" /><circle cx="17.5" cy="6.5" r="1.5" />
+       </svg></a>
+     </div>
+     <p class="text-white font-bold mb-2 text-lg">📞 0681410522</p>
+     <p class="text-white mb-2 font-semibold">📍 Hal 26 - Stand 26300</p>
+     <p class="text-white text-sm mb-4">Baby &amp; Kind Entertainment</p>
+     <p id="footer-copyright" class="text-sm mt-5" style="color: rgba(255,255,255,0.75);">© 2025 Fun 'n Play Beverwijk. Alle rechten voorbehouden.</p>
+    </div>
+   </footer>
+  </div><!-- Toast notification -->
+  <div id="toast" class="toast-msg">
+   <div class="px-8 py-4 rounded-full font-bold shadow-xl text-white" style="background: linear-gradient(135deg, #D1102D 0%, rgba(209,16,45,0.85) 100%);">
+    🎉 Bericht verstuurd!
+   </div>
+  </div>
+  <script>
+    let gamesCurrentSlide = 0;
+    const gamesSlidesData = [
+      'https://i.postimg.cc/HjsT9p3n/Whats-App-Image-2026-03-14-at-18-46-12.jpg',
+      'https://i.postimg.cc/ry5zcsrS/Whats_App_Image_2026_03_14_at_18_46_12_(1).jpg',
+      'https://i.postimg.cc/RCwq9hHV/Whats_App_Image_2026_03_14_at_18_46_13_(2).jpg',
+      'https://i.postimg.cc/T2nhG1DP/Whats_App_Image_2026_03_14_at_18_46_13_(3).jpg',
+      'https://i.postimg.cc/8kLsDc6z/Whats_App_Image_2026_03_14_at_18_46_13_(4).jpg'
+    ];
+    let gamesTotalSlides = gamesSlidesData.length;
+    function initGamesCarousel() {
+      const track = document.getElementById('games-carousel-track');
+      const dotsContainer = document.getElementById('games-carousel-dots');
+      
+      // Create slides
+      gamesSlidesData.forEach((src, index) => {
+        const slide = document.createElement('div');
+        slide.className = 'games-carousel-slide';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = `Spellen foto ${index + 1}`;
+        img.loading = 'lazy';
+        img.onerror = function() {
+          console.error('Image failed:', this.src);
+          this.style.background = '#FFB84D';
+          this.alt = 'Foto niet beschikbaar';
+        };
+        slide.appendChild(img);
+        track.appendChild(slide);
+      });
+
+      // Create dots
+      for (let i = 0; i < gamesTotalSlides; i++) {
+        const dot = document.createElement('div');
+        dot.className = `games-dot ${i === 0 ? 'active' : ''}`;
+        dot.onclick = () => { gamesCurrentSlide = i; updateGamesCarousel(); };
+        dotsContainer.appendChild(dot);
+      }
+
+      updateGamesCarousel();
+    }
+
+    function updateGamesCarousel() {
+      const offset = -gamesCurrentSlide * 100;
+      document.getElementById('games-carousel-track').style.transform = `translateX(${offset}%)`;
+      const dots = document.querySelectorAll('.games-dot');
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === gamesCurrentSlide);
+      });
+    }
+
+    function moveGamesCarousel(direction) {
+      gamesCurrentSlide = (gamesCurrentSlide + direction + gamesTotalSlides) % gamesTotalSlides;
+      updateGamesCarousel();
+    }
+
+    setInterval(() => moveGamesCarousel(1), 6000);
+
+    // Initialize games carousel when DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+      initGamesCarousel();
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // Contact form
+    const contactForm = document.getElementById('contact-form');
+    const formSuccess = document.getElementById('form-success');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      formSuccess.classList.remove('hidden');
+      showToast();
+      contactForm.reset();
+      setTimeout(() => formSuccess.classList.add('hidden'), 5000);
+    });
+
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.style.animationPlayState = 'running';
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.anim-slide').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+
+    // Initialize Lucide
+    lucide.createIcons();
+
+    // Element SDK
+    const defaultConfig = {
+      hero_title: "Fun 'n Play",
+      hero_tagline: "Indoor entertainment voor kinderen! 🎉",
+      food_heading: "🍽️ Eten & Pauze",
+      contact_heading: "✉️ Heb je vragen?",
+      footer_copyright: "© 2025 Fun 'n Play Beverwijk. Alle rechten voorbehouden.",
+      background_color: "#FFB84D",
+      surface_color: "#F2F2F2",
+      text_color: "#333333",
+      primary_action_color: "#D1102D",
+      secondary_action_color: "#4A90E2",
+      font_family: "Nunito",
+      font_size: 16
+    };
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+      const primary = c.primary_action_color;
+      const secondary = c.secondary_action_color;
+      const bg = c.background_color;
+      const surface = c.surface_color;
+      const text = c.text_color;
+      const font = c.font_family;
+      const baseSize = c.font_size;
+
+      document.getElementById('hero-title').textContent = c.hero_title;
+      document.getElementById('hero-tagline').textContent = c.hero_tagline;
+      document.getElementById('nav-title').textContent = c.hero_title;
+      document.getElementById('food-heading').textContent = c.food_heading;
+      document.getElementById('contact-heading').textContent = c.contact_heading;
+      document.getElementById('footer-copyright').textContent = c.footer_copyright;
+
+      document.querySelectorAll('.font-heading').forEach(el => el.style.color = primary);
+      document.querySelectorAll('section h2').forEach(h => h.style.color = primary);
+      document.querySelectorAll('label').forEach(l => l.style.color = primary);
+      document.getElementById('app-wrapper').style.backgroundColor = bg;
+      document.querySelector('footer').style.background = `linear-gradient(135deg, ${primary} 0%, rgba(${parseInt(primary.slice(1,3),16)},${parseInt(primary.slice(3,5),16)},${parseInt(primary.slice(5,7),16)},0.9) 100%)`;
+      document.querySelectorAll('.btn-fun').forEach(btn => btn.style.background = `linear-gradient(135deg, ${primary} 0%, rgba(${parseInt(primary.slice(1,3),16)},${parseInt(primary.slice(3,5),16)},${parseInt(primary.slice(5,7),16)},0.85) 100%)`);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => applyConfig(config),
+        mapToCapabilities: (config) => {
+          const c = { ...defaultConfig, ...config };
+          return {
+            recolorables: [
+              { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+              { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+              { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+              { get: () => c.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+              { get: () => c.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => c.font_family,
+              set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+            },
+            fontSizeable: {
+              get: () => c.font_size,
+              set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+            }
+          };
+        },
+        mapToEditPanelValues: (config) => {
+          const c = { ...defaultConfig, ...config };
+          return new Map([
+            ["hero_title", c.hero_title],
+            ["hero_tagline", c.hero_tagline],
+            ["food_heading", c.food_heading],
+            ["contact_heading", c.contact_heading],
+            ["footer_copyright", c.footer_copyright]
+          ]);
+        }
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddfa4db57197971',t:'MTc3Mzc4ODc0My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

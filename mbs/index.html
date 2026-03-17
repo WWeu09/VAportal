@@ -540,7 +540,7 @@
 
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2rem;
       margin-top: 2rem;
     }
@@ -565,20 +565,19 @@
 
     .team-image {
       width: 100%;
-      height: 400px;
+      height: auto;
       object-fit: cover;
       object-position: center top;
       background: linear-gradient(135deg, var(--primary) 0%, var(--accent-dark) 100%);
       display: block;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: crisp-edges;
+      aspect-ratio: 3 / 4;
     }
 
     .team-info {
-      padding: 1.8rem;
+      padding: 1.8rem 1.8rem;
       display: flex;
       flex-direction: column;
-      gap: 0.8rem;
+      gap: 0.6rem;
     }
 
     .team-name {
@@ -595,6 +594,7 @@
       font-weight: 600;
       font-size: 0.9rem;
       margin: 0;
+      line-height: 1.4;
     }
 
     /* REVIEWS SECTION */
@@ -993,12 +993,14 @@
       grid-template-columns: 1fr 1fr;
       gap: 3rem;
       margin-bottom: 3rem;
+      width: 100%;
     }
 
     @media (max-width: 768px) {
       .contact-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        width: 100%;
       }
 
       .nav-container {
@@ -1137,10 +1139,6 @@
         gap: 1rem;
       }
 
-      .team-image {
-        height: 200px;
-      }
-
       .team-info {
         padding: 1rem;
         gap: 0.5rem;
@@ -1209,10 +1207,6 @@
 
       .team-grid {
         grid-template-columns: 1fr;
-      }
-
-      .team-image {
-        height: 180px;
       }
 
       .treatment-card {
@@ -1369,7 +1363,7 @@
       <h2 class="section-title">Ons Professionele Team</h2>
       <div class="team-grid">
        <div class="team-card">
-        <img src="https://i.postimg.cc/Wh83m3r9/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Michaela</h3>
          <p class="team-role">Lash Stylist &amp; Educator</p>
@@ -1611,7 +1605,7 @@
       <h2 class="section-title">Ons Team</h2>
       <div class="team-grid">
        <div class="team-card">
-        <img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+        <img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Michaela</h3>
          <p class="team-role">Eigenaar &amp; Founder</p>
@@ -1895,5 +1889,5 @@
     // LUCIDE ICONS
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddfcceca6e3b927',t:'MTc3Mzc5MDM4NC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ddfd62904f7b927',t:'MTc3Mzc5MDc2Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

@@ -1172,6 +1172,27 @@
         font-size: 0.9rem;
       }
 
+      .nav-menu .nav-cta {
+        width: 90%;
+        margin: 0.8rem auto;
+        display: block;
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        background: var(--primary);
+        color: white;
+        border: none;
+        border-radius: var(--radius-md);
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        text-align: center;
+      }
+
+      .nav-menu .nav-cta:hover {
+        background: var(--accent-dark);
+        transform: translateY(-2px);
+      }
+
       .nav-cta {
         width: auto;
         padding: 0.65rem 1.2rem;
@@ -1352,7 +1373,8 @@
  <body>
   <main class="main-wrapper">
    <nav id="navbar">
-    <div class="nav-container"><a href="#home" class="nav-logo" onclick="navigateTo('home', event)">Michaela's Beauty Bar</a> <button class="hamburger" id="hamburger" aria-label="Menu"> <span></span> <span></span> <span></span> </button>
+    <div class="nav-container">
+     <a href="#home" class="nav-logo" onclick="navigateTo('home', event)">Michaela's Beauty Bar</a> <button class="hamburger" id="hamburger" aria-label="Menu"> <span></span> <span></span> <span></span> </button>
      <ul class="nav-menu" id="navMenu">
       <li><a onclick="navigateTo('home', event)">Home</a></li>
       <li><a href="#">Behandelingen</a>
@@ -1376,14 +1398,16 @@
      <div class="hero-content">
       <h1 class="hero-title">Michaela's Beauty Bar</h1>
       <p class="hero-subtitle">Lashes, Brows, Toothgems &amp; Nails in Amsterdam Noord</p>
-      <div class="hero-buttons"><button class="btn btn-primary" onclick="navigateTo('booking', event)">Boek Afspraak</button> <button class="btn btn-secondary" onclick="navigateTo('treatments', event)">Bekijk Behandelingen</button>
+      <div class="hero-buttons">
+       <button class="btn btn-primary" onclick="navigateTo('booking', event)">Boek Afspraak</button> <button class="btn btn-secondary" onclick="navigateTo('treatments', event)">Bekijk Behandelingen</button>
       </div>
      </div>
     </section>
     <section class="treatments">
      <div class="section-container">
       <h2 class="section-title">Boek je Afspraak</h2>
-      <div class="booking-widget" style="margin-bottom: 1.5rem;"><iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
+      <div class="booking-widget" style="margin-bottom: 1.5rem;">
+       <iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
       </div>
      </div>
     </section>
@@ -1392,7 +1416,8 @@
       <h2 class="section-title">Populaire Behandelingen</h2>
       <div class="treatments-grid">
        <div class="treatment-card">
-        <div class="card-image"><i class="card-icon" data-lucide="sparkles"></i>
+        <div class="card-image">
+         <i class="card-icon" data-lucide="sparkles"></i>
         </div>
         <div class="card-content">
          <h3 class="card-title">Lash Extensions</h3>
@@ -1400,7 +1425,8 @@
         </div>
        </div>
        <div class="treatment-card">
-        <div class="card-image"><i class="card-icon" data-lucide="eye"></i>
+        <div class="card-image">
+         <i class="card-icon" data-lucide="eye"></i>
         </div>
         <div class="card-content">
          <h3 class="card-title">Brows</h3>
@@ -1408,7 +1434,8 @@
         </div>
        </div>
        <div class="treatment-card">
-        <div class="card-image"><i class="card-icon" data-lucide="gem"></i>
+        <div class="card-image">
+         <i class="card-icon" data-lucide="gem"></i>
         </div>
         <div class="card-content">
          <h3 class="card-title">Tooth Gems</h3>
@@ -1416,7 +1443,8 @@
         </div>
        </div>
        <div class="treatment-card">
-        <div class="card-image"><i class="card-icon" data-lucide="flower"></i>
+        <div class="card-image">
+         <i class="card-icon" data-lucide="flower"></i>
         </div>
         <div class="card-content">
          <h3 class="card-title">Nails</h3>
@@ -1424,7 +1452,8 @@
         </div>
        </div>
        <div class="treatment-card">
-        <div class="card-image"><i class="card-icon" data-lucide="zap"></i>
+        <div class="card-image">
+         <i class="card-icon" data-lucide="zap"></i>
         </div>
         <div class="card-content">
          <h3 class="card-title">RF Tightening</h3>
@@ -1447,25 +1476,29 @@
      <div class="section-container">
       <h2 class="section-title">Ons Professionele Team</h2>
       <div class="team-grid">
-       <div class="team-card"><img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Michaela</h3>
          <p class="team-role">Lash Stylist &amp; Educator</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Danique</h3>
          <p class="team-role">Nail Stylist</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Kaoutar</h3>
          <p class="team-role">Lash Stylist</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Nina</h3>
          <p class="team-role">Brow Stylist</p>
@@ -1500,7 +1533,8 @@
         <p class="review-author">- Lisa M.</p>
        </div>
       </div>
-      <div class="review-controls"><button class="review-btn" onclick="prevReview()"><i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i> Vorige</button> <button class="review-btn" onclick="nextReview()">Volgende <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i></button>
+      <div class="review-controls">
+       <button class="review-btn" onclick="prevReview()"><i data-lucide="chevron-left" style="width: 20px; height: 20px;"></i> Vorige</button> <button class="review-btn" onclick="nextReview()">Volgende <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i></button>
       </div>
       <div class="review-dots" id="reviewDots"></div>
      </div>
@@ -1508,7 +1542,8 @@
     <section class="contact-cta">
      <div class="section-container">
       <p class="contact-cta-text">Neem gerust contact met ons op via email of WhatsApp</p>
-      <div class="contact-buttons"><a href="https://wa.me/31684927988" target="_blank" rel="noopener noreferrer" class="btn-light"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i> WhatsApp</a> <a href="mailto:info@lashesbymickey.nl" class="btn-light"><i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email</a>
+      <div class="contact-buttons">
+       <a href="https://wa.me/31684927988" target="_blank" rel="noopener noreferrer" class="btn-light"><i data-lucide="message-circle" style="width: 20px; height: 20px;"></i> WhatsApp</a> <a href="mailto:info@lashesbymickey.nl" class="btn-light"><i data-lucide="mail" style="width: 20px; height: 20px;"></i> Email</a>
       </div>
      </div>
     </section>
@@ -1520,7 +1555,8 @@
       <div class="treatments-detail-grid">
        <div class="treatment-detail-card">
         <div class="detail-header">
-         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="sparkles"></i>
+         <div class="detail-icon-wrapper">
+          <i class="detail-icon" data-lucide="sparkles"></i>
          </div>
          <div class="detail-title-section">
           <h3 class="detail-title">Lash Extensions</h3>
@@ -1543,7 +1579,8 @@
        </div>
        <div class="treatment-detail-card">
         <div class="detail-header">
-         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="eye"></i>
+         <div class="detail-icon-wrapper">
+          <i class="detail-icon" data-lucide="eye"></i>
          </div>
          <div class="detail-title-section">
           <h3 class="detail-title">Brow Treatments</h3>
@@ -1565,7 +1602,8 @@
        </div>
        <div class="treatment-detail-card">
         <div class="detail-header">
-         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="zap"></i>
+         <div class="detail-icon-wrapper">
+          <i class="detail-icon" data-lucide="zap"></i>
          </div>
          <div class="detail-title-section">
           <h3 class="detail-title">Body Treatments</h3>
@@ -1586,7 +1624,8 @@
        </div>
        <div class="treatment-detail-card">
         <div class="detail-header">
-         <div class="detail-icon-wrapper"><i class="detail-icon" data-lucide="wind"></i>
+         <div class="detail-icon-wrapper">
+          <i class="detail-icon" data-lucide="wind"></i>
          </div>
          <div class="detail-title-section">
           <h3 class="detail-title">Facial Hair Removal</h3>
@@ -1671,25 +1710,29 @@
      <div class="section-container">
       <h2 class="section-title">Ons Team</h2>
       <div class="team-grid">
-       <div class="team-card"><img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/7Z82kJLy/Michaela.jpg" alt="Michaela" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Michaela</h3>
          <p class="team-role">Lash Stylist &amp; Educator</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/cLynStJy/Danique.jpg" alt="Danique" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Danique</h3>
          <p class="team-role">Beauty Expert</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/9Q57hwfH/Kaoutar.jpg" alt="Kaoutar" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Kaoutar</h3>
          <p class="team-role">Lash Specialist</p>
         </div>
        </div>
-       <div class="team-card"><img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
+       <div class="team-card">
+        <img src="https://i.postimg.cc/QdGT3KM3/Nina.jpg" alt="Nina" class="team-image" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#e5e7eb'; this.alt='Image unavailable';">
         <div class="team-info">
          <h3 class="team-name">Nina</h3>
          <p class="team-role">Beauty Professional</p>
@@ -1722,11 +1765,14 @@
        <div>
         <h3 style="font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--primary); margin-bottom: 2rem; letter-spacing: -0.5px;">Stuur een Bericht</h3>
         <form id="contactForm" style="background: var(--glass-light); backdrop-filter: var(--blur); border: 1px solid var(--glass-border); padding: 2rem; border-radius: var(--radius-lg); box-shadow: 0 4px 16px var(--shadow-soft);">
-         <div style="margin-bottom: 1.5rem;"><label for="name" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Naam *</label> <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
+         <div style="margin-bottom: 1.5rem;">
+          <label for="name" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Naam *</label> <input type="text" id="name" name="name" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
          </div>
-         <div style="margin-bottom: 1.5rem;"><label for="email" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Email *</label> <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
+         <div style="margin-bottom: 1.5rem;">
+          <label for="email" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Email *</label> <input type="email" id="email" name="email" required style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem;">
          </div>
-         <div style="margin-bottom: 1.5rem;"><label for="message" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Bericht *</label> <textarea id="message" name="message" required rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; resize: vertical;"></textarea>
+         <div style="margin-bottom: 1.5rem;">
+          <label for="message" style="display: block; color: var(--primary); font-weight: 600; margin-bottom: 0.5rem;">Bericht *</label> <textarea id="message" name="message" required rows="5" style="width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: var(--radius-sm); font-family: 'Poppins', sans-serif; font-size: 1rem; resize: vertical;"></textarea>
          </div><button type="submit" class="btn btn-primary" style="width: 100%;">Verzend Bericht</button>
          <p id="formMessage" style="margin-top: 1rem; text-align: center; color: var(--accent);"></p>
         </form>
@@ -1742,7 +1788,8 @@
     <section class="booking">
      <div class="section-container">
       <h2 class="section-title">Boek je Afspraak</h2>
-      <div class="booking-widget"><iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
+      <div class="booking-widget">
+       <iframe src="https://widget.salonized.com/widget?color=%234b4037&amp;language=nl&amp;company=Ry7Cm9Ff5ekEQDp4B8xcbWdc&amp;inline=true"></iframe>
       </div>
      </div>
     </section>
@@ -1788,7 +1835,8 @@
      </div>
     </div>
    </footer><!-- FLOATING BUTTONS -->
-   <div class="float-buttons"><button class="float-btn float-whatsapp" onclick="window.open('https://wa.me/31684927988', '_blank')" title="WhatsApp" aria-label="WhatsApp"> <i class="float-icon" data-lucide="message-circle"></i> </button> <button class="float-btn float-call" onclick="window.location.href='tel:+31684927988'" title="Call" aria-label="Call"> <i class="float-icon" data-lucide="phone"></i> </button>
+   <div class="float-buttons">
+    <button class="float-btn float-whatsapp" onclick="window.open('https://wa.me/31684927988', '_blank')" title="WhatsApp" aria-label="WhatsApp"> <i class="float-icon" data-lucide="message-circle"></i> </button> <button class="float-btn float-call" onclick="window.location.href='tel:+31684927988'" title="Call" aria-label="Call"> <i class="float-icon" data-lucide="phone"></i> </button>
    </div>
   </main>
   <script>
@@ -1947,5 +1995,5 @@
     // LUCIDE ICONS
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9de6566d93999085',t:'MTc3Mzg1ODkzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9de65d14654e9085',t:'MTc3Mzg1OTIwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

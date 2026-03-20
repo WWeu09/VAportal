@@ -184,53 +184,101 @@
       transition: all 0.3s ease;
     }
     .expand-btn:hover { transform: scale(1.05); }
+
+    /* Portfolio slider */
+    .portfolio-slider {
+      display: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      gap: 12px;
+      padding-bottom: 8px;
+    }
+    .portfolio-slider.active { display: flex; }
+    .portfolio-slider::-webkit-scrollbar {
+      height: 4px;
+    }
+    .portfolio-slider::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+    }
+    .portfolio-slider::-webkit-scrollbar-thumb {
+      background: #4a9fd9;
+      border-radius: 10px;
+    }
+    .slider-item {
+      min-width: 280px;
+      scroll-snap-align: start;
+      flex-shrink: 0;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .view-toggle button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #a09890;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .view-toggle button.active {
+      background: #4a9fd9;
+      color: #e8e4e0;
+      border-color: #4a9fd9;
+    }
+
+    @media (max-width: 768px) {
+      .slider-item { min-width: calc(50% - 6px); }
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;">
-  <!-- Navigation -->
+ <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;"><!-- Navigation -->
   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20">
-     <a href="#home" class="flex items-center gap-3 group">
+    <div class="flex items-center justify-between h-16 sm:h-20"><a href="#home" class="flex items-center gap-3 group">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
        RW
       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
-     <div class="hidden md:flex items-center gap-8">
-      <a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
+     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
      </div><button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
     </div>
    </div>
   </nav><!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
    <div class="flex flex-col h-full px-6 pt-6">
-    <div class="flex items-center justify-between mb-12">
-     <span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    <div class="flex items-center justify-between mb-12"><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
     </div>
-    <div class="flex flex-col gap-6">
-     <a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    <div class="flex flex-col gap-6"><a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
     </div>
    </div>
   </div>
-  <main id="app-wrapper" class="w-full">
-   <!-- HERO SECTION -->
+  <main id="app-wrapper" class="w-full"><!-- HERO SECTION -->
    <section id="home" class="relative w-full hero-bg grid-pattern" style="min-height: 600px;">
     <div class="barber-stripe absolute inset-0 opacity-30"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
      <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
-      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-       <circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
+      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
       </svg>
      </div>
      <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
      <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
      <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Precision cuts. Clean fades. Sharp style.</p>
-     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in">
-      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
      </div>
-     <div class="mt-16 fade-in animate-bounce">
-      <i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
+     <div class="mt-16 fade-in animate-bounce"><i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
      </div>
     </div>
    </section><!-- PORTFOLIO SECTION -->
@@ -241,13 +289,14 @@
       <h2 id="portfolio-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Portfolio</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div><!-- Category Filter -->
-     <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in">
-      <button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     <div class="flex flex-wrap justify-center gap-3 mb-6 fade-in md:mb-12"><button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     </div><!-- View Toggle (Mobile) -->
+     <div class="view-toggle md:hidden fade-in"><button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
      </div><!-- Portfolio Grid -->
-     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-      <!-- Items generated by JS -->
-     </div><!-- Expand Gallery Button -->
-     <div id="expand-container" class="text-center mt-12 fade-in"></div>
+     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"><!-- Items generated by JS -->
+     </div><!-- Portfolio Slider -->
+     <div id="portfolio-slider" class="portfolio-slider"><!-- Items generated by JS -->
+     </div>
     </div>
    </section><!-- BOOKING SECTION -->
    <section id="booking" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
@@ -257,8 +306,7 @@
       <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;">
-      <iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;"><iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
      </div>
     </div>
    </section><!-- SOCIALS SECTION -->
@@ -269,23 +317,21 @@
       <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-      <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9">
+         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
         </svg>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
@@ -303,8 +349,7 @@
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
        <div class="flex items-start gap-4 mb-8">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
-         <i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div>
          <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
@@ -314,32 +359,37 @@
         </div>
        </div>
        <div class="flex items-start gap-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
-         <i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div class="w-full">
          <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
          <div class="space-y-2 text-sm">
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          <div class="flex justify-between py-2">
+           <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
           </div>
          </div>
         </div>
        </div>
       </div>
-      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;">
-       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
       </div>
      </div>
     </div>
@@ -356,8 +406,7 @@
    </footer>
   </main><!-- Lightbox -->
   <div id="lightbox" class="lightbox">
-   <div class="lightbox-content">
-    <button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   <div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
    </div>
   </div>
   <script>
@@ -440,57 +489,90 @@
 
     function renderPortfolio() {
       const grid = document.getElementById('portfolio-grid');
+      const slider = document.getElementById('portfolio-slider');
       grid.innerHTML = '';
+      slider.innerHTML = '';
 
       portfolioItems.forEach((item, idx) => {
-        const div = document.createElement('div');
-        div.className = 'portfolio-item rounded-2xl overflow-hidden relative group cursor-pointer flex flex-col bg-gradient-to-b from-transparent to-black/60';
-        div.style.cssText = `aspect-ratio:1;`;
-        div.setAttribute('data-index', idx);
-        div.addEventListener('click', () => openLightbox(idx));
+        // Grid item
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'portfolio-item rounded-2xl overflow-hidden relative group cursor-pointer flex flex-col bg-gradient-to-b from-transparent to-black/60';
+        gridDiv.style.cssText = `aspect-ratio:1;`;
+        gridDiv.setAttribute('data-index', idx);
+        gridDiv.addEventListener('click', () => openLightbox(idx));
 
         // Load image with error handling
-        const img = new Image();
-        img.onload = () => {
-          div.style.backgroundImage = `url('${item.thumbnail}')`;
-          div.style.backgroundSize = 'cover';
-          div.style.backgroundPosition = 'center';
+        const gridImg = new Image();
+        gridImg.onload = () => {
+          gridDiv.style.backgroundImage = `url('${item.thumbnail}')`;
+          gridDiv.style.backgroundSize = 'cover';
+          gridDiv.style.backgroundPosition = 'center';
         };
-        img.onerror = () => {
-          div.style.background = '#1a1a1a';
-          div.innerHTML += '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a09890;">❌</div>';
+        gridImg.onerror = () => {
+          gridDiv.style.background = '#1a1a1a';
+          gridDiv.innerHTML += '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a09890;">❌</div>';
         };
-        img.src = item.thumbnail;
+        gridImg.src = item.thumbnail;
 
         // Extract category from filename
         const category = extractCategory(item.title);
 
         // Transparent banner at bottom
-        const banner = document.createElement('div');
-        banner.className = 'absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent';
+        const bannerGrid = document.createElement('div');
+        bannerGrid.className = 'absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent';
         
         if (category) {
-          banner.innerHTML = `
+          bannerGrid.innerHTML = `
             <p class="text-xs sm:text-sm font-semibold truncate" style="color:#e8e4e0;">${category}</p>
             <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(74,159,217,0.3);">
               <i data-lucide="maximize-2" style="width:14px;height:14px;color:#4a9fd9;"></i>
             </div>
           `;
-        } else {
-          // Empty banner - just transparent space for consistency
-          banner.innerHTML = '';
         }
 
-        div.appendChild(banner);
+        gridDiv.appendChild(bannerGrid);
+        setTimeout(() => gridDiv.classList.add('visible'), 100 + idx * 80);
+        grid.appendChild(gridDiv);
 
-        setTimeout(() => div.classList.add('visible'), 100 + idx * 80);
-        grid.appendChild(div);
+        // Slider item
+        const sliderDiv = document.createElement('div');
+        sliderDiv.className = 'slider-item portfolio-item rounded-2xl overflow-hidden relative group cursor-pointer flex flex-col bg-gradient-to-b from-transparent to-black/60';
+        sliderDiv.style.cssText = `aspect-ratio:1;`;
+        sliderDiv.setAttribute('data-index', idx);
+        sliderDiv.addEventListener('click', () => openLightbox(idx));
+
+        const sliderImg = new Image();
+        sliderImg.onload = () => {
+          sliderDiv.style.backgroundImage = `url('${item.thumbnail}')`;
+          sliderDiv.style.backgroundSize = 'cover';
+          sliderDiv.style.backgroundPosition = 'center';
+        };
+        sliderImg.onerror = () => {
+          sliderDiv.style.background = '#1a1a1a';
+          sliderDiv.innerHTML += '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a09890;">❌</div>';
+        };
+        sliderImg.src = item.thumbnail;
+
+        const bannerSlider = document.createElement('div');
+        bannerSlider.className = 'absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent';
+        
+        if (category) {
+          bannerSlider.innerHTML = `
+            <p class="text-xs sm:text-sm font-semibold truncate" style="color:#e8e4e0;">${category}</p>
+            <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(74,159,217,0.3);">
+              <i data-lucide="maximize-2" style="width:14px;height:14px;color:#4a9fd9;"></i>
+            </div>
+          `;
+        }
+
+        sliderDiv.appendChild(bannerSlider);
+        slider.appendChild(sliderDiv);
       });
 
       lucide.createIcons();
 
-      // Hide expand button since we're showing all images
-      document.getElementById('expand-container').innerHTML = '';
+      // Hide filter buttons since we're loading all images directly
+      document.querySelectorAll('.portfolio-filter').forEach(btn => btn.style.display = 'none');
     }
 
     // Lightbox functions
@@ -543,6 +625,26 @@
       if (e.key === 'Escape') closeLightbox();
       if (e.key === 'ArrowRight') nextImage();
       if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    // View toggle for mobile
+    document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.getAttribute('data-view');
+        
+        // Update active state
+        document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Toggle visibility
+        if (view === 'grid') {
+          document.getElementById('portfolio-grid').style.display = 'grid';
+          document.getElementById('portfolio-slider').classList.remove('active');
+        } else {
+          document.getElementById('portfolio-grid').style.display = 'none';
+          document.getElementById('portfolio-slider').classList.add('active');
+        }
+      });
     });
 
     // Hide filter buttons since we're loading all images directly
@@ -646,5 +748,5 @@
     loadFolder(ROOT_FOLDER);
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df51e1143dc6676',t:'MTc3NDAxMzkwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df5214346626676',t:'MTc3NDAxNDAzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

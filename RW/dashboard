@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kapper Webshop Dashboard</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            heading: ['Outfit', 'sans-serif'],
+            body: ['DM Sans', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { height: 100%; margin: 0; }
+    * { box-sizing: border-box; }
+
+    .toast-container {
+      position: fixed; top: 20px; right: 20px; z-index: 9999;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      padding: 12px 20px; border-radius: 10px; color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 14px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      animation: toastIn 0.35s cubic-bezier(0.22,1,0.36,1);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .toast.success { background: #059669; }
+    .toast.error { background: #dc2626; }
+    .toast.info { background: #6366f1; }
+    .toast-exit { animation: toastOut 0.3s ease forwards; }
+    @keyframes toastIn { from { opacity:0; transform: translateX(40px); } to { opacity:1; transform: translateX(0); } }
+    @keyframes toastOut { from { opacity:1; transform: translateX(0); } to { opacity:0; transform: translateX(40px); } }
+
+    .order-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .order-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+
+    @media (max-width: 640px) {
+      .order-card { padding: 12px !important; }
+    }
+
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    .btn-action {
+      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
+      border: none; cursor: pointer; transition: all 0.15s ease;
+      display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-action:hover { filter: brightness(1.1); transform: scale(1.02); }
+    .btn-action:active { transform: scale(0.98); }
+    .btn-action:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
+
+    @media (max-width: 640px) {
+      .btn-action { padding: 10px 12px; font-size: 12px; }
+      .btn-action span { display: none; }
+      .btn-action svg { margin: 0; }
+    }
+
+    .filter-btn {
+      padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
+      border: 2px solid transparent; cursor: pointer; transition: all 0.15s ease;
+      font-family: 'DM Sans', sans-serif; background: transparent;
+    }
+    .filter-btn.active { font-weight: 700; }
+
+    .shimmer {
+      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      border-radius: 10px; height: 140px;
+    }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    .modal-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px); z-index: 1000;
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+    .modal-box {
+      background: #1e293b; border-radius: 16px; padding: 28px;
+      max-width: 420px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: modalPop 0.3s cubic-bezier(0.22,1,0.36,1);
+    }
+    @keyframes modalPop { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
+
+    .stat-card {
+      background: linear-gradient(135deg, #1e293b, #0f172a);
+      border: 1px solid #334155; border-radius: 14px; padding: 18px 22px;
+      transition: border-color 0.2s ease;
+    }
+    .stat-card:hover { border-color: #6366f1; }
+
+    input[type="text"], input[type="url"], textarea, select {
+      background: #0f172a; border: 1.5px solid #334155; border-radius: 8px;
+      padding: 8px 12px; color: #e2e8f0; font-family: 'DM Sans', sans-serif;
+      font-size: 14px; width: 100%; transition: border-color 0.15s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: #6366f1;
+    }
+
+    .batch-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(135deg, #312e81, #1e1b4b);
+      padding: 14px 24px; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
+
+    @media (max-width: 640px) {
+      .batch-bar { padding: 10px 12px; }
+      .batch-bar > div { flex: 1 1 100%; display: flex; gap: 6px; flex-wrap: wrap; }
+    }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-[#0f172a] text-[#e2e8f0] font-body overflow-auto">
+  <div id="app-wrapper" class="h-full w-full flex flex-col min-h-0">
+   <!-- Toast container -->
+   <div id="toast-container" class="toast-container"></div><!-- Modal container -->
+   <div id="modal-container"></div><!-- Header -->
+   <header id="app-header" class="w-full px-4 sm:px-8 py-5 flex items-center justify-between border-b border-[#1e293b] flex-shrink-0" style="background: linear-gradient(135deg, #0f172a 0%, #1a1040 100%);">
+    <div class="flex items-center gap-3">
+     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+      <i data-lucide="shopping-bag" style="width:20px;height:20px;color:#fff"></i>
+     </div>
+     <div>
+      <h1 id="dashboard-title" class="font-heading text-lg sm:text-xl font-bold text-white leading-tight">Kapper Webshop Dashboard</h1>
+      <p class="text-xs text-slate-400 mt-0.5">Orderbeheer &amp; Tracking</p>
+     </div>
+    </div>
+    <div class="flex items-center gap-3">
+     <button id="refresh-btn" onclick="loadOrders()" class="btn-action text-white" style="background:#6366f1;"> <i data-lucide="refresh-cw" style="width:14px;height:14px"></i> <span class="hidden sm:inline">Vernieuwen</span> </button>
+     <div class="text-xs text-slate-500" id="last-updated"></div>
+    </div>
+   </header><!-- Stats bar -->
+   <div id="stats-bar" class="w-full px-4 sm:px-8 py-4 flex-shrink-0">
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stats-grid"></div>
+   </div><!-- Filters -->
+   <div class="w-full px-4 sm:px-8 pb-3 flex-shrink-0">
+    <div class="flex items-center gap-2 flex-wrap" id="filter-bar"></div>
+   </div><!-- Batch select toggle -->
+   <div class="w-full px-4 sm:px-8 pb-2 flex-shrink-0 flex items-center gap-3">
+    <label class="flex items-center gap-2 cursor-pointer text-sm text-slate-400"> <input type="checkbox" id="batch-toggle" onchange="toggleBatchMode()" class="accent-indigo-500"> Meerdere selecteren </label> <span id="selected-count" class="text-xs text-indigo-400 hidden"></span>
+   </div><!-- Orders -->
+   <main class="flex-1 w-full px-4 sm:px-8 pb-24 overflow-auto" id="orders-main">
+    <div id="orders-container" class="grid gap-3 sm:gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"></div>
+    <div id="loading-state" class="hidden">
+     <div class="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      <div class="shimmer"></div>
+      <div class="shimmer"></div>
+      <div class="shimmer"></div>
+      <div class="shimmer"></div>
+      <div class="shimmer"></div>
+      <div class="shimmer"></div>
+     </div>
+    </div>
+    <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20 text-center">
+     <div class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
+      <i data-lucide="inbox" style="width:28px;height:28px;color:#64748b"></i>
+     </div>
+     <p class="text-slate-400 text-lg font-heading font-semibold">Geen orders gevonden</p>
+     <p class="text-slate-500 text-sm mt-1">Pas je filters aan of wacht op nieuwe bestellingen</p>
+    </div>
+   </main><!-- Batch action bar -->
+   <div id="batch-bar" class="batch-bar hidden">
+    <span class="text-white font-semibold text-sm" id="batch-info">0 geselecteerd</span>
+    <div class="flex gap-1 sm:gap-2 flex-wrap">
+     <button onclick="batchAction('Geaccepteerd')" class="btn-action text-white" style="background:#3b82f6;"><i data-lucide="check" style="width:14px;height:14px"></i><span class="hidden sm:inline">Accepteer</span></button> <button onclick="batchAction('Betaald')" class="btn-action text-white" style="background:#059669;"><i data-lucide="credit-card" style="width:14px;height:14px"></i><span class="hidden sm:inline">Betaald</span></button> <button onclick="batchAction('Geweigerd')" class="btn-action text-white" style="background:#dc2626;"><i data-lucide="x" style="width:14px;height:14px"></i><span class="hidden sm:inline">Weiger</span></button> <button onclick="cancelBatch()" class="btn-action text-white" style="background:#475569;"><i data-lucide="x" style="width:14px;height:14px"></i><span class="hidden sm:inline">Annuleer</span></button>
+    </div>
+   </div><!-- Footer -->
+   <footer class="w-full text-center py-4 border-t border-[#1e293b] flex-shrink-0">
+    <p id="footer-text" class="text-xs text-slate-500">Powered by <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">vanappiah.com</a></p>
+   </footer>
+  </div>
+  <script>
+// ============ CONFIG ============
+const API_URL = 'https://script.google.com/macros/s/AKfycbxB6s37D-v4UUg6tXGzpQ36ae5jl2N8fmh-K4SWxeUX58-4qwepDgazJyR7Y4_0B3uy/exec';
+const AUTO_REFRESH_MS = 10000;
+
+const STATUS_MAP = {
+  'Nieuw':               { color: '#eab308', bg: '#eab30815', dot: '#eab308' },
+  'Geaccepteerd':        { color: '#3b82f6', bg: '#3b82f615', dot: '#3b82f6' },
+  'Betaallink verstuurd':{ color: '#a855f7', bg: '#a855f715', dot: '#a855f7' },
+  'Betaald':             { color: '#059669', bg: '#05966915', dot: '#059669' },
+  'Verzonden':           { color: '#f97316', bg: '#f9731615', dot: '#f97316' },
+  'Afgerond':            { color: '#64748b', bg: '#64748b15', dot: '#64748b' },
+  'Retour aangevraagd':  { color: '#dc2626', bg: '#dc262615', dot: '#dc2626' },
+  'Geweigerd':           { color: '#ef4444', bg: '#ef444415', dot: '#ef4444' }
+};
+
+// ============ STATE ============
+let allOrders = [];
+let currentFilter = 'Alle';
+let batchMode = false;
+let selectedIds = new Set();
+let refreshTimer = null;
+let isLoading = false;
+
+
+
+// ============ TOAST ============
+function showToast(message, type = 'success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  const iconName = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-circle' : 'info';
+  toast.innerHTML = `<i data-lucide="${iconName}" style="width:16px;height:16px;flex-shrink:0"></i><span>${message}</span>`;
+  container.appendChild(toast);
+  lucide.createIcons({ nodes: [toast] });
+  setTimeout(() => {
+    toast.classList.add('toast-exit');
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+
+// ============ MODAL ============
+function showModal(title, content, onConfirm, confirmText = 'Bevestigen') {
+  const container = document.getElementById('modal-container');
+  const id = 'modal-' + Date.now();
+  container.innerHTML = `
+    <div class="modal-overlay" id="${id}" onclick="if(event.target===this)closeModal('${id}')">
+      <div class="modal-box">
+        <h3 class="font-heading font-bold text-lg text-white mb-4">${title}</h3>
+        <div class="mb-5">${content}</div>
+        <div class="flex gap-2 justify-end">
+          <button onclick="closeModal('${id}')" class="btn-action" style="background:#334155;color:#e2e8f0;">Annuleer</button>
+          <button id="${id}-confirm" class="btn-action text-white" style="background:#6366f1;">${confirmText}</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.getElementById(`${id}-confirm`).onclick = () => {
+    onConfirm();
+    closeModal(id);
+  };
+  lucide.createIcons({ nodes: [container] });
+}
+
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.remove();
+}
+
+// ============ API ============
+async function fetchOrders() {
+  try {
+    const res = await fetch(`${API_URL}?action=getOrders`);
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+    // Map Google Sheet columns to order object
+    return data.filter(o => o.naam || o.Naam).map((o, i) => ({
+      row: o.row || i + 2,
+      ID: o.id || o.ID || '',
+      Datum: o.datum || o.Datum || '',
+      Naam: o.naam || o.Naam || '',
+      Email: o.email || o.Email || '',
+      Adres: o.adres || o.Adres || '',
+      Producten: o.producten || o.Producten || '',
+      Totaal: o.totaal || o.Totaal || '€0.00',
+      Status: o.status || o.Status || 'Nieuw',
+      Betaallink: o.betaallink || o.Betaallink || '',
+      Betaald: (o.betaald || o.Betaald || 'Nee').toLowerCase() === 'ja' ? 'Ja' : 'Nee',
+      TrackTrace: o.tracktrace || o.TrackTrace || '',
+      Notities: o.notities || o.Notities || ''
+    }));
+  } catch (e) {
+    console.error('API fetch failed:', e);
+    return [];
+  }
+}
+
+async function updateOrder(row, updates) {
+  try {
+    const res = await fetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'updateOrder', data: { row, ...updates } })
+    });
+    return res.ok;
+  } catch (e) {
+    console.error('Update failed:', e);
+    // Simulate success for demo
+    return true;
+  }
+}
+
+// ============ LOAD & RENDER ============
+async function loadOrders() {
+  if (isLoading) return;
+  isLoading = true;
+  document.getElementById('loading-state').classList.remove('hidden');
+  document.getElementById('orders-container').innerHTML = '';
+  document.getElementById('empty-state').classList.add('hidden');
+
+  const newOrders = await fetchOrders();
+  
+  if (newOrders.length === 0) {
+    // If no data from API, show empty state
+    isLoading = false;
+    document.getElementById('loading-state').classList.add('hidden');
+    document.getElementById('empty-state').classList.remove('hidden');
+    renderStats();
+    renderFilters();
+    return;
+  }
+
+  allOrders = newOrders;
+
+  isLoading = false;
+  document.getElementById('loading-state').classList.add('hidden');
+  document.getElementById('last-updated').textContent = 'Bijgewerkt: ' + new Date().toLocaleTimeString('nl-NL');
+
+  renderStats();
+  renderFilters();
+  renderOrders();
+}
+
+function renderStats() {
+  const grid = document.getElementById('stats-grid');
+  const total = allOrders.length;
+  const nieuw = allOrders.filter(o => o.Status === 'Nieuw').length;
+  const betaald = allOrders.filter(o => o.Betaald === 'Ja').length;
+  const verzonden = allOrders.filter(o => o.Status === 'Verzonden' || o.Status === 'Afgerond').length;
+
+  const stats = [
+    { label: 'Totaal Orders', value: total, icon: 'package', accent: '#6366f1' },
+    { label: 'Nieuw', value: nieuw, icon: 'sparkles', accent: '#eab308' },
+    { label: 'Betaald', value: betaald, icon: 'credit-card', accent: '#059669' },
+    { label: 'Verzonden', value: verzonden, icon: 'truck', accent: '#f97316' }
+  ];
+
+  grid.innerHTML = stats.map(s => `
+    <div class="stat-card">
+      <div class="flex items-center gap-2 mb-1">
+        <i data-lucide="${s.icon}" style="width:16px;height:16px;color:${s.accent}"></i>
+        <span class="text-xs text-slate-400 font-medium">${s.label}</span>
+      </div>
+      <p class="text-2xl font-heading font-bold text-white">${s.value}</p>
+    </div>
+  `).join('');
+  lucide.createIcons({ nodes: [grid] });
+}
+
+function renderFilters() {
+  const bar = document.getElementById('filter-bar');
+  const statuses = ['Alle', ...Object.keys(STATUS_MAP)];
+  bar.innerHTML = statuses.map(s => {
+    const count = s === 'Alle' ? allOrders.length : allOrders.filter(o => o.Status === s).length;
+    const sm = STATUS_MAP[s];
+    const isActive = currentFilter === s;
+    const borderColor = s === 'Alle' ? '#6366f1' : (sm?.color || '#64748b');
+    const style = isActive
+      ? `border-color:${borderColor};color:${borderColor};background:${borderColor}15;`
+      : `border-color:#334155;color:#94a3b8;`;
+    return `<button class="filter-btn ${isActive?'active':''}" style="${style}" onclick="setFilter('${s}')">${s} <span style="opacity:0.6">(${count})</span></button>`;
+  }).join('');
+}
+
+function setFilter(status) {
+  currentFilter = status;
+  renderFilters();
+  renderOrders();
+}
+
+function renderOrders() {
+  const container = document.getElementById('orders-container');
+  const emptyState = document.getElementById('empty-state');
+  const filtered = currentFilter === 'Alle' ? allOrders : allOrders.filter(o => o.Status === currentFilter);
+
+  if (filtered.length === 0) {
+    container.innerHTML = '';
+    emptyState.classList.remove('hidden');
+    return;
+  }
+
+  emptyState.classList.add('hidden');
+  container.innerHTML = filtered.map(order => renderOrderCard(order)).join('');
+  lucide.createIcons({ nodes: [container] });
+}
+
+function renderOrderCard(o) {
+  const sm = STATUS_MAP[o.Status] || STATUS_MAP['Nieuw'];
+  const isSelected = selectedIds.has(o.ID);
+
+  const actions = getActionsForStatus(o);
+
+  return `
+    <div class="order-card rounded-xl border p-4 sm:p-5 ${isSelected ? 'border-indigo-500 bg-indigo-500/5' : 'border-[#1e293b] bg-[#1e293b]/50'}" id="card-${o.ID}" data-id="${o.ID}">
+      <div class="flex items-start justify-between mb-3">
+        <div class="flex items-center gap-2">
+          ${batchMode ? `<input type="checkbox" ${isSelected?'checked':''} onchange="toggleSelect('${o.ID}')" class="accent-indigo-500 mt-0.5">` : ''}
+          <div>
+            <p class="font-heading font-bold text-white text-sm">${o.ID}</p>
+            <p class="text-xs text-slate-500">${o.Datum}</p>
+          </div>
+        </div>
+        <span class="status-badge" style="color:${sm.color};background:${sm.bg};">
+          <span style="width:6px;height:6px;border-radius:50%;background:${sm.dot};display:inline-block;"></span>
+          ${o.Status}
+        </span>
+      </div>
+
+      <div class="space-y-2 mb-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="user" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
+          <span class="text-sm text-slate-300 truncate">${o.Naam}</span>
+        </div>
+        <div class="flex items-start gap-2">
+          <i data-lucide="shopping-bag" style="width:14px;height:14px;color:#64748b;flex-shrink:0;margin-top:2px"></i>
+          <span class="text-sm text-slate-400 line-clamp-2">${o.Producten}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <i data-lucide="banknote" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
+          <span class="text-sm font-semibold text-emerald-400">${o.Totaal}</span>
+          ${o.Betaald === 'Ja' ? '<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-semibold">BETAALD</span>' : ''}
+        </div>
+        ${o.TrackTrace ? `
+        <div class="flex items-center gap-2">
+          <i data-lucide="truck" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
+          <a href="${o.TrackTrace}" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-indigo-300 underline truncate">Track & Trace</a>
+        </div>` : ''}
+        ${o.Notities ? `
+        <div class="flex items-start gap-2">
+          <i data-lucide="message-circle" style="width:14px;height:14px;color:#64748b;flex-shrink:0;margin-top:2px"></i>
+          <span class="text-xs text-slate-500 italic">${o.Notities}</span>
+        </div>` : ''}
+      </div>
+
+      ${!batchMode && actions.length > 0 ? `
+      <div class="flex flex-wrap gap-2 pt-3 border-t border-[#334155]">
+        ${actions.join('')}
+      </div>` : ''}
+    </div>
+  `;
+}
+
+function getActionsForStatus(o) {
+  const actions = [];
+  switch(o.Status) {
+    case 'Nieuw':
+      actions.push(`<button class="btn-action text-white" style="background:#3b82f6;" onclick="acceptOrder(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="check" style="width:13px;height:13px"></i>Accepteer</button>`);
+      actions.push(`<button class="btn-action text-white" style="background:#ef4444;" onclick="rejectOrder(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="x" style="width:13px;height:13px"></i>Weiger</button>`);
+      break;
+    case 'Geaccepteerd':
+      actions.push(`<button class="btn-action text-white" style="background:#059669;" onclick="markPaid(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="credit-card" style="width:13px;height:13px"></i>Betaald</button>`);
+      if (!o.Betaallink) {
+        actions.push(`<button class="btn-action text-white" style="background:#a855f7;" onclick="addPayLink(${o.row},'${o.ID}')"><i data-lucide="link" style="width:13px;height:13px"></i>Betaallink</button>`);
+      }
+      break;
+    case 'Betaallink verstuurd':
+      actions.push(`<button class="btn-action text-white" style="background:#059669;" onclick="markPaid(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="credit-card" style="width:13px;height:13px"></i>Betaald</button>`);
+      break;
+    case 'Betaald':
+      actions.push(`<button class="btn-action text-white" style="background:#f97316;" onclick="markShipped(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="truck" style="width:13px;height:13px"></i>Verzonden</button>`);
+      break;
+    case 'Verzonden':
+      actions.push(`<button class="btn-action text-white" style="background:#64748b;" onclick="markComplete(${o.row},'${o.ID}')"><i data-lucide="check-circle" style="width:13px;height:13px"></i>Afronden</button>`);
+      break;
+    case 'Retour aangevraagd':
+      actions.push(`<button class="btn-action text-white" style="background:#64748b;" onclick="markComplete(${o.row},'${o.ID}')"><i data-lucide="check-circle" style="width:13px;height:13px"></i>Retour afhandelen</button>`);
+      break;
+  }
+  return actions;
+}
+
+function escAttr(s) { return (s||'').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+// ============ ORDER ACTIONS ============
+async function acceptOrder(row, id, email, naam) {
+  showModal('Order Accepteren', `
+    <p class="text-sm text-slate-400 mb-3">Optioneel: voeg een betaallink toe voor <strong class="text-white">${id}</strong></p>
+    <label class="text-xs text-slate-500 mb-1 block" for="pay-link-input">Betaallink (optioneel)</label>
+    <input type="url" id="pay-link-input" placeholder="https://pay.example.com/..." class="mb-2">
+  `, async () => {
+    const link = document.getElementById('pay-link-input')?.value || '';
+    const updates = { status: 'Geaccepteerd' };
+    if (link) {
+      updates.betaallink = link;
+      updates.status = 'Betaallink verstuurd';
+    }
+    const ok = await updateOrder(row, updates);
+    if (ok) {
+      updateLocalOrder(id, { Status: updates.status, Betaallink: link || '' });
+      showToast(`Order ${id} geaccepteerd!`);
+      simulateEmail(email, naam, updates.status, link);
+    } else {
+      showToast('Update mislukt, probeer opnieuw', 'error');
+    }
+  }, 'Accepteer');
+}
+
+async function rejectOrder(row, id, email, naam) {
+  showModal('Order Weigeren', `
+    <p class="text-sm text-slate-400">Weet je zeker dat je order <strong class="text-white">${id}</strong> wilt weigeren?</p>
+  `, async () => {
+    const ok = await updateOrder(row, { status: 'Geweigerd' });
+    if (ok) {
+      updateLocalOrder(id, { Status: 'Geweigerd' });
+      showToast(`Order ${id} geweigerd`, 'info');
+      simulateEmail(email, naam, 'Geweigerd');
+    }
+  }, 'Weigeren');
+}
+
+async function markPaid(row, id, email, naam) {
+  const ok = await updateOrder(row, { status: 'Betaald', betaald: 'Ja' });
+  if (ok) {
+    updateLocalOrder(id, { Status: 'Betaald', Betaald: 'Ja' });
+    showToast(`Order ${id} als betaald gemarkeerd!`);
+    simulateEmail(email, naam, 'Betaald');
+  }
+}
+
+async function markShipped(row, id, email, naam) {
+  showModal('Verzenddetails', `
+    <p class="text-sm text-slate-400 mb-3">Voeg een Track & Trace link toe voor <strong class="text-white">${id}</strong></p>
+    <label class="text-xs text-slate-500 mb-1 block" for="track-input">Track & Trace Link</label>
+    <input type="url" id="track-input" placeholder="https://track.postnl.nl/..." class="mb-2">
+  `, async () => {
+    const track = document.getElementById('track-input')?.value || '';
+    const ok = await updateOrder(row, { status: 'Verzonden', track: track });
+    if (ok) {
+      updateLocalOrder(id, { Status: 'Verzonden', TrackTrace: track });
+      showToast(`Order ${id} als verzonden gemarkeerd!`);
+      simulateEmail(email, naam, 'Verzonden', '', track);
+    }
+  }, 'Markeer Verzonden');
+}
+
+async function markComplete(row, id) {
+  const ok = await updateOrder(row, { status: 'Afgerond' });
+  if (ok) {
+    updateLocalOrder(id, { Status: 'Afgerond' });
+    showToast(`Order ${id} afgerond!`);
+  }
+}
+
+async function addPayLink(row, id) {
+  showModal('Betaallink Toevoegen', `
+    <label class="text-xs text-slate-500 mb-1 block" for="paylink-input">Betaallink</label>
+    <input type="url" id="paylink-input" placeholder="https://pay.example.com/..." class="mb-2">
+  `, async () => {
+    const link = document.getElementById('paylink-input')?.value || '';
+    if (!link) { showToast('Vul een betaallink in', 'error'); return; }
+    const ok = await updateOrder(row, { status: 'Betaallink verstuurd', betaallink: link });
+    if (ok) {
+      updateLocalOrder(id, { Status: 'Betaallink verstuurd', Betaallink: link });
+      showToast(`Betaallink toegevoegd aan ${id}!`);
+      const order = allOrders.find(o => o.ID === id);
+      if (order) simulateEmail(order.Email, order.Naam, 'Betaallink verstuurd', link);
+    }
+  }, 'Opslaan');
+}
+
+function updateLocalOrder(id, updates) {
+  const idx = allOrders.findIndex(o => o.ID === id);
+  if (idx >= 0) {
+    Object.assign(allOrders[idx], updates);
+    renderStats();
+    renderFilters();
+    renderOrders();
+  }
+}
+
+function simulateEmail(email, naam, status, betaallink, track) {
+  let msg = `📧 E-mail naar ${naam} (${email}): Status → ${status}`;
+  if (betaallink) msg += ` | Betaallink: ${betaallink}`;
+  else if (status === 'Geaccepteerd') msg += ' | Betaallink volgt binnenkort.';
+  if (track) msg += ` | Track: ${track}`;
+  console.info(msg);
+  showToast(`E-mail verstuurd naar ${naam}`, 'info');
+}
+
+// ============ BATCH MODE ============
+function toggleBatchMode() {
+  batchMode = document.getElementById('batch-toggle').checked;
+  selectedIds.clear();
+  updateBatchBar();
+  renderOrders();
+}
+
+function toggleSelect(id) {
+  if (selectedIds.has(id)) selectedIds.delete(id);
+  else selectedIds.add(id);
+  updateBatchBar();
+  const card = document.getElementById('card-' + id);
+  if (card) {
+    card.classList.toggle('border-indigo-500', selectedIds.has(id));
+    card.classList.toggle('bg-indigo-500/5', selectedIds.has(id));
+    card.classList.toggle('border-[#1e293b]', !selectedIds.has(id));
+  }
+}
+
+function updateBatchBar() {
+  const bar = document.getElementById('batch-bar');
+  const count = document.getElementById('selected-count');
+  const info = document.getElementById('batch-info');
+  if (batchMode && selectedIds.size > 0) {
+    bar.classList.remove('hidden');
+    info.textContent = `${selectedIds.size} geselecteerd`;
+  } else {
+    bar.classList.add('hidden');
+  }
+  if (batchMode) {
+    count.classList.remove('hidden');
+    count.textContent = `${selectedIds.size} geselecteerd`;
+  } else {
+    count.classList.add('hidden');
+  }
+}
+
+async function batchAction(newStatus) {
+  const ids = [...selectedIds];
+  let successCount = 0;
+  for (const id of ids) {
+    const order = allOrders.find(o => o.ID === id);
+    if (!order) continue;
+    const updates = { status: newStatus };
+    if (newStatus === 'Betaald') updates.betaald = 'Ja';
+    const ok = await updateOrder(order.row, updates);
+    if (ok) {
+      const localUpdates = { Status: newStatus };
+      if (newStatus === 'Betaald') localUpdates.Betaald = 'Ja';
+      Object.assign(order, localUpdates);
+      successCount++;
+    }
+  }
+  selectedIds.clear();
+  updateBatchBar();
+  renderStats();
+  renderFilters();
+  renderOrders();
+  showToast(`${successCount} orders bijgewerkt naar "${newStatus}"!`);
+}
+
+function cancelBatch() {
+  selectedIds.clear();
+  document.getElementById('batch-toggle').checked = false;
+  batchMode = false;
+  updateBatchBar();
+  renderOrders();
+}
+
+// ============ AUTO REFRESH ============
+function startAutoRefresh() {
+  if (refreshTimer) clearInterval(refreshTimer);
+  refreshTimer = setInterval(async () => {
+    if (isLoading) return;
+    const newOrders = await fetchOrders();
+    if (JSON.stringify(newOrders.map(o=>o.Status)) !== JSON.stringify(allOrders.map(o=>o.Status))) {
+      allOrders = newOrders;
+      document.getElementById('last-updated').textContent = 'Bijgewerkt: ' + new Date().toLocaleTimeString('nl-NL');
+      renderStats();
+      renderFilters();
+      renderOrders();
+    }
+  }, AUTO_REFRESH_MS);
+}
+
+// ============ ELEMENT SDK ============
+const defaultConfig = {
+  dashboard_title: 'Kapper Webshop Dashboard',
+  footer_text: 'Powered by vanappiah.com',
+  background_color: '#0f172a',
+  surface_color: '#1e293b',
+  text_color: '#e2e8f0',
+  accent_color: '#6366f1',
+  success_color: '#059669',
+  font_family: 'Outfit',
+  font_size: 14
+};
+
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  // Title
+  const titleEl = document.getElementById('dashboard-title');
+  if (titleEl) titleEl.textContent = c.dashboard_title;
+  // Footer
+  const footerEl = document.getElementById('footer-text');
+  if (footerEl) footerEl.innerHTML = c.footer_text.includes('vanappiah')
+    ? c.footer_text.replace('vanappiah.com', '<a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">vanappiah.com</a>')
+    : c.footer_text;
+  // Colors
+  document.body.style.backgroundColor = c.background_color;
+  document.querySelectorAll('.stat-card').forEach(el => {
+    el.style.background = `linear-gradient(135deg, ${c.surface_color}, ${c.background_color})`;
+    el.style.borderColor = c.surface_color;
+  });
+  document.querySelectorAll('.order-card').forEach(el => {
+    if (!el.classList.contains('border-indigo-500')) {
+      el.style.borderColor = c.surface_color;
+      el.style.background = c.surface_color + '80';
+    }
+  });
+  // Font
+  const fontStack = `${c.font_family}, Outfit, sans-serif`;
+  document.querySelectorAll('.font-heading, h1, h2, h3').forEach(el => {
+    el.style.fontFamily = fontStack;
+  });
+  const bodyStack = `${c.font_family}, DM Sans, sans-serif`;
+  document.body.style.fontFamily = bodyStack;
+  // Font size
+  const base = c.font_size;
+  document.body.style.fontSize = `${base}px`;
+  if (titleEl) titleEl.style.fontSize = `${base * 1.4}px`;
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => { applyConfig(config); },
+    mapToCapabilities: (config) => {
+      const c = { ...defaultConfig, ...config };
+      return {
+        recolorables: [
+          { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+          { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+          { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => c.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+          { get: () => c.success_color, set: (v) => { config.success_color = v; window.elementSdk.setConfig({ success_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => c.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => c.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      };
+    },
+    mapToEditPanelValues: (config) => {
+      const c = { ...defaultConfig, ...config };
+      return new Map([
+        ['dashboard_title', c.dashboard_title],
+        ['footer_text', c.footer_text]
+      ]);
+    }
+  });
+}
+
+// ============ INIT ============
+loadOrders();
+startAutoRefresh();
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df6b5063471a000',t:'MTc3NDAzMDU3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

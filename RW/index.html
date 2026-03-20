@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RW Cutzz — Premium Barbershop Amsterdam</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html { height: 100%; }
+    body { height: 100%; margin: 0; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .portfolio-item { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .portfolio-item.visible { opacity: 1; transform: scale(1); }
+
+    .nav-link { position: relative; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .shimmer {
+      background: linear-gradient(110deg, transparent 25%, rgba(255,255,255,0.05) 37%, transparent 63%);
+      background-size: 200% 100%;
+      animation: shimmer 3s infinite linear;
+    }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+
+    .scroll-smooth { scroll-behavior: smooth; }
+
+    /* Barber pole accent */
+    .barber-stripe {
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(74,159,217,0.15) 10px,
+        rgba(74,159,217,0.15) 20px,
+        transparent 20px,
+        transparent 30px,
+        rgba(74,159,217,0.1) 30px,
+        rgba(74,159,217,0.1) 40px
+      );
+    }
+
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
+
+    .social-card:hover { transform: translateY(-4px); }
+    .social-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 10, 10, 0.95);
+      overflow: auto;
+    }
+    .lightbox.active { display: flex; align-items: center; justify-content: center; }
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+    }
+    .lightbox-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #e8e4e0;
+      cursor: pointer;
+      font-size: 32px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #e8e4e0;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+    .lightbox-prev:hover, .lightbox-next:hover { background: rgba(0, 0, 0, 0.8); }
+
+    .expand-btn {
+      background: #4a9fd9;
+      color: #e8e4e0;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .expand-btn:hover { transform: scale(1.05); }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;"><!-- Navigation -->
+  <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20"><a href="#home" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
+       RW
+      </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
+     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
+     </div><button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div>
+   </div>
+  </nav><!-- Mobile Menu Overlay -->
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
+   <div class="flex flex-col h-full px-6 pt-6">
+    <div class="flex items-center justify-between mb-12"><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    </div>
+    <div class="flex flex-col gap-6"><a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    </div>
+   </div>
+  </div>
+  <main id="app-wrapper" class="w-full"><!-- HERO SECTION -->
+   <section id="home" class="relative w-full hero-bg grid-pattern" style="min-height: 600px;">
+    <div class="barber-stripe absolute inset-0 opacity-30"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
+     <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
+      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
+      </svg>
+     </div>
+     <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
+     <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
+     <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Precision cuts. Clean fades. Sharp style.</p>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
+     </div>
+     <div class="mt-16 fade-in animate-bounce"><i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
+     </div>
+    </div>
+   </section><!-- PORTFOLIO SECTION -->
+   <section id="portfolio" class="w-full py-20 sm:py-28" style="background: #0f0f0f;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Ons Werk</p>
+      <h2 id="portfolio-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Portfolio</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div><!-- Category Filter -->
+     <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in"><button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     </div><!-- Portfolio Grid -->
+     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"><!-- Items generated by JS -->
+     </div><!-- Expand Gallery Button -->
+     <div id="expand-container" class="text-center mt-12 fade-in"></div>
+    </div>
+   </section><!-- BOOKING SECTION -->
+   <section id="booking" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Reserveer Direct</p>
+      <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;"><iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
+     </div>
+    </div>
+   </section><!-- SOCIALS SECTION -->
+   <section id="socials" class="w-full py-20 sm:py-28" style="background: #0f0f0f;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Volg Ons</p>
+      <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
+        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9">
+         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        </svg>
+       </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a>
+     </div>
+    </div>
+   </section><!-- CONTACT SECTION -->
+   <section id="contact" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Bezoek Ons</p>
+      <h2 id="contact-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Contact &amp; Locatie</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
+       <div class="flex items-start gap-4 mb-8">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        </div>
+        <div>
+         <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
+         <p style="color: #a09890;">Mariendaal 94<br>
+           1025 BW Amsterdam<br>
+           Netherlands</p>
+        </div>
+       </div>
+       <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        </div>
+        <div class="w-full">
+         <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
+         <div class="space-y-2 text-sm">
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          </div>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          </div>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          </div>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          </div>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          </div>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
+           <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          </div>
+          <div class="flex justify-between py-2">
+           <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
+      </div>
+     </div>
+    </div>
+   </section><!-- FOOTER -->
+   <footer class="w-full py-8 text-center" style="background: #080808; border-top: 1px solid rgba(255,255,255,0.05);">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="flex items-center justify-center gap-3 mb-4">
+      <div class="w-8 h-8 rounded-md flex items-center justify-center font-display text-sm" style="background: #4a9fd9; color: #e8e4e0;">
+       RW
+      </div><span class="font-display text-lg tracking-wider" style="color: #e8e4e0;">CUTZZ</span>
+     </div>
+     <p class="text-xs" style="color: #a09890;">© 2024 RW Cutzz. Alle rechten voorbehouden.</p>
+    </div>
+   </footer>
+  </main><!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+   <div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   </div>
+  </div>
+  <script>
+    // ========== DEFAULT CONFIG ==========
+    const defaultConfig = {
+      hero_title: 'RW CUTZZ',
+      hero_subtitle: 'Premium Barbershop Amsterdam',
+      hero_tagline: 'Precision cuts. Clean fades. Sharp style.',
+      portfolio_title: 'Portfolio',
+      booking_title: 'Maak een Afspraak',
+      contact_title: 'Contact & Locatie',
+      background_color: '#0a0a0a',
+      surface_color: '#0f0f0f',
+      text_color: '#e8e4e0',
+      primary_action_color: '#4a9fd9',
+      secondary_action_color: '#a09890',
+      font_family: 'Bebas Neue',
+      font_size: 16
+    };
+
+    // ========== GOOGLE DRIVE PORTFOLIO LOADER ==========
+    const API_KEY = "AIzaSyAyDZqnPrQjHJM5K5xh-qMcG3H_TeRFbiw";
+    const ROOT_FOLDER = "1yldYDJolbfbEMR67X_5Ds2QqO7lheQfS";
+
+    let portfolioItems = [];
+    let currentLightboxIndex = 0;
+    let lightboxItems = [];
+
+    async function loadFolder(folderId) {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-center; color: #a09890;">⏳ Fotos laden...</div>';
+
+      const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)`;
+
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+
+        grid.innerHTML = '';
+        portfolioItems = [];
+
+        data.files.forEach((file) => {
+          // Afbeelding
+          if (file.mimeType.startsWith('image/')) {
+            portfolioItems.push({
+              id: file.id,
+              title: file.name,
+              thumbnail: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+              fullImage: `https://drive.google.com/uc?export=view&id=${file.id}`
+            });
+          }
+        });
+
+        renderPortfolio();
+
+      } catch (err) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-center; color: #e8605a;">❌ Fout bij laden</div>';
+        console.error(err);
+      }
+    }
+
+    function renderPortfolio() {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '';
+
+      portfolioItems.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'portfolio-item rounded-xl overflow-hidden relative group cursor-pointer';
+        div.style.cssText = `aspect-ratio:1;background-image:url('${item.thumbnail}');background-size:cover;background-position:center;`;
+        div.setAttribute('data-index', idx);
+        div.addEventListener('click', () => openLightbox(idx));
+
+        div.innerHTML = `
+          <div class="shimmer absolute inset-0"></div>
+          <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(10,10,10,0.7);">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(74,159,217,0.3);">
+              <i data-lucide="maximize-2" style="width:18px;height:18px;color:#4a9fd9;"></i>
+            </div>
+          </div>
+        `;
+
+        setTimeout(() => div.classList.add('visible'), 100 + idx * 80);
+        grid.appendChild(div);
+      });
+
+      lucide.createIcons();
+
+      // Hide expand button since we're showing all images
+      document.getElementById('expand-container').innerHTML = '';
+    }
+
+    // Lightbox functions
+    function openLightbox(index) {
+      lightboxItems = portfolioItems;
+      currentLightboxIndex = index;
+      const lightbox = document.getElementById('lightbox');
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      img.alt = lightboxItems[currentLightboxIndex].title;
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function nextImage() {
+      if (lightboxItems.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + 1) % lightboxItems.length;
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      img.alt = lightboxItems[currentLightboxIndex].title;
+    }
+
+    function prevImage() {
+      if (lightboxItems.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      img.alt = lightboxItems[currentLightboxIndex].title;
+    }
+
+    // Close lightbox on Esc key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    // Hide filter buttons since we're loading all images directly
+    document.querySelectorAll('.portfolio-filter').forEach(btn => btn.style.display = 'none');
+
+    // ========== MOBILE MENU ==========
+    const mobileMenu = document.getElementById('mobile-menu');
+    document.getElementById('menu-toggle').addEventListener('click', () => mobileMenu.classList.add('open'));
+    document.getElementById('menu-close').addEventListener('click', () => mobileMenu.classList.remove('open'));
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+    });
+
+    // ========== SCROLL ANIMATIONS ==========
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // ========== ELEMENT SDK ==========
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+
+      // Text
+      document.getElementById('hero-title').textContent = c.hero_title;
+      document.getElementById('hero-subtitle').textContent = c.hero_subtitle;
+      document.getElementById('hero-tagline').textContent = c.hero_tagline;
+      document.getElementById('portfolio-title').textContent = c.portfolio_title;
+      document.getElementById('booking-title').textContent = c.booking_title;
+      document.getElementById('contact-title').textContent = c.contact_title;
+
+      // Font
+      const fontStack = `${c.font_family}, 'Bebas Neue', sans-serif`;
+      document.querySelectorAll('.font-display').forEach(el => {
+        el.style.fontFamily = fontStack;
+      });
+
+      const bodyFontStack = `${c.font_family}, 'DM Sans', sans-serif`;
+      document.body.style.fontFamily = bodyFontStack;
+
+      // Font size scaling
+      const base = c.font_size || 16;
+      document.querySelectorAll('.text-sm, .text-xs').forEach(el => {
+        el.style.fontSize = `${base * 0.85}px`;
+      });
+
+      // Colors - background
+      document.body.style.backgroundColor = c.background_color;
+      document.querySelectorAll('section').forEach((sec, i) => {
+        sec.style.backgroundColor = i % 2 === 0 ? c.background_color : c.surface_color;
+      });
+
+      // Colors - primary action
+      document.querySelectorAll('.portfolio-filter.active, .expand-btn').forEach(el => {
+        el.style.background = c.primary_action_color;
+      });
+    }
+
+    // Initialize Element SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          applyConfig(config);
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+            { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+            { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+            { get: () => config.primary_action_color || defaultConfig.primary_action_color, set: (v) => { config.primary_action_color = v; window.elementSdk.setConfig({ primary_action_color: v }); } },
+            { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } },
+          ],
+          borderables: [],
+          fontEditable: {
+            get: () => config.font_family || defaultConfig.font_family,
+            set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+          },
+          fontSizeable: {
+            get: () => config.font_size || defaultConfig.font_size,
+            set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+          }
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['hero_title', config.hero_title || defaultConfig.hero_title],
+          ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+          ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+          ['portfolio_title', config.portfolio_title || defaultConfig.portfolio_title],
+          ['booking_title', config.booking_title || defaultConfig.booking_title],
+          ['contact_title', config.contact_title || defaultConfig.contact_title],
+        ])
+      });
+    }
+
+    // ========== INIT ==========
+    loadFolder(ROOT_FOLDER);
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df50b8dc4270b7c',t:'MTc3NDAxMzE1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

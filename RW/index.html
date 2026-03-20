@@ -103,29 +103,37 @@
     .lightbox.active { display: flex; align-items: center; justify-content: center; }
     .lightbox-content {
       position: relative;
-      max-width: 90vw;
+      max-width: 95vw;
       max-height: 90vh;
-    }
-    .lightbox-img {
       width: 100%;
       height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-img {
+      max-width: 95vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
       object-fit: contain;
     }
     .lightbox-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 10px;
+      right: 10px;
       color: #e8e4e0;
       cursor: pointer;
       font-size: 32px;
       background: rgba(0, 0, 0, 0.5);
       border: none;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      z-index: 101;
     }
     .lightbox-prev, .lightbox-next {
       position: absolute;
@@ -135,17 +143,34 @@
       cursor: pointer;
       background: rgba(0, 0, 0, 0.5);
       border: none;
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 18px;
     }
-    .lightbox-prev { left: 20px; }
-    .lightbox-next { right: 20px; }
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
     .lightbox-prev:hover, .lightbox-next:hover { background: rgba(0, 0, 0, 0.8); }
+
+    @media (max-width: 640px) {
+      .lightbox-close {
+        width: 36px;
+        height: 36px;
+        font-size: 24px;
+        top: 8px;
+        right: 8px;
+      }
+      .lightbox-prev, .lightbox-next {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+      }
+      .lightbox-prev { left: 8px; }
+      .lightbox-next { right: 8px; }
+    }
 
     .expand-btn {
       background: #4a9fd9;
@@ -163,40 +188,49 @@
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;"><!-- Navigation -->
+ <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;">
+  <!-- Navigation -->
   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20"><a href="#home" class="flex items-center gap-3 group">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+     <a href="#home" class="flex items-center gap-3 group">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
        RW
       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
-     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
      </div><button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
     </div>
    </div>
   </nav><!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
    <div class="flex flex-col h-full px-6 pt-6">
-    <div class="flex items-center justify-between mb-12"><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    <div class="flex items-center justify-between mb-12">
+     <span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
     </div>
-    <div class="flex flex-col gap-6"><a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    <div class="flex flex-col gap-6">
+     <a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
     </div>
    </div>
   </div>
-  <main id="app-wrapper" class="w-full"><!-- HERO SECTION -->
+  <main id="app-wrapper" class="w-full">
+   <!-- HERO SECTION -->
    <section id="home" class="relative w-full hero-bg grid-pattern" style="min-height: 600px;">
     <div class="barber-stripe absolute inset-0 opacity-30"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
      <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
-      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
+      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
       </svg>
      </div>
      <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
      <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
      <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Precision cuts. Clean fades. Sharp style.</p>
-     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in">
+      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
      </div>
-     <div class="mt-16 fade-in animate-bounce"><i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
+     <div class="mt-16 fade-in animate-bounce">
+      <i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
      </div>
     </div>
    </section><!-- PORTFOLIO SECTION -->
@@ -207,9 +241,11 @@
       <h2 id="portfolio-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Portfolio</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div><!-- Category Filter -->
-     <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in"><button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in">
+      <button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
      </div><!-- Portfolio Grid -->
-     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"><!-- Items generated by JS -->
+     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      <!-- Items generated by JS -->
      </div><!-- Expand Gallery Button -->
      <div id="expand-container" class="text-center mt-12 fade-in"></div>
     </div>
@@ -221,7 +257,8 @@
       <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;"><iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;">
+      <iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
      </div>
     </div>
    </section><!-- SOCIALS SECTION -->
@@ -232,21 +269,23 @@
       <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9">
-         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
         </svg>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
+        <i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
+        <i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
@@ -264,7 +303,8 @@
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
        <div class="flex items-start gap-4 mb-8">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
+         <i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div>
          <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
@@ -274,37 +314,32 @@
         </div>
        </div>
        <div class="flex items-start gap-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
+         <i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div class="w-full">
          <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
          <div class="space-y-2 text-sm">
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2">
-           <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          <div class="flex justify-between py-2"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
           </div>
          </div>
         </div>
        </div>
       </div>
-      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;">
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
       </div>
      </div>
     </div>
@@ -321,7 +356,8 @@
    </footer>
   </main><!-- Lightbox -->
   <div id="lightbox" class="lightbox">
-   <div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
    </div>
   </div>
   <script>
@@ -463,8 +499,14 @@
       currentLightboxIndex = index;
       const lightbox = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
-      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      // Use thumbnail for faster loading, add cache bust param
+      const src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+      img.src = src;
       img.alt = lightboxItems[currentLightboxIndex].title;
+      img.onerror = () => {
+        // Fallback to thumbnail if full image fails
+        img.src = lightboxItems[currentLightboxIndex].thumbnail;
+      };
       lightbox.classList.add('active');
     }
 
@@ -476,16 +518,24 @@
       if (lightboxItems.length === 0) return;
       currentLightboxIndex = (currentLightboxIndex + 1) % lightboxItems.length;
       const img = document.getElementById('lightbox-img');
-      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      const src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+      img.src = src;
       img.alt = lightboxItems[currentLightboxIndex].title;
+      img.onerror = () => {
+        img.src = lightboxItems[currentLightboxIndex].thumbnail;
+      };
     }
 
     function prevImage() {
       if (lightboxItems.length === 0) return;
       currentLightboxIndex = (currentLightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
       const img = document.getElementById('lightbox-img');
-      img.src = lightboxItems[currentLightboxIndex].fullImage;
+      const src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+      img.src = src;
       img.alt = lightboxItems[currentLightboxIndex].title;
+      img.onerror = () => {
+        img.src = lightboxItems[currentLightboxIndex].thumbnail;
+      };
     }
 
     // Close lightbox on Esc key
@@ -596,5 +646,5 @@
     loadFolder(ROOT_FOLDER);
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df51c1b16036676',t:'MTc3NDAxMzgyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df51e1143dc6676',t:'MTc3NDAxMzkwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

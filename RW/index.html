@@ -383,25 +383,69 @@
       }
     }
 
+    // Valid categories to display in banner
+    const validCategories = [
+      'High Fade', 'Taper Fade', 'Skin Fade', 'Pompadour', 
+      'Side Part', 'Line Design', 'Razor Art'
+    ];
+
+    function extractCategory(filename) {
+      // Remove file extension
+      const nameWithoutExt = filename.split('.').slice(0, -1).join('.');
+      
+      // Check if filename contains any valid category
+      for (const category of validCategories) {
+        if (nameWithoutExt.toLowerCase().includes(category.toLowerCase())) {
+          return category;
+        }
+      }
+      return null;
+    }
+
     function renderPortfolio() {
       const grid = document.getElementById('portfolio-grid');
       grid.innerHTML = '';
 
       portfolioItems.forEach((item, idx) => {
         const div = document.createElement('div');
-        div.className = 'portfolio-item rounded-xl overflow-hidden relative group cursor-pointer';
-        div.style.cssText = `aspect-ratio:1;background-image:url('${item.thumbnail}');background-size:cover;background-position:center;`;
+        div.className = 'portfolio-item rounded-2xl overflow-hidden relative group cursor-pointer flex flex-col bg-gradient-to-b from-transparent to-black/60';
+        div.style.cssText = `aspect-ratio:1;`;
         div.setAttribute('data-index', idx);
         div.addEventListener('click', () => openLightbox(idx));
 
-        div.innerHTML = `
-          <div class="shimmer absolute inset-0"></div>
-          <div class="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(10,10,10,0.7);">
-            <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(74,159,217,0.3);">
-              <i data-lucide="maximize-2" style="width:18px;height:18px;color:#4a9fd9;"></i>
+        // Load image with error handling
+        const img = new Image();
+        img.onload = () => {
+          div.style.backgroundImage = `url('${item.thumbnail}')`;
+          div.style.backgroundSize = 'cover';
+          div.style.backgroundPosition = 'center';
+        };
+        img.onerror = () => {
+          div.style.background = '#1a1a1a';
+          div.innerHTML += '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#a09890;">❌</div>';
+        };
+        img.src = item.thumbnail;
+
+        // Extract category from filename
+        const category = extractCategory(item.title);
+
+        // Transparent banner at bottom
+        const banner = document.createElement('div');
+        banner.className = 'absolute bottom-0 left-0 right-0 px-4 py-3 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent';
+        
+        if (category) {
+          banner.innerHTML = `
+            <p class="text-xs sm:text-sm font-semibold truncate" style="color:#e8e4e0;">${category}</p>
+            <div class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background:rgba(74,159,217,0.3);">
+              <i data-lucide="maximize-2" style="width:14px;height:14px;color:#4a9fd9;"></i>
             </div>
-          </div>
-        `;
+          `;
+        } else {
+          // Empty banner - just transparent space for consistency
+          banner.innerHTML = '';
+        }
+
+        div.appendChild(banner);
 
         setTimeout(() => div.classList.add('visible'), 100 + idx * 80);
         grid.appendChild(div);
@@ -552,5 +596,5 @@
     loadFolder(ROOT_FOLDER);
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df50b8dc4270b7c',t:'MTc3NDAxMzE1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df51c1b16036676',t:'MTc3NDAxMzgyOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

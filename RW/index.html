@@ -245,40 +245,49 @@
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;"><!-- Navigation -->
+ <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;">
+  <!-- Navigation -->
   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20"><a href="#home" class="flex items-center gap-3 group">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+     <a href="#home" class="flex items-center gap-3 group">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
        RW
       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
-     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#home" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Home<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Portfolio<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#shop" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Shop<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Afspraak<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#socials" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Socials<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase" style="color: #a09890;">Contact<span class="absolute bottom-[-2px] left-0 h-[2px]" style="background: #4a9fd9;"></span></a>
      </div><button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
     </div>
    </div>
   </nav><!-- Mobile Menu Overlay -->
   <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
    <div class="flex flex-col h-full px-6 pt-6">
-    <div class="flex items-center justify-between mb-12"><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    <div class="flex items-center justify-between mb-12">
+     <span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
     </div>
-    <div class="flex flex-col gap-6"><a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    <div class="flex flex-col gap-6">
+     <a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#shop" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SHOP</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#socials" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SOCIALS</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
     </div>
    </div>
   </div>
-  <main id="app-wrapper" class="w-full"><!-- HERO SECTION -->
+  <main id="app-wrapper" class="w-full">
+   <!-- HERO SECTION -->
    <section id="home" class="relative w-full hero-bg grid-pattern" style="min-height: 600px;">
     <div class="barber-stripe absolute inset-0 opacity-30"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
      <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
-      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
+      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
       </svg>
      </div>
      <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
      <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
      <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Precision cuts. Clean fades. Sharp style.</p>
-     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in">
+      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
      </div>
-     <div class="mt-16 fade-in animate-bounce"><i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
+     <div class="mt-16 fade-in animate-bounce">
+      <i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
      </div>
     </div>
    </section><!-- PORTFOLIO SECTION -->
@@ -289,13 +298,17 @@
       <h2 id="portfolio-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Portfolio</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div><!-- Category Filter -->
-     <div class="flex flex-wrap justify-center gap-3 mb-6 fade-in md:mb-12"><button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     <div class="flex flex-wrap justify-center gap-3 mb-6 fade-in md:mb-12">
+      <button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
      </div><!-- View Toggle (Mobile) -->
-     <div class="view-toggle md:hidden fade-in"><button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
+     <div class="view-toggle md:hidden fade-in">
+      <button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
      </div><!-- Portfolio Grid -->
-     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"><!-- Items generated by JS -->
+     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+      <!-- Items generated by JS -->
      </div><!-- Portfolio Slider -->
-     <div id="portfolio-slider" class="portfolio-slider"><!-- Items generated by JS -->
+     <div id="portfolio-slider" class="portfolio-slider">
+      <!-- Items generated by JS -->
      </div>
     </div>
    </section><!-- BOOKING SECTION -->
@@ -306,7 +319,8 @@
       <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;"><iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;">
+      <iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
      </div>
     </div>
    </section><!-- SOCIALS SECTION -->
@@ -317,21 +331,23 @@
       <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9">
-         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        <svg width="28" height="28" viewbox="0 0 24 24" fill="#4a9fd9"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
         </svg>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
+        <i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
+        <i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Bekijk <i data-lucide="external-link" style="width:14px;height:14px;"></i>
@@ -349,7 +365,8 @@
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
        <div class="flex items-start gap-4 mb-8">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
+         <i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div>
          <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
@@ -359,56 +376,174 @@
         </div>
        </div>
        <div class="flex items-start gap-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
+         <i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div class="w-full">
          <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
          <div class="space-y-2 text-sm">
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2">
-           <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          <div class="flex justify-between py-2"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
           </div>
          </div>
         </div>
        </div>
       </div>
-      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v1700000000000" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;">
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v. " class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
       </div>
      </div>
     </div>
-   </section><!-- FOOTER -->
-   <footer class="w-full py-8 text-center" style="background: #080808; border-top: 1px solid rgba(255,255,255,0.05);">
-    <div class="max-w-7xl mx-auto px-4">
-     <div class="flex items-center justify-center gap-3 mb-4">
-      <div class="w-8 h-8 rounded-md flex items-center justify-center font-display text-sm" style="background: #4a9fd9; color: #e8e4e0;">
-       RW
-      </div><span class="font-display text-lg tracking-wider" style="color: #e8e4e0;">CUTZZ</span>
+   </section><!-- SHOP SECTION -->
+   <section id="shop" class="w-full py-20 sm:py-28" style="background: #0f0f0f;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Producten</p>
+      <h2 id="shop-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ Shop</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div><!-- Reviews Badge -->
+     <div class="flex justify-center mb-12 fade-in">
+      <a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="glass-card rounded-full px-6 py-3 inline-flex items-center gap-3 hover:scale-105 transition-transform">
+       <div class="flex gap-1">
+        <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       </div><span style="color: #e8e4e0; font-weight: 600;">5.0 • 58 beoordelingen</span> </a>
      </div>
-     <p class="text-xs" style="color: #a09890;">© 2024 RW Cutzz. Alle rechten voorbehouden.</p>
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Products Grid -->
+      <div class="lg:col-span-2">
+       <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div style="grid-column: 1/-1; text-center; color: #a09890; padding: 40px;">
+         ⏳ Producten laden...
+        </div>
+       </div>
+      </div><!-- Shopping Cart Sidebar -->
+      <div class="lg:col-span-1">
+       <div class="glass-card rounded-2xl p-6 sticky top-24 h-fit">
+        <h3 class="font-display text-2xl tracking-wider mb-6" style="color: #e8e4e0;">Winkelmand</h3>
+        <div id="cart-items" style="min-height: 200px; max-height: 400px; overflow-y: auto; margin-bottom: 16px;">
+         <div style="text-center; color: #a09890; padding: 40px 0;">
+          Winkelmand leeg
+         </div>
+        </div>
+        <div class="border-t" style="border-color: rgba(255,255,255,0.1); padding-top: 12px; margin-top: 12px;">
+         <div class="flex justify-between mb-6">
+          <span style="color: #a09890;">Totaal:</span> <span id="cart-total" class="font-display text-lg" style="color: #e8e4e0;">€0.00</span>
+         </div><button id="checkout-btn" class="w-full px-4 py-3 rounded-lg font-display tracking-widest uppercase transition-all duration-300" style="background: #4a9fd9; color: #e8e4e0; cursor: pointer;" onclick="openCheckout()">Afrekenen</button>
+        </div>
+       </div>
+      </div>
+     </div>
     </div>
-   </footer>
+   </section>
   </main><!-- Lightbox -->
   <div id="lightbox" class="lightbox">
-   <div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
    </div>
-  </div>
+  </div><!-- Checkout Modal -->
+  <div id="checkout-modal" class="lightbox">
+   <div class="lightbox-content" style="max-width: 600px; width: 90%; height: auto;">
+    <button class="lightbox-close" onclick="closeCheckout()">×</button>
+    <form id="checkout-form" class="w-full" onsubmit="submitOrder(event)" style="padding: 40px;">
+     <h2 class="font-display text-3xl tracking-wider mb-8" style="color: #e8e4e0;">Checkout</h2>
+     <div class="space-y-4">
+      <div>
+       <label style="color: #a09890; font-size: 14px;">Volledige naam</label> <input type="text" id="order-name" required placeholder="Jan de Vries" style="width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e8e4e0;">
+      </div>
+      <div>
+       <label style="color: #a09890; font-size: 14px;">E-mail</label> <input type="email" id="order-email" required placeholder="jan@example.com" style="width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e8e4e0;">
+      </div>
+      <div>
+       <label style="color: #a09890; font-size: 14px;">Adres</label> <input type="text" id="order-address" required placeholder="Straat 1, 1000 AB Amsterdam" style="width: 100%; padding: 12px; margin-top: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: #e8e4e0;">
+      </div>
+      <div class="border-t pt-4" style="border-color: rgba(255,255,255,0.1); margin-top: 24px;">
+       <div class="flex justify-between mb-4">
+        <span style="color: #a09890;">Totaal:</span> <span id="checkout-total" class="font-display text-lg" style="color: #e8e4e0;">€0.00</span>
+       </div><button type="submit" class="w-full px-4 py-3 rounded-lg font-display tracking-widest uppercase transition-all" style="background: #4a9fd9; color: #e8e4e0; cursor: pointer;" id="submit-btn">Bestelling Plaatsen</button>
+       <div id="order-message" style="margin-top: 12px; padding: 12px; border-radius: 8px; display: none;"></div>
+      </div>
+     </div>
+    </form>
+   </div>
+  </div><!-- FOOTER -->
+  <footer class="w-full" style="background: #080808; border-top: 1px solid rgba(255,255,255,0.05);">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+     <!-- Brand -->
+     <div>
+      <div class="flex items-center gap-3 mb-4">
+       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-lg" style="background: #4a9fd9; color: #e8e4e0;">
+        RW
+       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span>
+      </div>
+      <p class="text-sm" style="color: #a09890;">Premium Barbershop Amsterdam</p><a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-4">
+       <div class="flex gap-1">
+        <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       </div><span style="color: #e8e4e0; font-weight: 600; font-size: 14px;">5.0 • 58</span> </a>
+     </div><!-- Openingstijden -->
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Openingstijden</h4>
+      <div class="space-y-2 text-sm">
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       </div>
+       <div class="flex justify-between">
+        <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+       </div>
+      </div>
+     </div><!-- Adres -->
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Locatie</h4>
+      <div class="space-y-3">
+       <div>
+        <p style="color: #a09890; font-size: 13px; margin: 0 0 4px 0;">ADRES</p>
+        <p style="color: #e8e4e0; font-size: 14px; margin: 0;">Mariendaal 94<br>
+          (Tijdelijk)<br>
+          1025 BW Amsterdam<br>
+          Netherlands</p>
+       </div><a href="https://www.google.com/maps/search/Mariendaal+94+Amsterdam" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; font-weight: 600; text-decoration: none; font-size: 14px;"> <i data-lucide="map-pin" style="width:14px;height:14px;"></i> Google Maps </a>
+      </div>
+     </div><!-- Socials -->
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Volg Ons</h4>
+      <div class="flex flex-col gap-3">
+       <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;">
+        <svg width="14" height="14" viewbox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        </svg> TikTok </a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"> <i data-lucide="instagram" style="width:14px;height:14px;"></i> Instagram </a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"> <i data-lucide="link" style="width:14px;height:14px;"></i> Linktree </a>
+      </div>
+     </div>
+    </div><!-- Bottom -->
+    <div class="border-t" style="border-color: rgba(255,255,255,0.05); padding-top: 16px;">
+     <p class="text-center text-xs" style="color: #a09890;">© 2024 RW Cutzz. Alle rechten voorbehouden.</p>
+    </div>
+   </div>
+  </footer>
   <script>
     // ========== DEFAULT CONFIG ==========
     const defaultConfig = {
@@ -418,6 +553,7 @@
       portfolio_title: 'Portfolio',
       booking_title: 'Maak een Afspraak',
       contact_title: 'Contact & Locatie',
+      shop_title: 'RW CUTZZ Shop',
       background_color: '#0a0a0a',
       surface_color: '#0f0f0f',
       text_color: '#e8e4e0',
@@ -680,6 +816,7 @@
       document.getElementById('portfolio-title').textContent = c.portfolio_title;
       document.getElementById('booking-title').textContent = c.booking_title;
       document.getElementById('contact-title').textContent = c.contact_title;
+      if (document.getElementById('shop-title')) document.getElementById('shop-title').textContent = c.shop_title;
 
       // Font
       const fontStack = `${c.font_family}, 'Bebas Neue', sans-serif`;
@@ -740,13 +877,251 @@
           ['portfolio_title', config.portfolio_title || defaultConfig.portfolio_title],
           ['booking_title', config.booking_title || defaultConfig.booking_title],
           ['contact_title', config.contact_title || defaultConfig.contact_title],
+          ['shop_title', config.shop_title || defaultConfig.shop_title],
         ])
       });
     }
 
+    // ========== SHOP FUNCTIONALITY ==========
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyoHypgTy88z3GWXsjUbP4PYdsd2HNHdweZEI5iWnM52M94cZgJG4KUKf_aZuwm-5QP/exec";
+    
+    let cart = [];
+    let allProducts = [];
+
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${WEBAPP_URL}?action=getProducts`);
+        allProducts = await res.json();
+        renderProductGrid();
+      } catch (err) {
+        console.error('Fout bij laden producten:', err);
+        document.getElementById('products-grid').innerHTML = '<div style="grid-column:1/-1;text-center;color:#e8605a;">❌ Fout bij laden producten</div>';
+      }
+    }
+
+    function renderProductGrid() {
+      const container = document.getElementById('products-grid');
+      container.innerHTML = '';
+
+      if (allProducts.length === 0) {
+        container.innerHTML = '<div style="grid-column:1/-1;text-center;color:#a09890;">Geen producten beschikbaar</div>';
+        return;
+      }
+
+      allProducts.forEach(product => {
+        const div = document.createElement('div');
+        div.className = 'glass-card rounded-2xl overflow-hidden fade-in';
+        div.style.cssText = 'display:flex;flex-direction:column;transition:transform 0.3s ease;';
+
+        const isOutOfStock = product.voorraad <= 0;
+
+        div.innerHTML = `
+          <div style="aspect-ratio:1;background:#1a1a1a;overflow:hidden;position:relative;">
+            <img src="${product.afbeelding || 'https://via.placeholder.com/400x400?text=Product'}" 
+                 alt="${product.naam}" 
+                 loading="lazy"
+                 onerror="this.style.background='#1a1a1a';this.style.display='none';"
+                 style="width:100%;height:100%;object-fit:cover;">
+            ${isOutOfStock ? '<div style="position:absolute;inset:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;"><span style="color:#a09890;font-weight:600;">Uitverkocht</span></div>' : ''}
+          </div>
+          <div style="padding:16px;flex:1;display:flex;flex-direction:column;">
+            <h3 style="color:#e8e4e0;font-weight:600;margin:0 0 8px 0;">${product.naam}</h3>
+            <p style="color:#a09890;font-size:14px;margin:0 0 12px 0;flex:1;">${product.beschrijving}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <span class="font-display text-lg" style="color:#4a9fd9;">€${parseFloat(product.prijs).toFixed(2)}</span>
+              <span style="color:#a09890;font-size:12px;">Voorraad: ${product.voorraad}</span>
+            </div>
+            <button onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})" 
+                    ${isOutOfStock ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : 'style="cursor:pointer;"'}
+                    style="width:100%;padding:10px;background:#4a9fd9;color:#e8e4e0;border:none;border-radius:8px;font-weight:600;transition:all 0.3s ease;">
+              ${isOutOfStock ? 'Uitverkocht' : 'Toevoegen aan mandje'}
+            </button>
+          </div>
+        `;
+
+        container.appendChild(div);
+        setTimeout(() => div.classList.add('visible'), 100);
+      });
+
+      lucide.createIcons();
+    }
+
+    function addToCart(product) {
+      const existing = cart.find(i => i.id === product.id);
+
+      if (existing) {
+        existing.qty++;
+      } else {
+        cart.push({ ...product, qty: 1 });
+      }
+
+      renderCart();
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = '<div style="text-center;color:#a09890;padding:40px 0;">Winkelmand leeg</div>';
+        document.getElementById('cart-total').textContent = '€0.00';
+        return;
+      }
+
+      let total = 0;
+
+      cart.forEach((item, idx) => {
+        const itemTotal = parseFloat(item.prijs) * item.qty;
+        total += itemTotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.style.cssText = 'display:flex;justify-content:space-between;align-items:center;padding:12px;border-bottom:1px solid rgba(255,255,255,0.1);gap:8px;';
+
+        itemDiv.innerHTML = `
+          <div style="flex:1;min-width:0;">
+            <p style="color:#e8e4e0;margin:0;font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${item.naam}</p>
+            <p style="color:#a09890;margin:4px 0 0 0;font-size:12px;">€${parseFloat(item.prijs).toFixed(2)}</p>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button onclick="changeQty(${idx},-1)" style="width:24px;height:24px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;">−</button>
+            <span style="color:#e8e4e0;min-width:20px;text-align:center;font-size:14px;font-weight:600;">${item.qty}</span>
+            <button onclick="changeQty(${idx},1)" style="width:24px;height:24px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:4px;cursor:pointer;font-size:12px;font-weight:600;">+</button>
+          </div>
+          <button onclick="removeFromCart(${idx})" style="width:24px;height:24px;background:rgba(230,96,90,0.2);border:none;color:#e8605a;border-radius:4px;cursor:pointer;font-size:12px;"><i data-lucide="trash-2" style="width:14px;height:14px;"></i></button>
+        `;
+
+        container.appendChild(itemDiv);
+      });
+
+      document.getElementById('cart-total').textContent = '€' + total.toFixed(2);
+      document.getElementById('checkout-total').textContent = '€' + total.toFixed(2);
+      lucide.createIcons();
+    }
+
+    function changeQty(idx, delta) {
+      if (cart[idx]) {
+        cart[idx].qty += delta;
+        if (cart[idx].qty <= 0) {
+          removeFromCart(idx);
+        } else {
+          renderCart();
+        }
+      }
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      renderCart();
+    }
+
+    function openCheckout() {
+      if (cart.length === 0) {
+        showMessage('Winkelmand is leeg', 'error');
+        return;
+      }
+      document.getElementById('checkout-modal').classList.add('active');
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkout-modal').classList.remove('active');
+    }
+
+    async function submitOrder(event) {
+      event.preventDefault();
+
+      const naam = document.getElementById('order-name').value.trim();
+      const email = document.getElementById('order-email').value.trim();
+      const adres = document.getElementById('order-address').value.trim();
+
+      if (!naam || !email || !adres) {
+        showMessage('Vul alle velden in', 'error');
+        return;
+      }
+
+      if (cart.length === 0) {
+        showMessage('Winkelmand is leeg', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Bezig...';
+
+      const producten = cart.map(i => `${i.naam} x${i.qty}`).join(', ');
+      const totaal = cart.reduce((sum, i) => sum + (parseFloat(i.prijs) * i.qty), 0).toFixed(2);
+
+      try {
+        // Send to Google Web App
+        const res = await fetch(WEBAPP_URL, {
+          method: 'POST',
+          body: JSON.stringify({
+            action: 'newOrder',
+            data: { naam, email, adres, producten, totaal }
+          })
+        });
+
+        if (!res.ok) throw new Error('API fout');
+
+        // Save to Data SDK
+        const createResult = await window.dataSdk.create({
+          id: Date.now().toString(),
+          naam,
+          email,
+          adres,
+          producten,
+          totaal: totaal.toString(),
+          datum: new Date().toISOString(),
+          status: 'Bevestigd'
+        });
+
+        if (createResult.isOk) {
+          showMessage('✓ Bestelling geplaatst! Bedankt voor je aankoop.', 'success');
+          document.getElementById('checkout-form').reset();
+          cart = [];
+          renderCart();
+          setTimeout(() => closeCheckout(), 2000);
+        } else {
+          throw new Error('Fout bij opslaan');
+        }
+      } catch (err) {
+        console.error(err);
+        showMessage('❌ Fout bij plaatsen bestelling. Probeer opnieuw.', 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Bestelling Plaatsen';
+      }
+    }
+
+    function showMessage(text, type) {
+      const msgDiv = document.getElementById('order-message');
+      msgDiv.textContent = text;
+      msgDiv.style.background = type === 'success' ? 'rgba(74,159,217,0.15)' : 'rgba(230,96,90,0.15)';
+      msgDiv.style.color = type === 'success' ? '#4a9fd9' : '#e8605a';
+      msgDiv.style.display = 'block';
+      if (type === 'success') {
+        setTimeout(() => msgDiv.style.display = 'none', 3000);
+      }
+    }
+
+    // ========== DATA SDK SETUP ==========
+    async function initDataSDK() {
+      const handler = {
+        onDataChanged(data) {
+          // Data SDK initialized successfully
+        }
+      };
+
+      const initResult = await window.dataSdk.init(handler);
+      if (!initResult.isOk) {
+        console.error('Data SDK init failed:', initResult.error);
+      }
+    }
+
     // ========== INIT ==========
     loadFolder(ROOT_FOLDER);
+    loadProducts();
+    initDataSDK();
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df5214346626676',t:'MTc3NDAxNDAzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dfba500b421d579',t:'MTc3NDA4MjM1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

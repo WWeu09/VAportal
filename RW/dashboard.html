@@ -3,779 +3,924 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kapper Webshop Dashboard</title>
+  <title>Barber Shop Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
-  <script src="/_sdk/element_sdk.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            heading: ['Outfit', 'sans-serif'],
-            body: ['DM Sans', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
   <style>
-    html, body { height: 100%; margin: 0; }
-    * { box-sizing: border-box; }
-
-    .toast-container {
-      position: fixed; top: 20px; right: 20px; z-index: 9999;
-      display: flex; flex-direction: column; gap: 8px;
-    }
-    .toast {
-      padding: 12px 20px; border-radius: 10px; color: #fff;
-      font-family: 'DM Sans', sans-serif; font-size: 14px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-      animation: toastIn 0.35s cubic-bezier(0.22,1,0.36,1);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .toast.success { background: #059669; }
-    .toast.error { background: #dc2626; }
-    .toast.info { background: #6366f1; }
-    .toast-exit { animation: toastOut 0.3s ease forwards; }
-    @keyframes toastIn { from { opacity:0; transform: translateX(40px); } to { opacity:1; transform: translateX(0); } }
-    @keyframes toastOut { from { opacity:1; transform: translateX(0); } to { opacity:0; transform: translateX(40px); } }
-
-    .order-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .order-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    }
-
-    @media (max-width: 640px) {
-      .order-card { padding: 12px !important; }
-    }
-
-    .status-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;
-      text-transform: uppercase; letter-spacing: 0.5px;
-    }
-
-    .btn-action {
-      padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600;
-      border: none; cursor: pointer; transition: all 0.15s ease;
-      display: inline-flex; align-items: center; gap: 5px; white-space: nowrap;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .btn-action:hover { filter: brightness(1.1); transform: scale(1.02); }
-    .btn-action:active { transform: scale(0.98); }
-    .btn-action:disabled { opacity: 0.5; cursor: not-allowed; transform: none; filter: none; }
-
-    @media (max-width: 640px) {
-      .btn-action { padding: 10px 12px; font-size: 12px; }
-      .btn-action span { display: none; }
-      .btn-action svg { margin: 0; }
-    }
-
-    .filter-btn {
-      padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 500;
-      border: 2px solid transparent; cursor: pointer; transition: all 0.15s ease;
-      font-family: 'DM Sans', sans-serif; background: transparent;
-    }
-    .filter-btn.active { font-weight: 700; }
-
-    .shimmer {
-      background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 10px; height: 140px;
-    }
-    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px); z-index: 1000;
-      display: flex; align-items: center; justify-content: center;
-      animation: fadeIn 0.2s ease;
-    }
-    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
-    .modal-box {
-      background: #1e293b; border-radius: 16px; padding: 28px;
-      max-width: 420px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      animation: modalPop 0.3s cubic-bezier(0.22,1,0.36,1);
-    }
-    @keyframes modalPop { from{opacity:0;transform:scale(0.92)} to{opacity:1;transform:scale(1)} }
-
-    .stat-card {
-      background: linear-gradient(135deg, #1e293b, #0f172a);
-      border: 1px solid #334155; border-radius: 14px; padding: 18px 22px;
-      transition: border-color 0.2s ease;
-    }
-    .stat-card:hover { border-color: #6366f1; }
-
-    input[type="text"], input[type="url"], textarea, select {
-      background: #0f172a; border: 1.5px solid #334155; border-radius: 8px;
-      padding: 8px 12px; color: #e2e8f0; font-family: 'DM Sans', sans-serif;
-      font-size: 14px; width: 100%; transition: border-color 0.15s;
-    }
-    input:focus, textarea:focus, select:focus {
-      outline: none; border-color: #6366f1;
-    }
-
-    .batch-bar {
-      position: fixed; bottom: 0; left: 0; right: 0;
-      background: linear-gradient(135deg, #312e81, #1e1b4b);
-      padding: 14px 24px; z-index: 500;
-      display: flex; align-items: center; justify-content: space-between;
-      animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1);
-      box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-
-    @media (max-width: 640px) {
-      .batch-bar { padding: 10px 12px; }
-      .batch-bar > div { flex: 1 1 100%; display: flex; gap: 6px; flex-wrap: wrap; }
-    }
-
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    body { box-sizing: border-box; }
+    .sidebar-collapsed { width: 80px !important; }
+    .sidebar-collapsed .nav-label { display: none; }
+    .sidebar-collapsed .nav-icon { width: 40px; margin: 0 auto; }
+    .hamburger-btn { transition: transform 0.2s; }
+    .hamburger-btn:hover { transform: scale(1.1); }
+    .status-badge { font-weight: 600; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .fade-in { animation: fadeIn 0.3s ease-in; }
+    .loading-skeleton { background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; }
+    @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
   </style>
-  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
- <body class="h-full bg-[#0f172a] text-[#e2e8f0] font-body overflow-auto">
-  <div id="app-wrapper" class="h-full w-full flex flex-col min-h-0">
-   <!-- Toast container -->
-   <div id="toast-container" class="toast-container"></div><!-- Modal container -->
-   <div id="modal-container"></div><!-- Header -->
-   <header id="app-header" class="w-full px-4 sm:px-8 py-5 flex items-center justify-between border-b border-[#1e293b] flex-shrink-0" style="background: linear-gradient(135deg, #0f172a 0%, #1a1040 100%);">
-    <div class="flex items-center gap-3">
-     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-      <i data-lucide="shopping-bag" style="width:20px;height:20px;color:#fff"></i>
-     </div>
-     <div>
-      <h1 id="dashboard-title" class="font-heading text-lg sm:text-xl font-bold text-white leading-tight">Kapper Webshop Dashboard</h1>
-      <p class="text-xs text-slate-400 mt-0.5">Orderbeheer &amp; Tracking</p>
-     </div>
-    </div>
-    <div class="flex items-center gap-3">
-     <button id="refresh-btn" onclick="loadOrders()" class="btn-action text-white" style="background:#6366f1;"> <i data-lucide="refresh-cw" style="width:14px;height:14px"></i> <span class="hidden sm:inline">Vernieuwen</span> </button>
-     <div class="text-xs text-slate-500" id="last-updated"></div>
-    </div>
-   </header><!-- Stats bar -->
-   <div id="stats-bar" class="w-full px-4 sm:px-8 py-4 flex-shrink-0">
-    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="stats-grid"></div>
-   </div><!-- Filters -->
-   <div class="w-full px-4 sm:px-8 pb-3 flex-shrink-0">
-    <div class="flex items-center gap-2 flex-wrap" id="filter-bar"></div>
-   </div><!-- Batch select toggle -->
-   <div class="w-full px-4 sm:px-8 pb-2 flex-shrink-0 flex items-center gap-3">
-    <label class="flex items-center gap-2 cursor-pointer text-sm text-slate-400"> <input type="checkbox" id="batch-toggle" onchange="toggleBatchMode()" class="accent-indigo-500"> Meerdere selecteren </label> <span id="selected-count" class="text-xs text-indigo-400 hidden"></span>
-   </div><!-- Orders -->
-   <main class="flex-1 w-full px-4 sm:px-8 pb-24 overflow-auto" id="orders-main">
-    <div id="orders-container" class="grid gap-3 sm:gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3"></div>
-    <div id="loading-state" class="hidden">
-     <div class="grid gap-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-      <div class="shimmer"></div>
-      <div class="shimmer"></div>
-      <div class="shimmer"></div>
-      <div class="shimmer"></div>
-      <div class="shimmer"></div>
-      <div class="shimmer"></div>
-     </div>
-    </div>
-    <div id="empty-state" class="hidden flex flex-col items-center justify-center py-20 text-center">
-     <div class="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-      <i data-lucide="inbox" style="width:28px;height:28px;color:#64748b"></i>
-     </div>
-     <p class="text-slate-400 text-lg font-heading font-semibold">Geen orders gevonden</p>
-     <p class="text-slate-500 text-sm mt-1">Pas je filters aan of wacht op nieuwe bestellingen</p>
-    </div>
-   </main><!-- Batch action bar -->
-   <div id="batch-bar" class="batch-bar hidden">
-    <span class="text-white font-semibold text-sm" id="batch-info">0 geselecteerd</span>
-    <div class="flex gap-1 sm:gap-2 flex-wrap">
-     <button onclick="batchAction('Geaccepteerd')" class="btn-action text-white" style="background:#3b82f6;"><i data-lucide="check" style="width:14px;height:14px"></i><span class="hidden sm:inline">Accepteer</span></button> <button onclick="batchAction('Betaald')" class="btn-action text-white" style="background:#059669;"><i data-lucide="credit-card" style="width:14px;height:14px"></i><span class="hidden sm:inline">Betaald</span></button> <button onclick="batchAction('Geweigerd')" class="btn-action text-white" style="background:#dc2626;"><i data-lucide="x" style="width:14px;height:14px"></i><span class="hidden sm:inline">Weiger</span></button> <button onclick="cancelBatch()" class="btn-action text-white" style="background:#475569;"><i data-lucide="x" style="width:14px;height:14px"></i><span class="hidden sm:inline">Annuleer</span></button>
-    </div>
-   </div><!-- Footer -->
-   <footer class="w-full text-center py-4 border-t border-[#1e293b] flex-shrink-0">
-    <p id="footer-text" class="text-xs text-slate-500">Powered by <a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">vanappiah.com</a></p>
-   </footer>
-  </div>
-  <script>
-// ============ CONFIG ============
-const API_URL = 'https://script.google.com/macros/s/AKfycbxB6s37D-v4UUg6tXGzpQ36ae5jl2N8fmh-K4SWxeUX58-4qwepDgazJyR7Y4_0B3uy/exec';
-const AUTO_REFRESH_MS = 10000;
-
-const STATUS_MAP = {
-  'Nieuw':               { color: '#eab308', bg: '#eab30815', dot: '#eab308' },
-  'Geaccepteerd':        { color: '#3b82f6', bg: '#3b82f615', dot: '#3b82f6' },
-  'Betaallink verstuurd':{ color: '#a855f7', bg: '#a855f715', dot: '#a855f7' },
-  'Betaald':             { color: '#059669', bg: '#05966915', dot: '#059669' },
-  'Verzonden':           { color: '#f97316', bg: '#f9731615', dot: '#f97316' },
-  'Afgerond':            { color: '#64748b', bg: '#64748b15', dot: '#64748b' },
-  'Retour aangevraagd':  { color: '#dc2626', bg: '#dc262615', dot: '#dc2626' },
-  'Geweigerd':           { color: '#ef4444', bg: '#ef444415', dot: '#ef4444' }
-};
-
-// ============ STATE ============
-let allOrders = [];
-let currentFilter = 'Alle';
-let batchMode = false;
-let selectedIds = new Set();
-let refreshTimer = null;
-let isLoading = false;
-
-
-
-// ============ TOAST ============
-function showToast(message, type = 'success') {
-  const container = document.getElementById('toast-container');
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  const iconName = type === 'success' ? 'check-circle' : type === 'error' ? 'alert-circle' : 'info';
-  toast.innerHTML = `<i data-lucide="${iconName}" style="width:16px;height:16px;flex-shrink:0"></i><span>${message}</span>`;
-  container.appendChild(toast);
-  lucide.createIcons({ nodes: [toast] });
-  setTimeout(() => {
-    toast.classList.add('toast-exit');
-    setTimeout(() => toast.remove(), 300);
-  }, 3000);
-}
-
-// ============ MODAL ============
-function showModal(title, content, onConfirm, confirmText = 'Bevestigen') {
-  const container = document.getElementById('modal-container');
-  const id = 'modal-' + Date.now();
-  container.innerHTML = `
-    <div class="modal-overlay" id="${id}" onclick="if(event.target===this)closeModal('${id}')">
-      <div class="modal-box">
-        <h3 class="font-heading font-bold text-lg text-white mb-4">${title}</h3>
-        <div class="mb-5">${content}</div>
-        <div class="flex gap-2 justify-end">
-          <button onclick="closeModal('${id}')" class="btn-action" style="background:#334155;color:#e2e8f0;">Annuleer</button>
-          <button id="${id}-confirm" class="btn-action text-white" style="background:#6366f1;">${confirmText}</button>
-        </div>
+ <body class="h-full bg-slate-50">
+  <div id="app" class="w-full h-full flex flex-col sm:flex-row"><!-- Sidebar -->
+   <aside id="sidebar" class="w-64 bg-slate-900 text-white transition-all duration-300 flex flex-col z-40"><!-- Logo -->
+    <div class="p-4 sm:p-6 border-b border-slate-700 flex items-center justify-between">
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0"><i data-lucide="scissors" style="width: 24px; height: 24px;" class="text-white"></i>
       </div>
-    </div>
-  `;
-  document.getElementById(`${id}-confirm`).onclick = () => {
-    onConfirm();
-    closeModal(id);
-  };
-  lucide.createIcons({ nodes: [container] });
-}
-
-function closeModal(id) {
-  const el = document.getElementById(id);
-  if (el) el.remove();
-}
-
-// ============ API ============
-async function fetchOrders() {
-  try {
-    const res = await fetch(`${API_URL}?action=getOrders`);
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-    // Map Google Sheet columns to order object
-    return data.filter(o => o.naam || o.Naam).map((o, i) => ({
-      row: o.row || i + 2,
-      ID: o.id || o.ID || '',
-      Datum: o.datum || o.Datum || '',
-      Naam: o.naam || o.Naam || '',
-      Email: o.email || o.Email || '',
-      Adres: o.adres || o.Adres || '',
-      Producten: o.producten || o.Producten || '',
-      Totaal: o.totaal || o.Totaal || '€0.00',
-      Status: o.status || o.Status || 'Nieuw',
-      Betaallink: o.betaallink || o.Betaallink || '',
-      Betaald: (o.betaald || o.Betaald || 'Nee').toLowerCase() === 'ja' ? 'Ja' : 'Nee',
-      TrackTrace: o.tracktrace || o.TrackTrace || '',
-      Notities: o.notities || o.Notities || ''
-    }));
-  } catch (e) {
-    console.error('API fetch failed:', e);
-    return [];
-  }
-}
-
-async function updateOrder(row, updates) {
-  try {
-    const res = await fetch(API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action: 'updateOrder', data: { row, ...updates } })
-    });
-    return res.ok;
-  } catch (e) {
-    console.error('Update failed:', e);
-    // Simulate success for demo
-    return true;
-  }
-}
-
-// ============ LOAD & RENDER ============
-async function loadOrders() {
-  if (isLoading) return;
-  isLoading = true;
-  document.getElementById('loading-state').classList.remove('hidden');
-  document.getElementById('orders-container').innerHTML = '';
-  document.getElementById('empty-state').classList.add('hidden');
-
-  const newOrders = await fetchOrders();
-  
-  if (newOrders.length === 0) {
-    // If no data from API, show empty state
-    isLoading = false;
-    document.getElementById('loading-state').classList.add('hidden');
-    document.getElementById('empty-state').classList.remove('hidden');
-    renderStats();
-    renderFilters();
-    return;
-  }
-
-  allOrders = newOrders;
-
-  isLoading = false;
-  document.getElementById('loading-state').classList.add('hidden');
-  document.getElementById('last-updated').textContent = 'Bijgewerkt: ' + new Date().toLocaleTimeString('nl-NL');
-
-  renderStats();
-  renderFilters();
-  renderOrders();
-}
-
-function renderStats() {
-  const grid = document.getElementById('stats-grid');
-  const total = allOrders.length;
-  const nieuw = allOrders.filter(o => o.Status === 'Nieuw').length;
-  const betaald = allOrders.filter(o => o.Betaald === 'Ja').length;
-  const verzonden = allOrders.filter(o => o.Status === 'Verzonden' || o.Status === 'Afgerond').length;
-
-  const stats = [
-    { label: 'Totaal Orders', value: total, icon: 'package', accent: '#6366f1' },
-    { label: 'Nieuw', value: nieuw, icon: 'sparkles', accent: '#eab308' },
-    { label: 'Betaald', value: betaald, icon: 'credit-card', accent: '#059669' },
-    { label: 'Verzonden', value: verzonden, icon: 'truck', accent: '#f97316' }
-  ];
-
-  grid.innerHTML = stats.map(s => `
-    <div class="stat-card">
-      <div class="flex items-center gap-2 mb-1">
-        <i data-lucide="${s.icon}" style="width:16px;height:16px;color:${s.accent}"></i>
-        <span class="text-xs text-slate-400 font-medium">${s.label}</span>
+      <div class="nav-label hidden sm:block">
+       <p class="font-bold text-sm" id="sidebarTitle">Barber</p>
+       <p class="text-xs text-slate-400">Dashboard</p>
       </div>
-      <p class="text-2xl font-heading font-bold text-white">${s.value}</p>
+     </div><button onclick="toggleSidebar()" class="hamburger-btn p-2 hover:bg-slate-800 rounded-lg transition"> <i data-lucide="menu" style="width: 20px; height: 20px;"></i> </button>
+    </div><!-- Navigation -->
+    <nav class="flex-1 p-3 sm:p-4 space-y-2 overflow-y-auto"><button onclick="navigateTo('dashboard')" class="nav-item active w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="home" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Dashboard</span> </button> <button onclick="navigateTo('orders')" class="nav-item w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="shopping-cart" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Orders</span> </button> <button onclick="navigateTo('products')" class="nav-item w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="box" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Producten</span> </button> <button onclick="navigateTo('analytics')" class="nav-item w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="bar-chart-3" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Analytics</span> </button> <button onclick="navigateTo('history')" class="nav-item w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="archive" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Geschiedenis</span> </button> <button onclick="navigateTo('settings')" class="nav-item w-full px-3 sm:px-4 py-2 sm:py-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition text-left text-sm sm:text-base"> <i data-lucide="settings" class="nav-icon flex-shrink-0" style="width: 20px; height: 20px;"></i> <span class="nav-label">Instellingen</span> </button>
+    </nav><!-- Footer -->
+    <div class="p-3 sm:p-4 border-t border-slate-700">
+     <div class="flex items-center gap-3 p-2 sm:p-3 hover:bg-slate-800 rounded-lg cursor-pointer transition">
+      <div class="w-10 h-10 bg-slate-700 rounded-full flex items-center justify-center flex-shrink-0"><i data-lucide="user" style="width: 20px; height: 20px;"></i>
+      </div>
+      <div class="nav-label flex-1 min-w-0">
+       <p class="font-semibold text-sm truncate">Admin</p>
+       <p class="text-xs text-slate-400 truncate">admin@barber.nl</p>
+      </div>
+     </div>
     </div>
-  `).join('');
-  lucide.createIcons({ nodes: [grid] });
-}
-
-function renderFilters() {
-  const bar = document.getElementById('filter-bar');
-  const statuses = ['Alle', ...Object.keys(STATUS_MAP)];
-  bar.innerHTML = statuses.map(s => {
-    const count = s === 'Alle' ? allOrders.length : allOrders.filter(o => o.Status === s).length;
-    const sm = STATUS_MAP[s];
-    const isActive = currentFilter === s;
-    const borderColor = s === 'Alle' ? '#6366f1' : (sm?.color || '#64748b');
-    const style = isActive
-      ? `border-color:${borderColor};color:${borderColor};background:${borderColor}15;`
-      : `border-color:#334155;color:#94a3b8;`;
-    return `<button class="filter-btn ${isActive?'active':''}" style="${style}" onclick="setFilter('${s}')">${s} <span style="opacity:0.6">(${count})</span></button>`;
-  }).join('');
-}
-
-function setFilter(status) {
-  currentFilter = status;
-  renderFilters();
-  renderOrders();
-}
-
-function renderOrders() {
-  const container = document.getElementById('orders-container');
-  const emptyState = document.getElementById('empty-state');
-  const filtered = currentFilter === 'Alle' ? allOrders : allOrders.filter(o => o.Status === currentFilter);
-
-  if (filtered.length === 0) {
-    container.innerHTML = '';
-    emptyState.classList.remove('hidden');
-    return;
-  }
-
-  emptyState.classList.add('hidden');
-  container.innerHTML = filtered.map(order => renderOrderCard(order)).join('');
-  lucide.createIcons({ nodes: [container] });
-}
-
-function renderOrderCard(o) {
-  const sm = STATUS_MAP[o.Status] || STATUS_MAP['Nieuw'];
-  const isSelected = selectedIds.has(o.ID);
-
-  const actions = getActionsForStatus(o);
-
-  return `
-    <div class="order-card rounded-xl border p-4 sm:p-5 ${isSelected ? 'border-indigo-500 bg-indigo-500/5' : 'border-[#1e293b] bg-[#1e293b]/50'}" id="card-${o.ID}" data-id="${o.ID}">
-      <div class="flex items-start justify-between mb-3">
-        <div class="flex items-center gap-2">
-          ${batchMode ? `<input type="checkbox" ${isSelected?'checked':''} onchange="toggleSelect('${o.ID}')" class="accent-indigo-500 mt-0.5">` : ''}
-          <div>
-            <p class="font-heading font-bold text-white text-sm">${o.ID}</p>
-            <p class="text-xs text-slate-500">${o.Datum}</p>
+   </aside><!-- Main Content -->
+   <div class="flex-1 flex flex-col overflow-hidden"><!-- Top Bar -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+     <div class="px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+       <h1 class="text-xl sm:text-2xl font-bold text-slate-900" id="pageTitle">Dashboard</h1>
+       <p class="text-xs sm:text-sm text-slate-500 mt-1 hidden sm:block">Welkom terug! Hier is je overzicht.</p>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-4">
+       <div class="relative hidden md:block w-48"><input type="text" id="globalSearch" placeholder="Zoeken..." class="pl-10 pr-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent w-full"> <i data-lucide="search" style="width: 16px; height: 16px;" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+       </div><button class="p-2 hover:bg-slate-100 rounded-lg transition relative"> <i data-lucide="bell" style="width: 20px; height: 20px;" class="text-slate-600"></i> <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span> </button><button onclick="toggleSidebar()" class="p-2 hover:bg-slate-100 rounded-lg transition sm:hidden"> <i data-lucide="menu" style="width: 20px; height: 20px;" class="text-slate-600"></i> </button>
+      </div>
+     </div>
+    </header><!-- Content Area -->
+    <main class="flex-1 overflow-auto bg-slate-50"><!-- Loading Overlay -->
+     <div id="loadingOverlay" class="fixed inset-0 bg-black bg-opacity-20 z-50 flex items-center justify-center">
+      <div class="bg-white rounded-lg p-8 text-center">
+       <div class="mb-4"><i data-lucide="loader" style="width: 32px; height: 32px;" class="text-blue-600 animate-spin mx-auto"></i>
+       </div>
+       <p class="text-slate-900 font-semibold">Dashboard laden...</p>
+       <p class="text-slate-500 text-sm mt-2">Een moment geduld alstublieft</p>
+      </div>
+     </div><!-- Dashboard View -->
+     <div id="dashboardView" class="w-full h-full">
+      <div class="p-4 sm:p-8 space-y-6 sm:space-y-8"><!-- KPI Cards -->
+       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"><!-- Revenue Card -->
+        <div class="bg-white rounded-lg border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition fade-in">
+         <div class="flex justify-between items-start mb-4">
+          <div class="flex-1">
+           <p class="text-slate-500 text-xs sm:text-sm font-semibold">Totale Omzet</p>
+           <p class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2" id="kpiRevenue">€0,00</p>
           </div>
+          <div class="bg-blue-100 p-2 sm:p-3 rounded-lg flex-shrink-0"><i data-lucide="euro" style="width: 24px; height: 24px;" class="text-blue-600"></i>
+          </div>
+         </div>
+         <div class="flex items-center gap-2 text-xs sm:text-sm"><span class="text-green-600 font-semibold">+12%</span> <span class="text-slate-500">vs vorige maand</span>
+         </div>
+        </div><!-- Orders Card -->
+        <div class="bg-white rounded-lg border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition fade-in">
+         <div class="flex justify-between items-start mb-4">
+          <div class="flex-1">
+           <p class="text-slate-500 text-xs sm:text-sm font-semibold">Orders</p>
+           <p class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2" id="kpiOrders">0</p>
+          </div>
+          <div class="bg-green-100 p-2 sm:p-3 rounded-lg flex-shrink-0"><i data-lucide="shopping-bag" style="width: 24px; height: 24px;" class="text-green-600"></i>
+          </div>
+         </div>
+         <div class="flex items-center gap-2 text-xs sm:text-sm"><span class="text-green-600 font-semibold" id="kpiOrdersChange">+0</span> <span class="text-slate-500">deze week</span>
+         </div>
+        </div><!-- Pending Orders Card -->
+        <div class="bg-white rounded-lg border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition fade-in">
+         <div class="flex justify-between items-start mb-4">
+          <div class="flex-1">
+           <p class="text-slate-500 text-xs sm:text-sm font-semibold">Openstaande</p>
+           <p class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2" id="kpiPending">0</p>
+          </div>
+          <div class="bg-amber-100 p-2 sm:p-3 rounded-lg flex-shrink-0"><i data-lucide="alert-circle" style="width: 24px; height: 24px;" class="text-amber-600"></i>
+          </div>
+         </div>
+         <div class="flex items-center gap-2 text-xs sm:text-sm"><span class="text-amber-600 font-semibold">Acties nodig</span>
+         </div>
+        </div><!-- Avg Order Value Card -->
+        <div class="bg-white rounded-lg border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition fade-in">
+         <div class="flex justify-between items-start mb-4">
+          <div class="flex-1">
+           <p class="text-slate-500 text-xs sm:text-sm font-semibold">Gem. Orderwaarde</p>
+           <p class="text-2xl sm:text-3xl font-bold text-slate-900 mt-2" id="kpiAvgOrder">€0,00</p>
+          </div>
+          <div class="bg-purple-100 p-2 sm:p-3 rounded-lg flex-shrink-0"><i data-lucide="trending-up" style="width: 24px; height: 24px;" class="text-purple-600"></i>
+          </div>
+         </div>
+         <div class="flex items-center gap-2 text-xs sm:text-sm"><span class="text-green-600 font-semibold">+5%</span> <span class="text-slate-500">stijging</span>
+         </div>
         </div>
-        <span class="status-badge" style="color:${sm.color};background:${sm.bg};">
-          <span style="width:6px;height:6px;border-radius:50%;background:${sm.dot};display:inline-block;"></span>
-          ${o.Status}
-        </span>
+       </div><!-- Chart Section -->
+       <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div class="lg:col-span-2 bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
+         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+          <div>
+           <h3 class="text-lg font-bold text-slate-900">Omzet Trend</h3>
+           <p class="text-xs sm:text-sm text-slate-500">Afgelopen 30 dagen</p>
+          </div>
+          <div class="flex gap-2 flex-wrap"><button class="px-3 py-1 text-xs sm:text-sm font-semibold text-blue-600 bg-blue-50 rounded-lg">7d</button> <button class="px-3 py-1 text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">30d</button> <button class="px-3 py-1 text-xs sm:text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">90d</button>
+          </div>
+         </div>
+         <div style="position: relative; height: 200px;">
+          <canvas id="revenueChart"></canvas>
+         </div>
+        </div><!-- Recent Orders Preview -->
+        <div class="bg-white rounded-lg border border-slate-200 p-4 sm:p-6">
+         <h3 class="text-lg font-bold text-slate-900 mb-4">Recente Orders</h3>
+         <div id="recentOrdersList" class="space-y-2 max-h-80 overflow-y-auto">
+          <p class="text-slate-500 text-sm py-4">Laden...</p>
+         </div><button onclick="navigateTo('orders')" class="w-full mt-4 px-4 py-2 text-center text-sm font-semibold text-blue-600 hover:bg-blue-50 rounded-lg transition"> Alle orders bekijken → </button>
+        </div>
+       </div>
       </div>
-
-      <div class="space-y-2 mb-4">
-        <div class="flex items-center gap-2">
-          <i data-lucide="user" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
-          <span class="text-sm text-slate-300 truncate">${o.Naam}</span>
+     </div><!-- Orders View -->
+     <div id="ordersView" class="w-full h-full hidden">
+      <div class="p-4 sm:p-8 space-y-4 sm:space-y-6">
+       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+         <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Orders</h2>
+         <p class="text-slate-500 mt-1 text-sm">Beheer alle bestellingen</p>
         </div>
-        <div class="flex items-start gap-2">
-          <i data-lucide="shopping-bag" style="width:14px;height:14px;color:#64748b;flex-shrink:0;margin-top:2px"></i>
-          <span class="text-sm text-slate-400 line-clamp-2">${o.Producten}</span>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto"><input type="text" id="ordersSearch" placeholder="Zoeken..." class="px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1 sm:flex-none"> <select id="ordersStatusFilter" class="px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"> <option value="">Alle statussen</option> <option value="Nieuw">Nieuw</option> <option value="Geaccepteerd">Geaccepteerd</option> <option value="Betaald">Betaald</option> <option value="Verzonden">Verzonden</option> </select> <button onclick="openNewOrderModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 text-sm">+ Nieuwe Order</button>
         </div>
-        <div class="flex items-center gap-2">
-          <i data-lucide="banknote" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
-          <span class="text-sm font-semibold text-emerald-400">${o.Totaal}</span>
-          ${o.Betaald === 'Ja' ? '<span class="text-[10px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-full font-semibold">BETAALD</span>' : ''}
+       </div><!-- Orders Table -->
+       <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+         <table class="w-full">
+          <thead class="bg-slate-50 border-b border-slate-200">
+           <tr>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">ID</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase hidden sm:table-cell">Datum</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Klant</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase hidden md:table-cell">Email</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Totaal</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Acties</th>
+           </tr>
+          </thead>
+          <tbody id="ordersTableBody" class="divide-y divide-slate-200">
+           <tr>
+            <td colspan="7" class="px-3 sm:px-6 py-8 text-center text-slate-500 text-sm">Orders laden...</td>
+           </tr>
+          </tbody>
+         </table>
         </div>
-        ${o.TrackTrace ? `
-        <div class="flex items-center gap-2">
-          <i data-lucide="truck" style="width:14px;height:14px;color:#64748b;flex-shrink:0"></i>
-          <a href="${o.TrackTrace}" target="_blank" rel="noopener noreferrer" class="text-xs text-indigo-400 hover:text-indigo-300 underline truncate">Track & Trace</a>
-        </div>` : ''}
-        ${o.Notities ? `
-        <div class="flex items-start gap-2">
-          <i data-lucide="message-circle" style="width:14px;height:14px;color:#64748b;flex-shrink:0;margin-top:2px"></i>
-          <span class="text-xs text-slate-500 italic">${o.Notities}</span>
-        </div>` : ''}
+       </div>
       </div>
-
-      ${!batchMode && actions.length > 0 ? `
-      <div class="flex flex-wrap gap-2 pt-3 border-t border-[#334155]">
-        ${actions.join('')}
-      </div>` : ''}
+     </div><!-- Products View -->
+     <div id="productsView" class="w-full h-full hidden">
+      <div class="p-4 sm:p-8 space-y-4 sm:space-y-6">
+       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+         <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Producten</h2>
+         <p class="text-slate-500 mt-1 text-sm">Beheer je product catalogus</p>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto"><input type="text" id="productsSearch" placeholder="Zoeken..." class="px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1 sm:flex-none"> <button onclick="openNewProductModal()" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 text-sm">+ Nieuw Product</button>
+        </div>
+       </div><!-- Products Table -->
+       <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+         <table class="w-full">
+          <thead class="bg-slate-50 border-b border-slate-200">
+           <tr>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Naam</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase hidden md:table-cell">Beschrijving</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Prijs</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Voorraad</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Acties</th>
+           </tr>
+          </thead>
+          <tbody id="productsTableBody" class="divide-y divide-slate-200">
+           <tr>
+            <td colspan="6" class="px-3 sm:px-6 py-8 text-center text-slate-500 text-sm">Producten laden...</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+      </div>
+     </div><!-- History View -->
+     <div id="historyView" class="w-full h-full hidden">
+      <div class="p-4 sm:p-8 space-y-4 sm:space-y-6">
+       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+         <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Order Geschiedenis</h2>
+         <p class="text-slate-500 mt-1 text-sm">Verzonden en afgeronde bestellingen</p>
+        </div>
+        <div class="flex flex-wrap gap-2 w-full sm:w-auto"><input type="text" id="historySearch" placeholder="Zoeken..." class="px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1 sm:flex-none"> <select id="historySortFilter" class="px-4 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"> <option value="datum-desc">Nieuwste eerst</option> <option value="datum-asc">Oudste eerst</option> <option value="totaal-desc">Duurste eerst</option> <option value="totaal-asc">Goedkoopste eerst</option> <option value="klant-asc">Klant (A-Z)</option> </select>
+        </div>
+       </div><!-- History Table -->
+       <div class="bg-white rounded-lg border border-slate-200 overflow-hidden">
+        <div class="overflow-x-auto">
+         <table class="w-full">
+          <thead class="bg-slate-50 border-b border-slate-200">
+           <tr>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">ID</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase hidden sm:table-cell">Datum</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Klant</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Totaal</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Track &amp; Trace</th>
+            <th class="px-3 sm:px-6 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Acties</th>
+           </tr>
+          </thead>
+          <tbody id="historyTableBody" class="divide-y divide-slate-200">
+           <tr>
+            <td colspan="6" class="px-3 sm:px-6 py-8 text-center text-slate-500 text-sm">Geen afgeronde orders</td>
+           </tr>
+          </tbody>
+         </table>
+        </div>
+       </div>
+      </div>
+     </div><!-- Analytics View -->
+     <div id="analyticsView" class="w-full h-full hidden">
+      <div class="p-4 sm:p-8">
+       <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Analytics</h2>
+       <p class="text-slate-500 mt-1 text-sm">Gedetailleerde analyses en statistieken</p>
+       <div class="mt-8 bg-white rounded-lg border border-slate-200 p-6 text-center text-slate-500">
+        <p>Analytics detail-pagina komt binnenkort</p>
+       </div>
+      </div>
+     </div><!-- Settings View -->
+     <div id="settingsView" class="w-full h-full hidden">
+      <div class="p-4 sm:p-8">
+       <h2 class="text-xl sm:text-2xl font-bold text-slate-900">Instellingen</h2>
+       <p class="text-slate-500 mt-1 text-sm">Configureer je dashboard</p>
+       <div class="mt-8 bg-white rounded-lg border border-slate-200 p-6">
+        <div class="max-w-md">
+         <label class="block text-sm font-semibold mb-2">Auto-refresh interval (seconden)</label> <input type="number" id="refreshInterval" value="30" min="10" max="300" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+         <p class="text-xs text-slate-500 mt-2">Orders worden automatisch vernieuwd</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </main>
+   </div>
+  </div><!-- Order Detail Modal -->
+  <div id="orderModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
+   <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto fade-in">
+    <div class="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
+     <h2 class="text-lg sm:text-xl font-bold text-slate-900">Order Details</h2><button onclick="closeOrderModal()" class="p-2 hover:bg-slate-100 rounded-lg"> <i data-lucide="x" style="width: 20px; height: 20px;"></i> </button>
     </div>
-  `;
-}
+    <form id="orderForm" class="p-4 sm:p-6 space-y-4" onsubmit="saveOrder(event)">
+     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div><label class="block text-sm font-semibold mb-2">Status</label> <select id="orderStatus" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"> <option value="Nieuw">Nieuw</option> <option value="Geaccepteerd">Geaccepteerd</option> <option value="Betaald">Betaald</option> <option value="Verzonden">Verzonden</option> </select>
+      </div>
+      <div><label class="block text-sm font-semibold mb-2">Betaald</label> <select id="orderPaid" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"> <option value="Nee">Nee</option> <option value="Ja">Ja</option> </select>
+      </div>
+     </div>
+     <div><label class="block text-sm font-semibold mb-2">Betaallink</label> <input type="url" id="orderPaymentLink" placeholder="https://..." class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+     </div>
+     <div><label class="block text-sm font-semibold mb-2">Track &amp; Trace</label> <input type="text" id="orderTrack" placeholder="Tracking code" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+     </div>
+     <div><label class="block text-sm font-semibold mb-2">Notities</label> <textarea id="orderNotes" placeholder="Internal notes..." class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3"></textarea>
+     </div>
+     <div class="flex gap-3 pt-4">
+      <button type="button" onclick="closeOrderModal()" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 text-sm">Annuleren</button> <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 text-sm">Opslaan</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Product Edit Modal -->
+  <div id="productModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden p-4">
+   <div class="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto fade-in">
+    <div class="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
+     <h2 class="text-lg sm:text-xl font-bold text-slate-900">Product Bewerken</h2><button onclick="closeProductModal()" class="p-2 hover:bg-slate-100 rounded-lg"> <i data-lucide="x" style="width: 20px; height: 20px;"></i> </button>
+    </div>
+    <form id="productForm" class="p-4 sm:p-6 space-y-4" onsubmit="saveProduct(event)">
+     <div><label class="block text-sm font-semibold mb-2">Productnaam</label> <input type="text" id="productName" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+     </div>
+     <div><label class="block text-sm font-semibold mb-2">Beschrijving</label> <textarea id="productDescription" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3"></textarea>
+     </div>
+     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div><label class="block text-sm font-semibold mb-2">Prijs</label> <input type="number" id="productPrice" step="0.01" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+      </div>
+      <div><label class="block text-sm font-semibold mb-2">Voorraad</label> <input type="number" id="productStock" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+      </div>
+     </div>
+     <div><label class="block text-sm font-semibold mb-2">Afbeelding URL</label> <input type="url" id="productImage" placeholder="https://..." class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+      <div id="productImagePreview" class="mt-2 rounded-lg bg-slate-100 h-40 flex items-center justify-center text-slate-500 text-sm">
+       Preview
+      </div>
+     </div>
+     <div><label class="flex items-center gap-3 cursor-pointer"><input type="checkbox" id="productVisible" class="w-4 h-4 rounded border-slate-300"> <span class="text-sm font-semibold">Product zichtbaar</span> </label>
+     </div>
+     <div class="flex gap-3 pt-4">
+      <button type="button" onclick="closeProductModal()" class="flex-1 px-4 py-2 border border-slate-300 rounded-lg font-semibold hover:bg-slate-50 text-sm">Annuleren</button> <button type="submit" class="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 text-sm">Opslaan</button>
+     </div>
+    </form>
+   </div>
+  </div><!-- Toast Container -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 space-y-2 px-4"></div>
+  <script>
+    // Config & State - Live Google Sheets endpoints
+    const ORDERS_ENDPOINT = "https://script.google.com/macros/s/AKfycbyxJA7BKy4oJxWcYk26lSHvMdmrBoLhLeg27jtDoVrsll0CB_lEhNOJoJYhA6-cByuy/exec";
+    const PRODUCTS_ENDPOINT = "https://script.googleusercontent.com/macros/echo?user_content_key=AWDtjMXxyv1wIKGpCmiosK_HYCl0TxiVcxyGpQSdrrXATcwseLTMK5VZXrCbiDAVhhHIFIk6ya03Kf2JY8GMqSGRvfjSAHZ4FG44SxJU0ccQgJqIyhwkr2v8a73aE1S2YNtykNgGQ1cmMdbwB5RDf6knhc76OnCDDOo8KdbRoGWfwGmVJsK_CxKkLGuKoZmENqZvNf3xOt8cxYtwuH2JuGtczQCEXdR4wlqCEdkZSI4kcaZseyS-GzUN6UJ5sYQ8pooeF3P-3weDJt8bFYYyARKOE7HBwReWafubHkfcW88ebbnz2eoqea-12IbkfB6AWg&lib=MibQXJ-c-K8ObWFSlm2roS3jtosKoxpvO";
 
-function getActionsForStatus(o) {
-  const actions = [];
-  switch(o.Status) {
-    case 'Nieuw':
-      actions.push(`<button class="btn-action text-white" style="background:#3b82f6;" onclick="acceptOrder(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="check" style="width:13px;height:13px"></i>Accepteer</button>`);
-      actions.push(`<button class="btn-action text-white" style="background:#ef4444;" onclick="rejectOrder(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="x" style="width:13px;height:13px"></i>Weiger</button>`);
-      break;
-    case 'Geaccepteerd':
-      actions.push(`<button class="btn-action text-white" style="background:#059669;" onclick="markPaid(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="credit-card" style="width:13px;height:13px"></i>Betaald</button>`);
-      if (!o.Betaallink) {
-        actions.push(`<button class="btn-action text-white" style="background:#a855f7;" onclick="addPayLink(${o.row},'${o.ID}')"><i data-lucide="link" style="width:13px;height:13px"></i>Betaallink</button>`);
-      }
-      break;
-    case 'Betaallink verstuurd':
-      actions.push(`<button class="btn-action text-white" style="background:#059669;" onclick="markPaid(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="credit-card" style="width:13px;height:13px"></i>Betaald</button>`);
-      break;
-    case 'Betaald':
-      actions.push(`<button class="btn-action text-white" style="background:#f97316;" onclick="markShipped(${o.row},'${o.ID}','${escAttr(o.Email)}','${escAttr(o.Naam)}')"><i data-lucide="truck" style="width:13px;height:13px"></i>Verzonden</button>`);
-      break;
-    case 'Verzonden':
-      actions.push(`<button class="btn-action text-white" style="background:#64748b;" onclick="markComplete(${o.row},'${o.ID}')"><i data-lucide="check-circle" style="width:13px;height:13px"></i>Afronden</button>`);
-      break;
-    case 'Retour aangevraagd':
-      actions.push(`<button class="btn-action text-white" style="background:#64748b;" onclick="markComplete(${o.row},'${o.ID}')"><i data-lucide="check-circle" style="width:13px;height:13px"></i>Retour afhandelen</button>`);
-      break;
-  }
-  return actions;
-}
+    const defaultConfig = { shop_name: "Barber Shop Dashboard", currency: "€", auto_refresh_interval: "30" };
+    let config = { ...defaultConfig };
 
-function escAttr(s) { return (s||'').replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+    // Demo data for local development
+    const DEMO_ORDERS = [
+      { id: "#001", datum: "2024-01-15", naam: "Jan Pieterzoon", email: "jan@example.com", totaal: 45.00, status: "Nieuw", betaald: "Nee", betaallink: "", track: "", notities: "", row: 1 },
+      { id: "#002", datum: "2024-01-14", naam: "Maria Garcia", email: "maria@example.com", totaal: 65.50, status: "Betaald", betaald: "Ja", betaallink: "", track: "NL123456789", notities: "VIP klant", row: 2 },
+      { id: "#003", datum: "2024-01-13", naam: "Piet Janssen", email: "piet@example.com", totaal: 35.00, status: "Geaccepteerd", betaald: "Nee", betaallink: "https://pay.example.com/123", track: "", notities: "", row: 3 },
+      { id: "#004", datum: "2024-01-12", naam: "Anna Smit", email: "anna@example.com", totaal: 120.00, status: "Verzonden", betaald: "Ja", betaallink: "", track: "NL987654321", notities: "", row: 4 }
+    ];
 
-// ============ ORDER ACTIONS ============
-async function acceptOrder(row, id, email, naam) {
-  showModal('Order Accepteren', `
-    <p class="text-sm text-slate-400 mb-3">Optioneel: voeg een betaallink toe voor <strong class="text-white">${id}</strong></p>
-    <label class="text-xs text-slate-500 mb-1 block" for="pay-link-input">Betaallink (optioneel)</label>
-    <input type="url" id="pay-link-input" placeholder="https://pay.example.com/..." class="mb-2">
-  `, async () => {
-    const link = document.getElementById('pay-link-input')?.value || '';
-    const updates = { status: 'Geaccepteerd' };
-    if (link) {
-      updates.betaallink = link;
-      updates.status = 'Betaallink verstuurd';
-    }
-    const ok = await updateOrder(row, updates);
-    if (ok) {
-      updateLocalOrder(id, { Status: updates.status, Betaallink: link || '' });
-      showToast(`Order ${id} geaccepteerd!`);
-      simulateEmail(email, naam, updates.status, link);
-    } else {
-      showToast('Update mislukt, probeer opnieuw', 'error');
-    }
-  }, 'Accepteer');
-}
+    const DEMO_PRODUCTS = [
+      { naam: "Classic Haircut", beschrijving: "Traditionele knipt", prijs: 15.00, voorraad: 50, zichtbaar: true, Afbeeldinghandmatig: "https://via.placeholder.com/300?text=Haircut" },
+      { naam: "Beard Trim", beschrijving: "Professionele baardtrim", prijs: 12.00, voorraad: 5, zichtbaar: true, Afbeeldinghandmatig: "https://via.placeholder.com/300?text=Beard" },
+      { naam: "Hair Wash", beschrijving: "Premium haar wassing", prijs: 8.00, voorraad: 30, zichtbaar: true, Afbeeldinghandmatig: "https://via.placeholder.com/300?text=Wash" },
+      { naam: "Styling", beschrijving: "Moderne styling", prijs: 20.00, voorraad: 2, zichtbaar: true, Afbeeldinghandmatig: "https://via.placeholder.com/300?text=Styling" }
+    ];
 
-async function rejectOrder(row, id, email, naam) {
-  showModal('Order Weigeren', `
-    <p class="text-sm text-slate-400">Weet je zeker dat je order <strong class="text-white">${id}</strong> wilt weigeren?</p>
-  `, async () => {
-    const ok = await updateOrder(row, { status: 'Geweigerd' });
-    if (ok) {
-      updateLocalOrder(id, { Status: 'Geweigerd' });
-      showToast(`Order ${id} geweigerd`, 'info');
-      simulateEmail(email, naam, 'Geweigerd');
-    }
-  }, 'Weigeren');
-}
+    let appState = {
+      products: [],
+      orders: [],
+      archivedOrders: [],
+      currentPage: "dashboard",
+      selectedOrder: null,
+      selectedProduct: null,
+      revenueChart: null,
+      refreshInterval: null,
+      isLoading: true
+    };
 
-async function markPaid(row, id, email, naam) {
-  const ok = await updateOrder(row, { status: 'Betaald', betaald: 'Ja' });
-  if (ok) {
-    updateLocalOrder(id, { Status: 'Betaald', Betaald: 'Ja' });
-    showToast(`Order ${id} als betaald gemarkeerd!`);
-    simulateEmail(email, naam, 'Betaald');
-  }
-}
-
-async function markShipped(row, id, email, naam) {
-  showModal('Verzenddetails', `
-    <p class="text-sm text-slate-400 mb-3">Voeg een Track & Trace link toe voor <strong class="text-white">${id}</strong></p>
-    <label class="text-xs text-slate-500 mb-1 block" for="track-input">Track & Trace Link</label>
-    <input type="url" id="track-input" placeholder="https://track.postnl.nl/..." class="mb-2">
-  `, async () => {
-    const track = document.getElementById('track-input')?.value || '';
-    const ok = await updateOrder(row, { status: 'Verzonden', track: track });
-    if (ok) {
-      updateLocalOrder(id, { Status: 'Verzonden', TrackTrace: track });
-      showToast(`Order ${id} als verzonden gemarkeerd!`);
-      simulateEmail(email, naam, 'Verzonden', '', track);
-    }
-  }, 'Markeer Verzonden');
-}
-
-async function markComplete(row, id) {
-  const ok = await updateOrder(row, { status: 'Afgerond' });
-  if (ok) {
-    updateLocalOrder(id, { Status: 'Afgerond' });
-    showToast(`Order ${id} afgerond!`);
-  }
-}
-
-async function addPayLink(row, id) {
-  showModal('Betaallink Toevoegen', `
-    <label class="text-xs text-slate-500 mb-1 block" for="paylink-input">Betaallink</label>
-    <input type="url" id="paylink-input" placeholder="https://pay.example.com/..." class="mb-2">
-  `, async () => {
-    const link = document.getElementById('paylink-input')?.value || '';
-    if (!link) { showToast('Vul een betaallink in', 'error'); return; }
-    const ok = await updateOrder(row, { status: 'Betaallink verstuurd', betaallink: link });
-    if (ok) {
-      updateLocalOrder(id, { Status: 'Betaallink verstuurd', Betaallink: link });
-      showToast(`Betaallink toegevoegd aan ${id}!`);
-      const order = allOrders.find(o => o.ID === id);
-      if (order) simulateEmail(order.Email, order.Naam, 'Betaallink verstuurd', link);
-    }
-  }, 'Opslaan');
-}
-
-function updateLocalOrder(id, updates) {
-  const idx = allOrders.findIndex(o => o.ID === id);
-  if (idx >= 0) {
-    Object.assign(allOrders[idx], updates);
-    renderStats();
-    renderFilters();
-    renderOrders();
-  }
-}
-
-function simulateEmail(email, naam, status, betaallink, track) {
-  let msg = `📧 E-mail naar ${naam} (${email}): Status → ${status}`;
-  if (betaallink) msg += ` | Betaallink: ${betaallink}`;
-  else if (status === 'Geaccepteerd') msg += ' | Betaallink volgt binnenkort.';
-  if (track) msg += ` | Track: ${track}`;
-  console.info(msg);
-  showToast(`E-mail verstuurd naar ${naam}`, 'info');
-}
-
-// ============ BATCH MODE ============
-function toggleBatchMode() {
-  batchMode = document.getElementById('batch-toggle').checked;
-  selectedIds.clear();
-  updateBatchBar();
-  renderOrders();
-}
-
-function toggleSelect(id) {
-  if (selectedIds.has(id)) selectedIds.delete(id);
-  else selectedIds.add(id);
-  updateBatchBar();
-  const card = document.getElementById('card-' + id);
-  if (card) {
-    card.classList.toggle('border-indigo-500', selectedIds.has(id));
-    card.classList.toggle('bg-indigo-500/5', selectedIds.has(id));
-    card.classList.toggle('border-[#1e293b]', !selectedIds.has(id));
-  }
-}
-
-function updateBatchBar() {
-  const bar = document.getElementById('batch-bar');
-  const count = document.getElementById('selected-count');
-  const info = document.getElementById('batch-info');
-  if (batchMode && selectedIds.size > 0) {
-    bar.classList.remove('hidden');
-    info.textContent = `${selectedIds.size} geselecteerd`;
-  } else {
-    bar.classList.add('hidden');
-  }
-  if (batchMode) {
-    count.classList.remove('hidden');
-    count.textContent = `${selectedIds.size} geselecteerd`;
-  } else {
-    count.classList.add('hidden');
-  }
-}
-
-async function batchAction(newStatus) {
-  const ids = [...selectedIds];
-  let successCount = 0;
-  for (const id of ids) {
-    const order = allOrders.find(o => o.ID === id);
-    if (!order) continue;
-    const updates = { status: newStatus };
-    if (newStatus === 'Betaald') updates.betaald = 'Ja';
-    const ok = await updateOrder(order.row, updates);
-    if (ok) {
-      const localUpdates = { Status: newStatus };
-      if (newStatus === 'Betaald') localUpdates.Betaald = 'Ja';
-      Object.assign(order, localUpdates);
-      successCount++;
-    }
-  }
-  selectedIds.clear();
-  updateBatchBar();
-  renderStats();
-  renderFilters();
-  renderOrders();
-  showToast(`${successCount} orders bijgewerkt naar "${newStatus}"!`);
-}
-
-function cancelBatch() {
-  selectedIds.clear();
-  document.getElementById('batch-toggle').checked = false;
-  batchMode = false;
-  updateBatchBar();
-  renderOrders();
-}
-
-// ============ AUTO REFRESH ============
-function startAutoRefresh() {
-  if (refreshTimer) clearInterval(refreshTimer);
-  refreshTimer = setInterval(async () => {
-    if (isLoading) return;
-    const newOrders = await fetchOrders();
-    if (JSON.stringify(newOrders.map(o=>o.Status)) !== JSON.stringify(allOrders.map(o=>o.Status))) {
-      allOrders = newOrders;
-      document.getElementById('last-updated').textContent = 'Bijgewerkt: ' + new Date().toLocaleTimeString('nl-NL');
-      renderStats();
-      renderFilters();
-      renderOrders();
-    }
-  }, AUTO_REFRESH_MS);
-}
-
-// ============ ELEMENT SDK ============
-const defaultConfig = {
-  dashboard_title: 'Kapper Webshop Dashboard',
-  footer_text: 'Powered by vanappiah.com',
-  background_color: '#0f172a',
-  surface_color: '#1e293b',
-  text_color: '#e2e8f0',
-  accent_color: '#6366f1',
-  success_color: '#059669',
-  font_family: 'Outfit',
-  font_size: 14
-};
-
-function applyConfig(config) {
-  const c = { ...defaultConfig, ...config };
-  // Title
-  const titleEl = document.getElementById('dashboard-title');
-  if (titleEl) titleEl.textContent = c.dashboard_title;
-  // Footer
-  const footerEl = document.getElementById('footer-text');
-  if (footerEl) footerEl.innerHTML = c.footer_text.includes('vanappiah')
-    ? c.footer_text.replace('vanappiah.com', '<a href="https://vanappiah.com" target="_blank" rel="noopener noreferrer" class="text-indigo-400 hover:text-indigo-300 transition-colors">vanappiah.com</a>')
-    : c.footer_text;
-  // Colors
-  document.body.style.backgroundColor = c.background_color;
-  document.querySelectorAll('.stat-card').forEach(el => {
-    el.style.background = `linear-gradient(135deg, ${c.surface_color}, ${c.background_color})`;
-    el.style.borderColor = c.surface_color;
-  });
-  document.querySelectorAll('.order-card').forEach(el => {
-    if (!el.classList.contains('border-indigo-500')) {
-      el.style.borderColor = c.surface_color;
-      el.style.background = c.surface_color + '80';
-    }
-  });
-  // Font
-  const fontStack = `${c.font_family}, Outfit, sans-serif`;
-  document.querySelectorAll('.font-heading, h1, h2, h3').forEach(el => {
-    el.style.fontFamily = fontStack;
-  });
-  const bodyStack = `${c.font_family}, DM Sans, sans-serif`;
-  document.body.style.fontFamily = bodyStack;
-  // Font size
-  const base = c.font_size;
-  document.body.style.fontSize = `${base}px`;
-  if (titleEl) titleEl.style.fontSize = `${base * 1.4}px`;
-}
-
-if (window.elementSdk) {
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange: async (config) => { applyConfig(config); },
-    mapToCapabilities: (config) => {
-      const c = { ...defaultConfig, ...config };
-      return {
-        recolorables: [
-          { get: () => c.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
-          { get: () => c.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
-          { get: () => c.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
-          { get: () => c.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
-          { get: () => c.success_color, set: (v) => { config.success_color = v; window.elementSdk.setConfig({ success_color: v }); } }
-        ],
-        borderables: [],
-        fontEditable: {
-          get: () => c.font_family,
-          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+    // SDK Init
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (newConfig) => {
+          config = newConfig;
+          document.getElementById('sidebarTitle').textContent = config.shop_name?.split(' ')[0] || "Barber";
+          if (config.auto_refresh_interval) {
+            const interval = parseInt(config.auto_refresh_interval) * 1000;
+            resetAutoRefresh(interval);
+          }
         },
-        fontSizeable: {
-          get: () => c.font_size,
-          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
-        }
-      };
-    },
-    mapToEditPanelValues: (config) => {
-      const c = { ...defaultConfig, ...config };
-      return new Map([
-        ['dashboard_title', c.dashboard_title],
-        ['footer_text', c.footer_text]
-      ]);
+        mapToCapabilities: () => ({ recolorables: [], borderables: [], fontEditable: undefined, fontSizeable: undefined }),
+        mapToEditPanelValues: () => new Map([["shop_name", config.shop_name || defaultConfig.shop_name], ["currency", config.currency || defaultConfig.currency], ["auto_refresh_interval", config.auto_refresh_interval || defaultConfig.auto_refresh_interval]])
+      });
     }
-  });
-}
 
-// ============ INIT ============
-loadOrders();
-startAutoRefresh();
-lucide.createIcons();
-</script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9df6b5063471a000',t:'MTc3NDAzMDU3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    // Data SDK Handler
+    const dataHandler = {
+      onDataChanged(data) {
+        if (!data || !Array.isArray(data)) return;
+        
+        // Separate products and orders by type field
+        appState.products = data.filter(item => item.type === 'product');
+        const allOrders = data.filter(item => item.type === 'order');
+        appState.orders = allOrders.filter(o => o.status !== 'Verzonden');
+        appState.archivedOrders = allOrders.filter(o => o.status === 'Verzonden');
+        
+        // Update UI based on current page
+        updateDashboard();
+        renderRecentOrders();
+        if (appState.currentPage === 'orders') renderOrdersTable();
+        if (appState.currentPage === 'products') renderProductsTable();
+        if (appState.currentPage === 'history') renderHistoryTable();
+      }
+    };
+
+    // Utilities
+    function formatPrice(price) {
+      return `${config.currency}${parseFloat(price || 0).toFixed(2)}`;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return "N/A";
+      const date = new Date(dateStr);
+      return date.toLocaleDateString("nl-NL", { year: 'numeric', month: '2-digit', day: '2-digit' });
+    }
+
+    function showToast(message, type = "success") {
+      const toast = document.createElement("div");
+      const bgColor = type === "error" ? "bg-red-500" : "bg-green-500";
+      toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-2 text-sm fade-in`;
+      toast.innerHTML = `<i data-lucide="${type === "error" ? "alert-circle" : "check-circle"}" style="width: 18px; height: 18px;"></i><span>${message}</span>`;
+      document.getElementById("toastContainer").appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('sidebar-collapsed'));
+    }
+
+    function navigateTo(page) {
+      appState.currentPage = page;
+      document.querySelectorAll('[id$="View"]').forEach(v => v.classList.add('hidden'));
+      document.getElementById(page + 'View').classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active', 'bg-slate-800'));
+      event.target.closest('.nav-item')?.classList.add('active', 'bg-slate-800');
+
+      const titles = { dashboard: 'Dashboard', orders: 'Orders', products: 'Producten', analytics: 'Analytics', history: 'Order Geschiedenis', settings: 'Instellingen' };
+      document.getElementById('pageTitle').textContent = titles[page];
+
+      if (page === 'orders') renderOrdersTable();
+      if (page === 'products') renderProductsTable();
+      if (page === 'history') renderHistoryTable();
+    }
+
+    function hideLoadingOverlay() {
+      document.getElementById('loadingOverlay').classList.add('hidden');
+      appState.isLoading = false;
+    }
+
+    function resetAutoRefresh(interval) {
+      if (appState.refreshInterval) clearInterval(appState.refreshInterval);
+      appState.refreshInterval = setInterval(() => {
+        if (appState.currentPage === 'orders' || appState.currentPage === 'dashboard') {
+          fetchOrders();
+        }
+      }, interval);
+    }
+
+    // Fetch Data - Live Google Sheets endpoints
+    async function fetchProductsFromSheets() {
+      try {
+        const response = await fetch(PRODUCTS_ENDPOINT);
+        const data = await response.json();
+        
+        if (Array.isArray(data)) {
+          appState.products = data.map((product, idx) => ({
+            type: 'product',
+            id: product.id || 'prod-' + idx,
+            naam: product.naam || '',
+            beschrijving: product.beschrijving || '',
+            prijs: parseFloat(product.prijs || 0),
+            voorraad: parseInt(product.voorraad || 0),
+            zichtbaar: product.zichtbaar === true || String(product.zichtbaar).toLowerCase() === 'true' || String(product.zichtbaar).toLowerCase() === 'ja',
+            afbeelding: product.afbeelding || (product.afbeeldingen && product.afbeeldingen[0]) || 'https://via.placeholder.com/300?text=Product',
+            folderNaam: product.folderNaam || ''
+          }));
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        showToast("Fout bij laden producten", "error");
+      }
+    }
+
+    async function fetchOrdersFromSheets() {
+      try {
+        const response = await fetch(ORDERS_ENDPOINT);
+        const data = await response.json();
+        
+        if (Array.isArray(data)) {
+          const allOrders = data.map((order, idx) => ({
+            type: 'order',
+            id: order.id || '#' + idx,
+            datum: order.datum || new Date().toISOString(),
+            naam: order.naam || '',
+            email: order.email || '',
+            adres: order.adres || '',
+            producten: order.producten || [],
+            totaal: parseFloat(order.totaal || 0),
+            status: order.status || 'Nieuw',
+            betaallink: order.betaallink || '',
+            betaald: order.betaald === true || String(order.betaald).toLowerCase() === 'true' || String(order.betaald).toLowerCase() === 'ja' ? 'Ja' : 'Nee',
+            track: order.track || '',
+            notities: order.notities || ''
+          }));
+
+          appState.orders = allOrders.filter(o => o.status !== 'Verzonden');
+          appState.archivedOrders = allOrders.filter(o => o.status === 'Verzonden');
+        }
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        showToast("Fout bij laden orders", "error");
+      }
+    }
+
+    async function fetchAllData() {
+      await Promise.all([fetchProductsFromSheets(), fetchOrdersFromSheets()]);
+      updateDashboard();
+      renderRecentOrders();
+    }
+    function renderOrdersTable() {
+      const tbody = document.getElementById("ordersTableBody");
+      const searchTerm = (document.getElementById("ordersSearch")?.value || "").toLowerCase();
+      const statusFilter = document.getElementById("ordersStatusFilter")?.value || "";
+
+      let filtered = appState.orders.filter(order => {
+        const matchesSearch = !searchTerm || 
+          (order.id && order.id.toLowerCase().includes(searchTerm)) ||
+          (order.naam && order.naam.toLowerCase().includes(searchTerm)) ||
+          (order.email && order.email.toLowerCase().includes(searchTerm));
+        const matchesStatus = !statusFilter || order.status === statusFilter;
+        return matchesSearch && matchesStatus;
+      });
+
+      // Sort newest first (descending by date)
+      filtered.sort((a, b) => new Date(b.datum) - new Date(a.datum));
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="px-6 py-8 text-center text-slate-500 text-sm">Geen openstaande orders</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(order => {
+        const statusMap = { 'Nieuw': 'bg-slate-100 text-slate-800', 'Geaccepteerd': 'bg-blue-100 text-blue-800', 'Betaald': 'bg-green-100 text-green-800', 'Verzonden': 'bg-purple-100 text-purple-800' };
+        const statusColor = statusMap[order.status] || 'bg-slate-100 text-slate-800';
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${order.id || "N/A"}</td>
+            <td class="px-3 sm:px-6 py-4 text-slate-600 text-sm hidden sm:table-cell">${formatDate(order.datum)}</td>
+            <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${order.naam || "N/A"}</td>
+            <td class="px-3 sm:px-6 py-4 text-slate-600 text-sm hidden md:table-cell">${order.email || "N/A"}</td>
+            <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${formatPrice(order.totaal)}</td>
+            <td class="px-3 sm:px-6 py-4"><span class="px-3 py-1 rounded-full text-xs font-semibold status-badge ${statusColor}">${order.status || "N/A"}</span></td>
+            <td class="px-3 sm:px-6 py-4"><button onclick="editOrder(${JSON.stringify(order).replace(/"/g, '&quot;')})" class="text-blue-600 hover:text-blue-800 font-semibold text-xs sm:text-sm">Bewerk</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderHistoryTable() {
+      const tbody = document.getElementById("historyTableBody");
+      const searchTerm = (document.getElementById("historySearch")?.value || "").toLowerCase();
+      const sortFilter = document.getElementById("historySortFilter")?.value || "datum-desc";
+
+      let filtered = appState.archivedOrders.filter(order => {
+        const matchesSearch = !searchTerm || 
+          (order.id && order.id.toLowerCase().includes(searchTerm)) ||
+          (order.naam && order.naam.toLowerCase().includes(searchTerm)) ||
+          (order.email && order.email.toLowerCase().includes(searchTerm));
+        return matchesSearch;
+      });
+
+      // Apply sorting
+      filtered.sort((a, b) => {
+        switch(sortFilter) {
+          case 'datum-asc':
+            return new Date(a.datum) - new Date(b.datum);
+          case 'datum-desc':
+            return new Date(b.datum) - new Date(a.datum);
+          case 'totaal-asc':
+            return parseFloat(a.totaal || 0) - parseFloat(b.totaal || 0);
+          case 'totaal-desc':
+            return parseFloat(b.totaal || 0) - parseFloat(a.totaal || 0);
+          case 'klant-asc':
+            return (a.naam || "").localeCompare(b.naam || "");
+          default:
+            return new Date(b.datum) - new Date(a.datum);
+        }
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="px-3 sm:px-6 py-8 text-center text-slate-500 text-sm">Geen afgeronde orders</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(order => `
+        <tr class="hover:bg-slate-50 transition">
+          <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${order.id || "N/A"}</td>
+          <td class="px-3 sm:px-6 py-4 text-slate-600 text-sm hidden sm:table-cell">${formatDate(order.datum)}</td>
+          <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${order.naam || "N/A"}</td>
+          <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${formatPrice(order.totaal)}</td>
+          <td class="px-3 sm:px-6 py-4 text-sm"><a href="${order.track}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">${order.track ? '📦 Link' : '-'}</a></td>
+          <td class="px-3 sm:px-6 py-4"><button onclick="editOrder(${JSON.stringify(order).replace(/"/g, '&quot;')})" class="text-blue-600 hover:text-blue-800 font-semibold text-xs sm:text-sm">Bewerk</button></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderProductsTable() {
+      const tbody = document.getElementById("productsTableBody");
+      const searchTerm = (document.getElementById("productsSearch")?.value || "").toLowerCase();
+      
+      let filtered = appState.products.filter(product => {
+        const matchesSearch = !searchTerm || 
+          (product.naam && product.naam.toLowerCase().includes(searchTerm)) ||
+          (product.beschrijving && product.beschrijving.toLowerCase().includes(searchTerm)) ||
+          (product.folderNaam && product.folderNaam.toLowerCase().includes(searchTerm));
+        return matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-8 text-center text-slate-500 text-sm">Geen producten</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(product => {
+        const lowStock = (product.voorraad || 0) < 5;
+        const noStock = (product.voorraad || 0) === 0;
+        const isVisible = product.zichtbaar === true || String(product.zichtbaar).toLowerCase() === "true" || String(product.zichtbaar).toLowerCase() === "ja";
+        
+        let stockColor = "text-green-600";
+        if (noStock) stockColor = "text-red-600 font-semibold";
+        else if (lowStock) stockColor = "text-amber-600 font-semibold";
+        
+        return `
+          <tr class="hover:bg-slate-50 transition">
+            <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${product.naam}</td>
+            <td class="px-3 sm:px-6 py-4 text-slate-600 text-sm hidden md:table-cell line-clamp-2">${product.beschrijving || "-"}</td>
+            <td class="px-3 sm:px-6 py-4 font-semibold text-slate-900 text-sm">${formatPrice(product.prijs)}</td>
+            <td class="px-3 sm:px-6 py-4 text-sm ${stockColor}">${product.voorraad || 0} ${noStock ? '❌' : lowStock ? '⚠️' : '✓'}</td>
+            <td class="px-3 sm:px-6 py-4"><span class="px-3 py-1 rounded-full text-xs font-semibold status-badge ${isVisible ? "bg-green-100 text-green-800" : "bg-slate-100 text-slate-800"}">${isVisible ? "Zichtbaar" : "Verborgen"}</span></td>
+            <td class="px-3 sm:px-6 py-4"><button onclick="editProduct(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="text-blue-600 hover:text-blue-800 font-semibold text-xs sm:text-sm">Bewerk</button></td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function renderRecentOrders() {
+      const list = document.getElementById("recentOrdersList");
+      // Sort by date descending (newest first) and take 5
+      const sorted = [...appState.orders].sort((a, b) => new Date(b.datum) - new Date(a.datum));
+      const recent = sorted.slice(0, 5);
+      if (recent.length === 0) {
+        list.innerHTML = '<p class="text-slate-500 text-sm py-4">Nog geen orders</p>';
+        return;
+      }
+
+      list.innerHTML = recent.map(order => {
+        const statusMap = { 'Nieuw': 'bg-slate-100 text-slate-800', 'Betaald': 'bg-green-100 text-green-800', 'Geaccepteerd': 'bg-blue-100 text-blue-800' };
+        const statusColor = statusMap[order.status] || 'bg-slate-100 text-slate-800';
+        return `
+          <div class="flex items-center justify-between p-3 hover:bg-slate-50 rounded-lg transition cursor-pointer">
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-slate-900 text-sm">${order.naam}</p>
+              <p class="text-xs text-slate-500">${formatDate(order.datum)}</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-slate-900 text-sm">${formatPrice(order.totaal)}</p>
+              <span class="inline-block px-2 py-1 text-xs font-semibold rounded status-badge ${statusColor}" style="margin-top: 4px;">${order.status}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function updateDashboard() {
+      const totalRevenue = appState.orders.reduce((sum, o) => sum + (parseFloat(o.totaal || 0)), 0);
+      const pendingOrders = appState.orders.filter(o => !['Betaald'].includes(o.status)).length;
+      const avgOrder = appState.orders.length > 0 ? totalRevenue / appState.orders.length : 0;
+
+      document.getElementById("kpiRevenue").textContent = formatPrice(totalRevenue);
+      document.getElementById("kpiOrders").textContent = appState.orders.length;
+      document.getElementById("kpiPending").textContent = pendingOrders;
+      document.getElementById("kpiAvgOrder").textContent = formatPrice(avgOrder);
+      document.getElementById("kpiOrdersChange").textContent = "+" + appState.orders.length;
+
+      renderChart();
+    }
+
+    function renderChart() {
+      const ctx = document.getElementById('revenueChart');
+      if (!ctx) return;
+
+      if (appState.revenueChart) appState.revenueChart.destroy();
+
+      const daily = {};
+      appState.orders.forEach(o => {
+        const date = new Date(o.datum).toLocaleDateString('nl-NL');
+        daily[date] = (daily[date] || 0) + parseFloat(o.totaal || 0);
+      });
+
+      const labels = Object.keys(daily).sort((a, b) => new Date(a) - new Date(b)).slice(-7);
+      const data = labels.map(l => daily[l]);
+
+      appState.revenueChart = new Chart(ctx, {
+        type: 'line',
+        data: { labels, datasets: [{ label: 'Omzet (€)', data, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.1)', fill: true, tension: 0.4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, ticks: { callback: v => '€' + v.toFixed(0) } } } }
+      });
+    }
+
+    // Order Modal
+    function editOrder(order) {
+      appState.selectedOrder = order;
+      document.getElementById("orderStatus").value = order.status || "Nieuw";
+      document.getElementById("orderPaid").value = order.betaald || "Nee";
+      document.getElementById("orderPaymentLink").value = order.betaallink || "";
+      document.getElementById("orderTrack").value = order.track || "";
+      document.getElementById("orderNotes").value = order.notities || "";
+      document.getElementById("orderModal").classList.remove('hidden');
+    }
+
+    function openNewOrderModal() {
+      appState.selectedOrder = {
+        type: 'order',
+        id: '#' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+        naam: '',
+        email: '',
+        totaal: 0,
+        status: 'Nieuw',
+        betaald: 'Nee',
+        datum: new Date().toISOString().split('T')[0],
+        betaallink: '',
+        track: '',
+        notities: ''
+      };
+      document.getElementById("orderStatus").value = "Nieuw";
+      document.getElementById("orderPaid").value = "Nee";
+      document.getElementById("orderPaymentLink").value = "";
+      document.getElementById("orderTrack").value = "";
+      document.getElementById("orderNotes").value = "";
+      document.getElementById("orderModal").classList.remove('hidden');
+    }
+
+    function closeOrderModal() {
+      document.getElementById("orderModal").classList.add('hidden');
+      appState.selectedOrder = null;
+    }
+
+    async function saveOrder(e) {
+      e.preventDefault();
+      if (!appState.selectedOrder) return;
+
+      const btn = e.target.querySelector("button[type='submit']");
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader" class="animate-spin" style="width: 16px; height: 16px; display: inline;"></i> Opslaan...';
+
+      try {
+        const updatedOrder = {
+          ...appState.selectedOrder,
+          status: document.getElementById("orderStatus").value,
+          betaald: document.getElementById("orderPaid").value === "Ja" ? true : false,
+          betaallink: document.getElementById("orderPaymentLink").value,
+          track: document.getElementById("orderTrack").value,
+          notities: document.getElementById("orderNotes").value
+        };
+
+        // Save to localStorage
+        let savedOrders = JSON.parse(localStorage.getItem('ordersEdits') || '{}');
+        savedOrders[updatedOrder.id] = updatedOrder;
+        localStorage.setItem('ordersEdits', JSON.stringify(savedOrders));
+
+        // Update in appState
+        const idx = appState.orders.findIndex(o => o.id === updatedOrder.id);
+        if (idx >= 0) {
+          appState.orders[idx] = updatedOrder;
+        } else {
+          appState.orders.push(updatedOrder);
+        }
+
+        showToast("✅ Order opgeslagen (lokaal)");
+        closeOrderModal();
+        renderOrdersTable();
+        updateDashboard();
+        renderRecentOrders();
+      } catch (error) {
+        console.error("Error:", error);
+        showToast("Fout bij opslaan order", "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "Opslaan";
+        lucide.createIcons();
+      }
+    }
+
+    function viewOrderDetails(order) {
+      alert(`Order ${order.id}\n\nKlant: ${order.naam}\nEmail: ${order.email}\nTotaal: ${formatPrice(order.totaal)}\nTrack: ${order.track || 'N/A'}`);
+    }
+
+    // Product Modal
+    function editProduct(product) {
+      appState.selectedProduct = product;
+      document.getElementById("productName").value = product.naam || "";
+      document.getElementById("productDescription").value = product.beschrijving || "";
+      document.getElementById("productPrice").value = product.prijs || "";
+      document.getElementById("productStock").value = product.voorraad || "";
+      const imgUrl = product.afbeelding || "https://via.placeholder.com/300?text=Product";
+      document.getElementById("productImage").value = imgUrl;
+      document.getElementById("productVisible").checked = product.zichtbaar === true || String(product.zichtbaar).toLowerCase() === "true" || String(product.zichtbaar).toLowerCase() === "ja";
+      
+      updateProductImagePreview(imgUrl);
+      document.getElementById("productModal").classList.remove('hidden');
+    }
+
+    function openNewProductModal() {
+      appState.selectedProduct = {
+        type: 'product',
+        naam: '',
+        beschrijving: '',
+        prijs: 0,
+        voorraad: 0,
+        zichtbaar: 'Ja'
+      };
+      document.getElementById("productName").value = "";
+      document.getElementById("productDescription").value = "";
+      document.getElementById("productPrice").value = "";
+      document.getElementById("productStock").value = "";
+      document.getElementById("productImage").value = "";
+      document.getElementById("productVisible").checked = true;
+      updateProductImagePreview("");
+      document.getElementById("productModal").classList.remove('hidden');
+    }
+
+    function closeProductModal() {
+      document.getElementById("productModal").classList.add('hidden');
+      appState.selectedProduct = null;
+    }
+
+    function updateProductImagePreview(url) {
+      const preview = document.getElementById("productImagePreview");
+      if (url && url.startsWith('http')) {
+        preview.innerHTML = `<img src="${url}" alt="Preview" style="max-height: 100%; max-width: 100%; object-fit: contain;">`;
+      } else {
+        preview.innerHTML = '<p class="text-slate-500 text-sm">Geen afbeelding</p>';
+      }
+    }
+
+    document.getElementById("productImage").addEventListener("change", (e) => {
+      updateProductImagePreview(e.target.value);
+    });
+
+    async function saveProduct(e) {
+      e.preventDefault();
+      if (!appState.selectedProduct) return;
+
+      const btn = e.target.querySelector("button[type='submit']");
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader" class="animate-spin" style="width: 16px; height: 16px; display: inline;"></i> Opslaan...';
+
+      try {
+        const updatedProduct = {
+          ...appState.selectedProduct,
+          type: 'product',
+          naam: document.getElementById("productName").value,
+          beschrijving: document.getElementById("productDescription").value,
+          prijs: parseFloat(document.getElementById("productPrice").value) || 0,
+          voorraad: parseInt(document.getElementById("productStock").value) || 0,
+          afbeelding: document.getElementById("productImage").value,
+          zichtbaar: document.getElementById("productVisible").checked
+        };
+
+        // Save to localStorage
+        let savedProducts = JSON.parse(localStorage.getItem('productsEdits') || '{}');
+        savedProducts[updatedProduct.id || updatedProduct.naam] = updatedProduct;
+        localStorage.setItem('productsEdits', JSON.stringify(savedProducts));
+
+        // Update in appState
+        const idx = appState.products.findIndex(p => (p.id || p.naam) === (updatedProduct.id || updatedProduct.naam));
+        if (idx >= 0) {
+          appState.products[idx] = updatedProduct;
+        } else {
+          appState.products.push(updatedProduct);
+        }
+
+        showToast("✅ Product opgeslagen (lokaal)");
+        closeProductModal();
+        renderProductsTable();
+      } catch (error) {
+        console.error("Error:", error);
+        showToast("Fout bij opslaan product", "error");
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = "Opslaan";
+        lucide.createIcons();
+      }
+    }
+
+    // Init
+    async function init() {
+      lucide.createIcons();
+      if (localStorage.getItem('sidebarCollapsed') === 'true') {
+        document.getElementById('sidebar').classList.add('sidebar-collapsed');
+      }
+
+      // Load data from Google Sheets
+      await fetchAllData();
+      hideLoadingOverlay();
+      
+      // Start auto-refresh
+      const interval = parseInt(config.auto_refresh_interval || "30") * 1000;
+      resetAutoRefresh(interval);
+
+      // Add event listeners for filtering and searching
+      const ordersSearch = document.getElementById("ordersSearch");
+      const ordersStatusFilter = document.getElementById("ordersStatusFilter");
+      if (ordersSearch) ordersSearch.addEventListener("input", renderOrdersTable);
+      if (ordersStatusFilter) ordersStatusFilter.addEventListener("change", renderOrdersTable);
+
+      const historySearch = document.getElementById("historySearch");
+      const historySortFilter = document.getElementById("historySortFilter");
+      if (historySearch) historySearch.addEventListener("input", renderHistoryTable);
+      if (historySortFilter) historySortFilter.addEventListener("change", renderHistoryTable);
+
+      const productsSearch = document.getElementById("productsSearch");
+      if (productsSearch) productsSearch.addEventListener("input", renderProductsTable);
+    }
+
+    // Start init after a brief delay to ensure DOM is ready
+    setTimeout(init, 100);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e070d3013947e8f',t:'MTc3NDIwMTk2MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

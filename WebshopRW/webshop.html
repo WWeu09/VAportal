@@ -1,393 +1,551 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webshop</title>
+  <title>RW Cutzz — Premium Barbershop Amsterdam</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['"DM Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    :root {
-      --bg: #f4efe7;
-      --panel: #fffdf9;
-      --text: #23190f;
-      --muted: #716457;
-      --accent: #c45a2d;
-      --accent-dark: #8d3f1d;
-      --border: #e6d7c8;
-      --success: #1b7f5a;
-      --shadow: 0 18px 40px rgba(35, 25, 15, 0.08);
+    html { height: 100%; touch-action: manipulation; }
+    body { height: 100%; margin: 0; touch-action: manipulation; }
+
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .portfolio-item { opacity: 0; transform: scale(0.95); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .portfolio-item.visible { opacity: 1; transform: scale(1); }
+    .portfolio-item:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(74,159,217,0.25); }
+
+    .nav-link { position: relative; color: #a09890; }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 0; height: 2px;
+      background: #4a9fd9;
+      transition: width 0.3s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+
+    .hero-bg {
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(196, 90, 45, 0.15), transparent 28%),
-        linear-gradient(180deg, #f7f2ea 0%, var(--bg) 100%);
-      min-height: 100vh;
-    }
-
-    .page {
-      width: min(1100px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 40px 0 56px;
-    }
-
-    .hero {
-      padding: 28px;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      background: rgba(255, 253, 249, 0.86);
-      box-shadow: var(--shadow);
+    .glass-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
       backdrop-filter: blur(10px);
     }
 
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--accent-dark);
-      font-size: 0.85rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+    .grid-pattern {
+      background-image: 
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
     }
 
-    h1, h2 {
-      margin: 0;
-      font-weight: 600;
-    }
+    .mobile-menu { transform: translateX(100%); transition: transform 0.3s ease; }
+    .mobile-menu.open { transform: translateX(0); }
 
-    h1 {
-      font-size: clamp(2.2rem, 6vw, 4.6rem);
-      line-height: 0.95;
-      max-width: 10ch;
-    }
-
-    .hero p {
-      max-width: 55ch;
-      color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.6;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 1.3fr 0.9fr;
-      gap: 24px;
-      margin-top: 28px;
-    }
-
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      padding: 24px;
-    }
-
-    .panel h2 {
-      font-size: 1.5rem;
-      margin-bottom: 8px;
-    }
-
-    .panel p {
-      color: var(--muted);
-      margin-top: 0;
-    }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    button,
-    select,
-    input {
-      font: inherit;
-    }
-
-    button {
-      border: 0;
-      border-radius: 999px;
-      padding: 12px 18px;
-      cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-    }
-
-    button:disabled {
-      cursor: wait;
-      opacity: 0.7;
-      transform: none;
-    }
-
-    .primary {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .secondary {
-      background: #efe2d2;
-      color: var(--text);
-    }
-
-    .status {
-      margin: 0 0 16px;
-      min-height: 24px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .status.success {
-      color: var(--success);
-    }
-
-    .status.error {
-      color: #b42318;
-    }
-
-    .products {
-      display: grid;
-      gap: 14px;
-    }
-
-    .product-card {
-      padding: 18px;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      background: #fff;
-      display: grid;
-      gap: 10px;
-    }
-
-    .product-image {
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      border-radius: 14px;
-      background: #f1e5d8;
-      border: 1px solid var(--border);
-    }
-
-    .product-card header {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      align-items: start;
-    }
-
-    .product-card h3 {
-      margin: 0;
-      font-size: 1.1rem;
-    }
-
-    .price {
-      white-space: nowrap;
-      color: var(--accent-dark);
-      font-weight: 700;
-    }
-
-    .meta {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    form {
-      display: grid;
-      gap: 14px;
-    }
-
-    label {
-      display: grid;
-      gap: 6px;
-      font-size: 0.95rem;
-      color: var(--muted);
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: #fff;
-      color: var(--text);
-    }
-
-    .inline {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .stack {
-      display: grid;
-      gap: 12px;
-    }
-
-    .order-result {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: #f8f2eb;
-      color: var(--text);
+    .lightbox {
       display: none;
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(10, 10, 10, 0.95);
+      overflow: auto;
+    }
+    .lightbox.active { display: flex; align-items: center; justify-content: center; }
+    .lightbox-content {
+      position: relative;
+      max-width: 95vw;
+      max-height: 90vh;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox-img {
+      max-width: 95vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #e8e4e0;
+      cursor: pointer;
+      font-size: 32px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 101;
+    }
+    .lightbox-prev, .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #e8e4e0;
+      cursor: pointer;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .lightbox-prev { left: 10px; }
+    .lightbox-next { right: 10px; }
+    .lightbox-prev:hover, .lightbox-next:hover { background: rgba(0, 0, 0, 0.8); }
+
+    .portfolio-slider {
+      display: none;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      gap: 12px;
+      padding-bottom: 8px;
+    }
+    .portfolio-slider.active { display: flex; }
+    .portfolio-slider::-webkit-scrollbar { height: 4px; }
+    .portfolio-slider::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+    .portfolio-slider::-webkit-scrollbar-thumb { background: #4a9fd9; }
+    .slider-item { min-width: 280px; scroll-snap-align: start; flex-shrink: 0; }
+
+    .view-toggle {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+    .view-toggle button {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.05);
+      color: #a09890;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .view-toggle button.active {
+      background: #4a9fd9;
+      color: #e8e4e0;
+      border-color: #4a9fd9;
     }
 
-    .order-result.visible {
-      display: block;
-    }
+    .social-card { transition: transform 0.3s ease; }
+    .social-card:hover { transform: translateY(-4px); }
 
-    @media (max-width: 860px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+    .checkout-input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      color: #e8e4e0;
+      font-size: 16px;
+      font-family: inherit;
     }
+    .checkout-input:focus {
+      outline: none;
+      background: rgba(255,255,255,0.08);
+      border-color: #4a9fd9;
+    }
+    .checkout-input::placeholder { color: #a09890; }
+
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: #4a9fd9;
+      color: #e8e4e0;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background: #3a8fc9;
+      transform: translateY(-2px);
+    }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
   </style>
-</head>
-<body>
-  <main class="page">
-    <section class="hero">
-      <p class="eyebrow">Live gekoppeld aan Google Sheets</p>
-      <h1>Bestel direct uit je actuele assortiment.</h1>
-      <p>
-        Deze pagina haalt producten live op via je Google Apps Script en verstuurt bestellingen
-        meteen naar je orderverwerking.
-      </p>
-    </section>
-
-    <section class="layout">
-      <section class="panel">
-        <div class="toolbar">
-          <div>
-            <h2>Producten</h2>
-            <p>Laad of vernieuw het assortiment rechtstreeks vanuit de sheet.</p>
-          </div>
-          <button id="refreshProductsButton" class="secondary" type="button">Vernieuwen</button>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;">
+  <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+     <a href="#home" class="flex items-center gap-3 group">
+      <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
+       RW
+      </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#home" class="nav-link text-sm tracking-widest uppercase">Home</a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase">Portfolio</a> <a href="#why-us" class="nav-link text-sm tracking-widest uppercase">Why Us</a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase">Afspraak</a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase">Contact</a>
+     </div><button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div>
+   </div>
+  </nav>
+  <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
+   <div class="flex flex-col h-full px-6 pt-6">
+    <div class="flex items-center justify-between mb-12">
+     <span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    </div>
+    <div class="flex flex-col gap-6">
+     <a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#why-us" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">WHY US</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    </div>
+   </div>
+  </div>
+  <main id="app-wrapper" class="w-full">
+   <section id="home" class="relative w-full hero-bg grid-pattern" style="min-height: 600px;">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
+     <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
+     <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
+     <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Precision cuts. Clean fades. Sharp style.</p>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in">
+      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg" style="background: #4a9fd9; color: #e8e4e0; cursor: pointer;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890; cursor: pointer;">BEKIJK WERK</a>
+     </div>
+    </div>
+   </section>
+   <section id="portfolio" class="w-full py-20 sm:py-28" style="background: #0f0f0f;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Ons Werk</p>
+      <h2 id="portfolio-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Portfolio</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="view-toggle md:hidden fade-in">
+      <button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
+     </div>
+     <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"></div>
+     <div id="portfolio-slider" class="portfolio-slider"></div>
+    </div>
+   </section>
+   <section id="why-us" class="w-full py-20 sm:py-28" style="background: #0f0f0f;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Premium Service</p>
+      <h2 id="why-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Why Choose Us</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div class="glass-card rounded-2xl p-8 text-center fade-in">
+       <i data-lucide="scissors" style="width:32px;height:32px;color:#4a9fd9;margin:0 auto 16px;display:block;"></i>
+       <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Precision Fades</h3>
+       <p style="color: #a09890; font-size: 14px; line-height: 1.6;">Expert technique for sharp, clean lines. Every fade is perfected.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 text-center fade-in">
+       <i data-lucide="zap" style="width:32px;height:32px;color:#4a9fd9;margin:0 auto 16px;display:block;"></i>
+       <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Fast &amp; Friendly</h3>
+       <p style="color: #a09890; font-size: 14px; line-height: 1.6;">30-minute sessions. Premium atmosphere. Feel the vibe.</p>
+      </div>
+      <div class="glass-card rounded-2xl p-8 text-center fade-in">
+       <i data-lucide="target" style="width:32px;height:32px;color:#4a9fd9;margin:0 auto 16px;display:block;"></i>
+       <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Attention to Detail</h3>
+       <p style="color: #a09890; font-size: 14px; line-height: 1.6;">Your style, your vision. We listen and deliver.</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="reviews" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <h2 id="reviews-title" class="font-display text-5xl sm:text-6xl tracking-wider mb-8" style="color: #e8e4e0;">What Customers Say</h2>
+      <div class="flex justify-center gap-1 mb-4">
+       <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i>
+      </div>
+      <p class="text-lg" style="color: #e8e4e0;"><strong>5.0 out of 5</strong> • <strong>58 customers</strong></p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="glass-card rounded-2xl p-6 fade-in">
+       <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Best barber in Amsterdam. Always clean, always sharp. These guys really know what they're doing."</p>
+       <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">— Achmet</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 fade-in">
+       <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Professional, quick, and they listen to what you actually want. Will be back every time."</p>
+       <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">— Marcus</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 fade-in">
+       <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Amazing atmosphere, amazing barbers. Worth the wait. Definitely my new go-to spot."</p>
+       <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">— Dani</p>
+      </div>
+      <div class="glass-card rounded-2xl p-6 fade-in">
+       <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Top knipbeurt weer gehad zoals altijd. Niks om te klagen en hij doet zn werk altijd met precisie👌."</p>
+       <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">— Ramin</p>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="booking" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-12 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Reserveer Direct</p>
+      <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;">
+      <iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy"></iframe>
+     </div>
+    </div>
+   </section>
+   <section id="contact" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Bezoek Ons</p>
+      <h2 id="contact-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Contact &amp; Locatie</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
+       <div class="flex items-start gap-4 mb-8">
+        <i data-lucide="map-pin" style="width:24px;height:24px;color:#4a9fd9;flex-shrink:0;margin-top:2px;"></i>
+        <div>
+         <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
+         <p style="color: #a09890;">Mariendaal 94<br>
+           1025 BW Amsterdam<br>
+           Netherlands</p>
         </div>
-        <p id="productsStatus" class="status">Producten worden geladen...</p>
-        <div id="productsContainer" class="products"></div>
-      </section>
-
-      <aside class="panel">
-        <h2>Bestelling plaatsen</h2>
-        <p>Kies een product, geef het aantal op en verstuur de bestelling.</p>
-        <form id="orderForm">
-          <label>
-            Naam
-            <input id="name" name="name" type="text" placeholder="Jan Jansen" required>
-          </label>
-
-          <label>
-            E-mailadres
-            <input id="email" name="email" type="email" placeholder="jan@mail.com" required>
-          </label>
-
-          <div class="inline">
-            <label>
-              Straat
-              <input id="street" name="street" type="text" placeholder="Dorpsstraat" required>
-            </label>
-
-            <label>
-              Huisnummer
-              <input id="houseNumber" name="houseNumber" type="text" placeholder="12A" required>
-            </label>
+       </div>
+       <div class="flex items-start gap-4">
+        <i data-lucide="clock" style="width:24px;height:24px;color:#4a9fd9;flex-shrink:0;margin-top:2px;"></i>
+        <div>
+         <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
+         <div style="space-y:2; text-sm">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-
-          <div class="inline">
-            <label>
-              Postcode
-              <input id="postcode" name="postcode" type="text" placeholder="1234AB" required>
-            </label>
-
-            <label>
-              Stad
-              <input id="city" name="city" type="text" placeholder="Amsterdam" required>
-            </label>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-
-          <label>
-            Land
-            <input id="country" name="country" type="text" value="Nederland" required>
-          </label>
-
-          <label>
-            Product
-            <select id="productID" name="productID" required>
-              <option value="">Kies eerst een product</option>
-            </select>
-          </label>
-
-          <div id="selectedProductMeta" class="stack meta"></div>
-
-          <div class="inline">
-            <label>
-              Aantal
-              <input id="amount" name="amount" type="number" min="1" value="1" required>
-            </label>
-
-            <label>
-              Levering
-              <select id="shipping" name="shipping" required>
-                <option value="ophalen">Ophalen</option>
-                <option value="verzenden">Verzenden</option>
-              </select>
-            </label>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-
-          <label>
-            Klantnotities
-            <input id="customerNotes" name="customerNotes" type="text" placeholder="Bijvoorbeeld: neerzetten bij de buren">
-          </label>
-
-          <button id="submitOrderButton" class="primary" type="submit">Bestelling versturen</button>
-        </form>
-        <p id="orderStatus" class="status"></p>
-        <div id="orderResult" class="order-result"></div>
-      </aside>
-    </section>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;">
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v=" class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy"></iframe>
+      </div>
+     </div>
+    </div>
+   </section>
+   <section id="shop" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Shop</p>
+      <h2 id="shop-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ Shop</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div id="shop-status" style="text-align: center; color: #a09890; margin-bottom: 24px;">
+      ⏳ Producten laden...
+     </div>
+     <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in"></div>
+    </div>
+   </section>
+   <section id="checkout" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Bestel Direct</p>
+      <h2 class="font-display text-4xl sm:text-5xl tracking-wider" style="color: #e8e4e0;">Jouw Winkelmandje</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div class="lg:col-span-2 glass-card rounded-2xl p-6 sm:p-8 fade-in">
+       <h3 class="font-display text-2xl tracking-wider mb-6" style="color: #e8e4e0;">Producten</h3>
+       <div id="cart-items-list" style="max-height: 400px; overflow-y: auto;">
+        <div style="text-align: center; color: #a09890; padding: 40px 0;">
+         🛒 Je mandje is leeg
+        </div>
+       </div>
+      </div>
+      <div class="glass-card rounded-2xl p-6 sm:p-8 fade-in" style="height: fit-content;">
+       <h3 class="font-display text-2xl tracking-wider mb-6" style="color: #e8e4e0;">Samenvatting</h3>
+       <div style="space-y: 2; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;"><span style="color: #a09890;">Subtotaal:</span> <span id="subtotal-amount" style="color: #e8e4e0; font-weight: 600;">€0,00</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;"><span style="color: #a09890;">Verzending:</span> <span id="shipping-cost" style="color: #e8e4e0; font-weight: 600;">€5,00</span>
+        </div>
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; display: flex; justify-content: space-between;"><span style="color: #e8e4e0; font-weight: 700;">Totaal:</span> <span id="total-amount" style="color: #4a9fd9; font-weight: 700; font-size: 1.3rem;">€5,00</span>
+        </div>
+       </div><button id="checkout-btn" onclick="openCheckoutModal()" class="btn-primary mb-3">AFREKENEN</button> <button onclick="clearCart()" class="w-full padding: 14px; background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.3s ease;">Leegmaken</button>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div id="checkout-modal" class="fixed inset-0 z-[200] flex items-center justify-center" style="background: rgba(0,0,0,0.8); display: none; padding: 20px;">
+    <div class="glass-card rounded-2xl p-8 sm:p-10 w-full max-w-md max-h-[90vh] overflow-y-auto">
+     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+      <h2 class="font-display text-3xl tracking-wider" style="color: #e8e4e0; margin: 0;">Bestelgegevens</h2><button onclick="closeCheckoutModal()" style="background: none; border: none; color: #a09890; cursor: pointer; font-size: 24px;">✕</button>
+     </div>
+     <form id="checkout-form" style="display: flex; flex-direction: column; gap: 16px;">
+      <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Naam *</label> <input type="text" id="checkout-name" name="name" class="checkout-input" placeholder="Jan Jansen" required>
+      </div>
+      <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">E-mailadres *</label> <input type="email" id="checkout-email" name="email" class="checkout-input" placeholder="jan@example.com" required>
+      </div>
+      <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Telefoonnummer *</label> <input type="tel" id="checkout-phone" name="phone" class="checkout-input" placeholder="+31 6 12345678" required>
+      </div>
+      <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Straatnaam en nummer *</label> <input type="text" id="checkout-address" name="address" class="checkout-input" placeholder="Dorpsstraat 12A" required>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+       <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Postcode *</label> <input type="text" id="checkout-postcode" name="postcode" class="checkout-input" placeholder="1234AB" required>
+       </div>
+       <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Stad *</label> <input type="text" id="checkout-city" name="city" class="checkout-input" placeholder="Amsterdam" required>
+       </div>
+      </div>
+      <div><label style="display: block; color: #a09890; font-size: 14px; margin-bottom: 6px;">Notities (optioneel)</label> <textarea id="checkout-notes" name="notes" class="checkout-input" placeholder="Bijv. voorzichtig bezorgen..." style="resize: vertical; min-height: 80px; font-family: inherit;"></textarea>
+      </div><button type="submit" class="btn-primary" id="submit-order-btn">BESTELLING PLAATSEN</button>
+      <div id="checkout-status" style="text-align: center; color: #a09890; font-size: 14px; min-height: 20px;"></div>
+     </form>
+    </div>
+   </div>
+   <section id="socials" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Volg Ons</p>
+      <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center">
+       <svg width="24" height="24" viewbox="0 0 24 24" fill="#4a9fd9" style="margin:0 auto 16px;">
+        <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+       </svg><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center"> <i data-lucide="instagram" style="width:32px;height:32px;color:#4a9fd9;margin:0 auto 16px;display:block;"></i> <h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center"> <i data-lucide="link" style="width:32px;height:32px;color:#4a9fd9;margin:0 auto 16px;display:block;"></i> <h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
+       <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
+        Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
+       </div></a>
+     </div>
+    </div>
+   </section>
   </main>
-
+  <div id="lightbox" class="lightbox">
+   <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   </div>
+  </div>
+  <footer class="w-full" style="background: #080808; border-top: 1px solid rgba(255,255,255,0.05);">
+   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+     <div>
+      <div class="flex items-center gap-3 mb-4">
+       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-lg" style="background: #4a9fd9; color: #e8e4e0;">
+        RW
+       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span>
+      </div>
+      <p class="text-sm" style="color: #a09890;">Premium Barbershop Amsterdam</p>
+     </div>
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Openingstijden</h4>
+      <div style="space-y:2; text-sm">
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;margin-bottom:4px;"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       </div>
+       <div style="display:flex;justify-content:space-between;"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+       </div>
+      </div>
+     </div>
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Locatie</h4>
+      <p style="color: #a09890; font-size: 13px; margin: 0;">Mariendaal 94<br>
+        1025 BW Amsterdam<br>
+        Netherlands</p>
+     </div>
+     <div>
+      <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Volg Ons</h4>
+      <div class="flex flex-col gap-3">
+       <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;">
+        <svg width="14" height="14" viewbox="0 0 24 24" fill="currentColor">
+         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        </svg> TikTok </a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"> <i data-lucide="instagram" style="width:14px;height:14px;"></i> Instagram </a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"> <i data-lucide="link" style="width:14px;height:14px;"></i> Linktree </a>
+      </div>
+     </div>
+    </div>
+    <div class="border-t" style="border-color: rgba(255,255,255,0.05); padding-top: 16px;">
+     <p class="text-center text-xs" style="color: #a09890;">© 2024 RW Cutzz. Alle rechten voorbehouden.</p>
+    </div>
+   </div>
+  </footer>
   <script>
+    const defaultConfig = {
+      hero_title: 'RW CUTZZ',
+      hero_subtitle: 'Premium Barbershop Amsterdam',
+      hero_tagline: 'Precision cuts. Clean fades. Sharp style.',
+      portfolio_title: 'Portfolio',
+      why_title: 'Why Choose Us',
+      reviews_title: 'What Customers Say',
+      booking_title: 'Maak een Afspraak',
+      shop_title: 'RW CUTZZ Shop',
+      contact_title: 'Contact & Locatie',
+    };
+
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzdWj6BjAPeC1uujPo4CTwCqgKKZANc_f9DtGYrBALakS2fs2MkqknBnGuyGNAnfIjOwA/exec";
 
-    const productsStatus = document.getElementById("productsStatus");
-    const productsContainer = document.getElementById("productsContainer");
-    const productSelect = document.getElementById("productID");
-    const orderForm = document.getElementById("orderForm");
-    const orderStatus = document.getElementById("orderStatus");
-    const orderResult = document.getElementById("orderResult");
-    const refreshProductsButton = document.getElementById("refreshProductsButton");
-    const submitOrderButton = document.getElementById("submitOrderButton");
-    const selectedProductMeta = document.getElementById("selectedProductMeta");
+    const API_KEY = "AIzaSyAyDZqnPrQjHJM5K5xh-qMcG3H_TeRFbiw";
+    const ROOT_FOLDER = "1yldYDJolbfbEMR67X_5Ds2QqO7lheQfS";
 
+    let portfolioItems = [];
+    let currentLightboxIndex = 0;
+    let lightboxItems = [];
+    let currentData = [];
+    let cart = [];
     let currentProducts = [];
-
-    function setStatus(element, message, type = "") {
-      element.textContent = message;
-      element.className = `status ${type}`.trim();
-    }
-
-    function normalizeProducts(payload) {
-      if (Array.isArray(payload)) {
-        return payload;
-      }
-
-      if (payload && Array.isArray(payload.products)) {
-        return payload.products;
-      }
-
-      return [];
-    }
 
     function normalizeKey(value) {
       return String(value ?? "")
@@ -437,76 +595,11 @@
       return getField(product, ["category", "categorie", "productcategorie", "product category"]);
     }
 
-    function resolveProductVariant(product) {
-      return getField(product, ["variant", "productvariant", "variatie", "uitvoering"]);
-    }
-
-    function updateSelectedProductMeta() {
-      const selectedId = productSelect.value;
-      const product = currentProducts.find((item) => String(resolveProductId(item)) === String(selectedId));
-
-      if (!product) {
-        selectedProductMeta.innerHTML = "";
-        return;
-      }
-
-      const lines = [
-        `Productnaam: ${resolveProductName(product)}`,
-        `Categorie: ${resolveProductCategory(product) || "niet opgegeven"}`,
-        `Variant: ${resolveProductVariant(product) || "niet opgegeven"}`,
-        `Prijs: ${resolveProductPrice(product) || "niet opgegeven"}`,
-        `Voorraad: ${resolveProductStock(product) || "niet opgegeven"}`
-      ];
-
-      selectedProductMeta.innerHTML = lines.map((line) => `<div>${line}</div>`).join("");
-    }
-
-    function renderProducts(products) {
-      productsContainer.innerHTML = "";
-      productSelect.innerHTML = '<option value="">Selecteer een product</option>';
-
-      if (!products.length) {
-        productsContainer.innerHTML = "<div class='product-card'>Geen producten ontvangen van de webapp.</div>";
-        return;
-      }
-
-      products.forEach((product) => {
-        const id = resolveProductId(product);
-        const name = resolveProductName(product);
-        const price = resolveProductPrice(product);
-        const stock = resolveProductStock(product);
-        const description = resolveProductDescription(product);
-        const image = resolveProductImage(product);
-
-        const card = document.createElement("article");
-        card.className = "product-card";
-        card.innerHTML = `
-          ${image ? `<img class="product-image" src="${image}" alt="${name}">` : ""}
-          <header>
-            <div>
-              <h3>${name}</h3>
-              <div class="meta">ID: ${id || "onbekend"}</div>
-            </div>
-            <div class="price">${price !== null ? `EUR ${price}` : "Prijs onbekend"}</div>
-          </header>
-          ${description ? `<div>${description}</div>` : ""}
-          <div class="meta">${stock !== null ? `Voorraad: ${stock}` : "Voorraad niet opgegeven"}</div>
-        `;
-
-        productsContainer.appendChild(card);
-
-        const option = document.createElement("option");
-        option.value = id;
-        option.textContent = `${name}${price !== null ? ` - EUR ${price}` : ""}`;
-        productSelect.appendChild(option);
-      });
-
-      updateSelectedProductMeta();
-    }
-
     async function fetchProducts() {
-      setStatus(productsStatus, "Producten worden geladen...");
-      refreshProductsButton.disabled = true;
+      const statusDiv = document.getElementById('shop-status');
+      const gridDiv = document.getElementById('shop-grid');
+      statusDiv.textContent = '⏳ Producten laden...';
+      gridDiv.innerHTML = '';
 
       try {
         const response = await fetch(`${WEBAPP_URL}?action=getProducts`);
@@ -515,89 +608,411 @@
         }
 
         const payload = await response.json();
-        const products = normalizeProducts(payload);
+        const products = Array.isArray(payload) ? payload : (payload && Array.isArray(payload.products) ? payload.products : []);
         currentProducts = products;
-        renderProducts(products);
-        setStatus(productsStatus, `${products.length} product(en) geladen.`, "success");
-        return products;
+
+        if (!products.length) {
+          statusDiv.textContent = '❌ Geen producten beschikbaar';
+          return;
+        }
+
+        renderShopProducts(products);
+        statusDiv.style.display = 'none';
       } catch (error) {
         console.error("Fout bij ophalen producten:", error);
+        statusDiv.textContent = '❌ Fout bij laden producten';
         currentProducts = [];
-        renderProducts([]);
-        setStatus(productsStatus, "Producten ophalen mislukt. Controleer de webapp of CORS-instellingen.", "error");
-      } finally {
-        refreshProductsButton.disabled = false;
       }
     }
 
-    async function createOrder(order) {
-      const response = await fetch(WEBAPP_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify({
-          action: "createOrder",
-          ...order
-        })
+    function renderShopProducts(products) {
+      const gridDiv = document.getElementById('shop-grid');
+      gridDiv.innerHTML = '';
+
+      products.forEach((product, idx) => {
+        const id = resolveProductId(product);
+        const name = resolveProductName(product);
+        const price = resolveProductPrice(product);
+        const stock = resolveProductStock(product);
+        const description = resolveProductDescription(product);
+        const image = resolveProductImage(product);
+
+        const card = document.createElement('div');
+        card.className = 'glass-card rounded-2xl overflow-hidden fade-in portfolio-item group cursor-pointer';
+        card.style.cssText = 'transition: all 0.3s ease;';
+        
+        card.innerHTML = `
+          <div style="aspect-ratio: 1; overflow: hidden; background: rgba(255,255,255,0.05);">
+            ${image ? `<img src="${image}" alt="${name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.background='#2a2a2a'; this.style.display='none';">` : '<div style="width: 100%; height: 100%; background: #2a2a2a;"></div>'}
+          </div>
+          <div style="padding: 16px;">
+            <h3 style="margin: 0 0 8px 0; color: #e8e4e0; font-family: display; font-weight: 600; font-size: 1.1rem;">${name}</h3>
+            ${description ? `<p style="margin: 0 0 12px 0; color: #a09890; font-size: 13px; line-height: 1.4;">${description}</p>` : ''}
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: #4a9fd9; font-weight: 700; font-size: 1.2rem;">${price ? '€' + price : 'Prijs n.v.t.'}</span>
+              <span style="color: #a09890; font-size: 12px;">${stock ? 'Voorraad: ' + stock : 'n.v.t.'}</span>
+            </div>
+            <button onclick="addToCart('${name}', ${price || 0}, '${id}')" style="width: 100%; margin-top: 12px; padding: 10px; background: #4a9fd9; color: #e8e4e0; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; transition: all 0.3s ease;">+ TOEVOEGEN</button>
+          </div>
+        `;
+
+        setTimeout(() => card.classList.add('visible'), 100 + idx * 80);
+        gridDiv.appendChild(card);
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
-
-      return response.json();
+      lucide.createIcons();
     }
 
-    refreshProductsButton.addEventListener("click", fetchProducts);
-    productSelect.addEventListener("change", updateSelectedProductMeta);
+    async function loadFolder(folderId) {
+      const grid = document.getElementById('portfolio-grid');
+      grid.innerHTML = '<div style="grid-column: 1/-1; text-center; color: #a09890;">⏳ Fotos laden...</div>';
 
-    orderForm.addEventListener("submit", async (event) => {
-      event.preventDefault();
-      orderResult.classList.remove("visible");
-      orderResult.textContent = "";
-      setStatus(orderStatus, "Bestelling wordt verstuurd...");
-      submitOrderButton.disabled = true;
-
-      const formData = new FormData(orderForm);
-      const productID = formData.get("productID");
-      const product = currentProducts.find((item) => String(resolveProductId(item)) === String(productID));
-      const order = {
-        name: formData.get("name").trim(),
-        email: formData.get("email").trim(),
-        street: formData.get("street").trim(),
-        houseNumber: formData.get("houseNumber").trim(),
-        postcode: formData.get("postcode").trim(),
-        city: formData.get("city").trim(),
-        country: formData.get("country").trim(),
-        productID,
-        productName: product ? resolveProductName(product) : "",
-        productCategory: product ? resolveProductCategory(product) : "",
-        productVariant: product ? resolveProductVariant(product) : "",
-        amount: Number(formData.get("amount")),
-        shipping: formData.get("shipping"),
-        customerNotes: formData.get("customerNotes").trim()
-      };
+      const url = `https://www.googleapis.com/drive/v3/files?q='${folderId}'+in+parents&key=${API_KEY}&fields=files(id,name,mimeType)`;
 
       try {
-        const result = await createOrder(order);
-        const orderId = result.orderId ?? result.id ?? "onbekend";
-        setStatus(orderStatus, `Bestelling geplaatst met order ID ${orderId}.`, "success");
-        orderResult.textContent = JSON.stringify(result, null, 2);
-        orderResult.classList.add("visible");
-        orderForm.reset();
-        document.getElementById("amount").value = 1;
-        document.getElementById("country").value = "Nederland";
-        updateSelectedProductMeta();
+        const res = await fetch(url);
+        const data = await res.json();
+
+        grid.innerHTML = '';
+        portfolioItems = [];
+
+        if (data.files && data.files.length > 0) {
+          data.files.forEach((file) => {
+            if (file.mimeType.startsWith('image/')) {
+              portfolioItems.push({
+                id: file.id,
+                title: file.name,
+                thumbnail: `https://drive.google.com/thumbnail?id=${file.id}&sz=w1000`,
+                fullImage: `https://drive.google.com/uc?export=view&id=${file.id}`
+              });
+            }
+          });
+        }
+
+        renderPortfolio();
+      } catch (err) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-center; color: #e8605a;">❌ Fout bij laden</div>';
+      }
+    }
+
+    function renderPortfolio() {
+      const grid = document.getElementById('portfolio-grid');
+      const slider = document.getElementById('portfolio-slider');
+      grid.innerHTML = '';
+      slider.innerHTML = '';
+
+      portfolioItems.forEach((item, idx) => {
+        const gridDiv = document.createElement('div');
+        gridDiv.className = 'portfolio-item rounded-xl sm:rounded-2xl overflow-hidden relative group cursor-pointer';
+        gridDiv.style.cssText = `aspect-ratio:1;background-image:url('${item.thumbnail}');background-size:cover;background-position:center;`;
+        gridDiv.addEventListener('click', () => openLightbox(idx));
+        
+        setTimeout(() => gridDiv.classList.add('visible'), 100 + idx * 80);
+        grid.appendChild(gridDiv);
+
+        const sliderDiv = document.createElement('div');
+        sliderDiv.className = 'slider-item rounded-xl sm:rounded-2xl overflow-hidden relative';
+        sliderDiv.style.cssText = `aspect-ratio:1;background-image:url('${item.thumbnail}');background-size:cover;background-position:center;`;
+        sliderDiv.addEventListener('click', () => openLightbox(idx));
+        slider.appendChild(sliderDiv);
+      });
+
+      lucide.createIcons();
+    }
+
+    function openLightbox(index) {
+      lightboxItems = portfolioItems;
+      currentLightboxIndex = index;
+      document.getElementById('lightbox').classList.add('active');
+      const img = document.getElementById('lightbox-img');
+      img.src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+    }
+
+    function nextImage() {
+      if (lightboxItems.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + 1) % lightboxItems.length;
+      document.getElementById('lightbox-img').src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+    }
+
+    function prevImage() {
+      if (lightboxItems.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex - 1 + lightboxItems.length) % lightboxItems.length;
+      document.getElementById('lightbox-img').src = lightboxItems[currentLightboxIndex].fullImage + '&t=' + Date.now();
+    }
+
+    function addToCart(name, price, id) {
+      const existing = cart.find(item => item.id === id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, name, price, quantity: 1 });
+      }
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const listDiv = document.getElementById('cart-items-list');
+      const subtotalEl = document.getElementById('subtotal-amount');
+      const totalEl = document.getElementById('total-amount');
+      
+      if (cart.length === 0) {
+        listDiv.innerHTML = '<div style="text-align: center; color: #a09890; padding: 40px 0;">🛒 Je mandje is leeg</div>';
+        subtotalEl.textContent = '€0,00';
+        totalEl.textContent = '€5,00';
+        return;
+      }
+
+      listDiv.innerHTML = '';
+      let subtotal = 0;
+
+      cart.forEach((item, idx) => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        const itemDiv = document.createElement('div');
+        itemDiv.style.cssText = 'padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;';
+        itemDiv.innerHTML = `
+          <div style="flex: 1;">
+            <h4 style="margin: 0 0 8px 0; color: #e8e4e0; font-weight: 600;">${item.name}</h4>
+            <div style="color: #a09890; font-size: 13px;">
+              €${item.price.toFixed(2)} × <input type="number" min="1" value="${item.quantity}" style="width: 50px; padding: 4px 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #e8e4e0; font-size: 12px;" onchange="updateQuantity(${idx}, this.value)">
+            </div>
+          </div>
+          <div style="text-align: right; margin-left: 16px;">
+            <div style="color: #4a9fd9; font-weight: 700; margin-bottom: 8px;">€${itemTotal.toFixed(2)}</div>
+            <button onclick="removeFromCart(${idx})" style="background: none; border: none; color: #e8605a; cursor: pointer; font-size: 12px; text-decoration: underline;">Verwijderen</button>
+          </div>
+        `;
+        listDiv.appendChild(itemDiv);
+      });
+
+      const shippingCost = 5;
+      const total = subtotal + shippingCost;
+      
+      subtotalEl.textContent = '€' + subtotal.toFixed(2);
+      totalEl.textContent = '€' + total.toFixed(2);
+    }
+
+    function updateQuantity(idx, newQty) {
+      const qty = Math.max(1, parseInt(newQty) || 1);
+      if (cart[idx]) {
+        cart[idx].quantity = qty;
+        updateCartDisplay();
+      }
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      updateCartDisplay();
+    }
+
+    function clearCart() {
+      cart = [];
+      updateCartDisplay();
+    }
+
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        alert('Je mandje is leeg!');
+        return;
+      }
+      document.getElementById('checkout-modal').style.display = 'flex';
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkout-modal').style.display = 'none';
+      document.getElementById('checkout-status').textContent = '';
+    }
+
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-order-btn');
+      const statusDiv = document.getElementById('checkout-status');
+      
+      submitBtn.disabled = true;
+      statusDiv.textContent = 'Bewerking...';
+      statusDiv.style.color = '#a09890';
+
+      try {
+        const name = document.getElementById('checkout-name').value.trim();
+        const email = document.getElementById('checkout-email').value.trim();
+        const phone = document.getElementById('checkout-phone').value.trim();
+        const address = document.getElementById('checkout-address').value.trim();
+        const postcode = document.getElementById('checkout-postcode').value.trim();
+        const city = document.getElementById('checkout-city').value.trim();
+        const notes = document.getElementById('checkout-notes').value.trim();
+
+        const productsText = cart.map(item => `${item.name} (${item.quantity}x €${item.price.toFixed(2)})`).join(', ');
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const total = subtotal + 5;
+
+        const orderData = {
+          action: 'createOrder',
+          naam: name,
+          email: email,
+          telefoon: phone,
+          adres: address,
+          postcode: postcode,
+          stad: city,
+          producten: productsText,
+          totaal: total.toFixed(2),
+          notities: notes,
+          datum: new Date().toISOString(),
+          status: 'nieuw'
+        };
+
+        const response = await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(orderData)
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const result = await response.json();
+        const orderId = result.orderId || result.id || 'onbekend';
+
+        statusDiv.textContent = `✓ Bestelling ${orderId} geplaatst!`;
+        statusDiv.style.color = '#1b7f5a';
+
+        // Save to data SDK if available
+        if (window.dataSdk) {
+          await window.dataSdk.create({
+            id: orderId,
+            naam: name,
+            email: email,
+            telefoon: phone,
+            adres: address + ', ' + postcode + ' ' + city,
+            producten: productsText,
+            totaal: total.toFixed(2),
+            datum: new Date().toISOString(),
+            status: 'received'
+          });
+        }
+
+        setTimeout(() => {
+          closeCheckoutModal();
+          cart = [];
+          updateCartDisplay();
+          document.getElementById('checkout-form').reset();
+        }, 2000);
+
       } catch (error) {
-        console.error("Fout bij plaatsen bestelling:", error);
-        setStatus(orderStatus, "Bestelling versturen mislukt. Controleer of de webapp POST-verzoeken accepteert.", "error");
+        console.error('Checkout error:', error);
+        statusDiv.textContent = '✗ Fout bij versturen. Probeer opnieuw.';
+        statusDiv.style.color = '#e8605a';
       } finally {
-        submitOrderButton.disabled = false;
+        submitBtn.disabled = false;
       }
     });
 
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+      }
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+    });
+
+    document.getElementById('menu-toggle').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.add('open');
+    });
+
+    document.getElementById('menu-close').addEventListener('click', () => {
+      document.getElementById('mobile-menu').classList.remove('open');
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.remove('open');
+      });
+    });
+
+    function applyConfig(config) {
+      const c = { ...defaultConfig, ...config };
+      document.getElementById('hero-title').textContent = c.hero_title;
+      document.getElementById('hero-subtitle').textContent = c.hero_subtitle;
+      document.getElementById('hero-tagline').textContent = c.hero_tagline;
+      document.getElementById('portfolio-title').textContent = c.portfolio_title;
+      document.getElementById('why-title').textContent = c.why_title;
+      document.getElementById('reviews-title').textContent = c.reviews_title;
+      document.getElementById('booking-title').textContent = c.booking_title;
+      document.getElementById('shop-title').textContent = c.shop_title;
+      document.getElementById('contact-title').textContent = c.contact_title;
+    }
+
+    const dataHandler = {
+      onDataChanged(data) {
+        currentData = data;
+      }
+    };
+
+    if (window.dataSdk) {
+      window.dataSdk.init(dataHandler);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          applyConfig(config);
+        },
+        mapToCapabilities: () => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['hero_title', config.hero_title || defaultConfig.hero_title],
+          ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+          ['hero_tagline', config.hero_tagline || defaultConfig.hero_tagline],
+          ['portfolio_title', config.portfolio_title || defaultConfig.portfolio_title],
+          ['why_title', config.why_title || defaultConfig.why_title],
+          ['reviews_title', config.reviews_title || defaultConfig.reviews_title],
+          ['booking_title', config.booking_title || defaultConfig.booking_title],
+          ['shop_title', config.shop_title || defaultConfig.shop_title],
+          ['contact_title', config.contact_title || defaultConfig.contact_title],
+        ])
+      });
+    }
+
+    document.querySelectorAll('.view-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.getAttribute('data-view');
+        document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (view === 'grid') {
+          document.getElementById('portfolio-grid').style.display = 'grid';
+          document.getElementById('portfolio-slider').classList.remove('active');
+        } else {
+          document.getElementById('portfolio-grid').style.display = 'none';
+          document.getElementById('portfolio-slider').classList.add('active');
+        }
+      });
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    loadFolder(ROOT_FOLDER);
     fetchProducts();
+    lucide.createIcons();
   </script>
-</body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e109212f63b8072',t:'MTc3NDMwMTc3NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

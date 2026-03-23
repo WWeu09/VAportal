@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <style>
+    :root {
+      --bg: #eef4f1;
+      --panel: #fcfffd;
+      --text: #16211b;
+      --muted: #5f7167;
+      --accent: #23684c;
+      --accent-dark: #154733;
+      --border: #d8e5de;
+      --warning: #a15c00;
+      --success: #146c43;
+      --shadow: 0 18px 40px rgba(22, 33, 27, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(35, 104, 76, 0.14), transparent 26%),
+        linear-gradient(180deg, #f7fbf8 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 56px;
+    }
+
+    .hero,
+    .panel {
+      background: rgba(252, 255, 253, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+    }
+
+    .hero {
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 0.82rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-dark);
+    }
+
+    h1, h2 {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 4vw, 3.4rem);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.4fr 0.9fr;
+      gap: 24px;
+    }
+
+    .panel {
+      padding: 24px;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+      transform: none;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .secondary {
+      background: #deebe4;
+      color: var(--text);
+    }
+
+    .status {
+      margin: 0 0 16px;
+      min-height: 24px;
+      color: var(--muted);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .status.error {
+      color: #b42318;
+    }
+
+    .status.warning {
+      color: var(--warning);
+    }
+
+    .orders {
+      display: grid;
+      gap: 14px;
+    }
+
+    .order-card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .order-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #edf6f1;
+      color: var(--accent-dark);
+      font-size: 0.84rem;
+      white-space: nowrap;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .details {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .details strong {
+      color: var(--text);
+    }
+
+    .result {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #eef7f2;
+      color: var(--text);
+      display: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .result.visible {
+      display: block;
+    }
+
+    @media (max-width: 940px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Orderbeheer</p>
+      <h1>Bekijk en update binnenkomende bestellingen live.</h1>
+      <p>
+        Dit dashboard leest orders uit je Google Sheet en kan status, betaallink en
+        track-and-trace direct terugschrijven via dezelfde webapp.
+      </p>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <h2>Orders</h2>
+            <p>Ververs de lijst om de laatste bestellingen op te halen.</p>
+          </div>
+          <button id="refreshOrdersButton" class="secondary" type="button">Vernieuwen</button>
+        </div>
+        <p id="ordersStatus" class="status">Orders worden geladen...</p>
+        <div id="ordersContainer" class="orders"></div>
+      </section>
+
+      <aside class="panel">
+        <h2>Order bijwerken</h2>
+        <p>Werk een bestelling bij met status, betaallink of track-and-trace.</p>
+        <form id="updateForm">
+          <label>
+            Order ID
+            <input id="orderId" name="orderId" type="text" placeholder="1679623000000" required>
+          </label>
+
+          <label>
+            Status
+            <select id="statusField" name="status">
+              <option value="">Niet wijzigen</option>
+              <option value="pending">pending</option>
+              <option value="approved">approved</option>
+              <option value="processing">processing</option>
+              <option value="shipped">shipped</option>
+              <option value="completed">completed</option>
+              <option value="cancelled">cancelled</option>
+            </select>
+          </label>
+
+          <label>
+            Betaallink
+            <input id="betaallink" name="betaallink" type="url" placeholder="https://betaallink.com">
+          </label>
+
+          <label>
+            Track & trace
+            <input id="tracktrace" name="tracktrace" type="text" placeholder="3SABC123456789">
+          </label>
+
+          <button id="submitUpdateButton" class="primary" type="submit">Order opslaan</button>
+        </form>
+        <p id="updateStatus" class="status"></p>
+        <div id="updateResult" class="result"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzdWj6BjAPeC1uujPo4CTwCqgKKZANc_f9DtGYrBALakS2fs2MkqknBnGuyGNAnfIjOwA/exec";
+
+    const ordersStatus = document.getElementById("ordersStatus");
+    const ordersContainer = document.getElementById("ordersContainer");
+    const refreshOrdersButton = document.getElementById("refreshOrdersButton");
+    const updateForm = document.getElementById("updateForm");
+    const updateStatus = document.getElementById("updateStatus");
+    const updateResult = document.getElementById("updateResult");
+    const submitUpdateButton = document.getElementById("submitUpdateButton");
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message;
+      element.className = `status ${type}`.trim();
+    }
+
+    function normalizeOrders(payload) {
+      if (Array.isArray(payload)) {
+        return payload;
+      }
+
+      if (payload && Array.isArray(payload.orders)) {
+        return payload.orders;
+      }
+
+      return [];
+    }
+
+    function resolveOrderId(order) {
+      return getField(order, ["id", "orderid", "order_id", "bestellingid", "bestelid"]);
+    }
+
+    function resolveOrderStatus(order) {
+      return getField(order, ["status", "orderstatus", "bestelstatus"]) || "onbekend";
+    }
+
+    function normalizeKey(value) {
+      return String(value ?? "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function getField(record, keys) {
+      const entries = Object.entries(record ?? {});
+      for (const wantedKey of keys) {
+        const normalizedWanted = normalizeKey(wantedKey);
+        const match = entries.find(([key]) => normalizeKey(key) === normalizedWanted);
+        if (match && match[1] !== "" && match[1] !== null && match[1] !== undefined) {
+          return match[1];
+        }
+      }
+      return "";
+    }
+
+    function renderOrders(orders) {
+      ordersContainer.innerHTML = "";
+
+      if (!orders.length) {
+        ordersContainer.innerHTML = "<div class='order-card'>Geen orders ontvangen van de webapp.</div>";
+        return;
+      }
+
+      orders.forEach((order) => {
+        const id = resolveOrderId(order);
+        const name = getField(order, ["name", "naam", "customername", "klantnaam"]) || "Onbekende klant";
+        const email = getField(order, ["email", "e-mail", "mail", "emailadres"]) || "Geen e-mail";
+        const street = getField(order, ["straat", "street"]) || "-";
+        const houseNumber = getField(order, ["huisnummer", "house number", "housenumber"]) || "-";
+        const postcode = getField(order, ["postcode", "postalcode", "zip"]) || "-";
+        const city = getField(order, ["stad", "city", "plaats"]) || "-";
+        const country = getField(order, ["land", "country"]) || "-";
+        const productID = getField(order, ["productid", "product id", "product", "productnummer"]) || "-";
+        const productName = getField(order, ["productnaam", "product name"]) || "-";
+        const productCategory = getField(order, ["productcategorie", "product category", "categorie"]) || "-";
+        const productVariant = getField(order, ["productvariant", "product variant", "variant"]) || "-";
+        const amount = getField(order, ["amount", "aantal", "quantity", "qty"]) || "-";
+        const shipping = getField(order, ["shipping", "verzendmethode", "levering", "delivery"]) || "-";
+        const status = resolveOrderStatus(order);
+        const paymentLink = getField(order, ["betaallink", "paymentlink", "paymenturl", "betaalurl"]);
+        const trackTrace = getField(order, ["tracktrace", "track trace", "tracking", "trackingcode", "trackandtrace"]);
+        const createdAt = getField(order, ["createdat", "datum", "created", "timestamp", "besteldop"]);
+        const customerNotes = getField(order, ["klantnotities", "customernotes", "notities", "notes"]) || "geen";
+
+        const card = document.createElement("article");
+        card.className = "order-card";
+        card.innerHTML = `
+          <header>
+            <div>
+              <strong>Order ${id || "onbekend"}</strong>
+              <div>${name}</div>
+            </div>
+            <span class="pill">${status}</span>
+          </header>
+          <div class="details">
+            <div><strong>E-mail:</strong> ${email}</div>
+            <div><strong>Adres:</strong> ${street} ${houseNumber}, ${postcode} ${city}, ${country}</div>
+            <div><strong>Product ID:</strong> ${productID}</div>
+            <div><strong>Productnaam:</strong> ${productName}</div>
+            <div><strong>Categorie:</strong> ${productCategory}</div>
+            <div><strong>Variant:</strong> ${productVariant}</div>
+            <div><strong>Aantal:</strong> ${amount}</div>
+            <div><strong>Levering:</strong> ${shipping}</div>
+            <div><strong>Datum:</strong> ${createdAt || "niet opgegeven"}</div>
+            <div><strong>Klantnotities:</strong> ${customerNotes}</div>
+            <div><strong>Betaallink:</strong> ${paymentLink || "niet ingesteld"}</div>
+            <div><strong>Track & trace:</strong> ${trackTrace || "niet ingesteld"}</div>
+          </div>
+          <button class="secondary" type="button" data-order-id="${id}">Gebruik voor update</button>
+        `;
+
+        card.querySelector("button").addEventListener("click", () => {
+          document.getElementById("orderId").value = id;
+          document.getElementById("statusField").value = status === "onbekend" ? "" : status;
+          document.getElementById("betaallink").value = paymentLink;
+          document.getElementById("tracktrace").value = trackTrace;
+          setStatus(updateStatus, `Order ${id} geladen in het formulier.`, "warning");
+        });
+
+        ordersContainer.appendChild(card);
+      });
+    }
+
+    async function fetchOrders() {
+      setStatus(ordersStatus, "Orders worden geladen...");
+      refreshOrdersButton.disabled = true;
+
+      try {
+        const response = await fetch(`${WEBAPP_URL}?action=getOrders`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const orders = normalizeOrders(payload);
+        renderOrders(orders);
+        setStatus(ordersStatus, `${orders.length} order(s) geladen.`, "success");
+        return orders;
+      } catch (error) {
+        console.error("Fout bij ophalen orders:", error);
+        renderOrders([]);
+        setStatus(ordersStatus, "Orders ophalen mislukt. Controleer de webapp of CORS-instellingen.", "error");
+      } finally {
+        refreshOrdersButton.disabled = false;
+      }
+    }
+
+    async function updateOrder(orderId, status = null, betaallink = null, tracktrace = null) {
+      const response = await fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          action: "updateOrder",
+          id: orderId,
+          status,
+          betaallink,
+          tracktrace
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    refreshOrdersButton.addEventListener("click", fetchOrders);
+
+    updateForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      updateResult.classList.remove("visible");
+      updateResult.textContent = "";
+      setStatus(updateStatus, "Orderupdate wordt verstuurd...");
+      submitUpdateButton.disabled = true;
+
+      const formData = new FormData(updateForm);
+      const orderId = formData.get("orderId").trim();
+      const status = formData.get("status") || null;
+      const betaallink = formData.get("betaallink").trim() || null;
+      const tracktrace = formData.get("tracktrace").trim() || null;
+
+      try {
+        const result = await updateOrder(orderId, status, betaallink, tracktrace);
+        setStatus(updateStatus, `Order ${orderId} succesvol bijgewerkt.`, "success");
+        updateResult.textContent = JSON.stringify(result, null, 2);
+        updateResult.classList.add("visible");
+        fetchOrders();
+      } catch (error) {
+        console.error("Fout bij updaten order:", error);
+        setStatus(updateStatus, "Order bijwerken mislukt. Controleer of de webapp POST-verzoeken accepteert.", "error");
+      } finally {
+        submitUpdateButton.disabled = false;
+      }
+    });
+
+    fetchOrders();
+  </script>
+</body>
+</html>

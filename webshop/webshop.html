@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webshop</title>
+  <style>
+    :root {
+      --bg: #f4efe7;
+      --panel: #fffdf9;
+      --text: #23190f;
+      --muted: #716457;
+      --accent: #c45a2d;
+      --accent-dark: #8d3f1d;
+      --border: #e6d7c8;
+      --success: #1b7f5a;
+      --shadow: 0 18px 40px rgba(35, 25, 15, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(196, 90, 45, 0.15), transparent 28%),
+        linear-gradient(180deg, #f7f2ea 0%, var(--bg) 100%);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 56px;
+    }
+
+    .hero {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: rgba(255, 253, 249, 0.86);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--accent-dark);
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1, h2 {
+      margin: 0;
+      font-weight: 600;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 4.6rem);
+      line-height: 0.95;
+      max-width: 10ch;
+    }
+
+    .hero p {
+      max-width: 55ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      margin-top: 28px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+
+    .panel h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .panel p {
+      color: var(--muted);
+      margin-top: 0;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    button,
+    select,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      transition: transform 0.18s ease, opacity 0.18s ease, background 0.18s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+      transform: none;
+    }
+
+    .primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .secondary {
+      background: #efe2d2;
+      color: var(--text);
+    }
+
+    .status {
+      margin: 0 0 16px;
+      min-height: 24px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .status.error {
+      color: #b42318;
+    }
+
+    .products {
+      display: grid;
+      gap: 14px;
+    }
+
+    .product-card {
+      padding: 18px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      display: grid;
+      gap: 10px;
+    }
+
+    .product-image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      object-fit: cover;
+      border-radius: 14px;
+      background: #f1e5d8;
+      border: 1px solid var(--border);
+    }
+
+    .product-card header {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+
+    .price {
+      white-space: nowrap;
+      color: var(--accent-dark);
+      font-weight: 700;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    form {
+      display: grid;
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+    }
+
+    .inline {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .order-result {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: #f8f2eb;
+      color: var(--text);
+      display: none;
+    }
+
+    .order-result.visible {
+      display: block;
+    }
+
+    @media (max-width: 860px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Live gekoppeld aan Google Sheets</p>
+      <h1>Bestel direct uit je actuele assortiment.</h1>
+      <p>
+        Deze pagina haalt producten live op via je Google Apps Script en verstuurt bestellingen
+        meteen naar je orderverwerking.
+      </p>
+    </section>
+
+    <section class="layout">
+      <section class="panel">
+        <div class="toolbar">
+          <div>
+            <h2>Producten</h2>
+            <p>Laad of vernieuw het assortiment rechtstreeks vanuit de sheet.</p>
+          </div>
+          <button id="refreshProductsButton" class="secondary" type="button">Vernieuwen</button>
+        </div>
+        <p id="productsStatus" class="status">Producten worden geladen...</p>
+        <div id="productsContainer" class="products"></div>
+      </section>
+
+      <aside class="panel">
+        <h2>Bestelling plaatsen</h2>
+        <p>Kies een product, geef het aantal op en verstuur de bestelling.</p>
+        <form id="orderForm">
+          <label>
+            Naam
+            <input id="name" name="name" type="text" placeholder="Jan Jansen" required>
+          </label>
+
+          <label>
+            E-mailadres
+            <input id="email" name="email" type="email" placeholder="jan@mail.com" required>
+          </label>
+
+          <div class="inline">
+            <label>
+              Straat
+              <input id="street" name="street" type="text" placeholder="Dorpsstraat" required>
+            </label>
+
+            <label>
+              Huisnummer
+              <input id="houseNumber" name="houseNumber" type="text" placeholder="12A" required>
+            </label>
+          </div>
+
+          <div class="inline">
+            <label>
+              Postcode
+              <input id="postcode" name="postcode" type="text" placeholder="1234AB" required>
+            </label>
+
+            <label>
+              Stad
+              <input id="city" name="city" type="text" placeholder="Amsterdam" required>
+            </label>
+          </div>
+
+          <label>
+            Land
+            <input id="country" name="country" type="text" value="Nederland" required>
+          </label>
+
+          <label>
+            Product
+            <select id="productID" name="productID" required>
+              <option value="">Kies eerst een product</option>
+            </select>
+          </label>
+
+          <div id="selectedProductMeta" class="stack meta"></div>
+
+          <div class="inline">
+            <label>
+              Aantal
+              <input id="amount" name="amount" type="number" min="1" value="1" required>
+            </label>
+
+            <label>
+              Levering
+              <select id="shipping" name="shipping" required>
+                <option value="ophalen">Ophalen</option>
+                <option value="verzenden">Verzenden</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Klantnotities
+            <input id="customerNotes" name="customerNotes" type="text" placeholder="Bijvoorbeeld: neerzetten bij de buren">
+          </label>
+
+          <button id="submitOrderButton" class="primary" type="submit">Bestelling versturen</button>
+        </form>
+        <p id="orderStatus" class="status"></p>
+        <div id="orderResult" class="order-result"></div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzdWj6BjAPeC1uujPo4CTwCqgKKZANc_f9DtGYrBALakS2fs2MkqknBnGuyGNAnfIjOwA/exec";
+
+    const productsStatus = document.getElementById("productsStatus");
+    const productsContainer = document.getElementById("productsContainer");
+    const productSelect = document.getElementById("productID");
+    const orderForm = document.getElementById("orderForm");
+    const orderStatus = document.getElementById("orderStatus");
+    const orderResult = document.getElementById("orderResult");
+    const refreshProductsButton = document.getElementById("refreshProductsButton");
+    const submitOrderButton = document.getElementById("submitOrderButton");
+    const selectedProductMeta = document.getElementById("selectedProductMeta");
+
+    let currentProducts = [];
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message;
+      element.className = `status ${type}`.trim();
+    }
+
+    function normalizeProducts(payload) {
+      if (Array.isArray(payload)) {
+        return payload;
+      }
+
+      if (payload && Array.isArray(payload.products)) {
+        return payload.products;
+      }
+
+      return [];
+    }
+
+    function normalizeKey(value) {
+      return String(value ?? "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]/g, "");
+    }
+
+    function getField(record, keys) {
+      const entries = Object.entries(record ?? {});
+      for (const wantedKey of keys) {
+        const normalizedWanted = normalizeKey(wantedKey);
+        const match = entries.find(([key]) => normalizeKey(key) === normalizedWanted);
+        if (match && match[1] !== "" && match[1] !== null && match[1] !== undefined) {
+          return match[1];
+        }
+      }
+      return "";
+    }
+
+    function resolveProductId(product) {
+      return getField(product, ["productid", "product id", "id", "artikelnummer", "sku"]);
+    }
+
+    function resolveProductName(product) {
+      return getField(product, ["name", "naam", "productname", "product naam", "product"]) || `Product ${resolveProductId(product)}`;
+    }
+
+    function resolveProductPrice(product) {
+      return getField(product, ["price", "prijs", "verkoopprijs", "bedrag"]) || null;
+    }
+
+    function resolveProductStock(product) {
+      return getField(product, ["stock", "voorraad", "inventory", "aantal", "beschikbaar"]) || null;
+    }
+
+    function resolveProductDescription(product) {
+      return getField(product, ["description", "beschrijving", "omschrijving", "details"]);
+    }
+
+    function resolveProductImage(product) {
+      return getField(product, ["image", "imageurl", "image url", "afbeelding", "afbeeldingurl", "foto", "fotourl"]);
+    }
+
+    function resolveProductCategory(product) {
+      return getField(product, ["category", "categorie", "productcategorie", "product category"]);
+    }
+
+    function resolveProductVariant(product) {
+      return getField(product, ["variant", "productvariant", "variatie", "uitvoering"]);
+    }
+
+    function updateSelectedProductMeta() {
+      const selectedId = productSelect.value;
+      const product = currentProducts.find((item) => String(resolveProductId(item)) === String(selectedId));
+
+      if (!product) {
+        selectedProductMeta.innerHTML = "";
+        return;
+      }
+
+      const lines = [
+        `Productnaam: ${resolveProductName(product)}`,
+        `Categorie: ${resolveProductCategory(product) || "niet opgegeven"}`,
+        `Variant: ${resolveProductVariant(product) || "niet opgegeven"}`,
+        `Prijs: ${resolveProductPrice(product) || "niet opgegeven"}`,
+        `Voorraad: ${resolveProductStock(product) || "niet opgegeven"}`
+      ];
+
+      selectedProductMeta.innerHTML = lines.map((line) => `<div>${line}</div>`).join("");
+    }
+
+    function renderProducts(products) {
+      productsContainer.innerHTML = "";
+      productSelect.innerHTML = '<option value="">Selecteer een product</option>';
+
+      if (!products.length) {
+        productsContainer.innerHTML = "<div class='product-card'>Geen producten ontvangen van de webapp.</div>";
+        return;
+      }
+
+      products.forEach((product) => {
+        const id = resolveProductId(product);
+        const name = resolveProductName(product);
+        const price = resolveProductPrice(product);
+        const stock = resolveProductStock(product);
+        const description = resolveProductDescription(product);
+        const image = resolveProductImage(product);
+
+        const card = document.createElement("article");
+        card.className = "product-card";
+        card.innerHTML = `
+          ${image ? `<img class="product-image" src="${image}" alt="${name}">` : ""}
+          <header>
+            <div>
+              <h3>${name}</h3>
+              <div class="meta">ID: ${id || "onbekend"}</div>
+            </div>
+            <div class="price">${price !== null ? `EUR ${price}` : "Prijs onbekend"}</div>
+          </header>
+          ${description ? `<div>${description}</div>` : ""}
+          <div class="meta">${stock !== null ? `Voorraad: ${stock}` : "Voorraad niet opgegeven"}</div>
+        `;
+
+        productsContainer.appendChild(card);
+
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = `${name}${price !== null ? ` - EUR ${price}` : ""}`;
+        productSelect.appendChild(option);
+      });
+
+      updateSelectedProductMeta();
+    }
+
+    async function fetchProducts() {
+      setStatus(productsStatus, "Producten worden geladen...");
+      refreshProductsButton.disabled = true;
+
+      try {
+        const response = await fetch(`${WEBAPP_URL}?action=getProducts`);
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+
+        const payload = await response.json();
+        const products = normalizeProducts(payload);
+        currentProducts = products;
+        renderProducts(products);
+        setStatus(productsStatus, `${products.length} product(en) geladen.`, "success");
+        return products;
+      } catch (error) {
+        console.error("Fout bij ophalen producten:", error);
+        currentProducts = [];
+        renderProducts([]);
+        setStatus(productsStatus, "Producten ophalen mislukt. Controleer de webapp of CORS-instellingen.", "error");
+      } finally {
+        refreshProductsButton.disabled = false;
+      }
+    }
+
+    async function createOrder(order) {
+      const response = await fetch(WEBAPP_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify({
+          action: "createOrder",
+          ...order
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    refreshProductsButton.addEventListener("click", fetchProducts);
+    productSelect.addEventListener("change", updateSelectedProductMeta);
+
+    orderForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      orderResult.classList.remove("visible");
+      orderResult.textContent = "";
+      setStatus(orderStatus, "Bestelling wordt verstuurd...");
+      submitOrderButton.disabled = true;
+
+      const formData = new FormData(orderForm);
+      const productID = formData.get("productID");
+      const product = currentProducts.find((item) => String(resolveProductId(item)) === String(productID));
+      const order = {
+        name: formData.get("name").trim(),
+        email: formData.get("email").trim(),
+        street: formData.get("street").trim(),
+        houseNumber: formData.get("houseNumber").trim(),
+        postcode: formData.get("postcode").trim(),
+        city: formData.get("city").trim(),
+        country: formData.get("country").trim(),
+        productID,
+        productName: product ? resolveProductName(product) : "",
+        productCategory: product ? resolveProductCategory(product) : "",
+        productVariant: product ? resolveProductVariant(product) : "",
+        amount: Number(formData.get("amount")),
+        shipping: formData.get("shipping"),
+        customerNotes: formData.get("customerNotes").trim()
+      };
+
+      try {
+        const result = await createOrder(order);
+        const orderId = result.orderId ?? result.id ?? "onbekend";
+        setStatus(orderStatus, `Bestelling geplaatst met order ID ${orderId}.`, "success");
+        orderResult.textContent = JSON.stringify(result, null, 2);
+        orderResult.classList.add("visible");
+        orderForm.reset();
+        document.getElementById("amount").value = 1;
+        document.getElementById("country").value = "Nederland";
+        updateSelectedProductMeta();
+      } catch (error) {
+        console.error("Fout bij plaatsen bestelling:", error);
+        setStatus(orderStatus, "Bestelling versturen mislukt. Controleer of de webapp POST-verzoeken accepteert.", "error");
+      } finally {
+        submitOrderButton.disabled = false;
+      }
+    });
+
+    fetchProducts();
+  </script>
+</body>
+</html>

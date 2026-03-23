@@ -206,6 +206,40 @@
       transform: translateY(-2px);
     }
     .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .checkout-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.8);
+      padding: 20px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .checkout-modal-card {
+      width: 100%;
+      max-width: 28rem;
+      max-height: min(90vh, 90dvh);
+      overflow-y: auto;
+    }
+
+    @media (max-width: 640px) {
+      .checkout-modal {
+        align-items: flex-start;
+        padding: max(12px, env(safe-area-inset-top)) 12px max(16px, env(safe-area-inset-bottom));
+      }
+
+      .checkout-modal-card {
+        max-width: 100%;
+        max-height: none;
+        min-height: calc(100dvh - 24px);
+        border-radius: 20px;
+      }
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
@@ -325,6 +359,19 @@
      </div>
     </div>
    </section>
+   <section id="shop" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+     <div class="text-center mb-16 fade-in">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Shop</p>
+      <h2 id="shop-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ Shop</h2>
+      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
+     </div>
+     <div id="shop-status" style="text-align: center; color: #a09890; margin-bottom: 24px;">
+      â³ Producten laden...
+     </div>
+     <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in"></div>
+    </div>
+   </section>
    <section id="contact" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="text-center mb-16 fade-in">
@@ -372,19 +419,6 @@
      </div>
     </div>
    </section>
-   <section id="shop" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-     <div class="text-center mb-16 fade-in">
-      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: #4a9fd9;">Shop</p>
-      <h2 id="shop-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ Shop</h2>
-      <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
-     </div>
-     <div id="shop-status" style="text-align: center; color: #a09890; margin-bottom: 24px;">
-      ⏳ Producten laden...
-     </div>
-     <div id="shop-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 fade-in"></div>
-    </div>
-   </section>
    <section id="checkout" class="w-full py-20 sm:py-28" style="background: #0a0a0a;">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
      <div class="text-center mb-16 fade-in">
@@ -415,8 +449,8 @@
      </div>
     </div>
    </section>
-   <div id="checkout-modal" class="fixed inset-0 z-[200] flex items-center justify-center" style="background: rgba(0,0,0,0.8); display: none; padding: 20px;">
-    <div class="glass-card rounded-2xl p-8 sm:p-10 w-full max-w-md max-h-[90vh] overflow-y-auto">
+   <div id="checkout-modal" class="checkout-modal">
+    <div class="glass-card checkout-modal-card rounded-2xl p-6 sm:p-10">
      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
       <h2 class="font-display text-3xl tracking-wider" style="color: #e8e4e0; margin: 0;">Bestelgegevens</h2><button onclick="closeCheckoutModal()" style="background: none; border: none; color: #a09890; cursor: pointer; font-size: 24px;">✕</button>
      </div>
@@ -851,19 +885,24 @@
         const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         const total = subtotal + 5;
 
+        const firstCartItem = cart[0] || {};
         const orderData = {
           action: 'createOrder',
-          naam: name,
+          name: name,
           email: email,
-          telefoon: phone,
-          adres: address,
+          street: address,
+          houseNumber: '',
           postcode: postcode,
-          stad: city,
-          producten: productsText,
-          totaal: total.toFixed(2),
-          notities: notes,
-          datum: new Date().toISOString(),
-          status: 'nieuw'
+          city: city,
+          country: 'Nederland',
+          productID: firstCartItem.id || '',
+          productName: productsText,
+          productCategory: '',
+          productVariant: '',
+          amount: cart.reduce((sum, item) => sum + item.quantity, 0),
+          shipping: 'verzenden',
+          customerNotes: [phone, notes].filter(Boolean).join(' | '),
+          totalPrice: total.toFixed(2)
         };
 
         const response = await fetch(WEBAPP_URL, {

@@ -461,7 +461,7 @@
     .product-image {
       width: 100%;
       height: 280px;
-      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      background: #f0f0f0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -476,6 +476,7 @@
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
+      display: block;
     }
 
     .product-card:hover .product-image img {
@@ -792,7 +793,7 @@
     .product-detail-image {
       width: 100%;
       height: 500px;
-      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      background: #f0f0f0;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -806,6 +807,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .price {
@@ -958,12 +960,14 @@
       border-radius: 8px;
       overflow: hidden;
       background: #f5f5f5;
+      flex-shrink: 0;
     }
 
     .cart-item-image img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     .cart-item-details h3 {
@@ -1148,19 +1152,108 @@
       color: #0f0f0f;
     }
 
+    @media (max-width: 1024px) {
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+      }
+
+      .section {
+        padding: 60px 20px;
+      }
+
+      .header-content {
+        padding: 12px 16px;
+      }
+    }
+
     @media (max-width: 768px) {
+      html, body, .app-wrapper {
+        height: 100%;
+      }
+
+      .hero {
+        min-height: 500px;
+        padding: 40px 20px;
+        background-attachment: scroll;
+      }
+
       .hero h1 {
-        font-size: 32px;
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+
+      .hero p {
+        font-size: 16px;
+        margin-bottom: 30px;
+      }
+
+      .btn-primary, .btn-secondary-hero {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+
+      .section {
+        padding: 50px 16px;
+      }
+
+      .section h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
       }
 
       .products-grid {
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 16px;
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .product-card {
+        border-radius: 8px;
+      }
+
+      .product-image {
+        height: 200px;
+        font-size: 40px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-name {
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+
+      .product-price {
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .product-specs {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+
+      .product-button {
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      .usp-section {
+        padding: 40px 16px;
+        gap: 24px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .usp-item {
+        gap: 12px;
       }
 
       .product-detail {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
       }
 
       .product-detail-image {
@@ -1168,12 +1261,21 @@
         font-size: 60px;
       }
 
+      .product-detail-info h1 {
+        font-size: 22px;
+      }
+
+      .price {
+        font-size: 24px;
+      }
+
       .cart-page {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       .cart-item {
-        grid-template-columns: 80px 1fr 80px 30px;
+        grid-template-columns: 80px 1fr 30px;
         gap: 12px;
         padding: 12px;
       }
@@ -1183,20 +1285,40 @@
         height: 80px;
       }
 
+      .cart-item-price {
+        display: none;
+      }
+
+      .cart-item-details p {
+        font-size: 12px;
+      }
+
       .cart-summary {
         position: static;
+        padding: 20px;
+      }
+
+      .page-container {
+        padding: 30px 16px;
       }
 
       .search-bar {
         max-width: none;
-        margin: 0 16px;
-        order: 3;
-        flex-basis: 100%;
+        flex: 1;
+      }
+
+      .search-bar input {
+        font-size: 14px;
       }
 
       .header-content {
-        flex-wrap: wrap;
         gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .logo {
+        font-size: 22px;
+        flex-shrink: 0;
       }
 
       .mobile-menu-toggle {
@@ -1217,20 +1339,136 @@
       .mobile-menu.open {
         display: flex;
       }
+
+      .filters {
+        padding: 16px;
+        gap: 12px;
+        grid-template-columns: 1fr;
+        margin-bottom: 30px;
+      }
+
+      .footer-content {
+        gap: 30px;
+      }
+
+      .thank-you {
+        padding: 40px 16px;
+      }
+
+      .order-summary {
+        max-width: 100%;
+        margin: 20px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 400px;
+        padding: 30px 16px;
+      }
+
+      .hero h1 {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+
+      .hero p {
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+
+      .hero-content {
+        max-width: 100%;
+      }
+
+      .btn-primary, .btn-secondary-hero {
+        padding: 10px 20px;
+        font-size: 12px;
+        margin-left: 0 !important;
+      }
+
+      .section h2 {
+        font-size: 22px;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 10px;
+      }
+
+      .product-image {
+        height: 160px;
+        font-size: 32px;
+      }
+
+      .product-category {
+        font-size: 10px;
+      }
+
+      .product-name {
+        font-size: 12px;
+      }
+
+      .product-price {
+        font-size: 14px;
+      }
+
+      .usp-section {
+        grid-template-columns: 1fr;
+      }
+
+      .cart-item {
+        grid-template-columns: 70px 1fr 30px;
+        gap: 8px;
+        padding: 8px;
+      }
+
+      .cart-item-image {
+        width: 70px;
+        height: 70px;
+      }
+
+      .page-container {
+        padding: 20px 12px;
+      }
+
+      .product-detail-info h1 {
+        font-size: 18px;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        padding: 10px;
+        font-size: 14px;
+      }
+
+      .payment-option {
+        padding: 8px;
+      }
+
+      .header-content {
+        padding: 10px 12px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .filters {
+        padding: 12px;
+      }
     }
   </style>
   <style>body { box-sizing: border-box; }</style>
  </head>
  <body>
-  <div class="app-wrapper" id="app">
-   <!-- Header -->
+  <div class="app-wrapper" id="app"><!-- Header -->
    <header id="header">
     <div class="header-content">
      <div class="logo" onclick="goToPage('home')">
       Lorem
      </div>
-     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Zoeken..." onkeyup="handleSearch()">
+     <div class="search-bar"><input type="text" id="searchInput" placeholder="Zoeken..." onkeyup="handleSearch()">
       <svg data-lucide="search"></svg>
      </div>
      <div style="display: flex; gap: 20px; align-items: center;">
@@ -1263,15 +1501,14 @@
      </div>
     </div>
    </header><!-- Main Content -->
-   <main style="flex: 1;">
-    <!-- Home Page -->
-    <div id="page-home" style="display: block;">
-     <!-- Hero -->
+   <main style="flex: 1;"><!-- Home Page -->
+    <div id="page-home" style="display: block;"><!-- Hero -->
      <div class="hero">
       <div class="hero-content">
        <h1 id="hero_title">Rijd slimmer. Beleef avontuur.</h1>
        <p id="hero_subtitle">Tot 120km bereik • Blitzsnelle motor • Altijd betrouwbaar</p>
-       <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;"><button class="btn-primary" onclick="goToPage('shop')">Shop nu</button> <button class="btn-secondary-hero" onclick="goToPage('shop')">Bekijk modellen</button>
+       <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 16px;">
+        <button class="btn-primary" onclick="goToPage('shop')">Shop nu</button> <button class="btn-secondary-hero" onclick="goToPage('shop')">Bekijk modellen</button>
        </div>
       </div>
      </div><!-- USPs -->
@@ -1345,21 +1582,17 @@
     <div id="page-shop" style="display: none;" class="page-container">
      <h1 style="font-size: 32px; font-weight: 700; margin-bottom: 40px;">Alle producten</h1>
      <div class="filters">
-      <div class="filter-group">
-       <label>Sorteer op:</label> <select onchange="handleSort(this.value)"> <option value="featured">Aanbevolen</option> <option value="price-low">Prijs: laag naar hoog</option> <option value="price-high">Prijs: hoog naar laag</option> <option value="newest">Nieuwste</option> </select>
+      <div class="filter-group"><label>Sorteer op:</label> <select onchange="handleSort(this.value)"> <option value="featured">Aanbevolen</option> <option value="price-low">Prijs: laag naar hoog</option> <option value="price-high">Prijs: hoog naar laag</option> <option value="newest">Nieuwste</option> </select>
       </div>
-      <div class="filter-group">
-       <label>Prijs:</label> <input type="range" id="priceFilter" min="0" max="5000" value="5000" onchange="handlePriceFilter(this.value)" style="cursor: pointer;"> <span id="priceValue" style="font-size: 12px; color: #666; margin-top: 8px;">Tot €<span id="priceAmount">5000</span></span>
+      <div class="filter-group"><label>Prijs:</label> <input type="range" id="priceFilter" min="0" max="5000" value="5000" onchange="handlePriceFilter(this.value)" style="cursor: pointer;"> <span id="priceValue" style="font-size: 12px; color: #666; margin-top: 8px;">Tot €<span id="priceAmount">5000</span></span>
       </div>
-      <div class="filter-group">
-       <label>Actieradius:</label> <select onchange="handleRadiusFilter(this.value)"> <option value="">Alle</option> <option value="50">Tot 50 km</option> <option value="100">50-100 km</option> <option value="120">100+ km</option> </select>
+      <div class="filter-group"><label>Actieradius:</label> <select onchange="handleRadiusFilter(this.value)"> <option value="">Alle</option> <option value="50">Tot 50 km</option> <option value="100">50-100 km</option> <option value="120">100+ km</option> </select>
       </div>
      </div>
      <div id="shop-products" class="products-grid"></div>
     </div><!-- Product Detail Page -->
     <div id="page-product" style="display: none;" class="page-container">
-     <div style="margin-bottom: 30px;">
-      <button class="btn-secondary" onclick="goToPage('shop')">← Terug naar winkel</button>
+     <div style="margin-bottom: 30px;"><button class="btn-secondary" onclick="goToPage('shop')">← Terug naar winkel</button>
      </div>
      <div class="product-detail">
       <div class="product-detail-image" id="productDetailImage">
@@ -1375,12 +1608,10 @@
         <h3>Specificaties</h3>
         <ul id="productSpecs"></ul>
        </div>
-       <div class="color-selector">
-        <label>Kleur:</label>
+       <div class="color-selector"><label>Kleur:</label>
         <div class="color-options" id="colorOptions"></div>
        </div>
-       <div class="quantity-selector">
-        <button onclick="decreaseQuantity()">−</button> <input type="number" id="quantityInput" value="1" min="1" max="10" style="cursor: default;"> <button onclick="increaseQuantity()">+</button>
+       <div class="quantity-selector"><button onclick="decreaseQuantity()">−</button> <input type="number" id="quantityInput" value="1" min="1" max="10" style="cursor: default;"> <button onclick="increaseQuantity()">+</button>
        </div><button class="btn-primary" style="width: 100%; padding: 16px; font-size: 16px;" onclick="addToCart()">Toevoegen aan winkelwagen</button>
        <div style="margin-top: 30px; padding: 20px; background: #f9f9f9; border-radius: 4px;">
         <h3 style="font-size: 14px; font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">Beschikbaarheid</h3>
@@ -1404,14 +1635,11 @@
       <div class="cart-items" id="cartItems"></div>
       <div class="cart-summary">
        <h3>Order samenvatting</h3>
-       <div class="cart-summary-row">
-        <span>Subtotaal:</span> <span id="subtotalPrice">€0,00</span>
+       <div class="cart-summary-row"><span>Subtotaal:</span> <span id="subtotalPrice">€0,00</span>
        </div>
-       <div class="cart-summary-row">
-        <span>Verzending:</span> <span id="shippingPrice">Gratis</span>
+       <div class="cart-summary-row"><span>Verzending:</span> <span id="shippingPrice">Gratis</span>
        </div>
-       <div class="cart-summary-total">
-        <span>Totaal incl. BTW:</span> <span id="totalPrice">€0,00</span>
+       <div class="cart-summary-total"><span>Totaal incl. BTW:</span> <span id="totalPrice">€0,00</span>
        </div><input type="text" id="discountCode" placeholder="Kortingscode" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px; font-size: 14px;"> <button class="btn-secondary" style="width: 100%; margin-bottom: 12px; padding: 12px; cursor: pointer;">Code toepassen</button> <button class="btn-primary" style="width: 100%; padding: 14px; font-size: 16px;" onclick="goToPage('checkout')">Ga naar checkout</button>
       </div>
      </div>
@@ -1422,28 +1650,21 @@
       <div>
        <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px;">Verzendgegevens</h2>
        <form class="checkout-form" id="checkoutForm" onsubmit="submitOrder(event)">
-        <div class="form-group">
-         <label for="customer-name">Volledige naam *</label> <input type="text" id="customer-name" required>
+        <div class="form-group"><label for="customer-name">Volledige naam *</label> <input type="text" id="customer-name" required>
         </div>
-        <div class="form-group">
-         <label for="customer-email">E-mailadres *</label> <input type="email" id="customer-email" required>
+        <div class="form-group"><label for="customer-email">E-mailadres *</label> <input type="email" id="customer-email" required>
         </div>
-        <div class="form-group">
-         <label for="customer-address">Adres *</label> <input type="text" id="customer-address" required>
+        <div class="form-group"><label for="customer-address">Adres *</label> <input type="text" id="customer-address" required>
         </div>
-        <div class="form-group">
-         <label for="customer-postcode">Postcode *</label> <input type="text" id="customer-postcode" placeholder="1234 AB" required>
+        <div class="form-group"><label for="customer-postcode">Postcode *</label> <input type="text" id="customer-postcode" placeholder="1234 AB" required>
         </div>
         <h2 style="font-size: 18px; font-weight: 700; margin-bottom: 20px; margin-top: 40px;">Betaalmethode</h2>
         <div class="payment-methods">
-         <div class="payment-option">
-          <input type="radio" name="payment" value="ideal" id="payment-ideal" checked> <label for="payment-ideal">iDEAL</label>
+         <div class="payment-option"><input type="radio" name="payment" value="ideal" id="payment-ideal" checked> <label for="payment-ideal">iDEAL</label>
          </div>
-         <div class="payment-option">
-          <input type="radio" name="payment" value="paypal" id="payment-paypal"> <label for="payment-paypal">PayPal</label>
+         <div class="payment-option"><input type="radio" name="payment" value="paypal" id="payment-paypal"> <label for="payment-paypal">PayPal</label>
          </div>
-         <div class="payment-option">
-          <input type="radio" name="payment" value="card" id="payment-card"> <label for="payment-card">Creditcard</label>
+         <div class="payment-option"><input type="radio" name="payment" value="card" id="payment-card"> <label for="payment-card">Creditcard</label>
          </div>
         </div>
         <div style="margin-top: 30px; padding: 16px; background: #f9f9f9; border-radius: 4px; font-size: 13px; color: #666;">
@@ -1456,14 +1677,11 @@
       <div class="cart-summary">
        <h3>Order overzicht</h3>
        <div id="checkoutItems" style="margin-bottom: 20px;"></div>
-       <div class="cart-summary-row">
-        <span>Subtotaal:</span> <span id="checkoutSubtotal">€0,00</span>
+       <div class="cart-summary-row"><span>Subtotaal:</span> <span id="checkoutSubtotal">€0,00</span>
        </div>
-       <div class="cart-summary-row">
-        <span>Verzending:</span> <span>Gratis</span>
+       <div class="cart-summary-row"><span>Verzending:</span> <span>Gratis</span>
        </div>
-       <div class="cart-summary-total">
-        <span>Totaal incl. BTW:</span> <span id="checkoutTotal">€0,00</span>
+       <div class="cart-summary-total"><span>Totaal incl. BTW:</span> <span id="checkoutTotal">€0,00</span>
        </div>
       </div>
      </div>
@@ -1474,8 +1692,7 @@
       <h1>Bedankt voor je bestelling!</h1>
       <p style="color: #666; font-size: 16px; margin-bottom: 30px;">Je ontvangt binnenkort een bevestigingsemail met alle details.</p>
       <div class="order-summary" id="orderSummaryContent"></div>
-      <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center;">
-       <button class="btn-secondary" onclick="goToPage('home')">Terug naar home</button> <button class="btn-primary" onclick="goToPage('shop')">Verder winkelen</button>
+      <div style="margin-top: 40px; display: flex; gap: 16px; justify-content: center;"><button class="btn-secondary" onclick="goToPage('home')">Terug naar home</button> <button class="btn-primary" onclick="goToPage('shop')">Verder winkelen</button>
       </div>
      </div>
     </div><!-- Info Pages -->
@@ -1521,8 +1738,7 @@
       </div>
       <div>
        <h2 style="font-size: 16px; font-weight: 700; margin-bottom: 20px;">Stuur ons een bericht</h2>
-       <form onsubmit="submitContact(event)" style="display: flex; flex-direction: column; gap: 16px;">
-        <input type="text" placeholder="Uw naam" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;"> <input type="email" placeholder="Uw email" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;"> <textarea placeholder="Uw bericht" rows="4" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; resize: none; font-family: inherit;"></textarea> <button type="submit" class="btn-primary" style="padding: 12px;">Versturen</button>
+       <form onsubmit="submitContact(event)" style="display: flex; flex-direction: column; gap: 16px;"><input type="text" placeholder="Uw naam" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;"> <input type="email" placeholder="Uw email" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px;"> <textarea placeholder="Uw bericht" rows="4" required style="padding: 12px; border: 1px solid #ddd; border-radius: 4px; resize: none; font-family: inherit;"></textarea> <button type="submit" class="btn-primary" style="padding: 12px;">Versturen</button>
        </form>
       </div>
      </div>
@@ -1573,7 +1789,7 @@
         id: '1',
         naam: 'Go EB3 750W Premium',
         prijs: 1899,
-        afbeelding: 'https://i.postimg.cc/DzzVcv4v/Whats-App-Image-2026-03-26-at-19-02-53.jpg',
+        afbeelding: 'https://i.postimg.cc/sgGc5bw5/Whats-App-Image-2026-03-26-at-19-02-53.jpg',
         categorie: 'Premium',
         actieradius: '120',
         snelheid: '50',
@@ -1587,7 +1803,7 @@
         id: '2',
         naam: 'Go EB3 500W Performance',
         prijs: 1499,
-        afbeelding: 'https://i.postimg.cc/xddrPfN9/Whats-App-Image-2026-03-26-at-19-02-53-(1).jpg',
+        afbeelding: 'https://i.postimg.cc/Vk0RX2Dn/Whats-App-Image-2026-03-26-at-19-02-53-(1).jpg',
         categorie: 'Performance',
         actieradius: '100',
         snelheid: '48',
@@ -1601,7 +1817,7 @@
         id: '3',
         naam: 'Go EB3 250W City',
         prijs: 899,
-        afbeelding: 'https://i.postimg.cc/K8fSLkj1/Whats-App-Image-2026-03-26-at-19-02-53-(2).jpg',
+        afbeelding: 'https://i.postimg.cc/fRSKY1Bd/Whats-App-Image-2026-03-26-at-19-02-53-(2).jpg',
         categorie: 'City',
         actieradius: '80',
         snelheid: '45',
@@ -1615,7 +1831,7 @@
         id: '4',
         naam: 'Go EB3 750W Extended',
         prijs: 1799,
-        afbeelding: 'https://i.postimg.cc/QdmG59CV/Whats-App-Image-2026-03-26-at-19-02-53-(3).jpg',
+        afbeelding: 'https://i.postimg.cc/7ZJVSjmJ/Whats-App-Image-2026-03-26-at-19-02-53-(3).jpg',
         categorie: 'Premium',
         actieradius: '110',
         snelheid: '50',
@@ -1629,7 +1845,7 @@
         id: '5',
         naam: 'Go EB3 500W Extended',
         prijs: 1399,
-        afbeelding: 'https://i.postimg.cc/XYLSFGq7/Whats-App-Image-2026-03-26-at-19-02-53-(4).jpg',
+        afbeelding: 'https://i.postimg.cc/fRSKY1Bt/Whats-App-Image-2026-03-26-at-19-02-53-(4).jpg',
         categorie: 'Performance',
         actieradius: '95',
         snelheid: '48',
@@ -1643,7 +1859,7 @@
         id: '6',
         naam: 'Go EB3 250W Extended',
         prijs: 799,
-        afbeelding: 'https://i.postimg.cc/qvwVnhq7/Whats-App-Image-2026-03-26-at-19-02-54.jpg',
+        afbeelding: 'https://i.postimg.cc/Vk0RX2Dd/Whats-App-Image-2026-03-26-at-19-02-54.jpg',
         categorie: 'Budget',
         actieradius: '70',
         snelheid: '40',
@@ -1750,7 +1966,7 @@
         return `
           <div class="product-card ${cardClass}" onclick="viewProduct('${p.id}')">
             <div class="product-image">
-              <img src="${p.afbeelding}" alt="${p.naam}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="console.error('Image failed:', this.src); this.style.background='#f0f0f0'; this.style.display='none';">
+              <img src="${p.afbeelding}" alt="${p.naam}" loading="lazy" onerror="this.parentElement.style.background='#f0f0f0';">
               ${outOfStock ? '<div class="badge-stock">Uitverkocht</div>' : ''}
             </div>
             <div class="product-info">
@@ -1776,7 +1992,7 @@
       return `
         <div class="product-card" onclick="viewProduct('${product.id}')">
           <div class="product-image">
-            <img src="${product.afbeelding}" alt="${product.naam}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="console.error('Image failed:', this.src); this.style.background='#f0f0f0'; this.style.display='none';">
+            <img src="${product.afbeelding}" alt="${product.naam}" loading="lazy" onerror="this.parentElement.style.background='#f0f0f0';">
             ${outOfStock ? '<div class="badge-stock">Uitverkocht</div>' : ''}
           </div>
           <div class="product-info">
@@ -1871,7 +2087,7 @@
       document.getElementById('productDetailDesc').textContent = currentProduct.beschrijving;
       
       const detailImage = document.getElementById('productDetailImage');
-      detailImage.innerHTML = `<img src="${currentProduct.afbeelding}" alt="${currentProduct.naam}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="console.error('Image failed:', this.src); this.style.background='#e8e8e8'; this.parentElement.style.background='#e8e8e8';">`;
+      detailImage.innerHTML = `<img src="${currentProduct.afbeelding}" alt="${currentProduct.naam}" loading="lazy" onerror="this.parentElement.style.background='#f0f0f0';">`;
 
       const specsList = document.getElementById('productSpecs');
       specsList.innerHTML = `
@@ -1988,7 +2204,7 @@
       container.innerHTML = cartItems.map((item, index) => `
         <div class="cart-item">
           <div class="cart-item-image">
-            <img src="${item.afbeelding}" alt="${item.naam}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;" onerror="console.error('Image failed:', this.src); this.style.background='#f0f0f0'; this.parentElement.style.background='#f0f0f0';">
+            <img src="${item.afbeelding}" alt="${item.naam}" loading="lazy" onerror="this.parentElement.style.background='#f0f0f0';">
           </div>
           <div class="cart-item-details">
             <h3>${item.naam}</h3>
@@ -2171,5 +2387,5 @@
       }
     });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e283186112fb912',t:'MTc3NDU0OTQ3OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e28556444a7a657',t:'MTc3NDU1MDk0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

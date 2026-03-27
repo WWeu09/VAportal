@@ -562,22 +562,27 @@
  <body class="h-full overflow-auto scroll-smooth font-body" style="background-color: #0a0a0a; color: #e8e4e0;">
   <nav id="main-nav" class="fixed top-0 left-0 w-full z-50 transition-all duration-300" style="background: rgba(10,10,10,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05);">
    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20"><a href="#home" class="flex items-center gap-3 group">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+     <a href="#home" class="flex items-center gap-3 group">
       <div class="w-10 h-10 rounded-lg flex items-center justify-center font-display text-xl" style="background: #4a9fd9; color: #e8e4e0;">
        RW
       </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span> </a>
-     <div class="hidden md:flex items-center gap-8"><a href="#home" class="nav-link text-sm tracking-widest uppercase">Home</a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase">Portfolio</a> <a href="#why-us" class="nav-link text-sm tracking-widest uppercase">Why Us</a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase">Afspraak</a> <a href="#shop" class="nav-link text-sm tracking-widest uppercase">Shop</a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase">Contact</a>
+     <div class="hidden md:flex items-center gap-8">
+      <a href="#home" class="nav-link text-sm tracking-widest uppercase">Home</a> <a href="#portfolio" class="nav-link text-sm tracking-widest uppercase">Portfolio</a> <a href="#why-us" class="nav-link text-sm tracking-widest uppercase">Why Us</a> <a href="#booking" class="nav-link text-sm tracking-widest uppercase">Afspraak</a> <a href="#shop" class="nav-link text-sm tracking-widest uppercase">Shop</a> <a href="#contact" class="nav-link text-sm tracking-widest uppercase">Contact</a>
      </div>
-     <div class="flex items-center gap-4"><button id="cart-toggle" class="relative p-2 transition-all duration-300 hover:scale-110" style="color: #e8e4e0;" aria-label="Winkelmand"> <i data-lucide="shopping-bag" style="width:24px;height:24px;"></i> <span id="cart-badge" class="absolute top-0 right-0 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style="background: #4a9fd9; color: #e8e4e0; display: none; font-size: 11px;">0</span> </button> <button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+     <div class="flex items-center gap-4">
+      <button id="cart-toggle" class="relative p-2 transition-all duration-300 hover:scale-110" style="color: #e8e4e0;" aria-label="Winkelmand"> <i data-lucide="shopping-bag" style="width:24px;height:24px;"></i> <span id="cart-badge" class="absolute top-0 right-0 w-5 h-5 rounded-full text-xs font-bold flex items-center justify-center" style="background: #4a9fd9; color: #e8e4e0; display: none; font-size: 11px;">0</span> </button> <button id="menu-toggle" class="md:hidden p-2" style="color: #e8e4e0;" aria-label="Open menu"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
      </div>
     </div>
    </div>
   </nav>
   <div id="mobile-menu" class="mobile-menu fixed inset-0 z-[60] md:hidden" style="background: rgba(10,10,10,0.98);">
    <div class="flex flex-col h-full px-6 pt-6">
-    <div class="flex items-center justify-between mb-12"><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
+    <div class="flex items-center justify-between mb-12">
+     <span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">RW CUTZZ</span> <button id="menu-close" class="p-2" style="color: #e8e4e0;" aria-label="Sluit menu"> <i data-lucide="x" style="width:24px;height:24px;"></i> </button>
     </div>
-    <div class="flex flex-col gap-6"><a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#why-us" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">WHY US</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#shop" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SHOP</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
+    <div class="flex flex-col gap-6">
+     <a href="#home" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">HOME</a> <a href="#portfolio" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">PORTFOLIO</a> <a href="#why-us" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">WHY US</a> <a href="#booking" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">AFSPRAAK</a> <a href="#shop" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">SHOP</a> <a href="#contact" class="mobile-link font-display text-4xl tracking-wider" style="color: #e8e4e0;">CONTACT</a>
     </div>
    </div>
   </div>
@@ -586,15 +591,18 @@
     <div class="barber-stripe absolute inset-0 opacity-30"></div>
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center justify-center text-center" style="padding-top: 140px; padding-bottom: 100px;">
      <div class="mb-8 fade-in" style="animation-delay: 0.1s;">
-      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
+      <svg width="64" height="64" viewbox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <circle cx="18" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <circle cx="46" cy="46" r="8" stroke="#4a9fd9" stroke-width="2" fill="none" /> <line x1="24" y1="40" x2="40" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" /> <line x1="40" y1="40" x2="24" y2="16" stroke="#4a9fd9" stroke-width="2" stroke-linecap="round" />
       </svg>
      </div>
      <h1 id="hero-title" class="font-display text-7xl sm:text-8xl md:text-9xl tracking-wider fade-in" style="color: #e8e4e0; line-height: 0.95;">RW CUTZZ</h1>
      <p id="hero-subtitle" class="mt-4 text-lg sm:text-xl tracking-widest uppercase fade-in" style="color: #4a9fd9;">Premium Barbershop Amsterdam</p>
      <p id="hero-tagline" class="mt-6 text-base sm:text-lg max-w-md fade-in" style="color: #a09890;">Walk in average. Walk out sharp. Amsterdam's premium barber for flawless fades.</p>
-     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
+     <div class="flex flex-col sm:flex-row gap-4 mt-10 fade-in">
+      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a> <a href="#portfolio" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105" style="border: 1px solid rgba(255,255,255,0.15); color: #a09890;">BEKIJK WERK</a>
      </div>
-     <div class="mt-16 fade-in animate-bounce"><i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
+     <div class="mt-16 fade-in animate-bounce">
+      <i data-lucide="chevron-down" style="width:28px;height:28px;color:#a09890;"></i>
      </div>
     </div>
    </section>
@@ -606,9 +614,11 @@
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
       <p class="mt-4 text-sm" style="color: #a09890;">Precision fades. Sharp finishes. 50+ happy clients.</p>
      </div>
-     <div class="flex flex-wrap justify-center gap-3 mb-6 fade-in md:mb-12"><button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
+     <div class="flex flex-wrap justify-center gap-3 mb-6 fade-in md:mb-12">
+      <button class="portfolio-filter active px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="all" style="background: #4a9fd9; color: #e8e4e0;">Alles</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="fades" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Fades</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="classic" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Classic</button> <button class="portfolio-filter px-5 py-2 rounded-full text-sm tracking-wider uppercase transition-all duration-300" data-filter="designs" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.08);">Designs</button>
      </div>
-     <div class="view-toggle md:hidden fade-in"><button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
+     <div class="view-toggle md:hidden fade-in">
+      <button class="view-toggle-btn active" data-view="grid">📊 Grid</button> <button class="view-toggle-btn" data-view="slider">🎬 Slider</button>
      </div>
      <div id="portfolio-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4"></div>
      <div id="portfolio-slider" class="portfolio-slider"></div>
@@ -623,29 +633,25 @@
      </div>
      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="glass-card rounded-2xl p-8 text-center fade-in">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="scissors" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="scissors" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div>
        <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Precision Fades</h3>
        <p style="color: #a09890; font-size: 14px; line-height: 1.6;">Expert technique for sharp, clean lines. Every fade is perfected.</p>
       </div>
       <div class="glass-card rounded-2xl p-8 text-center fade-in">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="zap" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="zap" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div>
        <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Fast &amp; Friendly</h3>
        <p style="color: #a09890; font-size: 14px; line-height: 1.6;">30-minute sessions. Premium atmosphere. Feel the vibe.</p>
       </div>
       <div class="glass-card rounded-2xl p-8 text-center fade-in">
-       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="target" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="target" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div>
        <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Attention to Detail</h3>
        <p style="color: #a09890; font-size: 14px; line-height: 1.6;">Your style, your vision. We listen and deliver.</p>
       </div>
      </div>
-     <div class="mt-12 text-center fade-in">
-      <a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105 inline-block" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a>
+     <div class="mt-12 text-center fade-in"><a href="#booking" class="px-8 py-3 font-display text-lg tracking-widest uppercase rounded-lg transition-all duration-300 hover:scale-105 inline-block" style="background: #4a9fd9; color: #e8e4e0;">BOEK NU</a>
      </div>
     </div>
    </section>
@@ -654,61 +660,55 @@
      <div class="text-center mb-16 fade-in">
       <h2 id="reviews-title" class="font-display text-5xl sm:text-6xl tracking-wider mb-8" style="color: #e8e4e0;">What Customers Say</h2>
       <p style="color: #4a9fd9; font-weight: 600; font-size: 14px; margin-bottom: 12px;">🔥 Trusted by 50+ clients in Amsterdam</p>
-      <div class="flex justify-center gap-1 mb-4">
-       <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i>
+      <div class="flex justify-center gap-1 mb-4"><i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:24px;height:24px;color:#4a9fd9;fill:#4a9fd9;"></i>
       </div>
       <p class="text-lg" style="color: #e8e4e0;"><strong>5.0 out of 5</strong> • <strong>58 customers</strong></p>
      </div>
-     <div class="flex justify-center mb-12 fade-in"><a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="glass-card rounded-full px-6 py-3 inline-flex items-center gap-3 hover:scale-105 transition-transform">
-       <div class="flex gap-1"><i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i>
+     <div class="flex justify-center mb-12 fade-in">
+      <a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="glass-card rounded-full px-6 py-3 inline-flex items-center gap-3 hover:scale-105 transition-transform">
+       <div class="flex gap-1">
+        <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div><span style="color: #e8e4e0; font-weight: 600;">5.0 • 58 beoordelingen</span> </a>
      </div>
      <div class="flex flex-col gap-6">
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Best barber in Amsterdam. Always clean, always sharp. These guys really know what they're doing."</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Achmet</p>
       </div>
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Professional, quick, and they listen to what you actually want. Will be back every time."</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Marcus</p>
       </div>
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Amazing atmosphere, amazing barbers. Worth the wait. Definitely my new go-to spot."</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Dani</p>
       </div>
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Veel kappers weten niet wat ze moeten met mijn dunne (beetje pluizige haar), maar RW weet wat hij doet!"</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Mert</p>
       </div>
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"5/5 echt top gedaan"</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Thomas</p>
       </div>
       <div class="glass-card rounded-2xl p-8 fade-in">
-       <div class="flex gap-1 mb-4">
-        <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1 mb-4"><i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:16px;height:16px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div>
        <p style="color: #e8e4e0; margin: 0 0 12px 0; font-size: 14px; line-height: 1.6;">"Top knipbeurt weer gehad zoals altijd. Niks om te klagen en hij doet zn werk altijd met precisie👌. Top kapper dit, echt waar!"</p>
        <p style="color: #4a9fd9; font-weight: 600; margin: 0; font-size: 13px;">Ramin</p>
       </div>
      </div>
-     <div class="mt-12 text-center fade-in">
-      <a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; font-weight: 600; text-decoration: none; font-size: 14px;"> Review toevoegen <i data-lucide="external-link" style="width:16px;height:16px;"></i> </a>
+     <div class="mt-12 text-center fade-in"><a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; font-weight: 600; text-decoration: none; font-size: 14px;"> Review toevoegen <i data-lucide="external-link" style="width:16px;height:16px;"></i> </a>
      </div>
     </div>
    </section>
@@ -719,7 +719,8 @@
       <h2 id="booking-title" class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Maak een Afspraak</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;"><iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
+     <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 500px;">
+      <iframe src="https://rwcutzz.setmore.com/" title="RW Cutzz Booking" class="w-full border-0" style="height: 600px; min-height: 500px;" loading="lazy" allow="payment"></iframe>
      </div>
     </div>
    </section>
@@ -731,8 +732,10 @@
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
       <p class="mt-4 max-w-lg mx-auto text-sm" style="color: #a09890;">Products we use daily in the shop. Same professional results at home.</p>
      </div>
-     <div class="flex justify-center mb-12 fade-in"><a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="glass-card rounded-full px-6 py-3 inline-flex items-center gap-3 hover:scale-105 transition-transform">
-       <div class="flex gap-1"><i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i>
+     <div class="flex justify-center mb-12 fade-in">
+      <a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="glass-card rounded-full px-6 py-3 inline-flex items-center gap-3 hover:scale-105 transition-transform">
+       <div class="flex gap-1">
+        <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:18px;height:18px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div><span style="color: #e8e4e0; font-weight: 600;">5.0 • 58 beoordelingen</span> </a>
      </div>
      <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-4">
@@ -752,8 +755,7 @@
      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div class="glass-card rounded-2xl p-8 sm:p-10 fade-in">
        <div class="flex items-start gap-4 mb-8">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
-         <i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="map-pin" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div>
          <h3 class="font-display text-xl tracking-wider mb-1" style="color: #e8e4e0;">Adres</h3>
@@ -764,38 +766,31 @@
         </div>
        </div>
        <div class="flex items-start gap-4">
-        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);">
-         <i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background: rgba(74,159,217,0.15);"><i data-lucide="clock" style="width:22px;height:22px;color:#4a9fd9;"></i>
         </div>
         <div class="w-full">
          <h3 class="font-display text-xl tracking-wider mb-3" style="color: #e8e4e0;">Openingstijden</h3>
          <div class="space-y-2 text-sm">
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
           </div>
-          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);">
-           <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+          <div class="flex justify-between py-2 border-b" style="border-color: rgba(255,255,255,0.06);"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
           </div>
-          <div class="flex justify-between py-2">
-           <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+          <div class="flex justify-between py-2"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
           </div>
          </div>
         </div>
        </div>
       </div>
-      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v." class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
+      <div class="glass-card rounded-2xl overflow-hidden fade-in" style="min-height: 400px;">
+       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2435.5!2d4.895!3d52.405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sMariendaal+94%2C+1025+BW+Amsterdam!5e0!3m2!1snl!2snl!4v." class="w-full h-full border-0" style="min-height: 400px;" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="RW Cutzz locatie"></iframe>
       </div>
      </div>
     </div>
@@ -807,23 +802,21 @@
       <h2 class="font-display text-5xl sm:text-6xl tracking-wider" style="color: #e8e4e0;">Socials</h2>
       <div class="w-16 h-0.5 mx-auto mt-4" style="background: #4a9fd9;"></div>
      </div>
-     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
+     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+      <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
        <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <svg width="24" height="24" viewbox="0 0 24 24" fill="#4a9fd9">
-         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+        <svg width="24" height="24" viewbox="0 0 24 24" fill="#4a9fd9"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
         </svg>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">TikTok</h3><p class="text-sm" style="color: #a09890;">@chanoroch</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="instagram" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Instagram</h3><p class="text-sm" style="color: #a09890;">@rwcutzzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
        </div></a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="social-card glass-card rounded-2xl p-8 text-center group">
-       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);">
-        <i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
+       <div class="w-16 h-16 mx-auto mb-5 rounded-2xl flex items-center justify-center" style="background: rgba(74,159,217,0.15);"><i data-lucide="link" style="width:28px;height:28px;color:#4a9fd9;"></i>
        </div><h3 class="font-display text-2xl tracking-wider mb-2" style="color: #e8e4e0;">Linktree</h3><p class="text-sm" style="color: #a09890;">linktr.ee/rwcutzz</p>
        <div class="mt-4 inline-flex items-center gap-1 text-sm" style="color: #4a9fd9;">
         Volgen <i data-lucide="external-link" style="width:14px;height:14px;"></i>
@@ -832,8 +825,7 @@
     </div>
    </section>
   </main>
-  <div id="sticky-booking" class="fixed bottom-0 left-0 w-full z-40 md:hidden" style="background: rgba(10,10,10,0.98); border-top: 1px solid rgba(74,159,217,0.3); padding: 12px 16px; backdrop-filter: blur(12px);">
-   <a href="#booking" class="block text-center py-3 rounded-lg font-display tracking-widest uppercase text-base font-bold transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #4a9fd9 0%, #3a8fc9 100%); color: #e8e4e0; box-shadow: 0 8px 24px rgba(74,159,217,0.3);"> 📅 BOEK NU </a>
+  <div id="sticky-booking" class="fixed bottom-0 left-0 w-full z-40 md:hidden" style="background: rgba(10,10,10,0.98); border-top: 1px solid rgba(74,159,217,0.3); padding: 12px 16px; backdrop-filter: blur(12px);"><a href="#booking" class="block text-center py-3 rounded-lg font-display tracking-widest uppercase text-base font-bold transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, #4a9fd9 0%, #3a8fc9 100%); color: #e8e4e0; box-shadow: 0 8px 24px rgba(74,159,217,0.3);"> 📅 BOEK NU </a>
   </div>
   <div id="cart-panel" class="fixed right-0 top-0 z-40 w-full sm:w-96 h-full transition-all duration-300 ease-out" style="transform: translateX(100%); background: rgba(10,10,10,0.98); backdrop-filter: blur(12px); border-left: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column;">
    <div class="flex items-center justify-between p-6 border-b" style="border-color: rgba(255,255,255,0.1);">
@@ -845,35 +837,45 @@
     </div>
    </div>
    <div class="border-t" style="border-color: rgba(255,255,255,0.1);padding:20px;background:rgba(255,255,255,0.02);">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;"><span style="color:#a09890;font-size:14px;">Totaal:</span> <span id="cart-total-panel" class="font-display text-2xl" style="color:#4a9fd9;font-weight:700;">€0.00</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+     <span style="color:#a09890;font-size:14px;">Totaal:</span> <span id="cart-total-panel" class="font-display text-2xl" style="color:#4a9fd9;font-weight:700;">€0.00</span>
     </div><button onclick="openCheckout()" class="w-full px-4 py-4 rounded-lg font-display tracking-widest uppercase transition-all text-base font-bold" style="background:linear-gradient(135deg, #4a9fd9 0%, #3a8fc9 100%);color:#e8e4e0;border:none;cursor:pointer;box-shadow: 0 8px 24px rgba(74,159,217,0.3);"> 🛒 AFREKENEN </button> <button onclick="closeCart()" class="w-full px-4 py-3 rounded-lg font-semibold text-base mt-3" style="background:rgba(255,255,255,0.05);color:#a09890;border:1px solid rgba(255,255,255,0.1);cursor:pointer;"> DOORGAAN WINKELEN </button>
    </div>
   </div>
   <div id="cart-overlay" class="fixed inset-0 z-30 opacity-0 invisible transition-all duration-300" style="background:rgba(0,0,0,0.5);" onclick="closeCart()"></div>
   <div id="lightbox" class="lightbox">
-   <div class="lightbox-content"><button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
+   <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">×</button> <button class="lightbox-prev" onclick="prevImage()">❮</button> <img id="lightbox-img" class="lightbox-img" src="" alt="Portfolio item"> <button class="lightbox-next" onclick="nextImage()">❯</button>
    </div>
   </div>
   <div id="checkout-modal" class="lightbox">
-   <div class="lightbox-content" style="max-width: 600px; width: 90%; height: auto; max-height: 95vh; overflow-y: auto;"><button class="lightbox-close" onclick="closeCheckout()">×</button>
+   <div class="lightbox-content" style="max-width: 600px; width: 90%; height: auto; max-height: 95vh; overflow-y: auto;">
+    <button class="lightbox-close" onclick="closeCheckout()">×</button>
     <form id="checkout-form" class="w-full" onsubmit="submitOrder(event)" style="padding: 20px;">
      <h2 class="font-display text-2xl tracking-wider mb-6" style="color: #e8e4e0;">Checkout</h2><!-- Form fields -->
      <div class="space-y-3">
-      <div class="checkout-form-group"><label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Volledige naam *</label> <input type="text" id="order-name" required placeholder="Jan de Vries" class="checkout-input">
+      <div class="checkout-form-group">
+       <label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Volledige naam *</label> <input type="text" id="order-name" required placeholder="Jan de Vries" class="checkout-input">
       </div>
-      <div class="checkout-form-group"><label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">E-mailadres *</label> <input type="email" id="order-email" required placeholder="jan@example.com" class="checkout-input">
+      <div class="checkout-form-group">
+       <label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">E-mailadres *</label> <input type="email" id="order-email" required placeholder="jan@example.com" class="checkout-input">
       </div>
-      <div class="checkout-form-group"><label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Adres *</label> <input type="text" id="order-address" required placeholder="Straat 1, 1000 AB Amsterdam" class="checkout-input">
+      <div class="checkout-form-group">
+       <label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Adres *</label> <input type="text" id="order-address" required placeholder="Straat 1, 1000 AB Amsterdam" class="checkout-input">
       </div>
-      <div class="checkout-form-group"><label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Telefoonnummer *</label> <input type="tel" id="order-phone" required placeholder="+31 6 12345678" class="checkout-input">
+      <div class="checkout-form-group">
+       <label style="color: #a09890; font-size: 13px; font-weight: 600; display: block; margin-bottom: 6px;">Telefoonnummer *</label> <input type="tel" id="order-phone" required placeholder="+31 6 12345678" class="checkout-input">
       </div><!-- Order Summary -->
       <div style="border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); padding: 16px 0; margin: 20px 0;">
-       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;"><span style="color: #a09890; font-size: 13px;">Aantal producten:</span> <span id="checkout-items-count" style="color: #e8e4e0; font-weight: 600; font-size: 15px;">0</span>
+       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="color: #a09890; font-size: 13px;">Aantal producten:</span> <span id="checkout-items-count" style="color: #e8e4e0; font-weight: 600; font-size: 15px;">0</span>
        </div>
-       <div style="display: flex; justify-content: space-between; align-items: center;"><span style="color: #a09890; font-size: 13px;">Totaal:</span> <span id="checkout-total" class="font-display" style="color: #4a9fd9; font-weight: 700; font-size: 20px;">€0.00</span>
+       <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="color: #a09890; font-size: 13px;">Totaal:</span> <span id="checkout-total" class="font-display" style="color: #4a9fd9; font-weight: 700; font-size: 20px;">€0.00</span>
        </div>
       </div><!-- Action Buttons -->
-      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;"><button type="submit" class="w-full px-4 py-4 rounded-lg font-display tracking-widest uppercase transition-all text-base" style="background: #4a9fd9; color: #e8e4e0; cursor: pointer; font-weight: 700; border: none;" id="submit-btn"> Bestelling Plaatsen </button> <button type="button" onclick="closeCheckout()" class="w-full px-4 py-3 rounded-lg font-semibold text-base" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;"> Annuleren </button>
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 20px;">
+       <button type="submit" class="w-full px-4 py-4 rounded-lg font-display tracking-widest uppercase transition-all text-base" style="background: #4a9fd9; color: #e8e4e0; cursor: pointer; font-weight: 700; border: none;" id="submit-btn"> Bestelling Plaatsen </button> <button type="button" onclick="closeCheckout()" class="w-full px-4 py-3 rounded-lg font-semibold text-base" style="background: rgba(255,255,255,0.05); color: #a09890; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;"> Annuleren </button>
       </div><!-- Message Display -->
       <div id="order-message" style="margin-top: 16px; padding: 12px; border-radius: 8px; display: none; font-size: 13px; text-align: center; font-weight: 600;"></div>
      </div>
@@ -890,32 +892,26 @@
        </div><span class="font-display text-2xl tracking-wider" style="color: #e8e4e0;">CUTZZ</span>
       </div>
       <p class="text-sm" style="color: #a09890;">Premium Barbershop Amsterdam</p><a href="https://rwcutzz.setmore.com/reviews?sortBy=highestRated" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 mt-4">
-       <div class="flex gap-1"><i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i>
+       <div class="flex gap-1">
+        <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i> <i data-lucide="star" style="width:14px;height:14px;color:#4a9fd9;fill:#4a9fd9;"></i>
        </div><span style="color: #e8e4e0; font-weight: 600; font-size: 14px;">5.0 • 58</span> </a>
      </div>
      <div>
       <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Openingstijden</h4>
       <div class="space-y-2 text-sm">
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Zondag</span> <span style="color: #4a9fd9;">Gesloten</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Maandag</span> <span style="color: #4a9fd9;">Gesloten</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Dinsdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Woensdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Donderdag</span> <span style="color: #e8e4e0;">10:00 – 15:00</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Vrijdag</span> <span style="color: #e8e4e0;">10:00 – 17:00</span>
        </div>
-       <div class="flex justify-between">
-        <span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
+       <div class="flex justify-between"><span style="color: #a09890;">Zaterdag</span> <span style="color: #e8e4e0;">12:00 – 17:00</span>
        </div>
       </div>
      </div>
@@ -933,9 +929,9 @@
      </div>
      <div>
       <h4 class="font-display text-lg tracking-wider mb-4" style="color: #e8e4e0;">Volg Ons</h4>
-      <div class="flex flex-col gap-3"><a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;">
-        <svg width="14" height="14" viewbox="0 0 24 24" fill="currentColor">
-         <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
+      <div class="flex flex-col gap-3">
+       <a href="https://www.tiktok.com/@chanoroch" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;">
+        <svg width="14" height="14" viewbox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 0010.86 4.48v-7.1a8.16 8.16 0 005.58 2.2V11.3a4.85 4.85 0 01-3.58-1.62 4.83 4.83 0 003.58-2.99z" />
         </svg> TikTok</a> <a href="https://www.instagram.com/rwcutzzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"><i data-lucide="instagram" style="width:14px;height:14px;"></i> Instagram</a> <a href="https://linktr.ee/rwcutzz" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2" style="color: #4a9fd9; text-decoration: none; font-size: 14px;"><i data-lucide="link" style="width:14px;height:14px;"></i> Linktree</a>
       </div>
      </div>
@@ -1521,26 +1517,33 @@
           </div>
 
           <!-- Sticky Action Buttons -->
-          <div style="position:sticky;bottom:0;left:0;right:0;background:rgba(10,10,10,0.95);border-top:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:12px 16px;display:flex;flex-direction:column;gap:10px;z-index:20;">
+          <div style="position:sticky;bottom:0;left:0;right:0;background:linear-gradient(to top, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.95) 60%, rgba(10,10,10,0) 100%);border-top:1px solid rgba(255,255,255,0.1);backdrop-filter:blur(12px);padding:24px 16px 20px;display:flex;flex-direction:column;gap:14px;z-index:20;">
             <!-- Quantity Selector -->
-            <div style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:8px;border-radius:8px;">
-              <button onclick="changeProductQty(-1)" style="width:40px;height:40px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:6px;cursor:pointer;font-weight:600;font-size:16px;transition:all 0.2s ease;">−</button>
-              <span id="product-qty" style="flex:1;text-align:center;color:#e8e4e0;font-weight:600;font-size:16px;">1</span>
-              <button onclick="changeProductQty(1)" style="width:40px;height:40px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:6px;cursor:pointer;font-weight:600;font-size:16px;transition:all 0.2s ease;">+</button>
+            <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);padding:12px 16px;border-radius:10px;">
+              <button onclick="changeProductQty(-1)" style="width:44px;height:44px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:8px;cursor:pointer;font-weight:600;font-size:18px;transition:all 0.2s ease;display:flex;align-items:center;justify-content:center;">−</button>
+              <span id="product-qty" style="flex:1;text-align:center;color:#e8e4e0;font-weight:700;font-size:18px;">1</span>
+              <button onclick="changeProductQty(1)" style="width:44px;height:44px;background:rgba(74,159,217,0.2);border:none;color:#4a9fd9;border-radius:8px;cursor:pointer;font-weight:600;font-size:18px;transition:all 0.2s ease;display:flex;align-items:center;justify-content:center;">+</button>
             </div>
 
             <!-- Action Buttons -->
             <button id="product-add-btn" onclick="addProductToCart()" 
                     ${isOutOfStock ? 'disabled' : ''}
                     class="btn-primary"
-                    style="margin-bottom:0;padding:14px;font-size:14px;">
+                    style="margin-bottom:0;padding:16px 20px;font-size:15px;letter-spacing:0.05em;font-weight:700;border-radius:10px;transition:all 0.3s ease;">
               ${isOutOfStock ? 'UITVERKOCHT' : '🛒 TOEVOEGEN AAN WAGEN'}
             </button>
             <button onclick="quickCheckout()" 
                     ${isOutOfStock ? 'disabled' : ''}
                     class="btn-secondary"
-                    style="margin-bottom:0;padding:12px;font-size:14px;">
+                    style="margin-bottom:0;padding:14px 20px;font-size:14px;letter-spacing:0.05em;font-weight:600;border-radius:10px;transition:all 0.3s ease;">
               ⚡ DIRECT KOPEN
+            </button>
+
+            <!-- Checkout Button -->
+            <button onclick="openCheckout()" 
+                    ${isOutOfStock || cart.length === 0 ? 'disabled' : ''}
+                    style="width:100%;padding:16px 20px;background:linear-gradient(135deg, rgba(74,159,217,0.1) 0%, rgba(74,159,217,0.05) 100%);color:#4a9fd9;border:1px solid rgba(74,159,217,0.4);border-radius:10px;font-weight:600;font-size:14px;cursor:pointer;letter-spacing:0.05em;transition:all 0.3s ease;margin-top:8px;opacity:0.6;">
+              → GA NAAR CHECKOUT
             </button>
           </div>
         </div>
@@ -1854,5 +1857,5 @@
     initDataSDK();
     lucide.createIcons();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e075b0dd1760b7c',t:'MTc3NDIwNTE1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e07728e007bd579',t:'MTc3NDIwNjExMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="nl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Garage Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f8f9fb;
+      color: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .app-wrapper {
+      width: 100%;
+      max-width: 420px;
+      overflow-y: auto;
+      max-height: 100vh;
+    }
+
+    /* LOGIN SCREEN */
+    .login-section {
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+      margin-top: 24px;
+    }
+
+    .header-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: inline-block;
+      animation: slideInScale 0.6s ease-out;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      color: #000000;
+    }
+
+    .header p {
+      font-size: 14px;
+      color: #666666;
+      font-weight: 400;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .input-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .input-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #000000;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    input {
+      padding: 12px 14px;
+      font-size: 15px;
+      font-family: inherit;
+      background: #ffffff;
+      color: #000000;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #999999;
+    }
+
+    input:focus {
+      border-color: #0066ff;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.08);
+    }
+
+    input:hover:not(:focus) {
+      border-color: #d0d0d0;
+      background: #fafbfc;
+    }
+
+    button {
+      padding: 13px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+      width: 100%;
+    }
+
+    button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
+      box-shadow: 0 6px 16px rgba(0, 102, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .error-message {
+      background: #fff5f5;
+      border: 1px solid #ffc9c9;
+      color: #d32f2f;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInDown 0.3s ease-out;
+      display: none;
+    }
+
+    .error-message.show {
+      display: flex;
+    }
+
+    .error-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* DASHBOARD SCREEN */
+    .dashboard-section {
+      display: none;
+      animation: fadeIn 0.5s ease-out;
+    }
+
+    .back-button {
+      background: transparent;
+      color: #0066ff;
+      border: 1px solid #e0e0e0;
+      margin-bottom: 20px;
+      font-weight: 500;
+      box-shadow: none;
+      width: auto;
+      padding: 10px 14px;
+    }
+
+    .back-button:hover {
+      background: #f0f4ff;
+      border-color: #cce0ff;
+      box-shadow: none;
+      transform: translateY(0);
+    }
+
+    .dashboard-header {
+      margin-bottom: 24px;
+      padding: 0 0 16px 0;
+    }
+
+    .dashboard-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 4px;
+    }
+
+    .dashboard-subtitle {
+      font-size: 13px;
+      color: #666666;
+    }
+
+    /* CARD SECTION */
+    .car-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      transition: all 0.3s ease;
+      animation: slideInUp 0.4s ease-out;
+      margin-bottom: 16px;
+    }
+
+    .car-card:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .car-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .car-icon-box {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #e6f0ff 0%, #f0f4ff 100%);
+      border: 1px solid #d0e0ff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0066ff;
+      flex-shrink: 0;
+    }
+
+    .car-info-main {
+      flex: 1;
+    }
+
+    .car-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000000;
+      margin-bottom: 2px;
+    }
+
+    .car-subtitle {
+      font-size: 13px;
+      color: #999999;
+    }
+
+    .car-plate {
+      font-size: 12px;
+      font-weight: 600;
+      color: #0066ff;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 14px;
+      border: none;
+    }
+
+    .status-badge.ready {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .status-badge.progress {
+      background: #fffbeb;
+      color: #d97706;
+    }
+
+    .status-badge-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    .vehicle-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-size: 11px;
+      color: #999999;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .spec-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000000;
+    }
+
+    .info-section {
+      margin-top: 12px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f5;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      font-size: 13px;
+      color: #666666;
+      font-weight: 500;
+    }
+
+    .info-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: #000000;
+    }
+
+    .info-value.price {
+      color: #0066ff;
+      font-size: 16px;
+    }
+
+    .rdw-loading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      background: #f8f9fb;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      color: #666666;
+    }
+
+    .rdw-loading .spinner {
+      width: 14px;
+      height: 14px;
+      border: 1.5px solid rgba(0, 102, 255, 0.2);
+      border-top-color: #0066ff;
+    }
+
+    .timestamp {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #f5f5f5;
+      font-size: 11px;
+      color: #999999;
+      line-height: 1.5;
+    }
+
+    .timestamp strong {
+      color: #000000;
+      font-weight: 600;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideInUp {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      body { padding: 12px; }
+      .header h1 { font-size: 26px; }
+      .header-icon { font-size: 44px; }
+      .car-card { padding: 16px; }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div class="app-wrapper"><!-- LOGIN SECTION -->
+   <div id="loginSection" class="login-section">
+    <div class="header">
+     <div class="header-icon">
+      🚗
+     </div>
+     <h1>Garage</h1>
+     <p>Controleer uw auto status</p>
+    </div>
+    <div id="errorMessage" class="error-message"><i data-lucide="alert-circle" class="error-icon"></i> <span id="errorText"></span>
+    </div>
+    <div class="form-group">
+     <div class="input-wrapper"><label for="email" class="input-label">E-mailadres</label> <input id="email" type="email" placeholder="uw@email.com" autocomplete="email">
+     </div>
+     <div class="input-wrapper"><label for="plate" class="input-label">Kenteken</label> <input id="plate" type="text" placeholder="AB-123-CD" autocomplete="off" style="text-transform: uppercase;">
+     </div><button id="checkButton" onclick="handleCheckStatus()"> <i data-lucide="search" style="width: 16px; height: 16px;"></i> <span>Status Controleren</span> </button>
+    </div>
+   </div><!-- DASHBOARD SECTION -->
+   <div id="dashboardSection" class="dashboard-section"><button class="back-button" onclick="handleReset()"> <i data-lucide="arrow-left" style="width: 16px; height: 16px;"></i> <span>Terug</span> </button>
+    <div class="dashboard-header">
+     <div class="dashboard-title" id="dashboardTitle">
+      Jouw Auto
+     </div>
+     <div class="dashboard-subtitle" id="dashboardSubtitle">
+      Status en informatie
+     </div>
+    </div>
+    <div id="carCard" class="car-card"></div>
+   </div>
+  </div>
+  <script>
+    const GARAGE_API = "https://script.google.com/macros/s/AKfycbwbPmm4NI2BuPSlq-9wEo4feE8JG3dC0oEDgGO6V3U-2GGIiOc57Xxt6jeE0h9faIW8/exec";
+    const RDW_API = "https://opendata.rdw.nl/resource/m9d7-ebf2.json";
+
+    function updateLucideIcons() {
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function showError(message) {
+      const errorEl = document.getElementById("errorMessage");
+      const errorText = document.getElementById("errorText");
+      errorText.textContent = message;
+      errorEl.classList.add("show");
+      setTimeout(() => errorEl.classList.remove("show"), 5000);
+    }
+
+    function clearError() {
+      document.getElementById("errorMessage").classList.remove("show");
+    }
+
+    function cleanPlate(p) {
+      return p.toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    // RDW API - haal voertuiggegevens op
+    async function fetchRDWData(plate) {
+      try {
+        const cleanedPlate = cleanPlate(plate).toUpperCase();
+        const url = `${RDW_API}?kenteken=${cleanedPlate}`;
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data && data.length > 0) {
+          const vehicle = data[0];
+          return {
+            merk: vehicle.merk || "Onbekend",
+            handelsnaam: vehicle.handelsbenaming || "Onbekend",
+            bouwjaar: vehicle.bouwjaar || "Onbekend",
+            success: true
+          };
+        }
+        return { success: false };
+      } catch (error) {
+        console.error("RDW API error:", error);
+        return { success: false };
+      }
+    }
+
+    async function handleCheckStatus() {
+      clearError();
+      
+      const email = document.getElementById("email").value.trim().toLowerCase();
+      const plate = document.getElementById("plate").value.trim();
+
+      if (!email || !plate) {
+        showError("Vul uw e-mailadres en kenteken in");
+        return;
+      }
+
+      if (!isValidEmail(email)) {
+        showError("Vul een geldig e-mailadres in");
+        return;
+      }
+
+      if (plate.length < 4) {
+        showError("Vul een geldig kenteken in");
+        return;
+      }
+
+      const button = document.getElementById("checkButton");
+      button.disabled = true;
+      button.innerHTML = '<div class="spinner"></div><span>Laden...</span>';
+
+      try {
+        const res = await fetch(GARAGE_API);
+        const data = await res.json();
+
+        if (!data.success) {
+          showError("Fout bij het laden van gegevens");
+          return;
+        }
+
+        const cleanedPlate = cleanPlate(plate);
+        const car = data.cars.find(c =>
+          c.email.toLowerCase() === email &&
+          cleanPlate(c.plate) === cleanedPlate
+        );
+
+        if (!car) {
+          showError("Auto niet gevonden. Controleer uw gegevens.");
+          return;
+        }
+
+        // Haal RDW data op
+        const rdwData = await fetchRDWData(plate);
+        showDashboard(car, rdwData);
+
+      } catch (err) {
+        showError("Verbindingsfout. Probeer later opnieuw.");
+      } finally {
+        button.disabled = false;
+        button.innerHTML = '<i data-lucide="search" style="width: 16px; height: 16px;"></i><span>Status Controleren</span>';
+        updateLucideIcons();
+      }
+    }
+
+    function showDashboard(car, rdwData) {
+      const isReady = car.status.toLowerCase().includes("klaar");
+      const statusIcon = isReady ? "check-circle" : "clock";
+      const statusClass = isReady ? "ready" : "progress";
+      const statusLabel = isReady ? "Klaar" : "In bewerking";
+
+      const updatedDate = new Date(car.updated);
+      const formattedDate = updatedDate.toLocaleDateString('nl-NL', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+
+      let vehicleInfo = "";
+      if (rdwData.success) {
+        vehicleInfo = `
+          <div class="vehicle-specs">
+            <div class="spec-item">
+              <span class="spec-label">Merk</span>
+              <span class="spec-value">${rdwData.merk}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Model</span>
+              <span class="spec-value">${rdwData.handelsnaam}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Bouwjaar</span>
+              <span class="spec-value">${rdwData.bouwjaar}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">Kenteken</span>
+              <span class="spec-value">${car.plate.toUpperCase()}</span>
+            </div>
+          </div>
+        `;
+      }
+
+      const cardHTML = `
+        <div class="car-header">
+          <div class="car-icon-box">
+            <i data-lucide="car" style="width: 24px; height: 24px;"></i>
+          </div>
+          <div class="car-info-main">
+            <div class="car-title">${rdwData.success ? rdwData.merk : 'Voertuig'}</div>
+            <div class="car-subtitle">${rdwData.success ? rdwData.handelsnaam : car.plate.toUpperCase()}</div>
+            <div class="car-plate">${car.plate.toUpperCase()}</div>
+          </div>
+        </div>
+
+        <div class="status-badge ${statusClass}">
+          <i data-lucide="${statusIcon}" class="status-badge-icon"></i>
+          <span>${statusLabel}</span>
+        </div>
+
+        ${vehicleInfo}
+
+        <div class="info-section">
+          <div class="info-row">
+            <span class="info-label">Status</span>
+            <span class="info-value">${car.status}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-label">Prijs</span>
+            <span class="info-value price">€${parseFloat(car.price).toFixed(2)}</span>
+          </div>
+
+          ${car.notes ? `
+          <div class="info-row">
+            <span class="info-label">Opmerkingen</span>
+            <span class="info-value">${car.notes}</span>
+          </div>
+          ` : ''}
+        </div>
+
+        <div class="timestamp">
+          <strong>Bijgewerkt:</strong> ${formattedDate}
+        </div>
+      `;
+
+      document.getElementById("carCard").innerHTML = cardHTML;
+      document.getElementById("dashboardTitle").textContent = rdwData.success ? rdwData.merk : "Jouw Auto";
+      document.getElementById("dashboardSubtitle").textContent = rdwData.success ? rdwData.handelsnaam : car.plate.toUpperCase();
+      
+      document.getElementById("loginSection").style.display = "none";
+      document.getElementById("dashboardSection").style.display = "block";
+      
+      updateLucideIcons();
+      window.scrollTo(0, 0);
+    }
+
+    function handleReset() {
+      document.getElementById("loginSection").style.display = "block";
+      document.getElementById("dashboardSection").style.display = "none";
+      document.getElementById("email").value = "";
+      document.getElementById("plate").value = "";
+      clearError();
+      window.scrollTo(0, 0);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateLucideIcons();
+      
+      document.getElementById("email").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleCheckStatus();
+      });
+      
+      document.getElementById("plate").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") handleCheckStatus();
+      });
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e396998e5fe2f85',t:'MTc3NDczMDAzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

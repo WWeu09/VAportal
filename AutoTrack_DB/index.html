@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>AutoTrack Direct Demo</title>
+<style>
+body { font-family: Arial, sans-serif; padding:20px; background:#f7f7f7; }
+h1 { text-align:center; }
+.container { max-width:900px; margin:auto; background:white; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid #ccc; padding:8px; text-align:left; }
+th { background:#eee; }
+.status-In_behandeling { background:#fff3b0; }
+.status-Afgerond { background:#b0d4ff; }
+.status-Klaar_om_op_te_halen { background:#b0ffb3; }
+button { padding:6px 10px; margin:2px; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>AutoTrack Direct Demo</h1>
+<table id="carsTable">
+  <thead>
+    <tr>
+      <th>Email</th><th>Kenteken</th><th>Status</th><th>Prijs</th><th>Notities</th><th>Laatste update</th><th>Acties</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+</div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxovX8rx1zw2vH7SCTcOk2HhPHYsGOEJphGLlR5KNrUVZzN_mAHZEL8wHukX7NwGu3N/exec";
+
+function fetchCars(){
+  fetch(API_URL)
+    .then(r=>r.json())
+    .then(data=>{
+      if(data.success) renderCars(data.cars);
+      else alert("Fout bij laden data");
+    });
+}
+
+function renderCars(cars){
+  const tbody = document.querySelector("#carsTable tbody");
+  tbody.innerHTML = "";
+  cars.forEach(car=>{
+    const tr = document.createElement("tr");
+    tr.className = "status-" + car.status.replace(/ /g,"_");
+    tr.innerHTML = `
+      <td>${car.email||""}</td>
+      <td>${car.plate||""}</td>
+      <td>${car.status||""}</td>
+      <td>${car.price||""}</td>
+      <td>${car.notes||""}</td>
+      <td>${car.updated||""}</td>
+      <td>
+        <button onclick='updateStatus("${car.plate}","In behandeling")'>In behandeling</button>
+        <button onclick='updateStatus("${car.plate}","Afgerond")'>Afgerond</button>
+        <button onclick='updateStatus("${car.plate}","Klaar om op te halen")'>Klaar ophalen</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function updateStatus(plate,newStatus){
+  fetch(API_URL, {
+    method:"POST",
+    body: JSON.stringify({ plate, status:newStatus })
+  })
+  .then(r=>r.json())
+  .then(resp=>{
+    if(resp.success) fetchCars();
+    else alert("Update mislukt");
+  });
+}
+
+// Start
+fetchCars();
+</script>
+
+</body>
+</html>

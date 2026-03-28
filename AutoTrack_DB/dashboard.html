@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<title>AutoTrack Dashboard Full</title>
+<style>
+body{font-family:Arial; background:#f7f7f7; padding:20px;}
+.container{max-width:1200px; margin:auto; background:white; padding:20px; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);}
+table{width:100%; border-collapse:collapse; margin-top:10px;}
+th,td{border:1px solid #ccc; padding:6px; text-align:center;}
+.status-In_behandeling{background:#fff3b0;}
+.status-Diagnose{background:#ffe0b0;}
+.status-Onderhoud{background:#b0d4ff;}
+.status-Afgerond{background:#b3ffb3;}
+.status-Klaar_om_op_te_halen{background:#b3ffdf;}
+button{padding:3px 6px; margin:2px; cursor:pointer;}
+input,select,textarea{padding:3px; width:100%;}
+#loading{font-weight:bold;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>AutoTrack Dashboard - Full</h1>
+
+<h2>Nieuwe auto toevoegen</h2>
+<table>
+<tr>
+<td><input type="email" id="newEmail" placeholder="Email"></td>
+<td><input type="text" id="newPlate" placeholder="Kenteken"></td>
+<td>
+<select id="newStatus">
+<option>In behandeling</option>
+<option>Diagnose</option>
+<option>Onderhoud</option>
+<option>Afgerond</option>
+<option>Klaar om op te halen</option>
+</select>
+</td>
+<td><input type="number" id="newPrice" value="50"></td>
+<td><input type="text" id="newNotes" placeholder="Notities"></td>
+<td><button id="addBtn" onclick="addCar()">Toevoegen</button></td>
+</tr>
+</table>
+
+<div id="loading">Data wordt geladen...</div>
+
+<h2>Actieve auto’s</h2>
+<table id="activeCarsTable">
+<thead><tr><th>Email</th><th>Kenteken</th><th>Status</th><th>Prijs</th><th>Notities</th><th>Email</th><th>Acties</th></tr></thead>
+<tbody></tbody>
+</table>
+
+<h2>Afgeronde auto’s</h2>
+<table id="doneCarsTable">
+<thead><tr><th>Email</th><th>Kenteken</th><th>Status</th><th>Prijs</th><th>Notities</th><th>Email</th><th>Acties</th></tr></thead>
+<tbody></tbody>
+</table>
+</div>
+
+<script>
+const API_URL="https://script.google.com/macros/s/AKfycbwbPmm4NI2BuPSlq-9wEo4feE8JG3dC0oEDgGO6V3U-2GGIiOc57Xxt6jeE0h9faIW8/exec"; // vervang met je Web App URL
+const statuses=["In behandeling","Diagnose","Onderhoud","Afgerond","Klaar om op te halen"];
+
+function fetchCars(){
+  document.getElementById("loading").style.display="block";
+  fetch(API_URL).then(r=>r.json()).then(data=>{
+    document.getElementById("loading").style.display="none";
+    renderCars(data.cars);
+  });
+}
+
+function renderCars(cars){
+  const active=document.querySelector("#activeCarsTable tbody");
+  const done=document.querySelector("#doneCarsTable tbody");
+  active.innerHTML=""; done.innerHTML="";
+  
+  cars.forEach(car=>{
+    const tr=document.createElement("tr");
+    tr.className='status-'+car.status.replace(/ /g,'_');
+    const statusOptions=statuses.map(s=>`<option value="${s}" ${s===car.status?'selected':''}>${s}</option>`).join('');
+    tr.innerHTML=`
+      <td>${car.email}</td>
+      <td>${car.plate}</td>
+      <td><select id="status_${car.plate}">${statusOptions}</select></td>
+      <td><input type="number" id="price_${car.plate}" value="${car.price}"></td>
+      <td><textarea id="notes_${car.plate}">${car.notes}</textarea></td>
+      <td>${car.emailSent||''}</td>
+      <td>
+        <button onclick='saveCar("${car.plate}")'>Opslaan</button>
+        <button onclick='deleteCar("${car.plate}")'>Verwijder</button>
+      </td>
+    `;
+    if(car.status==="Afgerond" || car.status==="Klaar om op te halen") done.appendChild(tr);
+    else active.appendChild(tr);
+  });
+}
+
+function saveCar(plate){
+  const status=document.getElementById("status_"+plate).value;
+  const price=parseFloat(document.getElementById("price_"+plate).value);
+  const notes=document.getElementById("notes_"+plate).value;
+  fetch(API_URL,{
+    method:'POST',
+    body:JSON.stringify({action:'updateCar',plate,status,price,notes})
+  }).then(r=>r.json()).then(()=>fetchCars());
+}
+
+function deleteCar(plate){
+  if(!confirm("Auto echt verwijderen?")) return;
+  fetch(API_URL,{
+    method:'POST',
+    body:JSON.stringify({action:'deleteCar',plate})
+  }).then(r=>r.json()).then(()=>fetchCars());
+}
+
+function addCar(){
+  const btn=document.getElementById("addBtn");
+  btn.disabled=true;
+
+  const email=document.getElementById("newEmail").value;
+  const plate=document.getElementById("newPlate").value;
+  const status=document.getElementById("newStatus").value;
+  const price=parseFloat(document.getElementById("newPrice").value)||50;
+  const notes=document.getElementById("newNotes").value;
+  if(!email||!plate){ alert("Email en kenteken verplicht"); btn.disabled=false; return; }
+
+  fetch(API_URL,{
+    method:'POST',
+    body:JSON.stringify({action:'addCar',email,plate,status,price,notes})
+  }).then(r=>r.json()).then(data=>{
+    if(data.success===false) alert(data.message);
+    fetchCars();
+    btn.disabled=false;
+    document.getElementById("newEmail").value="";
+    document.getElementById("newPlate").value="";
+    document.getElementById("newNotes").value="";
+  });
+}
+
+fetchCars();
+</script>
+</body>
+</html>

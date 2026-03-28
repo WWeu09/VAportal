@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>AutoTrack Demo</title>
+  <style>
+    body { font-family: Arial; max-width: 800px; margin: 20px auto; }
+    input, button { margin: 5px; padding: 8px; }
+    textarea { width: 100%; height: 200px; margin-top: 10px; }
+    .box { border: 1px solid #ccc; padding: 10px; margin-bottom: 15px; }
+  </style>
+</head>
+<body>
+
+<h2>🚗 AutoTrack API Test</h2>
+
+<div class="box">
+  <h3>Login</h3>
+  <input id="loginEmail" placeholder="email">
+  <input id="loginPassword" placeholder="password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div class="box">
+  <h3>Add Car</h3>
+  <input id="addEmail" placeholder="email">
+  <input id="addPlate" placeholder="plate">
+  <input id="addPrice" placeholder="price">
+  <input id="addNotes" placeholder="notes">
+  <button onclick="addCar()">Add</button>
+</div>
+
+<div class="box">
+  <h3>Update Car</h3>
+  <input id="upPlate" placeholder="plate">
+  <input id="upStatus" placeholder="status">
+  <input id="upPrice" placeholder="price">
+  <input id="upNotes" placeholder="notes">
+  <button onclick="updateCar()">Update</button>
+</div>
+
+<div class="box">
+  <h3>Delete Car</h3>
+  <input id="delPlate" placeholder="plate">
+  <button onclick="deleteCar()">Delete</button>
+</div>
+
+<div class="box">
+  <h3>Get All Cars</h3>
+  <button onclick="getCars()">Fetch</button>
+</div>
+
+<h3>Response:</h3>
+<textarea id="output"></textarea>
+
+<script>
+const API = "https://script.google.com/macros/s/AKfycbx3-3VZykuYheBn-YHjJtYUBjjhBRHXbtWNbmCTe0hKJl-hd-_U4xprnOUXOPORwendPg/exec";
+
+// helper
+async function post(data){
+  const res = await fetch(API, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+  const json = await res.json();
+  document.getElementById("output").value = JSON.stringify(json, null, 2);
+}
+
+// LOGIN
+function login(){
+  post({
+    action: "login",
+    email: document.getElementById("loginEmail").value,
+    password: document.getElementById("loginPassword").value
+  });
+}
+
+// ADD
+function addCar(){
+  post({
+    action: "addCar",
+    email: document.getElementById("addEmail").value,
+    plate: document.getElementById("addPlate").value,
+    price: document.getElementById("addPrice").value,
+    notes: document.getElementById("addNotes").value
+  });
+}
+
+// UPDATE
+function updateCar(){
+  post({
+    action: "updateCar",
+    plate: document.getElementById("upPlate").value,
+    status: document.getElementById("upStatus").value,
+    price: document.getElementById("upPrice").value,
+    notes: document.getElementById("upNotes").value
+  });
+}
+
+// DELETE
+function deleteCar(){
+  post({
+    action: "deleteCar",
+    plate: document.getElementById("delPlate").value
+  });
+}
+
+// GET
+async function getCars(){
+  const res = await fetch(API);
+  const json = await res.json();
+  document.getElementById("output").value = JSON.stringify(json, null, 2);
+}
+</script>
+
+</body>
+</html>

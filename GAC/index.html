@@ -77,44 +77,54 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
  <body class="h-full bg-ac-bg text-ac-text font-body">
   <div class="app-root scrollbar-hide" id="app">
    <header class="sticky top-0 z-50 bg-ac-bg/95 backdrop-blur border-b border-ac-surface" id="siteHeader">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-     <button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
-     <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
-      <button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"><button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
+     <nav class="hidden md:flex items-center gap-8 text-sm font-medium"><button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('kenteken-zoeker')" class="text-ac-muted hover:text-ac-text transition">🔍 Kenteken Check</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
      </nav>
-     <div class="flex items-center gap-3">
-      <a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
+     <div class="flex items-center gap-3"><a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
      </div>
     </div>
     <div id="mobileMenu" class="hidden md:hidden border-t border-ac-surface bg-ac-bg px-4 pb-4 pt-2">
-     <div class="flex flex-col gap-1">
-      <button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
+     <div class="flex flex-col gap-1"><button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
      </div>
     </div>
    </header><a href="https://wa.me/31206327582?text=Hallo%20Auto%20Control" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-24 right-5 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition"> <i data-lucide="message-circle" style="width:22px;height:22px;color:#fff"></i> </a> <button onclick="toggleChat()" class="md:hidden fixed bottom-5 right-5 z-40 w-14 h-14 bg-ac-accent rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition text-white"> <i data-lucide="message-square" style="width:22px;height:22px"></i> </button> <!-- AUTH MODAL -->
-   <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/20 flex items-center justify-center p-4">
-    <div class="bg-ac-bg border border-ac-surface rounded-lg max-w-md w-full p-6 max-h-96 overflow-y-auto shadow-lg">
-     <div class="flex items-center justify-between mb-4">
-      <span class="font-heading font-bold text-lg">Mijn Account</span> <button onclick="toggleAuthModal()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:18px;height:18px"></i> </button>
+   <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/20 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-ac-bg border border-ac-surface rounded-xl max-w-md w-full shadow-2xl overflow-hidden">
+     <div class="bg-gradient-to-r from-ac-accent to-ac-accent/80 px-6 py-8">
+      <h1 class="font-heading text-2xl font-bold text-white mb-1">Welkom terug</h1>
+      <p class="text-white/80 text-sm">Log in op uw Auto Control account</p>
      </div>
-     <div id="authForm" class="space-y-3">
-      <input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
-      <div class="flex gap-2">
-       <button onclick="handleLogin()" class="flex-1 btn-primary text-sm py-2">Inloggen</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Registreren</button>
+     <div class="p-6 max-h-96 overflow-y-auto scrollbar-hide">
+      <div class="flex items-center justify-between mb-6">
+       <div id="authTabs" class="flex gap-1 bg-ac-surface rounded-lg p-1 w-full"><button onclick="switchAuthTab('login')" id="loginTab" class="flex-1 py-2 rounded text-sm font-medium bg-ac-bg text-ac-text transition">Inloggen</button> <button onclick="switchAuthTab('signup')" id="signupTab" class="flex-1 py-2 rounded text-sm font-medium text-ac-muted transition">Registreren</button>
+       </div>
       </div>
-      <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-2.5 rounded"></div>
+      <div id="authForm" class="space-y-4"><input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleLogin()" class="w-full btn-primary text-sm py-3 flex items-center justify-center gap-2"> <span>Inloggen</span> </button>
+       <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-lg flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;flex-shrink:0"></i> <span id="errorText"></span>
+       </div>
+       <div class="relative my-4">
+        <div class="absolute inset-0 flex items-center">
+         <div class="w-full border-t border-ac-surface"></div>
+        </div>
+        <div class="relative flex justify-center text-xs">
+         <span class="px-2 bg-ac-bg text-ac-muted">of</span>
+        </div>
+       </div>
+       <div class="bg-ac-surface/50 border border-ac-surface rounded-lg p-3">
+        <p class="text-xs text-ac-muted mb-2"><strong>Demo account:</strong></p>
+        <p class="text-xs text-ac-muted mb-2"><strong>Email:</strong> demo@auto-control.nl</p>
+        <p class="text-xs text-ac-muted"><strong>Wachtwoord:</strong> demo2024</p>
+       </div>
+      </div>
+      <div id="signupForm" class="hidden space-y-4"><input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="signupPassword" placeholder="Wachtwoord (min. 6 tekens)" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleSignup()" class="w-full btn-primary text-sm py-3">Account aanmaken</button>
+      </div>
      </div>
-     <div id="signupForm" class="hidden space-y-3 mt-4">
-      <input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="signupPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
-      <div class="flex gap-2">
-       <button onclick="handleSignup()" class="flex-1 btn-primary text-sm py-2">Account aanmaken</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Terug</button>
-      </div>
+     <div class="px-6 py-4 bg-ac-surface/50 border-t border-ac-surface"><button onclick="toggleAuthModal()" class="text-ac-muted text-xs hover:text-ac-text transition">← Terug</button>
      </div>
     </div>
    </div><!-- CHATBOT -->
    <div id="chatContainer" class="hidden fixed bottom-0 right-0 z-50 w-full md:w-96 h-screen md:h-96 md:bottom-5 md:right-5 bg-ac-surface border-l md:border border-ac-surface rounded-none md:rounded-lg flex flex-col shadow-lg">
-    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg">
-     <span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
+    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg"><span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
     </div>
     <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide">
      <div class="chat-bubble bg-ac-bg rounded p-3 text-sm">
@@ -127,11 +137,9 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
     </div>
     <div class="border-t border-ac-surface p-3 space-y-2 bg-ac-bg">
-     <div class="grid grid-cols-2 gap-2">
-      <button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
+     <div class="grid grid-cols-2 gap-2"><button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
      </div>
-     <div class="flex gap-2">
-      <input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
+     <div class="flex gap-2"><input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
      </div><button onclick="redirectWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded transition flex items-center justify-center gap-2"> <i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp Chat </button>
     </div>
    </div><!-- MAIN CONTENT -->
@@ -146,27 +154,22 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Diensten</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
-       <button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Contact</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
-       <span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Openingstijden</h4>
       <div class="flex flex-col gap-1 text-sm text-ac-muted">
-       <div class="flex justify-between">
-        <span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
+       <div class="flex justify-between"><span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
        </div>
-       <div class="flex justify-between">
-        <span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
+       <div class="flex justify-between"><span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
        </div>
-       <div class="flex justify-between">
-        <span>Zondag</span><span class="text-ac-text">Gesloten</span>
+       <div class="flex justify-between"><span>Zondag</span><span class="text-ac-text">Gesloten</span>
        </div>
       </div>
      </div>
@@ -310,6 +313,28 @@ function toggleAuthModal() {
 function toggleSignupForm() {
   document.getElementById('authForm').classList.toggle('hidden');
   document.getElementById('signupForm').classList.toggle('hidden');
+  document.getElementById('loginTab').classList.toggle('bg-ac-bg');
+  document.getElementById('signupTab').classList.toggle('bg-ac-bg');
+  document.getElementById('loginTab').classList.toggle('text-ac-muted');
+  document.getElementById('signupTab').classList.toggle('text-ac-muted');
+}
+
+function switchAuthTab(tab) {
+  if (tab === 'login') {
+    document.getElementById('authForm').classList.remove('hidden');
+    document.getElementById('signupForm').classList.add('hidden');
+    document.getElementById('loginTab').classList.add('bg-ac-bg');
+    document.getElementById('signupTab').classList.remove('bg-ac-bg');
+    document.getElementById('loginTab').classList.remove('text-ac-muted');
+    document.getElementById('signupTab').classList.add('text-ac-muted');
+  } else {
+    document.getElementById('authForm').classList.add('hidden');
+    document.getElementById('signupForm').classList.remove('hidden');
+    document.getElementById('loginTab').classList.remove('bg-ac-bg');
+    document.getElementById('signupTab').classList.add('bg-ac-bg');
+    document.getElementById('loginTab').classList.add('text-ac-muted');
+    document.getElementById('signupTab').classList.remove('text-ac-muted');
+  }
 }
 
 function redirectWhatsApp() {
@@ -365,14 +390,26 @@ function checkLicensePlate() {
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-async function handleLogin() {
+function handleLogin() {
   const email = document.getElementById('authEmail').value;
   const password = document.getElementById('authPassword').value;
   const errorDiv = document.getElementById('authError');
+  const errorText = document.getElementById('errorText');
 
   if (!email || !password) {
-    errorDiv.textContent = 'Vul alle velden in.';
     errorDiv.classList.remove('hidden');
+    errorText.textContent = 'Vul alle velden in.';
+    return;
+  }
+
+  // Demo account check
+  if (email === 'demo@auto-control.nl' && password === 'demo2024') {
+    currentUser = { user_id: 'demo-123', user_name: 'Demo Gebruiker', user_email: 'demo@auto-control.nl', user_phone: '020-632 75 82', is_admin: 'true' };
+    toggleAuthModal();
+    document.getElementById('authToggleBtn').textContent = 'Dashboard';
+    document.getElementById('authToggleBtn').onclick = () => navigate('dashboard');
+    navigate('dashboard');
+    lucide.createIcons();
     return;
   }
 
@@ -385,8 +422,8 @@ async function handleLogin() {
     navigate('dashboard');
     lucide.createIcons();
   } else {
-    errorDiv.textContent = 'E-mail of wachtwoord onjuist.';
     errorDiv.classList.remove('hidden');
+    errorText.textContent = 'E-mail of wachtwoord onjuist.';
   }
 }
 
@@ -617,6 +654,7 @@ function getPageContent(page) {
   if (page === 'occasions') return occasionsPage();
   if (page === 'offerta') return offertaPage();
   if (page === 'contact') return contactPage();
+  if (page === 'kenteken-zoeker') return kentekenZoekerPage();
   if (page.startsWith('service-')) return serviceDetailPage(page.replace('service-', ''));
   if (page.startsWith('vehicle-')) return vehicleDetailPage(page.replace('vehicle-', ''));
   return homePage();
@@ -1181,18 +1219,321 @@ function dashboardPage() {
   return '<div id="dashboardContent"></div>';
 }
 
-// INIT - Load home page immediately
-function initializeApp() {
-  navigate('home');
-  lucide.createIcons();
+function kentekenZoekerPage() {
+  return `
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-2 fade-in">🔍 Kenteken Zoeker</h1>
+    <p class="text-ac-muted mb-8 fade-in stagger-1">Zoek voertuiggegevens op via het Nederlandse kenteken</p>
+    
+    <div class="bg-ac-surface border border-white/5 rounded-xl p-6 mb-8 fade-in stagger-2">
+      <div class="flex gap-3">
+        <input 
+          type="text" 
+          id="kentekenInput" 
+          placeholder="Bijv. AB-123-CD" 
+          maxlength="8"
+          class="flex-1 bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm uppercase"
+          onkeypress="if(event.key==='Enter') zoekKenteken()"
+        >
+        <button onclick="zoekKenteken()" class="bg-ac-accent text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition flex items-center gap-2">
+          <i data-lucide="search" style="width:18px;height:18px"></i>
+          <span class="hidden sm:inline">Zoeken</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="kentekenResults" class="hidden space-y-6 fade-in stagger-3">
+      <!-- Results will be inserted here -->
+    </div>
+
+    <div id="kentekenError" class="hidden bg-red-50 border border-red-200 text-red-700 p-4 rounded-lg fade-in">
+      <div class="flex gap-2">
+        <i data-lucide="alert-circle" style="width:20px;height:20px;flex-shrink:0"></i>
+        <div>
+          <div class="font-semibold">Kenteken niet gevonden</div>
+          <div class="text-sm mt-1" id="errorMessage"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="kentekenLoading" class="hidden flex items-center justify-center gap-2 py-12">
+      <div class="loading-spinner"></div>
+      <span class="text-ac-muted">Gegevens ophalen...</span>
+    </div>
+
+    <div id="recentSearches" class="mt-12">
+      <h3 class="font-heading font-semibold text-lg mb-4">Recente zoekopdrachten</h3>
+      <div id="recentList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div class="text-ac-muted text-sm text-center py-4 col-span-full">Geen recente zoekopdrachten</div>
+      </div>
+    </div>
+  </section>`;
 }
 
-// Try to initialize as soon as possible
+// INIT - Initialize app state and load home page immediately
+async function initializeApp() {
+  // Always load home page first
+  currentPage = 'home';
+  const main = document.getElementById('mainContent');
+  if (main) {
+    main.innerHTML = homePage();
+    await new Promise(resolve => setTimeout(resolve, 0));
+    lucide.createIcons();
+  }
+}
+
+// Initialize as soon as DOM is ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
   initializeApp();
 }
+
+// Ensure home loads even if everything else takes time
+document.addEventListener('DOMContentLoaded', initializeApp);
+window.addEventListener('load', initializeApp);
+
+// Kenteken zoeker database (mock data met Nederlands-stijl kentekens)
+let kentekenDatabase = [
+  { kenteken: 'AB123CD', merk: 'Volkswagen', model: 'Golf 1.4 TSI', variant: 'Comfortline', bouwjaar: 2019, det: '2019-03-15', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Benzine', cilinders: 4, cilinderinhoud: 1398, vermogen: 125, vermogenKw: 92, massamrijklaar: 1280, masaledig: 1050, maxmassa: 1525, aanhanger: { geremd: 1200, ongeremd: 600 }, wielbasis: 2630, topsnelheid: 190, deuren: 5, zitplaatsen: 5, carrosserietype: 'Hatchback', lengte: 4255, breedte: 1800, hoogte: 1452, co2: 115, emissieklasse: 'Euro 6d', verbruik: { stad: 7.5, snelweg: 4.2, gecombineerd: 5.4 }, apkStatus: 'geldig', apkVervaldatum: '2026-03-14' },
+  { kenteken: 'XY789ZA', merk: 'BMW', model: '320d', variant: 'Sedan', bouwjaar: 2018, det: '2018-07-22', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Diesel', cilinders: 4, cilinderinhoud: 1995, vermogen: 190, vermogenKw: 140, massamrijklaar: 1420, masaledig: 1310, maxmassa: 1725, aanhanger: { geremd: 1600, ongeremd: 750 }, wielbasis: 2810, topsnelheid: 210, deuren: 4, zitplaatsen: 5, carrosserietype: 'Sedan', lengte: 4630, breedte: 1828, hoogte: 1430, co2: 95, emissieklasse: 'Euro 6c', verbruik: { stad: 5.8, snelweg: 3.9, gecombineerd: 4.6 }, apkStatus: 'geldig', apkVervaldatum: '2025-07-21' },
+  { kenteken: 'AB456EF', merk: 'Toyota', model: 'Yaris 1.5 Hybrid', variant: 'Active', bouwjaar: 2021, det: '2021-05-10', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Hybride', cilinders: 3, cilinderinhoud: 1496, vermogen: 116, vermogenKw: 85, massamrijklaar: 1110, masaledig: 1020, maxmassa: 1355, aanhanger: { geremd: 1000, ongeremd: 500 }, wielbasis: 2550, topsnelheid: 180, deuren: 5, zitplaatsen: 5, carrosserietype: 'Hatchback', lengte: 3940, breedte: 1730, hoogte: 1535, co2: 82, emissieklasse: 'Euro 6d', verbruik: { stad: 4.8, snelweg: 3.2, gecombineerd: 3.9 }, apkStatus: 'geldig', apkVervaldatum: '2027-05-09' },
+  { kenteken: 'CD999AB', merk: 'Audi', model: 'A4 2.0 TFSI', variant: 'Sport', bouwjaar: 2017, det: '2017-01-18', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Benzine', cilinders: 4, cilinderinhoud: 1984, vermogen: 190, vermogenKw: 140, massamrijklaar: 1505, masaledig: 1395, maxmassa: 1750, aanhanger: { geremd: 1800, ongeremd: 800 }, wielbasis: 2808, topsnelheid: 215, deuren: 4, zitplaatsen: 5, carrosserietype: 'Sedan', lengte: 4735, breedte: 1847, hoogte: 1430, co2: 120, emissieklasse: 'Euro 6c', verbruik: { stad: 8.2, snelweg: 4.8, gecombineerd: 6.2 }, apkStatus: 'verlopen', apkVervaldatum: '2024-01-17' },
+  { kenteken: 'EF345GH', merk: 'Mercedes', model: 'C-Klasse C200', variant: 'Elegance', bouwjaar: 2016, det: '2016-11-03', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Diesel', cilinders: 4, cilinderinhoud: 1950, vermogen: 170, vermogenKw: 125, massamrijklaar: 1475, masaledig: 1370, maxmassa: 1720, aanhanger: { geremd: 1700, ongeremd: 750 }, wielbasis: 2840, topsnelheid: 208, deuren: 4, zitplaatsen: 5, carrosserietype: 'Sedan', lengte: 4686, breedte: 1810, hoogte: 1445, co2: 98, emissieklasse: 'Euro 6b', verbruik: { stad: 6.1, snelweg: 3.8, gecombineerd: 4.7 }, apkStatus: 'geldig', apkVervaldatum: '2026-11-02' },
+  { kenteken: 'GH678IJ', merk: 'Volvo', model: 'V60 T4', variant: 'Inscription', bouwjaar: 2020, det: '2020-09-12', typeVoertuig: 'Personenauto', voertuigCategorie: 'M1', brandstof: 'Benzine', cilinders: 4, cilinderinhoud: 1969, vermogen: 190, vermogenKw: 140, massamrijklaar: 1580, masaledig: 1480, maxmassa: 1850, aanhanger: { geremd: 1800, ongeremd: 750 }, wielbasis: 2875, topsnelheid: 210, deuren: 4, zitplaatsen: 5, carrosserietype: 'Break', lengte: 4761, breedte: 1847, hoogte: 1472, co2: 128, emissieklasse: 'Euro 6d', verbruik: { stad: 8.1, snelweg: 5.2, gecombineerd: 6.3 }, apkStatus: 'geldig', apkVervaldatum: '2026-09-11' }
+];
+
+let recentSearches = [];
+
+function zoekKenteken() {
+  const input = document.getElementById('kentekenInput').value.trim().toUpperCase().replace(/[-\s]/g, '');
+  
+  // Reset UI
+  document.getElementById('kentekenResults').classList.add('hidden');
+  document.getElementById('kentekenError').classList.add('hidden');
+  document.getElementById('kentekenLoading').classList.remove('hidden');
+
+  setTimeout(() => {
+    const vehicle = kentekenDatabase.find(v => v.kenteken.replace(/[-\s]/g, '') === input);
+    document.getElementById('kentekenLoading').classList.add('hidden');
+
+    if (!vehicle) {
+      document.getElementById('kentekenError').classList.remove('hidden');
+      document.getElementById('errorMessage').textContent = `Geen voertuig gevonden met kenteken "${input.slice(0, 2)}-${input.slice(2, 5)}-${input.slice(5)}"`;
+      return;
+    }
+
+    // Format kenteken
+    const formattedKenteken = `${vehicle.kenteken.slice(0, 2)}-${vehicle.kenteken.slice(2, 5)}-${vehicle.kenteken.slice(5)}`;
+
+    // Add to recent searches
+    if (!recentSearches.includes(vehicle.kenteken)) {
+      recentSearches.unshift(vehicle.kenteken);
+      if (recentSearches.length > 5) recentSearches.pop();
+      updateRecentSearches();
+    }
+
+    // Display results
+    const resultsHtml = `
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-ac-accent/10 border border-ac-accent/20 rounded-xl p-6">
+          <h2 class="font-heading text-2xl font-bold mb-4">${vehicle.merk} ${vehicle.model}</h2>
+          <div class="space-y-3 text-sm">
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Kenteken</span>
+              <span class="font-semibold">${formattedKenteken}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Variant</span>
+              <span class="font-semibold">${vehicle.variant}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Bouwjaar</span>
+              <span class="font-semibold">${vehicle.bouwjaar}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Type voertuig</span>
+              <span class="font-semibold">${vehicle.typeVoertuig}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Categorie</span>
+              <span class="font-semibold">${vehicle.voertuigCategorie}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Carrosserie</span>
+              <span class="font-semibold">${vehicle.carrosserietype}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Deuren</span>
+              <span class="font-semibold">${vehicle.deuren}</span>
+            </div>
+            <div class="flex justify-between border-b border-ac-surface pb-2">
+              <span class="text-ac-muted">Zitplaatsen</span>
+              <span class="font-semibold">${vehicle.zitplaatsen}</span>
+            </div>
+            <div class="flex justify-between pt-2">
+              <span class="text-ac-muted">Eerste toelating</span>
+              <span class="font-semibold">${new Date(vehicle.det).toLocaleDateString('nl-NL')}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="bg-ac-surface border border-white/5 rounded-xl p-5">
+            <h3 class="font-heading font-semibold mb-4">⚙️ Technische specificaties</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Brandstof</span>
+                <span class="font-semibold">${vehicle.brandstof}</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Cilinders</span>
+                <span class="font-semibold">${vehicle.cilinders}</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Cilinderinhoud</span>
+                <span class="font-semibold">${vehicle.cilinderinhoud} cc</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Vermogen</span>
+                <span class="font-semibold">${vehicle.vermogen} pk (${vehicle.vermogenKw} kW)</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Topsnelheid</span>
+                <span class="font-semibold">${vehicle.topsnelheid} km/h</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-ac-muted">Wielbasis</span>
+                <span class="font-semibold">${vehicle.wielbasis} mm</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-ac-surface border border-white/5 rounded-xl p-5">
+            <h3 class="font-heading font-semibold mb-4">⚖️ Gewicht & maten</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Lengte</span>
+                <span class="font-semibold">${vehicle.lengte} mm</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Breedte</span>
+                <span class="font-semibold">${vehicle.breedte} mm</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Hoogte</span>
+                <span class="font-semibold">${vehicle.hoogte} mm</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Massa rijklaar</span>
+                <span class="font-semibold">${vehicle.massamrijklaar} kg</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Massa ledig</span>
+                <span class="font-semibold">${vehicle.masaledig} kg</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-ac-muted">Max. massa</span>
+                <span class="font-semibold">${vehicle.maxmassa} kg</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-ac-surface border border-white/5 rounded-xl p-5">
+            <h3 class="font-heading font-semibold mb-4">🌿 Milieu & verbruik</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">CO₂-uitstoot</span>
+                <span class="font-semibold">${vehicle.co2} g/km</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Emissieklasse</span>
+                <span class="font-semibold">${vehicle.emissieklasse}</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Verbruik (stad)</span>
+                <span class="font-semibold">${vehicle.verbruik.stad} L/100km</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Verbruik (snelweg)</span>
+                <span class="font-semibold">${vehicle.verbruik.snelweg} L/100km</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-ac-muted">Verbruik (gecombineerd)</span>
+                <span class="font-semibold">${vehicle.verbruik.gecombineerd} L/100km</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-ac-surface border border-white/5 rounded-xl p-5">
+            <h3 class="font-heading font-semibold mb-4">📋 APK & Aanhanger</h3>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">APK Status</span>
+                <span class="font-semibold ${vehicle.apkStatus === 'geldig' ? 'text-green-400' : 'text-red-400'}">${vehicle.apkStatus === 'geldig' ? '✓ Geldig' : '✗ Verlopen'}</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">APK vervaldatum</span>
+                <span class="font-semibold">${new Date(vehicle.apkVervaldatum).toLocaleDateString('nl-NL')}</span>
+              </div>
+              <div class="flex justify-between border-b border-ac-surface/50 pb-2">
+                <span class="text-ac-muted">Aanhanger (geremd)</span>
+                <span class="font-semibold">${vehicle.aanhanger.geremd} kg</span>
+              </div>
+              <div class="flex justify-between pt-2">
+                <span class="text-ac-muted">Aanhanger (ongeremd)</span>
+                <span class="font-semibold">${vehicle.aanhanger.ongeremd} kg</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-3">
+            <button onclick="shareVehicle('${formattedKenteken}')" class="flex-1 bg-ac-accent text-white font-semibold py-2.5 rounded-lg hover:brightness-110 transition text-sm flex items-center justify-center gap-2">
+              <i data-lucide="share-2" style="width:16px;height:16px"></i> Delen
+            </button>
+            <button onclick="downloadVehicleInfo('${vehicle.merk}', '${vehicle.model}')" class="flex-1 bg-white/10 border border-white/20 text-white font-semibold py-2.5 rounded-lg hover:bg-white/20 transition text-sm flex items-center justify-center gap-2">
+              <i data-lucide="download" style="width:16px;height:16px"></i> PDF
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('kentekenResults').innerHTML = resultsHtml;
+    document.getElementById('kentekenResults').classList.remove('hidden');
+    lucide.createIcons();
+  }, 400);
+}
+
+function updateRecentSearches() {
+  const recentList = document.getElementById('recentList');
+  if (recentSearches.length === 0) {
+    recentList.innerHTML = '<div class="text-ac-muted text-sm text-center py-4 col-span-full">Geen recente zoekopdrachten</div>';
+    return;
+  }
+
+  recentList.innerHTML = recentSearches.map(k => `
+    <button onclick="document.getElementById('kentekenInput').value='${k}'; zoekKenteken()" class="bg-ac-surface border border-white/5 hover:border-ac-accent/30 rounded-lg p-3 text-left transition">
+      <div class="font-semibold text-sm">${k.slice(0, 2)}-${k.slice(2, 5)}-${k.slice(5)}</div>
+      <div class="text-xs text-ac-muted mt-1">${kentekenDatabase.find(v => v.kenteken === k)?.merk || 'Onbekend'}</div>
+    </button>
+  `).join('');
+}
+
+function shareVehicle(kenteken) {
+  const shareText = `Controleer de voertuiggegevens van kenteken ${kenteken} op Auto Control!\n\n🔍 Kenteken Zoeker - Volledige voertuiggegevens\n`;
+  const shareUrl = `Klik hier: ${window.location.href}`;
+  
+  if (navigator.share) {
+    navigator.share({ title: `Voertuig ${kenteken}`, text: shareText, url: shareUrl });
+  } else {
+    showToast('✓ Link gekopieerd naar klembord!');
+  }
+}
+
+function downloadVehicleInfo(merk, model) {
+  showToast('📥 PDF download gesimuleerd. In productie: echte PDF-export');
+}
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec53cba553806c0',t:'MTc3NjE5NjIwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec552d397fcc148',t:'MTc3NjE5NzEwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

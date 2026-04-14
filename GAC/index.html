@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact & Offerte</title>
+
+<style>
+body { font-family: Arial; margin:0; background:#f7f7f7; color:#333; }
+header { background:#0073e6; color:white; padding:1rem; text-align:center; }
+main { max-width:900px; margin:2rem auto; padding:1rem; }
+section { background:white; padding:1.5rem; margin-bottom:2rem; border-radius:8px; }
+form { display:grid; gap:1rem; }
+input, textarea, button { padding:0.5rem; font-size:1rem; }
+button { background:#0073e6; color:white; border:none; cursor:pointer; }
+button:hover { background:#005bb5; }
+footer { background:#222; color:white; padding:2rem; }
+.status { display:none; padding:0.5rem; border-radius:4px; }
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Contact & Offerte</h1>
+</header>
+
+<main>
+
+<!-- CONTACT -->
+<section>
+<h2>Bericht sturen</h2>
+
+<form id="berichtForm">
+<input name="Naam" placeholder="Naam" required>
+<input name="Email" type="email" placeholder="Email" required>
+<input name="Telefoon" placeholder="Telefoon">
+<input name="Onderwerp" placeholder="Onderwerp">
+<textarea name="Bericht" placeholder="Bericht" required></textarea>
+<button>Verstuur</button>
+<div class="status" id="berichtStatus"></div>
+</form>
+</section>
+
+<!-- OFFERTE -->
+<section>
+<h2>Offerte aanvragen</h2>
+
+<form id="offerteForm">
+<input name="Naam" placeholder="Naam" required>
+<input name="Email" type="email" placeholder="Email" required>
+<input name="Telefoon" placeholder="Telefoon">
+<input name="Bedrijf" placeholder="Bedrijf">
+<input name="Dienst" placeholder="Dienst">
+<input name="Budget" placeholder="Budget">
+<textarea name="Omschrijving" placeholder="Omschrijving"></textarea>
+<button>Verstuur Offerte</button>
+<div class="status" id="offerteStatus"></div>
+</form>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+<h3>Bedrijfsinformatie</h3>
+
+<p>Naam: <span id="companyName"></span></p>
+<p>Email: <span id="companyEmail"></span></p>
+<p>Telefoon: <span id="companyPhone"></span></p>
+<p>Adres: <span id="companyAddress"></span></p>
+<p>KvK: <span id="companyKvK"></span></p>
+<p>BTW: <span id="companyBTW"></span></p>
+
+<p>Ma: <span id="maandag"></span></p>
+<p>Di: <span id="dinsdag"></span></p>
+<p>Wo: <span id="woensdag"></span></p>
+<p>Do: <span id="donderdag"></span></p>
+<p>Vr: <span id="vrijdag"></span></p>
+<p>Za: <span id="zaterdag"></span></p>
+<p>Zo: <span id="zondag"></span></p>
+
+</footer>
+
+<script>
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwh6F_T2ytyZz5PTByhrMNK88fm80VlZ2099w10cPwZMgGGnJpe4RJJ-BIR0TGSxhgF/exec";
+
+
+// ---------------- POST ----------------
+async function submitForm(type, data, statusEl) {
+try {
+const res = await fetch(WEB_APP_URL, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({ type, data })
+});
+
+const json = await res.json();
+
+statusEl.style.display = "block";
+
+if (json.status === "success") {
+statusEl.style.background = "#dff0d8";
+statusEl.textContent = "Verstuurd!";
+} else {
+statusEl.style.background = "#f2dede";
+statusEl.textContent = "Fout: " + json.message;
+}
+
+} catch (err) {
+statusEl.style.display = "block";
+statusEl.style.background = "#f2dede";
+statusEl.textContent = "Netwerk fout";
+}
+}
+
+
+// ---------------- FORMS ----------------
+document.getElementById("berichtForm").addEventListener("submit", e => {
+e.preventDefault();
+submitForm("Berichten", Object.fromEntries(new FormData(e.target)), document.getElementById("berichtStatus"));
+e.target.reset();
+});
+
+document.getElementById("offerteForm").addEventListener("submit", e => {
+e.preventDefault();
+submitForm("Offertes", Object.fromEntries(new FormData(e.target)), document.getElementById("offerteStatus"));
+e.target.reset();
+});
+
+
+// ---------------- GET COMPANY INFO ----------------
+async function loadCompanyInfo() {
+try {
+const res = await fetch(WEB_APP_URL + "?type=bedrijf");
+const data = await res.json();
+
+if (!data || data.status === "error") {
+console.error("API error:", data);
+return;
+}
+
+document.getElementById("companyName").textContent = data.BedrijfsNaam || "";
+document.getElementById("companyEmail").textContent = data.Email || "";
+document.getElementById("companyPhone").textContent = data.Telefoon || "";
+document.getElementById("companyAddress").textContent = data.Adres || "";
+document.getElementById("companyKvK").textContent = data.KvK || "";
+document.getElementById("companyBTW").textContent = data.BTW || "";
+
+document.getElementById("maandag").textContent = data.Maandag || "";
+document.getElementById("dinsdag").textContent = data.Dinsdag || "";
+document.getElementById("woensdag").textContent = data.Woensdag || "";
+document.getElementById("donderdag").textContent = data.Donderdag || "";
+document.getElementById("vrijdag").textContent = data.Vrijdag || "";
+document.getElementById("zaterdag").textContent = data.Zaterdag || "";
+document.getElementById("zondag").textContent = data.Zondag || "";
+
+} catch (err) {
+console.error("GET failed:", err);
+}
+}
+
+loadCompanyInfo();
+
+</script>
+
+</body>
+</html>

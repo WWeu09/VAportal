@@ -77,14 +77,18 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
  <body class="h-full bg-ac-bg text-ac-text font-body">
   <div class="app-root scrollbar-hide" id="app">
    <header class="sticky top-0 z-50 bg-ac-bg/95 backdrop-blur border-b border-ac-surface" id="siteHeader">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"><button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
-     <nav class="hidden md:flex items-center gap-8 text-sm font-medium"><button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('kenteken-zoeker')" class="text-ac-muted hover:text-ac-text transition">🔍 Kenteken Check</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+     <button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
+     <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('kenteken-zoeker')" class="text-ac-muted hover:text-ac-text transition">🔍 Kenteken Check</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
      </nav>
-     <div class="flex items-center gap-3"><a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
+     <div class="flex items-center gap-3">
+      <a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
      </div>
     </div>
     <div id="mobileMenu" class="hidden md:hidden border-t border-ac-surface bg-ac-bg px-4 pb-4 pt-2">
-     <div class="flex flex-col gap-1"><button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
+     <div class="flex flex-col gap-1">
+      <button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('kenteken-zoeker');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Kenteken Check</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
      </div>
     </div>
    </header><a href="https://wa.me/31206327582?text=Hallo%20Auto%20Control" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-24 right-5 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition"> <i data-lucide="message-circle" style="width:22px;height:22px;color:#fff"></i> </a> <button onclick="toggleChat()" class="md:hidden fixed bottom-5 right-5 z-40 w-14 h-14 bg-ac-accent rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition text-white"> <i data-lucide="message-square" style="width:22px;height:22px"></i> </button> <!-- AUTH MODAL -->
@@ -96,18 +100,20 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
      <div class="p-6 max-h-96 overflow-y-auto scrollbar-hide">
       <div class="flex items-center justify-between mb-6">
-       <div id="authTabs" class="flex gap-1 bg-ac-surface rounded-lg p-1 w-full"><button onclick="switchAuthTab('login')" id="loginTab" class="flex-1 py-2 rounded text-sm font-medium bg-ac-bg text-ac-text transition">Inloggen</button> <button onclick="switchAuthTab('signup')" id="signupTab" class="flex-1 py-2 rounded text-sm font-medium text-ac-muted transition">Registreren</button>
+       <div id="authTabs" class="flex gap-1 bg-ac-surface rounded-lg p-1 w-full">
+        <button onclick="switchAuthTab('login')" id="loginTab" class="flex-1 py-2 rounded text-sm font-medium bg-ac-bg text-ac-text transition">Inloggen</button> <button onclick="switchAuthTab('signup')" id="signupTab" class="flex-1 py-2 rounded text-sm font-medium text-ac-muted transition">Registreren</button>
        </div>
       </div>
-      <div id="authForm" class="space-y-4"><input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleLogin()" class="w-full btn-primary text-sm py-3 flex items-center justify-center gap-2"> <span>Inloggen</span> </button>
-       <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-lg flex items-center gap-2"><i data-lucide="alert-circle" style="width:16px;height:16px;flex-shrink:0"></i> <span id="errorText"></span>
+      <div id="authForm" class="space-y-4">
+       <input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleLogin()" class="w-full btn-primary text-sm py-3 flex items-center justify-center gap-2"> <span>Inloggen</span> </button>
+       <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-3 rounded-lg flex items-center gap-2">
+        <i data-lucide="alert-circle" style="width:16px;height:16px;flex-shrink:0"></i> <span id="errorText"></span>
        </div>
        <div class="relative my-4">
         <div class="absolute inset-0 flex items-center">
          <div class="w-full border-t border-ac-surface"></div>
         </div>
-        <div class="relative flex justify-center text-xs">
-         <span class="px-2 bg-ac-bg text-ac-muted">of</span>
+        <div class="relative flex justify-center text-xs"><span class="px-2 bg-ac-bg text-ac-muted">of</span>
         </div>
        </div>
        <div class="bg-ac-surface/50 border border-ac-surface rounded-lg p-3">
@@ -116,15 +122,18 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
         <p class="text-xs text-ac-muted"><strong>Wachtwoord:</strong> demo2024</p>
        </div>
       </div>
-      <div id="signupForm" class="hidden space-y-4"><input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="signupPassword" placeholder="Wachtwoord (min. 6 tekens)" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleSignup()" class="w-full btn-primary text-sm py-3">Account aanmaken</button>
+      <div id="signupForm" class="hidden space-y-4">
+       <input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="password" id="signupPassword" placeholder="Wachtwoord (min. 6 tekens)" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded-lg px-4 py-3 text-sm focus:border-ac-accent"> <button onclick="handleSignup()" class="w-full btn-primary text-sm py-3">Account aanmaken</button>
       </div>
      </div>
-     <div class="px-6 py-4 bg-ac-surface/50 border-t border-ac-surface"><button onclick="toggleAuthModal()" class="text-ac-muted text-xs hover:text-ac-text transition">← Terug</button>
+     <div class="px-6 py-4 bg-ac-surface/50 border-t border-ac-surface">
+      <button onclick="toggleAuthModal()" class="text-ac-muted text-xs hover:text-ac-text transition">← Terug</button>
      </div>
     </div>
    </div><!-- CHATBOT -->
    <div id="chatContainer" class="hidden fixed bottom-0 right-0 z-50 w-full md:w-96 h-screen md:h-96 md:bottom-5 md:right-5 bg-ac-surface border-l md:border border-ac-surface rounded-none md:rounded-lg flex flex-col shadow-lg">
-    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg"><span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
+    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg">
+     <span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
     </div>
     <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide">
      <div class="chat-bubble bg-ac-bg rounded p-3 text-sm">
@@ -137,9 +146,11 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
     </div>
     <div class="border-t border-ac-surface p-3 space-y-2 bg-ac-bg">
-     <div class="grid grid-cols-2 gap-2"><button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
+     <div class="grid grid-cols-2 gap-2">
+      <button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
      </div>
-     <div class="flex gap-2"><input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
+     <div class="flex gap-2">
+      <input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
      </div><button onclick="redirectWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded transition flex items-center justify-center gap-2"> <i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp Chat </button>
     </div>
    </div><!-- MAIN CONTENT -->
@@ -154,22 +165,27 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Diensten</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
+       <button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Contact</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
+       <span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Openingstijden</h4>
       <div class="flex flex-col gap-1 text-sm text-ac-muted">
-       <div class="flex justify-between"><span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
+       <div class="flex justify-between">
+        <span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
        </div>
-       <div class="flex justify-between"><span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
+       <div class="flex justify-between">
+        <span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
        </div>
-       <div class="flex justify-between"><span>Zondag</span><span class="text-ac-text">Gesloten</span>
+       <div class="flex justify-between">
+        <span>Zondag</span><span class="text-ac-text">Gesloten</span>
        </div>
       </div>
      </div>
@@ -1535,5 +1551,5 @@ function downloadVehicleInfo(merk, model) {
   showToast('📥 PDF download gesimuleerd. In productie: echte PDF-export');
 }
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec552d397fcc148',t:'MTc3NjE5NzEwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec553def1e1c148',t:'MTc3NjE5NzE1MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

@@ -1,172 +1,1171 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact & Offerte</title>
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto Control Pro - Garage CRM &amp; Occasions</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Geist:wght@500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-title" content="Auto Control">
+  <link rel="manifest" href="/site.webmanifest">
+  <script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        ac: { bg: '#ffffff', surface: '#f5f5f5', text: '#1a1a1a', muted: '#666', accent: '#1e3a8a', light: '#3b82f6' },
+      },
+      fontFamily: {
+        heading: ['Geist', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+      }
+    }
+  }
+}
+  </script>
+  <style>
+html, body { height: 100%; margin: 0; }
+* { box-sizing: border-box; }
+.app-root { height: 100%; overflow-y: auto; overflow-x: hidden; background: #ffffff; }
+.fade-in { animation: fadeIn .5s ease both; }
+@keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+.stagger-1 { animation-delay: .1s; }
+.stagger-2 { animation-delay: .2s; }
+.stagger-3 { animation-delay: .3s; }
+.stagger-4 { animation-delay: .4s; }
+.stagger-5 { animation-delay: .5s; }
+.stagger-6 { animation-delay: .6s; }
+.card-hover { transition: transform .2s, box-shadow .2s; }
+@media (hover: hover) { .card-hover:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(30,58,138,.08); } }
+input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a !important; box-shadow: 0 0 0 2px rgba(30,58,138,.1); }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.status-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 600; }
+.status-ready { background-color: #dcfce7; color: #166534; }
+.status-pending { background-color: #fef3c7; color: #92400e; }
+.status-repairing { background-color: #fecaca; color: #7f1d1d; }
+.status-waiting { background-color: #bfdbfe; color: #1e40af; }
+.btn-primary { background-color: #1e3a8a; color: white; border-radius: 0.375rem; font-weight: 600; padding: 0.625rem 1rem; transition: all .2s; cursor: pointer; }
+.btn-primary:active { background-color: #1e40af; transform: scale(0.98); }
+@media (hover: hover) { .btn-primary:hover { background-color: #1e40af; box-shadow: 0 4px 12px rgba(30,58,138,.2); transform: translateY(-1px); } }
+.btn-secondary { background-color: #f5f5f5; color: #1a1a1a; border: 1px solid #e5e5e5; border-radius: 0.375rem; font-weight: 600; padding: 0.625rem 1rem; cursor: pointer; transition: all .2s; }
+@media (hover: hover) { .btn-secondary:hover { background-color: #f0f0f0; border-color: #d4d4d4; } }
+.shadow-card { box-shadow: 0 1px 3px rgba(0,0,0,.05), 0 1px 2px rgba(0,0,0,.03); }
+.vehicle-card { position: relative; overflow: hidden; }
+.vehicle-card .badge { position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10; }
+.loading-spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.3); border-top-color: white; border-radius: 50%; animation: spin .8s linear infinite; will-change: transform; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.toast { position: fixed; bottom: 2rem; right: 2rem; padding: 1rem 1.5rem; background: #1e3a8a; color: white; border-radius: 0.5rem; box-shadow: 0 4px 12px rgba(0,0,0,.15); z-index: 50; animation: slideUp .3s ease; }
+@media (max-width: 640px) { .toast { bottom: 1rem; right: 1rem; left: 1rem; } }
+.toast.success { background: #16a34a; }
+.toast.error { background: #dc2626; }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 768px) { input, select, textarea { font-size: 16px !important; } }
+@media (max-width: 640px) { .btn-primary, .btn-secondary, button { min-height: 44px; padding: 0.75rem 1.25rem !important; font-size: 16px !important; } }
+.btn-primary, .btn-secondary { -webkit-tap-highlight-color: transparent; will-change: transform, box-shadow; }
+@media (hover: none) and (pointer: coarse) { .card-hover:hover { transform: none; } input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(30,58,138,.15); } }
+  </style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full bg-ac-bg text-ac-text font-body">
+  <div class="app-root scrollbar-hide" id="app">
+   <header class="sticky top-0 z-50 bg-ac-bg/95 backdrop-blur border-b border-ac-surface" id="siteHeader">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"><button onclick="navigate('home')" class="flex items-center gap-2 font-heading font-bold text-lg tracking-tight">
+      <div class="w-8 h-8 rounded bg-ac-accent flex items-center justify-center text-white">
+       <i data-lucide="car" style="width:18px;height:18px"></i>
+      </div><span class="hidden sm:inline">AUTO CONTROL</span> </button>
+     <nav class="hidden md:flex items-center gap-8 text-sm font-medium"><button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
+     </nav>
+     <div class="flex items-center gap-3"><a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
+     </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden border-t border-ac-surface bg-ac-bg px-4 pb-4 pt-2">
+     <div class="flex flex-col gap-1"><button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
+     </div>
+    </div>
+   </header><a href="https://wa.me/31206327582?text=Hallo%20Auto%20Control" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-24 right-5 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition"> <i data-lucide="message-circle" style="width:22px;height:22px;color:#fff"></i> </a> <button onclick="toggleChat()" class="md:hidden fixed bottom-5 right-5 z-40 w-14 h-14 bg-ac-accent rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition text-white"> <i data-lucide="message-square" style="width:22px;height:22px"></i> </button> <!-- AUTH MODAL -->
+   <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/20 flex items-center justify-center p-4">
+    <div class="bg-ac-bg border border-ac-surface rounded-lg max-w-md w-full p-6 max-h-96 overflow-y-auto shadow-lg">
+     <div class="flex items-center justify-between mb-4"><span class="font-heading font-bold text-lg">Mijn Account</span> <button onclick="toggleAuthModal()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:18px;height:18px"></i> </button>
+     </div>
+     <div id="authForm" class="space-y-3"><input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
+      <div class="flex gap-2"><button onclick="handleLogin()" class="flex-1 btn-primary text-sm py-2">Inloggen</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Registreren</button>
+      </div>
+      <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-2.5 rounded"></div>
+     </div>
+     <div id="signupForm" class="hidden space-y-3 mt-4"><input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="signupPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
+      <div class="flex gap-2"><button onclick="handleSignup()" class="flex-1 btn-primary text-sm py-2">Account aanmaken</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Terug</button>
+      </div>
+     </div>
+    </div>
+   </div><!-- CHATBOT -->
+   <div id="chatContainer" class="hidden fixed bottom-0 right-0 z-50 w-full md:w-96 h-screen md:h-96 md:bottom-5 md:right-5 bg-ac-surface border-l md:border border-ac-surface rounded-none md:rounded-lg flex flex-col shadow-lg">
+    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg"><span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
+    </div>
+    <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide">
+     <div class="chat-bubble bg-ac-bg rounded p-3 text-sm">
+      <div class="font-medium text-ac-accent mb-1">
+       Hallo! 👋
+      </div>
+      <div class="text-ac-muted">
+       Hoe kan ik je helpen?
+      </div>
+     </div>
+    </div>
+    <div class="border-t border-ac-surface p-3 space-y-2 bg-ac-bg">
+     <div class="grid grid-cols-2 gap-2"><button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
+     </div>
+     <div class="flex gap-2"><input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
+     </div><button onclick="redirectWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded transition flex items-center justify-center gap-2"> <i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp Chat </button>
+    </div>
+   </div><!-- MAIN CONTENT -->
+   <main id="mainContent"></main><!-- FOOTER -->
+   <footer class="border-t border-ac-surface bg-ac-surface mt-16">
+    <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
+     <div>
+      <div class="font-heading font-bold text-lg mb-3">
+       AUTO CONTROL
+      </div>
+      <p class="text-ac-muted text-sm leading-relaxed">Uw betrouwbare garage in Zaandam voor APK, onderhoud, reparatie, verkoop en occasions.</p>
+     </div>
+     <div>
+      <h4 class="font-semibold text-sm mb-3 text-ac-accent">Diensten</h4>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
+      </div>
+     </div>
+     <div>
+      <h4 class="font-semibold text-sm mb-3 text-ac-accent">Contact</h4>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
+      </div>
+     </div>
+     <div>
+      <h4 class="font-semibold text-sm mb-3 text-ac-accent">Openingstijden</h4>
+      <div class="flex flex-col gap-1 text-sm text-ac-muted">
+       <div class="flex justify-between"><span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
+       </div>
+       <div class="flex justify-between"><span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
+       </div>
+       <div class="flex justify-between"><span>Zondag</span><span class="text-ac-text">Gesloten</span>
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="border-t border-ac-surface text-center py-4 text-xs text-ac-muted">
+     KVK: 33264901 · BTW: NL804697073B01
+    </div>
+   </footer>
+  </div>
+  <script>
+// ─── CONFIG ───
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxw0Z6K48f60-PhGyp_9RlAkZn0ZxfNpwZGo6bX9Xm3w8az7e-s0af1W_rBbULLuow6/exec';
+const CAR_IMAGE_URL = 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png';
 
-<style>
-body { font-family: Arial; margin:0; background:#f7f7f7; color:#333; }
-header { background:#0073e6; color:white; padding:1rem; text-align:center; }
-main { max-width:900px; margin:2rem auto; padding:1rem; }
-section { background:white; padding:1.5rem; margin-bottom:2rem; border-radius:8px; }
-form { display:grid; gap:1rem; }
-input, textarea, button { padding:0.5rem; font-size:1rem; }
-button { background:#0073e6; color:white; border:none; cursor:pointer; }
-button:hover { background:#005bb5; }
-footer { background:#222; color:white; padding:2rem; }
-.status { display:none; padding:0.5rem; border-radius:4px; }
-</style>
+// ─── STATE ───
+let currentPage = 'home';
+let currentUser = null;
+let allAppointments = [];
+let allUsers = [];
+let allVehicles = [];
+let allRequests = [];
+let filteredVehicles = [];
+let currentSortBy = 'prijs-laag';
+let currentFilters = { prijs_min: 0, prijs_max: 100000, merk: '', brandstof: '', transmissie: '' };
 
-</head>
+const defaultConfig = {
+  business_name: 'Auto Control',
+  phone_number: '020-632 75 82',
+  whatsapp_number: '0206327582',
+  address: 'Tienlingstraat 8',
+  email: 'info@auto-control.nl',
+  google_apps_script_url: GOOGLE_APPS_SCRIPT_URL,
+  google_apps_script_url_berichten: 'https://script.google.com/macros/s/AKfycbxw0Z6K48f60-PhGyp_9RlAkZn0ZxfNpwZGo6bX9Xm3w8az7e-s0af1W_rBbULLuow6/exec'
+};
 
-<body>
+// Mock vehicle database
+const mockVehicles = [
+  { vehicle_id: '1', kenteken: 'AB123CD', brand: 'Volkswagen', model: 'Golf 1.4 TSI', year: 2019, fuel: 'Benzine', transmission: 'Handgeschakeld', km: 67400, price: 18950, status: 'beschikbaar', pk: 125 },
+  { vehicle_id: '2', kenteken: 'XY789ZA', brand: 'BMW', model: '320d', year: 2018, fuel: 'Diesel', transmission: 'Automatisch', km: 89200, price: 22500, status: 'beschikbaar', pk: 190 },
+  { vehicle_id: '3', kenteken: 'AB456EF', brand: 'Toyota', model: 'Yaris 1.5', year: 2021, fuel: 'Hybride', transmission: 'Automatisch', km: 31000, price: 19750, status: 'beschikbaar', pk: 116 },
+  { vehicle_id: '4', kenteken: 'CD999AB', brand: 'Audi', model: 'A4 2.0 TFSI', year: 2017, fuel: 'Benzine', transmission: 'Automatisch', km: 125400, price: 21200, status: 'gereserveerd', pk: 190 },
+  { vehicle_id: '5', kenteken: 'EF345GH', brand: 'Mercedes', model: 'C-Klasse C200', year: 2016, fuel: 'Diesel', transmission: 'Automatisch', km: 145600, price: 20800, status: 'beschikbaar', pk: 170 },
+  { vehicle_id: '6', kenteken: 'GH678IJ', brand: 'Volvo', model: 'V60 T4', year: 2020, fuel: 'Benzine', transmission: 'Automatisch', km: 42300, price: 26500, status: 'beschikbaar', pk: 190 },
+];
 
-<header>
-<h1>Contact & Offerte</h1>
-</header>
+const servicesList = [
+  { id: 'apk', icon: 'shield-check', title: 'APK Keuring', desc: 'Wettelijk verplichte periodieke keuring.', price: 'Vanaf €29,95' },
+  { id: 'onderhoud', icon: 'wrench', title: 'Onderhoud', desc: 'Periodiek onderhoud volgens fabrieksvoorschriften.', price: 'Vanaf €89,-' },
+  { id: 'reparatie', icon: 'settings', title: 'Reparatie', desc: 'Alle reparaties aan motor, rem en meer.', price: 'Op aanvraag' },
+  { id: 'diagnose', icon: 'activity', title: 'Diagnose', desc: 'Uitlezen storingsmeldingen met OBD-II.', price: 'Vanaf €49,-' },
+  { id: 'airco', icon: 'wind', title: 'Airco Service', desc: 'Airco controle, bijvullen en desinfectie.', price: 'Vanaf €69,-' },
+  { id: 'banden', icon: 'circle', title: 'Bandenservice', desc: 'Banden wisselen, uitbalanceren en uitlijnen.', price: 'Vanaf €15,-' },
+];
 
-<main>
+const faqData = {
+  'Wat kost een APK keuring?': 'Een APK keuring kost vanaf €29,95. Dit is de standaardprijs voor alle merken.',
+  'Beschikbaarheid vandaag': 'Wij zijn vandaag open van 08:00 tot 17:30. Bel ons voor beschikbaarheid: 020-632 75 82',
+  'Hoe lang duurt onderhoud': 'Een reguliere onderhoudsbeurt duurt gemiddeld 1-2 uur, afhankelijk van uw auto.',
+  'Status mijn auto': 'Log in op uw account om de status van uw auto in te zien! Als u nog geen account hebt, maak er één aan.',
+};
 
-<!-- CONTACT -->
-<section>
-<h2>Bericht sturen</h2>
-
-<form id="berichtForm">
-<input name="Naam" placeholder="Naam" required>
-<input name="Email" type="email" placeholder="Email" required>
-<input name="Telefoon" placeholder="Telefoon">
-<input name="Onderwerp" placeholder="Onderwerp">
-<textarea name="Bericht" placeholder="Bericht" required></textarea>
-<button>Verstuur</button>
-<div class="status" id="berichtStatus"></div>
-</form>
-</section>
-
-<!-- OFFERTE -->
-<section>
-<h2>Offerte aanvragen</h2>
-
-<form id="offerteForm">
-<input name="Naam" placeholder="Naam" required>
-<input name="Email" type="email" placeholder="Email" required>
-<input name="Telefoon" placeholder="Telefoon">
-<input name="Bedrijf" placeholder="Bedrijf">
-<input name="Dienst" placeholder="Dienst">
-<input name="Budget" placeholder="Budget">
-<textarea name="Omschrijving" placeholder="Omschrijving"></textarea>
-<button>Verstuur Offerte</button>
-<div class="status" id="offerteStatus"></div>
-</form>
-</section>
-
-</main>
-
-<!-- FOOTER -->
-<footer>
-<h3>Bedrijfsinformatie</h3>
-
-<p>Naam: <span id="companyName"></span></p>
-<p>Email: <span id="companyEmail"></span></p>
-<p>Telefoon: <span id="companyPhone"></span></p>
-<p>Adres: <span id="companyAddress"></span></p>
-<p>KvK: <span id="companyKvK"></span></p>
-<p>BTW: <span id="companyBTW"></span></p>
-
-<p>Ma: <span id="maandag"></span></p>
-<p>Di: <span id="dinsdag"></span></p>
-<p>Wo: <span id="woensdag"></span></p>
-<p>Do: <span id="donderdag"></span></p>
-<p>Vr: <span id="vrijdag"></span></p>
-<p>Za: <span id="zaterdag"></span></p>
-<p>Zo: <span id="zondag"></span></p>
-
-</footer>
-
-<script>
-
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwh6F_T2ytyZz5PTByhrMNK88fm80VlZ2099w10cPwZMgGGnJpe4RJJ-BIR0TGSxhgF/exec";
-
-
-// ---------------- POST ----------------
-async function submitForm(type, data, statusEl) {
-try {
-const res = await fetch(WEB_APP_URL, {
-method: "POST",
-headers: {
-"Content-Type": "application/json"
-},
-body: JSON.stringify({ type, data })
+// ─── SDK INIT ───
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => {
+    // Config updates
+  },
+  mapToCapabilities: (config) => ({
+    recolorables: [],
+    borderables: [],
+    fontEditable: undefined,
+    fontSizeable: undefined,
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['business_name', config.business_name || defaultConfig.business_name],
+    ['phone_number', config.phone_number || defaultConfig.phone_number],
+    ['whatsapp_number', config.whatsapp_number || defaultConfig.whatsapp_number],
+    ['address', config.address || defaultConfig.address],
+    ['email', config.email || defaultConfig.email],
+    ['google_apps_script_url', config.google_apps_script_url || defaultConfig.google_apps_script_url],
+  ])
 });
 
-const json = await res.json();
+const dataHandler = {
+  onDataChanged(data) {
+    // Not using Data SDK anymore - removed
+  }
+};
+window.dataSdk.init(dataHandler);
 
-statusEl.style.display = "block";
-
-if (json.status === "success") {
-statusEl.style.background = "#dff0d8";
-statusEl.textContent = "Verstuurd!";
-} else {
-statusEl.style.background = "#f2dede";
-statusEl.textContent = "Fout: " + json.message;
+// ─── GOOGLE APPS SCRIPT INTEGRATION ───
+async function sendToGoogleSheet(type, data) {
+  try {
+    const apiUrl = type === 'berichten' ? 
+      (window.elementSdk?.config?.google_apps_script_url_berichten || defaultConfig.google_apps_script_url_berichten) :
+      (window.elementSdk?.config?.google_apps_script_url || GOOGLE_APPS_SCRIPT_URL);
+    
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type, data })
+    });
+    
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error sending to Google Sheets:', error);
+    return { success: false, error: error.message };
+  }
 }
 
-} catch (err) {
-statusEl.style.display = "block";
-statusEl.style.background = "#f2dede";
-statusEl.textContent = "Netwerk fout";
-}
-}
-
-
-// ---------------- FORMS ----------------
-document.getElementById("berichtForm").addEventListener("submit", e => {
-e.preventDefault();
-submitForm("Berichten", Object.fromEntries(new FormData(e.target)), document.getElementById("berichtStatus"));
-e.target.reset();
-});
-
-document.getElementById("offerteForm").addEventListener("submit", e => {
-e.preventDefault();
-submitForm("Offertes", Object.fromEntries(new FormData(e.target)), document.getElementById("offerteStatus"));
-e.target.reset();
-});
-
-
-// ---------------- GET COMPANY INFO ----------------
-async function loadCompanyInfo() {
-try {
-const res = await fetch(WEB_APP_URL + "?type=bedrijf");
-const data = await res.json();
-
-if (!data || data.status === "error") {
-console.error("API error:", data);
-return;
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
 }
 
-document.getElementById("companyName").textContent = data.BedrijfsNaam || "";
-document.getElementById("companyEmail").textContent = data.Email || "";
-document.getElementById("companyPhone").textContent = data.Telefoon || "";
-document.getElementById("companyAddress").textContent = data.Adres || "";
-document.getElementById("companyKvK").textContent = data.KvK || "";
-document.getElementById("companyBTW").textContent = data.BTW || "";
-
-document.getElementById("maandag").textContent = data.Maandag || "";
-document.getElementById("dinsdag").textContent = data.Dinsdag || "";
-document.getElementById("woensdag").textContent = data.Woensdag || "";
-document.getElementById("donderdag").textContent = data.Donderdag || "";
-document.getElementById("vrijdag").textContent = data.Vrijdag || "";
-document.getElementById("zaterdag").textContent = data.Zaterdag || "";
-document.getElementById("zondag").textContent = data.Zondag || "";
-
-} catch (err) {
-console.error("GET failed:", err);
-}
+// ─── UI FUNCTIONS ───
+function navigate(page) {
+  currentPage = page;
+  const main = document.getElementById('mainContent');
+  main.innerHTML = getPageContent(page);
+  document.getElementById('app').scrollTo(0, 0);
+  lucide.createIcons();
 }
 
-loadCompanyInfo();
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+}
 
-</script>
+function toggleChat() {
+  document.getElementById('chatContainer').classList.toggle('hidden');
+}
 
-</body>
+function toggleAuthModal() {
+  document.getElementById('authModal').classList.toggle('hidden');
+}
+
+function toggleSignupForm() {
+  document.getElementById('authForm').classList.toggle('hidden');
+  document.getElementById('signupForm').classList.toggle('hidden');
+}
+
+function redirectWhatsApp() {
+  const kenteken = document.getElementById('chatInput').value || '';
+  const msg = encodeURIComponent(`Hallo, ik heb een vraag over mijn auto (kenteken: ${kenteken})`);
+  window.open(`https://wa.me/31206327582?text=${msg}`, '_blank');
+}
+
+function chatQuestion(question) {
+  const messagesDiv = document.getElementById('chatMessages');
+  const userBubble = document.createElement('div');
+  userBubble.className = 'chat-bubble bg-ac-accent text-ac-bg rounded-lg p-3 text-sm ml-8';
+  userBubble.textContent = question;
+  messagesDiv.appendChild(userBubble);
+
+  const answer = faqData[question] || 'Dit is een complexe vraag. Wil je me bereiken via WhatsApp?';
+  const botBubble = document.createElement('div');
+  botBubble.className = 'chat-bubble bg-ac-bg rounded-lg p-3 text-sm mt-2';
+  botBubble.innerHTML = `<div class="text-ac-muted">${answer}</div>`;
+  setTimeout(() => messagesDiv.appendChild(botBubble), 300);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function checkLicensePlate() {
+  const kenteken = document.getElementById('chatInput').value.toUpperCase();
+  const vehicle = mockVehicles.find(v => v.kenteken === kenteken) || allVehicles.find(v => v.kenteken === kenteken);
+
+  const messagesDiv = document.getElementById('chatMessages');
+  const userBubble = document.createElement('div');
+  userBubble.className = 'chat-bubble bg-ac-accent text-ac-bg rounded-lg p-3 text-sm ml-8';
+  userBubble.textContent = `Kenteken: ${kenteken}`;
+  messagesDiv.appendChild(userBubble);
+
+  if (vehicle) {
+    const botBubble = document.createElement('div');
+    botBubble.className = 'chat-bubble bg-ac-bg rounded-lg p-3 text-sm mt-2';
+    botBubble.innerHTML = `
+      <div class="font-medium text-ac-accent mb-2">Gegevens gevonden:</div>
+      <div class="text-ac-muted text-sm space-y-1">
+        <div><strong>Merk:</strong> ${vehicle.brand}</div>
+        <div><strong>Model:</strong> ${vehicle.model}</div>
+        <div><strong>Bouwjaar:</strong> ${vehicle.year}</div>
+        <div><strong>Brandstof:</strong> ${vehicle.fuel}</div>
+      </div>
+    `;
+    setTimeout(() => messagesDiv.appendChild(botBubble), 300);
+  } else {
+    const botBubble = document.createElement('div');
+    botBubble.className = 'chat-bubble bg-ac-bg rounded-lg p-3 text-sm mt-2';
+    botBubble.innerHTML = '<div class="text-red-400">Kenteken niet gevonden. Probeer opnieuw of login in uw account.</div>';
+    setTimeout(() => messagesDiv.appendChild(botBubble), 300);
+  }
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+async function handleLogin() {
+  const email = document.getElementById('authEmail').value;
+  const password = document.getElementById('authPassword').value;
+  const errorDiv = document.getElementById('authError');
+
+  if (!email || !password) {
+    errorDiv.textContent = 'Vul alle velden in.';
+    errorDiv.classList.remove('hidden');
+    return;
+  }
+
+  const user = allUsers.find(u => u.user_email === email && u.user_password === password);
+  if (user) {
+    currentUser = user;
+    toggleAuthModal();
+    document.getElementById('authToggleBtn').textContent = 'Dashboard';
+    document.getElementById('authToggleBtn').onclick = () => navigate('dashboard');
+    navigate('dashboard');
+    lucide.createIcons();
+  } else {
+    errorDiv.textContent = 'E-mail of wachtwoord onjuist.';
+    errorDiv.classList.remove('hidden');
+  }
+}
+
+async function handleSignup() {
+  const name = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
+  const phone = document.getElementById('signupPhone').value;
+  const errorDiv = document.getElementById('authError');
+
+  if (!name || !email || !password || !phone) {
+    errorDiv.textContent = 'Vul alle velden in.';
+    errorDiv.classList.remove('hidden');
+    return;
+  }
+
+  const result = await window.dataSdk.create({
+    record_type: 'user',
+    user_id: Date.now().toString(),
+    user_name: name,
+    user_email: email,
+    user_password: password,
+    user_phone: phone,
+    is_admin: 'false',
+    created_at: new Date().toISOString()
+  });
+
+  if (result.isOk) {
+    errorDiv.textContent = '';
+    errorDiv.classList.add('hidden');
+    showToast('✓ Account aangemaakt! Je kunt nu inloggen.');
+    toggleSignupForm();
+    document.getElementById('authEmail').value = email;
+    document.getElementById('authPassword').value = password;
+  }
+}
+
+function handleLogout() {
+  currentUser = null;
+  document.getElementById('authToggleBtn').textContent = 'Inloggen';
+  document.getElementById('authToggleBtn').onclick = () => toggleAuthModal();
+  navigate('home');
+  lucide.createIcons();
+}
+
+// Filter & Sort Vehicles
+function applyFiltersAndSort() {
+  let vehicles = [...mockVehicles, ...allVehicles];
+  
+  vehicles = vehicles.filter(v => {
+    const priceOk = v.price >= currentFilters.prijs_min && v.price <= currentFilters.prijs_max;
+    const merkOk = !currentFilters.merk || v.brand.toLowerCase().includes(currentFilters.merk.toLowerCase());
+    const fuelOk = !currentFilters.brandstof || v.fuel === currentFilters.brandstof;
+    const transOk = !currentFilters.transmissie || v.transmission === currentFilters.transmissie;
+    return priceOk && merkOk && fuelOk && transOk;
+  });
+
+  if (currentSortBy === 'prijs-laag') vehicles.sort((a, b) => a.price - b.price);
+  if (currentSortBy === 'prijs-hoog') vehicles.sort((a, b) => b.price - a.price);
+  if (currentSortBy === 'nieuw') vehicles.sort((a, b) => b.year - a.year);
+  if (currentSortBy === 'km') vehicles.sort((a, b) => a.km - b.km);
+
+  filteredVehicles = vehicles;
+  renderOccasions();
+}
+
+function renderOccasions() {
+  const vehiclesHtml = filteredVehicles.map((v, i) => `
+    <div class="card-hover bg-ac-surface border border-white/5 rounded-xl overflow-hidden text-left fade-in stagger-${Math.min(i + 1, 6)} vehicle-card">
+      <div class="h-40 bg-gradient-to-br from-ac-accent/5 to-transparent flex items-center justify-center relative overflow-hidden">
+        <img src="${CAR_IMAGE_URL}" alt="${v.brand} ${v.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.background='#f5f5f5'">
+        ${v.status === 'gereserveerd' ? '<div class="badge bg-yellow-400 text-yellow-900 px-3 py-1 rounded text-xs font-semibold">Gereserveerd</div>' : '<div class="badge bg-green-500 text-white px-3 py-1 rounded text-xs font-semibold">Beschikbaar</div>'}
+      </div>
+      <div class="p-5">
+        <h3 class="font-heading font-semibold text-lg">${v.brand} ${v.model}</h3>
+        <div class="flex flex-wrap gap-2 mt-2 text-xs text-ac-muted">
+          <span class="bg-white/5 px-2.5 py-1 rounded">${v.year}</span>
+          <span class="bg-white/5 px-2.5 py-1 rounded">${v.km.toLocaleString('nl-NL')} km</span>
+          <span class="bg-white/5 px-2.5 py-1 rounded">${v.fuel}</span>
+        </div>
+        <div class="mt-4 flex items-center justify-between">
+          <div class="text-ac-accent font-heading font-bold text-xl">€ ${v.price.toLocaleString('nl-NL')},-</div>
+          <button onclick="navigate('vehicle-${v.vehicle_id}')" class="text-ac-accent hover:text-ac-accent text-sm font-medium">Details →</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  const filterHtml = `
+    <div class="bg-ac-surface border border-white/5 rounded-xl p-5 space-y-4">
+      <div>
+        <label class="block text-sm font-medium mb-2">Sorteer op</label>
+        <select onchange="currentSortBy = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+          <option value="prijs-laag">Prijs laag → hoog</option>
+          <option value="prijs-hoog">Prijs hoog → laag</option>
+          <option value="nieuw">Nieuwste eerst</option>
+          <option value="km">Laagste kilometerstand</option>
+        </select>
+      </div>
+      <div class="border-t border-white/5 pt-4">
+        <label class="block text-sm font-medium mb-2">Merk</label>
+        <input type="text" placeholder="Zoeken..." onchange="currentFilters.merk = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Brandstof</label>
+        <select onchange="currentFilters.brandstof = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+          <option value="">Alles</option>
+          <option value="Benzine">Benzine</option>
+          <option value="Diesel">Diesel</option>
+          <option value="Hybride">Hybride</option>
+          <option value="Elektrisch">Elektrisch</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Transmissie</label>
+        <select onchange="currentFilters.transmissie = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+          <option value="">Alles</option>
+          <option value="Handgeschakeld">Handgeschakeld</option>
+          <option value="Automatisch">Automatisch</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Prijs: € ${currentFilters.prijs_min.toLocaleString('nl-NL')} - € ${currentFilters.prijs_max.toLocaleString('nl-NL')}</label>
+        <div class="flex gap-2">
+          <input type="number" placeholder="Min" value="${currentFilters.prijs_min}" onchange="currentFilters.prijs_min = parseInt(this.value) || 0; applyFiltersAndSort()" class="flex-1 bg-ac-bg border border-white/10 rounded px-2 py-2 text-xs">
+          <input type="number" placeholder="Max" value="${currentFilters.prijs_max}" onchange="currentFilters.prijs_max = parseInt(this.value) || 100000; applyFiltersAndSort()" class="flex-1 bg-ac-bg border border-white/10 rounded px-2 py-2 text-xs">
+        </div>
+      </div>
+    </div>
+  `;
+
+  const occasionsContent = document.getElementById('mainContent');
+  if (occasionsContent) {
+    const existingFilter = occasionsContent.querySelector('[data-filter-panel]');
+    if (!existingFilter) return;
+    
+    const vehicleGrid = existingFilter.nextElementSibling;
+    if (vehicleGrid) {
+      vehicleGrid.innerHTML = vehiclesHtml || '<div class="col-span-full text-center text-ac-muted">Geen auto\'s gevonden</div>';
+      lucide.createIcons();
+    }
+  }
+}
+
+function renderDashboard() {
+  if (!currentUser) return navigate('home');
+  
+  const userAppointments = allAppointments.filter(a => a.user_id === currentUser.user_id);
+  const apptHtml = userAppointments.map(a => `
+    <div class="bg-ac-surface border border-white/5 rounded-lg p-4">
+      <div class="flex items-center justify-between mb-2">
+        <div class="font-medium text-sm">${a.service}</div>
+        <span class="status-badge status-${a.appointment_status === 'bevestigd' ? 'ready' : a.appointment_status === 'pending' ? 'pending' : 'repairing'}">
+          ${a.appointment_status === 'bevestigd' ? '✓ Bevestigd' : a.appointment_status === 'pending' ? '⏳ Wacht' : '⚠ Annuleren'}
+        </span>
+      </div>
+      <div class="text-xs text-ac-muted space-y-1">
+        <div>${a.date} om ${a.time}</div>
+        <div>Kenteken: ${a.kenteken}</div>
+      </div>
+      <div class="flex gap-2 mt-3">
+        <button onclick="editAppointment('${a.__backendId}')" class="text-xs bg-white/5 hover:bg-white/10 px-2 py-1.5 rounded transition">Wijzigen</button>
+        <button onclick="cancelAppointmentDB('${a.__backendId}')" class="text-xs bg-red-400/10 hover:bg-red-400/20 px-2 py-1.5 rounded text-red-300 transition">Annuleren</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('mainContent').innerHTML = `
+    <section class="max-w-4xl mx-auto px-4 py-12">
+      <div class="flex items-center justify-between mb-8">
+        <h1 class="font-heading text-3xl font-bold">Mijn Dashboard</h1>
+        <button onclick="handleLogout()" class="text-ac-accent text-sm hover:underline">Uitloggen</button>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-ac-surface border border-white/5 rounded-lg p-4">
+          <div class="text-xs text-ac-muted mb-1">Naam</div>
+          <div class="font-medium">${currentUser.user_name}</div>
+        </div>
+        <div class="bg-ac-surface border border-white/5 rounded-lg p-4">
+          <div class="text-xs text-ac-muted mb-1">Email</div>
+          <div class="font-medium text-sm">${currentUser.user_email}</div>
+        </div>
+        <div class="bg-ac-surface border border-white/5 rounded-lg p-4">
+          <div class="text-xs text-ac-muted mb-1">Telefoon</div>
+          <div class="font-medium">${currentUser.user_phone}</div>
+        </div>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="font-heading font-semibold text-lg mb-4">📅 Mijn Afspraken</h2>
+        <div class="space-y-3">
+          ${apptHtml || '<div class="text-ac-muted text-sm">Geen afspraken gepland.</div>'}
+        </div>
+        <button onclick="navigate('afspraak')" class="mt-4 bg-ac-accent text-ac-bg font-semibold px-4 py-2.5 rounded-lg text-sm hover:brightness-110 transition">Nieuwe afspraak</button>
+      </div>
+
+      <div class="mb-8">
+        <h2 class="font-heading font-semibold text-lg mb-4">⭐ Favorieten</h2>
+        <div class="bg-ac-surface border border-white/5 rounded-lg p-4">
+          <div class="text-sm text-ac-muted">Nog geen favorieten opgeslagen. Blader door de <button onclick="navigate('occasions')" class="text-ac-accent hover:underline">occasions</button></div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+async function cancelAppointmentDB(id) {
+  const appt = allAppointments.find(a => a.__backendId === id);
+  if (!appt) return;
+  const result = await window.dataSdk.delete(appt);
+  if (result.isOk) {
+    renderDashboard();
+  }
+}
+
+function editAppointment(id) {
+  navigate('afspraak');
+}
+
+// ─── PAGES ───
+function getPageContent(page) {
+  if (page === 'home') return homePage();
+  if (page === 'werkplaats') return werkplaatsPage();
+  if (page === 'occasions') return occasionsPage();
+  if (page === 'offerta') return offertaPage();
+  if (page === 'contact') return contactPage();
+  if (page.startsWith('service-')) return serviceDetailPage(page.replace('service-', ''));
+  if (page.startsWith('vehicle-')) return vehicleDetailPage(page.replace('vehicle-', ''));
+  return homePage();
+}
+
+function homePage() {
+  return `
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background:radial-gradient(ellipse at 30% 20%, #1e3a8a 0%, transparent 60%)"></div>
+    <div class="max-w-7xl mx-auto px-4 pt-16 pb-20 relative">
+      <div class="max-w-2xl fade-in">
+        <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">Uw auto in vertrouwde handen</h1>
+        <p class="text-ac-muted text-lg sm:text-xl mb-8">APK, onderhoud, reparatie & occasions in Zaandam</p>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="navigate('occasions')" class="bg-ac-accent text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition">Bekijk occasions</button>
+          <button onclick="navigate('contact')" class="border border-ac-accent text-ac-accent font-semibold px-6 py-3 rounded-lg hover:bg-ac-accent hover:text-white transition">Contacteer ons</button>
+        </div>
+      </div>
+      <div class="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4 fade-in stagger-2">
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-4 text-center">
+          <div class="text-2xl font-heading font-bold text-ac-accent">4.650+</div>
+          <div class="text-sm text-ac-muted mt-1">Beoordelingen</div>
+        </div>
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-4 text-center">
+          <div class="text-2xl font-heading font-bold text-ac-accent">30+</div>
+          <div class="text-sm text-ac-muted mt-1">Jaar ervaring</div>
+        </div>
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-4 text-center">
+          <div class="text-2xl font-heading font-bold text-ac-accent">RDW</div>
+          <div class="text-sm text-ac-muted mt-1">Erkend</div>
+        </div>
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-4 text-center">
+          <div class="text-2xl font-heading font-bold text-ac-accent">24/7</div>
+          <div class="text-sm text-ac-muted mt-1">Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 py-16">
+    <h2 class="font-heading text-2xl sm:text-3xl font-bold mb-8">Onze diensten</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      ${servicesList.map((s, i) => `
+        <button onclick="navigate('service-${s.id}')" class="card-hover bg-ac-surface border border-white/5 rounded-xl p-6 text-left fade-in stagger-${Math.min(i + 1, 6)}">
+          <i data-lucide="${s.icon}" style="width:24px;height:24px;color:#1e3a8a;margin-bottom:1rem"></i>
+          <h3 class="font-heading font-semibold text-lg mb-1">${s.title}</h3>
+          <p class="text-ac-muted text-sm mb-3">${s.desc}</p>
+          <span class="text-ac-accent text-sm font-medium">${s.price}</span>
+        </button>
+      `).join('')}
+    </div>
+  </section>
+  `;
+}
+
+function werkplaatsPage() {
+  return `
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-8 fade-in">Werkplaats Diensten</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      ${servicesList.map((s, i) => `
+        <button onclick="navigate('service-${s.id}')" class="card-hover bg-ac-surface border border-white/5 rounded-xl p-6 text-left fade-in stagger-${Math.min(i + 1, 6)}">
+          <i data-lucide="${s.icon}" style="width:28px;height:28px;color:#1e3a8a;margin-bottom:1rem"></i>
+          <h3 class="font-heading font-semibold text-lg mb-2">${s.title}</h3>
+          <p class="text-ac-muted text-sm mb-3">${s.desc}</p>
+          <div class="flex items-center justify-between">
+            <span class="text-ac-accent font-medium">${s.price}</span>
+            <i data-lucide="arrow-right" style="width:16px;height:16px;color:#1e3a8a"></i>
+          </div>
+        </button>
+      `).join('')}
+    </div>
+  </section>`;
+}
+
+function serviceDetailPage(id) {
+  const service = servicesList.find(s => s.id === id);
+  if (!service) return werkplaatsPage();
+  return `
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <button onclick="navigate('werkplaats')" class="text-ac-muted text-sm hover:text-ac-text flex items-center gap-1 mb-6"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> Terug</button>
+    <div class="fade-in">
+      <i data-lucide="${service.icon}" style="width:48px;height:48px;color:#1e3a8a;margin-bottom:1.5rem"></i>
+      <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-2">${service.title}</h1>
+      <p class="text-ac-accent font-medium mb-6">${service.price}</p>
+      <p class="text-ac-muted leading-relaxed mb-8">${service.desc}</p>
+      <div class="bg-ac-accent/10 border border-ac-accent/20 rounded-xl p-6 text-center fade-in stagger-1">
+        <h3 class="font-heading font-semibold text-lg mb-3">Bereid voor afspraak?</h3>
+        <button onclick="navigate('afspraak')" class="bg-ac-accent text-white font-semibold px-6 py-3 rounded-lg hover:brightness-110 transition">Plan nu in</button>
+      </div>
+    </div>
+  </section>`;
+}
+
+function occasionsPage() {
+  applyFiltersAndSort();
+  return `
+  <section class="max-w-7xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-2 fade-in">Occasions</h1>
+    <p class="text-ac-muted mb-8 fade-in stagger-1">Volledig nagekeken en gegarandeerd</p>
+    <div class="grid lg:grid-cols-4 gap-6">
+      <div data-filter-panel>${`
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-5 space-y-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Sorteer op</label>
+            <select onchange="currentSortBy = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+              <option value="prijs-laag">Prijs laag → hoog</option>
+              <option value="prijs-hoog">Prijs hoog → laag</option>
+              <option value="nieuw">Nieuwste eerst</option>
+              <option value="km">Laagste kilometerstand</option>
+            </select>
+          </div>
+          <div class="border-t border-white/5 pt-4">
+            <label class="block text-sm font-medium mb-2">Merk</label>
+            <input type="text" placeholder="Zoeken..." onchange="currentFilters.merk = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Brandstof</label>
+            <select onchange="currentFilters.brandstof = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+              <option value="">Alles</option>
+              <option value="Benzine">Benzine</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Hybride">Hybride</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Transmissie</label>
+            <select onchange="currentFilters.transmissie = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
+              <option value="">Alles</option>
+              <option value="Handgeschakeld">Handgeschakeld</option>
+              <option value="Automatisch">Automatisch</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Prijs: € ${currentFilters.prijs_min.toLocaleString('nl-NL')} - € ${currentFilters.prijs_max.toLocaleString('nl-NL')}</label>
+            <div class="flex gap-2">
+              <input type="number" placeholder="Min" value="${currentFilters.prijs_min}" onchange="currentFilters.prijs_min = parseInt(this.value) || 0; applyFiltersAndSort()" class="flex-1 bg-ac-bg border border-white/10 rounded px-2 py-2 text-xs">
+              <input type="number" placeholder="Max" value="${currentFilters.prijs_max}" onchange="currentFilters.prijs_max = parseInt(this.value) || 100000; applyFiltersAndSort()" class="flex-1 bg-ac-bg border border-white/10 rounded px-2 py-2 text-xs">
+            </div>
+          </div>
+        </div>
+      `}</div>
+      <div class="lg:col-span-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          ${filteredVehicles.map((v, i) => `
+            <div class="card-hover bg-ac-surface border border-white/5 rounded-xl overflow-hidden text-left fade-in stagger-${Math.min(i + 1, 6)} vehicle-card">
+              <div class="h-40 bg-gradient-to-br from-ac-accent/5 to-transparent flex items-center justify-center relative overflow-hidden">
+                <img src="${CAR_IMAGE_URL}" alt="${v.brand} ${v.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.background='#f5f5f5'">
+                ${v.status === 'gereserveerd' ? '<div class="badge bg-yellow-400 text-yellow-900 px-3 py-1 rounded text-xs font-semibold">Gereserveerd</div>' : '<div class="badge bg-green-500 text-white px-3 py-1 rounded text-xs font-semibold">Beschikbaar</div>'}
+              </div>
+              <div class="p-5">
+                <h3 class="font-heading font-semibold text-lg">${v.brand} ${v.model}</h3>
+                <div class="flex flex-wrap gap-2 mt-2 text-xs text-ac-muted">
+                  <span class="bg-white/5 px-2.5 py-1 rounded">${v.year}</span>
+                  <span class="bg-white/5 px-2.5 py-1 rounded">${v.km.toLocaleString('nl-NL')} km</span>
+                  <span class="bg-white/5 px-2.5 py-1 rounded">${v.fuel}</span>
+                </div>
+                <div class="mt-4 flex items-center justify-between">
+                  <div class="text-ac-accent font-heading font-bold text-xl">€ ${v.price.toLocaleString('nl-NL')},-</div>
+                  <button onclick="navigate('vehicle-${v.vehicle_id}')" class="text-ac-accent hover:text-ac-accent text-sm font-medium">Details →</button>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function vehicleDetailPage(id) {
+  let vehicle = mockVehicles.find(v => v.vehicle_id === id) || allVehicles.find(v => v.vehicle_id === id);
+  if (!vehicle) return occasionsPage();
+  return `
+  <section class="max-w-4xl mx-auto px-4 py-12">
+    <button onclick="navigate('occasions')" class="text-ac-muted text-sm hover:text-ac-text flex items-center gap-1 mb-6"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> Terug</button>
+    <div class="grid md:grid-cols-2 gap-8">
+      <div class="fade-in">
+        <div class="h-64 bg-gradient-to-br from-ac-accent/5 to-transparent rounded-xl flex items-center justify-center mb-4 overflow-hidden">
+          <img src="${CAR_IMAGE_URL}" alt="${vehicle.brand} ${vehicle.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.background='#f5f5f5'">
+        </div>
+      </div>
+      <div class="fade-in stagger-1">
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="font-heading text-3xl font-bold">${vehicle.brand} ${vehicle.model}</h1>
+          <button onclick="alert('Toegevoegd aan favorieten!')" class="text-ac-accent hover:text-ac-accent text-2xl">♡</button>
+        </div>
+        <p class="text-ac-muted mb-6">Kenteken: ${vehicle.kenteken}</p>
+        <div class="bg-ac-accent/10 border border-ac-accent/20 rounded-lg p-4 mb-6">
+          <div class="text-3xl font-heading font-bold text-ac-accent">€ ${vehicle.price.toLocaleString('nl-NL')},-</div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Bouwjaar</div>
+            <div class="font-semibold">${vehicle.year}</div>
+          </div>
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Kilometerstand</div>
+            <div class="font-semibold">${vehicle.km.toLocaleString('nl-NL')} km</div>
+          </div>
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Brandstof</div>
+            <div class="font-semibold">${vehicle.fuel}</div>
+          </div>
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Vermogen</div>
+            <div class="font-semibold">${vehicle.pk} PK</div>
+          </div>
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Transmissie</div>
+            <div class="font-semibold">${vehicle.transmission}</div>
+          </div>
+          <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
+            <div class="text-xs text-ac-muted mb-1">Status</div>
+            <div class="font-semibold">${vehicle.status === 'beschikbaar' ? '✓ Beschikbaar' : '⏳ Gereserveerd'}</div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-3">
+          <button onclick="navigate('offerta')" class="bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition">Offerta aanvragen</button>
+          <button onclick="redirectWhatsApp()" class="bg-green-500 text-white font-semibold py-3 rounded-lg hover:brightness-110 transition flex items-center justify-center gap-2">
+            <i data-lucide="message-circle" style="width:18px;height:18px"></i> WhatsApp Info
+          </button>
+          <a href="tel:0206327582" class="border border-ac-accent text-ac-accent font-semibold py-3 rounded-lg hover:bg-ac-accent hover:text-white transition text-center">Bel ons: 020-632 75 82</a>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function afspraakPage() {
+  return `
+  <section class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-8 fade-in">Afspraak maken</h1>
+    <form id="appointmentForm" onsubmit="submitAppointment(event)" class="space-y-6 fade-in stagger-1">
+      <div>
+        <label class="block text-sm font-medium mb-2">Dienst</label>
+        <select id="apptService" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          <option value="">Selecteer een dienst...</option>
+          ${servicesList.map(s => `<option value="${s.id}">${s.title}</option>`).join('')}
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Kenteken</label>
+        <input type="text" id="apptKenteken" placeholder="AB-123-CD" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm uppercase">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Datum</label>
+          <input type="date" id="apptDate" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Tijd</label>
+          <select id="apptTime" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+            <option value="">Kies tijd...</option>
+            ${['08:00','09:00','10:00','11:00','13:00','14:00','15:00','16:00'].map(t => `<option value="${t}">${t}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-2">Uw naam</label>
+        <input type="text" id="apptName" value="${currentUser?.user_name || ''}" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium mb-2">Email</label>
+          <input type="email" id="apptEmail" value="${currentUser?.user_email || ''}" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2">Telefoon</label>
+          <input type="tel" id="apptPhone" value="${currentUser?.user_phone || ''}" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition text-base">Afspraak bevestigen</button>
+    </form>
+  </section>`;
+}
+
+function offertaPage() {
+  return `
+  <section class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-8 fade-in">Offerta aanvragen</h1>
+    <form id="offertaForm" onsubmit="submitOfferta(event)" class="space-y-6 fade-in stagger-1">
+      
+      <div class="border-b border-ac-surface pb-6">
+        <h2 class="font-heading font-semibold text-lg mb-4">Uw gegevens</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Naam *</label>
+            <input type="text" id="offNaam" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Bedrijf</label>
+            <input type="text" id="offBedrijf" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Email *</label>
+            <input type="email" id="offEmail" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Telefoon *</label>
+            <input type="tel" id="offTelefoon" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          </div>
+        </div>
+      </div>
+
+      <div class="border-b border-ac-surface pb-6">
+        <h2 class="font-heading font-semibold text-lg mb-4">Voertuig gegevens</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Voertuigtype *</label>
+            <select id="offVoertuigtype" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+              <option value="">Selecteer...</option>
+              <option value="Auto">Auto</option>
+              <option value="SUV">SUV</option>
+              <option value="Bestelwagen">Bestelwagen</option>
+              <option value="Truck">Truck</option>
+              <option value="Overig">Overig</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Merk *</label>
+            <input type="text" id="offMerk" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="bijv. BMW">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Model *</label>
+            <input type="text" id="offModel" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="bijv. 320i">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Bouwjaar</label>
+            <input type="number" id="offBouwjaar" min="1990" max="2030" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Kilometerstand</label>
+            <input type="number" id="offKm" min="0" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="bijv. 120000">
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Brandstof</label>
+            <select id="offBrandstof" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+              <option value="">Selecteer...</option>
+              <option value="Benzine">Benzine</option>
+              <option value="Diesel">Diesel</option>
+              <option value="Hybride">Hybride</option>
+              <option value="Elektrisch">Elektrisch</option>
+              <option value="LPG">LPG</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2 mt-4">Transmissie</label>
+          <select id="offTransmissie" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+            <option value="">Selecteer...</option>
+            <option value="Handgeschakeld">Handgeschakeld</option>
+            <option value="Automatisch">Automatisch</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="border-b border-ac-surface pb-6">
+        <h2 class="font-heading font-semibold text-lg mb-4">Offerta details</h2>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-2">Dienst *</label>
+            <select id="offDienst" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm">
+              <option value="">Selecteer...</option>
+              <option value="Verkoop">Verkoop</option>
+              <option value="Inruil">Inruil</option>
+              <option value="Reparatie">Reparatie</option>
+              <option value="APK">APK</option>
+              <option value="Onderhoud">Onderhoud</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-2">Budget *</label>
+            <input type="text" id="offBudget" required class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="bijv. €15.000">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-2 mt-4">Inruil mogelijkheid?</label>
+          <div class="flex gap-4">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="inruil" value="Ja" class="w-4 h-4 cursor-pointer">
+              <span class="text-sm">Ja, ik heb een auto in ruil</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="radio" name="inruil" value="Nee" checked class="w-4 h-4 cursor-pointer">
+              <span class="text-sm">Nee, geen inruil</span>
+            </label>
+          </div>
+        </div>
+        <div class="mt-4">
+          <label class="block text-sm font-medium mb-2">Omschrijving / Opmerkingen</label>
+          <textarea id="offOmschrijving" rows="4" class="w-full bg-ac-surface border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="Beschrijf uw situatie..."></textarea>
+        </div>
+      </div>
+
+      <button type="submit" id="submitOffertaBtn" class="w-full bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition text-base flex items-center justify-center gap-2">
+        <span>Offerta versturen</span>
+      </button>
+    </form>
+  </section>`;
+}
+
+async function submitOfferta(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitOffertaBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<span class="loading-spinner"></span> Verzenden...';
+  btn.disabled = true;
+
+  const offertaData = {
+    Naam: document.getElementById('offNaam').value,
+    Email: document.getElementById('offEmail').value,
+    Telefoon: document.getElementById('offTelefoon').value,
+    Bedrijf: document.getElementById('offBedrijf').value,
+    Dienst: document.getElementById('offDienst').value,
+    Voertuigtype: document.getElementById('offVoertuigtype').value,
+    Merk: document.getElementById('offMerk').value,
+    Model: document.getElementById('offModel').value,
+    Bouwjaar: document.getElementById('offBouwjaar').value,
+    Kilometerstand: document.getElementById('offKm').value,
+    Brandstof: document.getElementById('offBrandstof').value,
+    Transmissie: document.getElementById('offTransmissie').value,
+    Budget: document.getElementById('offBudget').value,
+    Inruil: document.querySelector('input[name="inruil"]:checked').value,
+    Omschrijving: document.getElementById('offOmschrijving').value
+  };
+
+  const result = await sendToGoogleSheet('offertes', offertaData);
+
+  btn.innerHTML = originalText;
+  btn.disabled = false;
+
+  if (result.success) {
+    showToast('✓ Offerta succesvol verzonden! Wij nemen snel contact op.');
+    document.getElementById('offertaForm').reset();
+    setTimeout(() => navigate('home'), 2000);
+  } else {
+    showToast('❌ Fout bij verzenden. Probeer opnieuw.', 'error');
+  }
+}
+
+async function submitContact(e) {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitContactBtn');
+  const originalText = btn.innerHTML;
+  btn.innerHTML = '<span class="loading-spinner"></span> Verzenden...';
+  btn.disabled = true;
+
+  const contactData = {
+    Naam: document.getElementById('contactNaam').value,
+    Email: document.getElementById('contactEmail').value,
+    Telefoon: document.getElementById('contactTelefoon').value,
+    Onderwerp: document.getElementById('contactOnderwerp').value,
+    Bericht: document.getElementById('contactBericht').value
+  };
+
+  const result = await sendToGoogleSheet('Berichten', contactData);
+
+  btn.innerHTML = originalText;
+  btn.disabled = false;
+
+  if (result.success || result.status === 'success') {
+    document.getElementById('contactStatus').classList.remove('hidden');
+    document.getElementById('contactForm').reset();
+    setTimeout(() => {
+      document.getElementById('contactStatus').classList.add('hidden');
+    }, 4000);
+  } else {
+    showToast('❌ Fout bij verzenden. Probeer opnieuw.', 'error');
+  }
+}
+
+function contactPage() {
+  return `
+  <section class="max-w-2xl mx-auto px-4 py-12">
+    <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-8 fade-in">Contact</h1>
+    
+    <form id="contactForm" onsubmit="submitContact(event)" class="bg-ac-surface border border-white/5 rounded-xl p-6 mb-8 space-y-6 fade-in stagger-1">
+      <h2 class="font-heading font-semibold text-lg">Laat een bericht achter</h2>
+      
+      <div>
+        <label class="block text-sm font-medium mb-2">Naam *</label>
+        <input type="text" id="contactNaam" required class="w-full bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm">
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-2">Email *</label>
+        <input type="email" id="contactEmail" required class="w-full bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm">
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-2">Telefoon</label>
+        <input type="tel" id="contactTelefoon" class="w-full bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm">
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-2">Onderwerp</label>
+        <input type="text" id="contactOnderwerp" class="w-full bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="Bijv. Vraag over APK">
+      </div>
+      
+      <div>
+        <label class="block text-sm font-medium mb-2">Bericht *</label>
+        <textarea id="contactBericht" required rows="5" class="w-full bg-ac-bg border border-white/10 rounded-lg px-4 py-3 text-sm" placeholder="Uw bericht..."></textarea>
+      </div>
+      
+      <button type="submit" id="submitContactBtn" class="w-full bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition text-base flex items-center justify-center gap-2">
+        <span>Verstuur bericht</span>
+      </button>
+      
+      <div id="contactStatus" class="hidden bg-ac-surface border border-green-400/30 text-green-300 text-sm p-4 rounded-lg flex items-center gap-2">
+        <i data-lucide="check-circle" style="width:16px;height:16px"></i>
+        <span>Bedankt! Uw bericht is verzonden.</span>
+      </div>
+    </form>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-ac-surface border border-white/5 rounded-xl p-5 fade-in stagger-2">
+        <h3 class="font-heading font-semibold mb-4">Bezoekadres</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex gap-3 items-start">
+            <i data-lucide="map-pin" style="width:16px;height:16px;color:#1e3a8a;flex-shrink:0;margin-top:2px"></i>
+            <div>
+              <div class="font-medium">Tienlingstraat 8</div>
+              <div class="text-ac-muted">1507DD Zaandam</div>
+            </div>
+          </div>
+          <a href="tel:0206327582" class="flex gap-3 items-center hover:text-ac-accent">
+            <i data-lucide="phone" style="width:16px;height:16px;color:#1e3a8a;flex-shrink:0"></i>
+            <span class="font-medium">020-632 75 82</span>
+          </a>
+          <a href="mailto:info@auto-control.nl" class="flex gap-3 items-center hover:text-ac-accent">
+            <i data-lucide="mail" style="width:16px;height:16px;color:#1e3a8a;flex-shrink:0"></i>
+            <span class="font-medium">info@auto-control.nl</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="bg-ac-surface border border-white/5 rounded-xl p-5 fade-in stagger-3">
+        <h3 class="font-heading font-semibold mb-4">Openingstijden</h3>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-ac-muted">Maandag - Vrijdag</span><span class="font-medium">08:00 - 17:30</span></div>
+          <div class="flex justify-between"><span class="text-ac-muted">Zaterdag</span><span class="font-medium">09:00 - 14:00</span></div>
+          <div class="flex justify-between"><span class="text-ac-muted">Zondag</span><span class="font-medium text-red-400">Gesloten</span></div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function dashboardPage() {
+  if (!currentUser) return homePage();
+  renderDashboard();
+  return '<div id="dashboardContent"></div>';
+}
+
+// INIT
+navigate('home');
+lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec53166b36506c0',t:'MTc3NjE5NTczOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

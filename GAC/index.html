@@ -77,34 +77,44 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
  <body class="h-full bg-ac-bg text-ac-text font-body">
   <div class="app-root scrollbar-hide" id="app">
    <header class="sticky top-0 z-50 bg-ac-bg/95 backdrop-blur border-b border-ac-surface" id="siteHeader">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between"><button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
-     <nav class="hidden md:flex items-center gap-8 text-sm font-medium"><button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+     <button onclick="navigate('home')" class="flex items-center gap-3 font-heading font-bold text-lg tracking-tight hover:opacity-90 transition"> <img src="https://i.postimg.cc/zDH8wBbh/AUTOCONTROLLOGOV1.png" alt="Auto Control Logo" style="width:40px;height:40px;object-fit:contain" loading="lazy" onerror="console.error('Logo failed to load:', this.src); this.style.background='#f5f5f5';"> <span class="hidden sm:inline">AUTO CONTROL</span> </button>
+     <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <button onclick="navigate('werkplaats')" class="text-ac-muted hover:text-ac-text transition">Werkplaats</button> <button onclick="navigate('occasions')" class="text-ac-muted hover:text-ac-text transition">Occasions</button> <button onclick="navigate('contact')" class="text-ac-muted hover:text-ac-text transition">Contact</button>
      </nav>
-     <div class="flex items-center gap-3"><a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
+     <div class="flex items-center gap-3">
+      <a href="tel:0206327582" class="hidden sm:flex items-center gap-1.5 text-sm font-medium text-ac-accent hover:brightness-90 transition"> <i data-lucide="phone" style="width:16px;height:16px"></i>020-632 75 82 </a> <button id="authToggleBtn" onclick="toggleAuthModal()" class="btn-primary text-sm px-4 py-2">Inloggen</button> <button onclick="toggleMobileMenu()" class="md:hidden p-2 hover:bg-ac-surface rounded transition"> <i data-lucide="menu" style="width:20px;height:20px"></i> </button>
      </div>
     </div>
     <div id="mobileMenu" class="hidden md:hidden border-t border-ac-surface bg-ac-bg px-4 pb-4 pt-2">
-     <div class="flex flex-col gap-1"><button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
+     <div class="flex flex-col gap-1">
+      <button onclick="navigate('home');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Home</button> <button onclick="navigate('werkplaats');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Werkplaats</button> <button onclick="navigate('occasions');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Occasions</button> <button onclick="navigate('contact');toggleMobileMenu()" class="text-left py-2.5 px-3 rounded hover:bg-ac-surface text-sm">Contact</button>
      </div>
     </div>
    </header><a href="https://wa.me/31206327582?text=Hallo%20Auto%20Control" target="_blank" rel="noopener noreferrer" class="md:hidden fixed bottom-24 right-5 z-40 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition"> <i data-lucide="message-circle" style="width:22px;height:22px;color:#fff"></i> </a> <button onclick="toggleChat()" class="md:hidden fixed bottom-5 right-5 z-40 w-14 h-14 bg-ac-accent rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition text-white"> <i data-lucide="message-square" style="width:22px;height:22px"></i> </button> <!-- AUTH MODAL -->
    <div id="authModal" class="hidden fixed inset-0 z-50 bg-black/20 flex items-center justify-center p-4">
     <div class="bg-ac-bg border border-ac-surface rounded-lg max-w-md w-full p-6 max-h-96 overflow-y-auto shadow-lg">
-     <div class="flex items-center justify-between mb-4"><span class="font-heading font-bold text-lg">Mijn Account</span> <button onclick="toggleAuthModal()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:18px;height:18px"></i> </button>
+     <div class="flex items-center justify-between mb-4">
+      <span class="font-heading font-bold text-lg">Mijn Account</span> <button onclick="toggleAuthModal()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:18px;height:18px"></i> </button>
      </div>
-     <div id="authForm" class="space-y-3"><input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
-      <div class="flex gap-2"><button onclick="handleLogin()" class="flex-1 btn-primary text-sm py-2">Inloggen</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Registreren</button>
+     <div id="authForm" class="space-y-3">
+      <input type="email" id="authEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="authPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
+      <div class="flex gap-2">
+       <button onclick="handleLogin()" class="flex-1 btn-primary text-sm py-2">Inloggen</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Registreren</button>
       </div>
       <div id="authError" class="hidden bg-red-50 border border-red-200 text-red-700 text-xs p-2.5 rounded"></div>
      </div>
-     <div id="signupForm" class="hidden space-y-3 mt-4"><input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="signupPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
-      <div class="flex gap-2"><button onclick="handleSignup()" class="flex-1 btn-primary text-sm py-2">Account aanmaken</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Terug</button>
+     <div id="signupForm" class="hidden space-y-3 mt-4">
+      <input type="text" id="signupName" placeholder="Volledige naam" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="email" id="signupEmail" placeholder="E-mailadres" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="password" id="signupPassword" placeholder="Wachtwoord" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm"> <input type="tel" id="signupPhone" placeholder="Telefoonnummer" class="w-full bg-ac-surface border border-ac-surface rounded px-3 py-2.5 text-sm">
+      <div class="flex gap-2">
+       <button onclick="handleSignup()" class="flex-1 btn-primary text-sm py-2">Account aanmaken</button> <button onclick="toggleSignupForm()" class="flex-1 btn-secondary text-sm py-2">Terug</button>
       </div>
      </div>
     </div>
    </div><!-- CHATBOT -->
    <div id="chatContainer" class="hidden fixed bottom-0 right-0 z-50 w-full md:w-96 h-screen md:h-96 md:bottom-5 md:right-5 bg-ac-surface border-l md:border border-ac-surface rounded-none md:rounded-lg flex flex-col shadow-lg">
-    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg"><span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
+    <div class="flex items-center justify-between p-4 border-b border-ac-surface bg-ac-bg">
+     <span class="font-heading font-semibold text-sm">Support Bot 🤖</span> <button onclick="toggleChat()" class="p-1 hover:bg-ac-surface rounded transition"> <i data-lucide="x" style="width:16px;height:16px"></i> </button>
     </div>
     <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-hide">
      <div class="chat-bubble bg-ac-bg rounded p-3 text-sm">
@@ -117,9 +127,11 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
     </div>
     <div class="border-t border-ac-surface p-3 space-y-2 bg-ac-bg">
-     <div class="grid grid-cols-2 gap-2"><button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
+     <div class="grid grid-cols-2 gap-2">
+      <button onclick="chatQuestion('Wat kost een APK keuring?')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">APK prijs?</button> <button onclick="chatQuestion('Beschikbaarheid vandaag')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Vandaag open?</button> <button onclick="chatQuestion('Hoe lang duurt onderhoud')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Duur onderhoud?</button> <button onclick="chatQuestion('Status mijn auto')" class="bg-ac-surface hover:bg-ac-surface border border-ac-surface text-xs p-2 rounded transition">Auto status</button>
      </div>
-     <div class="flex gap-2"><input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
+     <div class="flex gap-2">
+      <input type="text" id="chatInput" placeholder="Kenteken..." class="flex-1 bg-ac-bg border border-ac-surface rounded px-3 py-2 text-xs"> <button onclick="checkLicensePlate()" class="btn-primary text-xs px-3 py-2"> <i data-lucide="search" style="width:14px;height:14px"></i> </button>
      </div><button onclick="redirectWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white text-xs font-medium py-2 rounded transition flex items-center justify-center gap-2"> <i data-lucide="message-circle" style="width:14px;height:14px"></i> WhatsApp Chat </button>
     </div>
    </div><!-- MAIN CONTENT -->
@@ -134,22 +146,27 @@ input:focus, select:focus, textarea:focus { outline: none; border-color: #1e3a8a
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Diensten</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
+       <button onclick="navigate('werkplaats')" class="text-left hover:text-ac-text">Werkplaats</button> <button onclick="navigate('occasions')" class="text-left hover:text-ac-text">Occasions</button> <button onclick="navigate('contact')" class="text-left hover:text-ac-text">Contact</button>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Contact</h4>
-      <div class="flex flex-col gap-1.5 text-sm text-ac-muted"><span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
+      <div class="flex flex-col gap-1.5 text-sm text-ac-muted">
+       <span>Tienlingstraat 8</span> <span>1507DD Zaandam</span> <a href="tel:0206327582" class="hover:text-ac-text">020-632 75 82</a> <a href="mailto:info@auto-control.nl" class="hover:text-ac-text">info@auto-control.nl</a>
       </div>
      </div>
      <div>
       <h4 class="font-semibold text-sm mb-3 text-ac-accent">Openingstijden</h4>
       <div class="flex flex-col gap-1 text-sm text-ac-muted">
-       <div class="flex justify-between"><span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
+       <div class="flex justify-between">
+        <span>Ma - Vr</span><span class="text-ac-text">08:00 - 17:30</span>
        </div>
-       <div class="flex justify-between"><span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
+       <div class="flex justify-between">
+        <span>Zaterdag</span><span class="text-ac-text">09:00 - 14:00</span>
        </div>
-       <div class="flex justify-between"><span>Zondag</span><span class="text-ac-text">Gesloten</span>
+       <div class="flex justify-between">
+        <span>Zondag</span><span class="text-ac-text">Gesloten</span>
        </div>
       </div>
      </div>
@@ -187,12 +204,12 @@ const defaultConfig = {
 
 // Mock vehicle database
 const mockVehicles = [
-  { vehicle_id: '1', kenteken: 'AB123CD', brand: 'Volkswagen', model: 'Golf 1.4 TSI', year: 2019, fuel: 'Benzine', transmission: 'Handgeschakeld', km: 67400, price: 18950, status: 'beschikbaar', pk: 125 },
-  { vehicle_id: '2', kenteken: 'XY789ZA', brand: 'BMW', model: '320d', year: 2018, fuel: 'Diesel', transmission: 'Automatisch', km: 89200, price: 22500, status: 'beschikbaar', pk: 190 },
-  { vehicle_id: '3', kenteken: 'AB456EF', brand: 'Toyota', model: 'Yaris 1.5', year: 2021, fuel: 'Hybride', transmission: 'Automatisch', km: 31000, price: 19750, status: 'beschikbaar', pk: 116 },
-  { vehicle_id: '4', kenteken: 'CD999AB', brand: 'Audi', model: 'A4 2.0 TFSI', year: 2017, fuel: 'Benzine', transmission: 'Automatisch', km: 125400, price: 21200, status: 'gereserveerd', pk: 190 },
-  { vehicle_id: '5', kenteken: 'EF345GH', brand: 'Mercedes', model: 'C-Klasse C200', year: 2016, fuel: 'Diesel', transmission: 'Automatisch', km: 145600, price: 20800, status: 'beschikbaar', pk: 170 },
-  { vehicle_id: '6', kenteken: 'GH678IJ', brand: 'Volvo', model: 'V60 T4', year: 2020, fuel: 'Benzine', transmission: 'Automatisch', km: 42300, price: 26500, status: 'beschikbaar', pk: 190 },
+  { vehicle_id: '1', kenteken: 'AB123CD', brand: 'Volkswagen', model: 'Golf 1.4 TSI', year: 2019, fuel: 'Benzine', transmission: 'Handgeschakeld', km: 67400, price: 18950, status: 'beschikbaar', pk: 125, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
+  { vehicle_id: '2', kenteken: 'XY789ZA', brand: 'BMW', model: '320d', year: 2018, fuel: 'Diesel', transmission: 'Automatisch', km: 89200, price: 22500, status: 'beschikbaar', pk: 190, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
+  { vehicle_id: '3', kenteken: 'AB456EF', brand: 'Toyota', model: 'Yaris 1.5', year: 2021, fuel: 'Hybride', transmission: 'Automatisch', km: 31000, price: 19750, status: 'beschikbaar', pk: 116, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
+  { vehicle_id: '4', kenteken: 'CD999AB', brand: 'Audi', model: 'A4 2.0 TFSI', year: 2017, fuel: 'Benzine', transmission: 'Automatisch', km: 125400, price: 21200, status: 'gereserveerd', pk: 190, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
+  { vehicle_id: '5', kenteken: 'EF345GH', brand: 'Mercedes', model: 'C-Klasse C200', year: 2016, fuel: 'Diesel', transmission: 'Automatisch', km: 145600, price: 20800, status: 'beschikbaar', pk: 170, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
+  { vehicle_id: '6', kenteken: 'GH678IJ', brand: 'Volvo', model: 'V60 T4', year: 2020, fuel: 'Benzine', transmission: 'Automatisch', km: 42300, price: 26500, status: 'beschikbaar', pk: 190, image: 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png' },
 ];
 
 const servicesList = [
@@ -432,7 +449,10 @@ function applyFiltersAndSort() {
   if (currentSortBy === 'nieuw') vehicles.sort((a, b) => b.year - a.year);
   if (currentSortBy === 'km') vehicles.sort((a, b) => a.km - b.km);
 
-  filteredVehicles = vehicles;
+  filteredVehicles = vehicles.map(v => ({
+    ...v,
+    image: v.image || 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png'
+  }));
   renderOccasions();
 }
 
@@ -698,8 +718,8 @@ function occasionsPage() {
     <h1 class="font-heading text-3xl sm:text-4xl font-bold mb-2 fade-in">Occasions</h1>
     <p class="text-ac-muted mb-8 fade-in stagger-1">Volledig nagekeken en gegarandeerd</p>
     <div class="grid lg:grid-cols-4 gap-6">
-      <div data-filter-panel>${`
-        <div class="bg-ac-surface border border-white/5 rounded-xl p-5 space-y-4">
+      <div data-filter-panel class="hidden lg:block">${`
+        <div class="bg-ac-surface border border-white/5 rounded-xl p-5 space-y-4 sticky top-20">
           <div>
             <label class="block text-sm font-medium mb-2">Sorteer op</label>
             <select onchange="currentSortBy = this.value; applyFiltersAndSort()" class="w-full bg-ac-bg border border-white/10 rounded px-3 py-2 text-sm">
@@ -743,19 +763,19 @@ function occasionsPage() {
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           ${filteredVehicles.map((v, i) => `
             <div class="card-hover bg-ac-surface border border-white/5 rounded-xl overflow-hidden text-left fade-in stagger-${Math.min(i + 1, 6)} vehicle-card">
-              <div class="h-40 bg-gradient-to-br from-ac-accent/5 to-transparent flex items-center justify-center relative overflow-hidden">
-                <img src="${CAR_IMAGE_URL}" alt="${v.brand} ${v.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.background='#f5f5f5'">
+              <div class="h-40 sm:h-48 bg-gradient-to-br from-ac-accent/5 to-transparent flex items-center justify-center relative overflow-hidden">
+                <img src="${v.image || 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png'}" alt="${v.brand} ${v.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#f5f5f5'">
                 ${v.status === 'gereserveerd' ? '<div class="badge bg-yellow-400 text-yellow-900 px-3 py-1 rounded text-xs font-semibold">Gereserveerd</div>' : '<div class="badge bg-green-500 text-white px-3 py-1 rounded text-xs font-semibold">Beschikbaar</div>'}
               </div>
-              <div class="p-5">
-                <h3 class="font-heading font-semibold text-lg">${v.brand} ${v.model}</h3>
+              <div class="p-4 sm:p-5">
+                <h3 class="font-heading font-semibold text-base sm:text-lg">${v.brand} ${v.model}</h3>
                 <div class="flex flex-wrap gap-2 mt-2 text-xs text-ac-muted">
                   <span class="bg-white/5 px-2.5 py-1 rounded">${v.year}</span>
                   <span class="bg-white/5 px-2.5 py-1 rounded">${v.km.toLocaleString('nl-NL')} km</span>
                   <span class="bg-white/5 px-2.5 py-1 rounded">${v.fuel}</span>
                 </div>
                 <div class="mt-4 flex items-center justify-between">
-                  <div class="text-ac-accent font-heading font-bold text-xl">€ ${v.price.toLocaleString('nl-NL')},-</div>
+                  <div class="text-ac-accent font-heading font-bold text-lg sm:text-xl">€ ${v.price.toLocaleString('nl-NL')},-</div>
                   <button onclick="navigate('vehicle-${v.vehicle_id}')" class="text-ac-accent hover:text-ac-accent text-sm font-medium">Details →</button>
                 </div>
               </div>
@@ -770,56 +790,57 @@ function occasionsPage() {
 function vehicleDetailPage(id) {
   let vehicle = mockVehicles.find(v => v.vehicle_id === id) || allVehicles.find(v => v.vehicle_id === id);
   if (!vehicle) return occasionsPage();
+  const img = vehicle.image || 'https://i.postimg.cc/D0tgtCBT/Black-and-White-Coming-Soon-Car-Banner-Landscape.png';
   return `
   <section class="max-w-4xl mx-auto px-4 py-12">
     <button onclick="navigate('occasions')" class="text-ac-muted text-sm hover:text-ac-text flex items-center gap-1 mb-6"><i data-lucide="arrow-left" style="width:14px;height:14px"></i> Terug</button>
     <div class="grid md:grid-cols-2 gap-8">
       <div class="fade-in">
-        <div class="h-64 bg-gradient-to-br from-ac-accent/5 to-transparent rounded-xl flex items-center justify-center mb-4 overflow-hidden">
-          <img src="${CAR_IMAGE_URL}" alt="${vehicle.brand} ${vehicle.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="this.style.background='#f5f5f5'">
+        <div class="h-48 sm:h-64 bg-gradient-to-br from-ac-accent/5 to-transparent rounded-xl flex items-center justify-center mb-4 overflow-hidden">
+          <img src="${img}" alt="${vehicle.brand} ${vehicle.model}" style="width:100%;height:100%;object-fit:cover" loading="lazy" onerror="console.error('Image failed:', this.src); this.style.background='#f5f5f5'">
         </div>
       </div>
       <div class="fade-in stagger-1">
         <div class="flex items-center justify-between mb-4">
-          <h1 class="font-heading text-3xl font-bold">${vehicle.brand} ${vehicle.model}</h1>
+          <h1 class="font-heading text-2xl sm:text-3xl font-bold">${vehicle.brand} ${vehicle.model}</h1>
           <button onclick="alert('Toegevoegd aan favorieten!')" class="text-ac-accent hover:text-ac-accent text-2xl">♡</button>
         </div>
-        <p class="text-ac-muted mb-6">Kenteken: ${vehicle.kenteken}</p>
+        <p class="text-ac-muted mb-6 text-sm sm:text-base">Kenteken: ${vehicle.kenteken}</p>
         <div class="bg-ac-accent/10 border border-ac-accent/20 rounded-lg p-4 mb-6">
-          <div class="text-3xl font-heading font-bold text-ac-accent">€ ${vehicle.price.toLocaleString('nl-NL')},-</div>
+          <div class="text-2xl sm:text-3xl font-heading font-bold text-ac-accent">€ ${vehicle.price.toLocaleString('nl-NL')},-</div>
         </div>
         <div class="grid grid-cols-2 gap-3 mb-6">
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Bouwjaar</div>
-            <div class="font-semibold">${vehicle.year}</div>
+            <div class="font-semibold text-sm">${vehicle.year}</div>
           </div>
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Kilometerstand</div>
-            <div class="font-semibold">${vehicle.km.toLocaleString('nl-NL')} km</div>
+            <div class="font-semibold text-sm">${vehicle.km.toLocaleString('nl-NL')} km</div>
           </div>
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Brandstof</div>
-            <div class="font-semibold">${vehicle.fuel}</div>
+            <div class="font-semibold text-sm">${vehicle.fuel}</div>
           </div>
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Vermogen</div>
-            <div class="font-semibold">${vehicle.pk} PK</div>
+            <div class="font-semibold text-sm">${vehicle.pk} PK</div>
           </div>
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Transmissie</div>
-            <div class="font-semibold">${vehicle.transmission}</div>
+            <div class="font-semibold text-sm">${vehicle.transmission}</div>
           </div>
           <div class="bg-ac-surface border border-white/5 rounded-lg p-3">
             <div class="text-xs text-ac-muted mb-1">Status</div>
-            <div class="font-semibold">${vehicle.status === 'beschikbaar' ? '✓ Beschikbaar' : '⏳ Gereserveerd'}</div>
+            <div class="font-semibold text-sm">${vehicle.status === 'beschikbaar' ? '✓ Beschikbaar' : '⏳ Gereserveerd'}</div>
           </div>
         </div>
         <div class="flex flex-col gap-3">
-          <button onclick="navigate('offerta')" class="bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition">Offerta aanvragen</button>
-          <button onclick="redirectWhatsApp()" class="bg-green-500 text-white font-semibold py-3 rounded-lg hover:brightness-110 transition flex items-center justify-center gap-2">
+          <button onclick="navigate('offerta')" class="bg-ac-accent text-white font-semibold py-3 rounded-lg hover:brightness-110 transition text-sm sm:text-base">Offerta aanvragen</button>
+          <button onclick="redirectWhatsApp()" class="bg-green-500 text-white font-semibold py-3 rounded-lg hover:brightness-110 transition flex items-center justify-center gap-2 text-sm sm:text-base">
             <i data-lucide="message-circle" style="width:18px;height:18px"></i> WhatsApp Info
           </button>
-          <a href="tel:0206327582" class="border border-ac-accent text-ac-accent font-semibold py-3 rounded-lg hover:bg-ac-accent hover:text-white transition text-center">Bel ons: 020-632 75 82</a>
+          <a href="tel:0206327582" class="border border-ac-accent text-ac-accent font-semibold py-3 rounded-lg hover:bg-ac-accent hover:text-white transition text-center text-sm sm:text-base">Bel ons: 020-632 75 82</a>
         </div>
       </div>
     </div>
@@ -1160,9 +1181,18 @@ function dashboardPage() {
   return '<div id="dashboardContent"></div>';
 }
 
-// INIT
-navigate('home');
-lucide.createIcons();
+// INIT - Load home page immediately
+function initializeApp() {
+  navigate('home');
+  lucide.createIcons();
+}
+
+// Try to initialize as soon as possible
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+  initializeApp();
+}
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec5363fb47006c0',t:'MTc3NjE5NTkzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ec53cba553806c0',t:'MTc3NjE5NjIwMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

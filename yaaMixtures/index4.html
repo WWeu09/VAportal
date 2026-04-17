@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="nl" class="h-full scroll-smooth">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAA Mixtures – Cocktails, Mocktails &amp; Events</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&amp;family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #991B3E;
+      --accent: #F37021;
+      --highlight: #FFC20E;
+      --bg: #FAFAFA;
+      --text: #2D2D2D;
+      --text-light: #666666;
+      --white: #FFFFFF;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+    .hero-gradient { background: linear-gradient(135deg, var(--primary) 0%, #d63853 100%); }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover { transform: translateY(-8px); box-shadow: 0 28px 60px rgba(153, 27, 62, 0.12); }
+    .fade-up { animation: fadeUp 0.6s ease-out forwards; opacity: 0; }
+    .fade-up-delay-1 { animation-delay: 0.1s; }
+    .fade-up-delay-2 { animation-delay: 0.2s; }
+    .fade-up-delay-3 { animation-delay: 0.3s; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(20px); } }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-primary:hover { background: #7a1530; transform: scale(1.05); }
+    .btn-secondary {
+      background: var(--accent);
+      color: white;
+      padding: 12px 32px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-secondary:hover { background: #d86718; transform: scale(1.05); }
+    .sticky-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .drink-card {
+      text-align: center;
+      padding: 32px 24px;
+      border-radius: 24px;
+      background: var(--white);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
+    }
+    .drink-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(243, 112, 33, 0.15);
+    }
+    .drink-card h3 { color: var(--primary); margin: 16px 0 8px 0; }
+    .drink-card .price { font-size: 24px; font-weight: 700; color: var(--accent); margin: 12px 0; }
+    .product-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(153, 27, 62, 0.08);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 48px rgba(243, 112, 33, 0.12);
+      border-color: rgba(243, 112, 33, 0.2);
+    }
+    .product-image {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(153,27,62,0.08), rgba(243,112,33,0.08));
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    @media (min-width: 640px) {
+      .shop-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+    }
+    @media (min-width: 1024px) {
+      .shop-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+    }
+    .pagination-container {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 2px solid rgba(153,27,62,0.1);
+      flex-wrap: wrap;
+    }
+    .pagination-btn {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(153,27,62,0.2);
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .pagination-btn:hover:not(:disabled) {
+      background: rgba(153,27,62,0.05);
+    }
+    .pagination-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .pagination-btn.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+    }
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+    .skeleton-card {
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(153, 27, 62, 0.08);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .skeleton-image {
+      width: 100%;
+      height: 160px;
+      skeleton: true;
+    }
+    .skeleton-text {
+      height: 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      skeleton: true;
+    }
+    .search-container {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(153, 27, 62, 0.1);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(243, 112, 33, 0.1);
+    }
+    .filter-select {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 2px solid rgba(153, 27, 62, 0.1);
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .filter-select:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+    .share-btn {
+      padding: 6px 12px;
+      background: rgba(243, 112, 33, 0.1);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .share-btn:hover {
+      background: var(--accent);
+      color: white;
+    }
+    .results-count {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+    .no-results {
+      grid-column: 1 / -1;
+      padding: 60px 20px;
+      text-align: center;
+      color: var(--text-light);
+    }
+    .no-results svg {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 16px;
+      opacity: 0.3;
+    }
+    .product-body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+    .product-name { color: var(--primary); margin: 0 0 6px 0; font-size: 16px; font-weight: 700; }
+    .product-desc { color: var(--text-light); font-size: 13px; margin: 0 0 12px 0; line-height: 1.4; }
+    .product-price { color: var(--accent); font-weight: 700; font-size: 22px; margin: 12px 0; }
+    .product-stock { font-size: 11px; font-weight: 600; margin: 8px 0; }
+    .stock-in { color: #10b981; }
+    .stock-out { color: #ef4444; }
+    .product-btn {
+      width: 100%;
+      padding: 11px 16px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 14px;
+      margin-top: auto;
+    }
+    .product-btn:hover:not(:disabled) { background: #7a1530; }
+    .product-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 50;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      animation: slideIn 0.3s ease;
+      max-width: 320px;
+    }
+    .toast.success { background: #10b981; color: white; }
+    .toast.error { background: #ef4444; color: white; }
+    .toast.info { background: var(--text); color: white; }
+    @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @media (max-width: 640px) {
+      .toast { bottom: 16px; right: 16px; font-size: 13px; padding: 12px 16px; }
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app" class="h-full overflow-auto" style="display: flex; flex-direction: column;"><!-- Navigation -->
+   <nav class="sticky-nav">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between"><a href="#hero" class="text-2xl font-bold" style="color: var(--primary);">YAA Mixtures</a>
+     <div class="hidden md:flex gap-8"><a href="#drinks" class="text-sm font-semibold hover:text-[var(--accent)]">Menu</a> <a href="#events" class="text-sm font-semibold hover:text-[var(--accent)]">Events</a> <a href="#custom" class="text-sm font-semibold hover:text-[var(--accent)]">Custom Labels</a> <a href="#contact" class="text-sm font-semibold hover:text-[var(--accent)]">Contact</a>
+     </div><a href="#shop" class="btn-primary text-sm">Shop</a>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="hero" class="hero-gradient text-white py-20 md:py-32">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+     <h1 id="el-hero-title" class="text-5xl md:text-7xl font-bold mb-6 fade-up">Shake Your Vibe with YAA Mixtures</h1>
+     <p id="el-hero-subtitle" class="text-xl md:text-2xl mb-8 opacity-90 fade-up fade-up-delay-1">Craft the perfect moment – cocktails, mocktails, events &amp; custom branding</p>
+     <div class="fade-up fade-up-delay-2 flex gap-4 justify-center flex-wrap"><a href="#drinks" class="btn-secondary">View Menu</a> <button class="btn-primary" onclick="document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });">Order Now</button>
+     </div>
+    </div>
+   </section><!-- Drinks Section -->
+   <section id="drinks" class="py-20 md:py-32 px-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Popular Drinks</p>
+      <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-6">Discover Our Signature Mixes</h2>
+      <p class="text-[var(--text-light)] max-w-2xl mx-auto">Each drink is crafted with premium ingredients and served with the perfect vibe.</p>
+     </div>
+     <div id="drinks-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8"><!-- Drinks will load from API -->
+      <div class="drink-card fade-up">
+       <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent), var(--highlight)); border-radius: 50%; margin: 0 auto 16px;"></div>
+       <h3>Classic Mojito</h3>
+       <p class="text-sm text-[var(--text-light)]">Fresh mint, lime, rum &amp; soda</p>
+       <div class="price">
+        €8.50
+       </div><button class="btn-secondary text-sm w-full">Add to Cart</button>
+      </div>
+      <div class="drink-card fade-up fade-up-delay-1">
+       <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; margin: 0 auto 16px;"></div>
+       <h3>Passion Punch</h3>
+       <p class="text-sm text-[var(--text-light)]">Tropical fruits &amp; vodka</p>
+       <div class="price">
+        €9.00
+       </div><button class="btn-secondary text-sm w-full">Add to Cart</button>
+      </div>
+      <div class="drink-card fade-up fade-up-delay-2">
+       <div style="width: 80px; height: 80px; background: linear-gradient(135deg, var(--highlight), var(--accent)); border-radius: 50%; margin: 0 auto 16px;"></div>
+       <h3>Berry Bliss</h3>
+       <p class="text-sm text-[var(--text-light)]">Mixed berries, gin &amp; sparkling water</p>
+       <div class="price">
+        €8.00
+       </div><button class="btn-secondary text-sm w-full">Add to Cart</button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Events & Catering Section -->
+   <section id="events" class="py-20 md:py-32 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      <div>
+       <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Events &amp; Catering</p>
+       <h2 id="el-events-title" class="text-4xl md:text-5xl font-bold mt-4 mb-6">Make Your Event Unforgettable</h2>
+       <p class="text-[var(--text-light)] mb-8">Whether it's a birthday, wedding, corporate event, or private celebration – we bring the perfect mixology experience to your venue.</p>
+       <div class="space-y-6 mb-8">
+        <div class="glass-card p-6">
+         <h3 class="text-xl font-bold mb-2" style="color: var(--primary);">Unlimited Cocktails</h3>
+         <p class="text-[var(--text-light)] mb-4">Professional mixologist + premium spirits + 4 hours</p>
+         <p class="text-2xl font-bold" style="color: var(--accent);">€450</p>
+        </div>
+        <div class="glass-card p-6">
+         <h3 class="text-xl font-bold mb-2" style="color: var(--primary);">Unlimited Mocktails</h3>
+         <p class="text-[var(--text-light)] mb-4">Same vibe, zero alcohol. Perfect for all guests</p>
+         <p class="text-2xl font-bold" style="color: var(--accent);">€300</p>
+        </div>
+       </div><button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });">Book Your Event</button>
+      </div>
+      <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 28px; height: 400px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; text-align: center;">
+       <p>🎉 Event Photo Coming Soon</p>
+      </div>
+     </div>
+    </div>
+   </section><!-- Custom Labels Section -->
+   <section id="custom" class="py-20 md:py-32 px-6">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Branding &amp; Packaging</p>
+      <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-6">Custom Labels &amp; Branding</h2>
+      <p class="text-[var(--text-light)] max-w-2xl mx-auto">Make your event or product truly yours with custom YAA Mixtures branding.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="glass-card p-8 text-center fade-up">
+       <div style="font-size: 48px; margin-bottom: 16px;">
+        🏷️
+       </div>
+       <h3 class="text-2xl font-bold mb-4" style="color: var(--primary);">Custom Labels</h3>
+       <p class="text-[var(--text-light)] mb-6">Personalized bottle labels for your brand or event</p><button class="btn-secondary text-sm w-full">Learn More</button>
+      </div>
+      <div class="glass-card p-8 text-center fade-up fade-up-delay-1">
+       <div style="font-size: 48px; margin-bottom: 16px;">
+        📋
+       </div>
+       <h3 class="text-2xl font-bold mb-4" style="color: var(--primary);">Menu Cards</h3>
+       <p class="text-[var(--text-light)] mb-6">Branded menu designs tailored to your event</p><button class="btn-secondary text-sm w-full">Learn More</button>
+      </div>
+      <div class="glass-card p-8 text-center fade-up fade-up-delay-2">
+       <div style="font-size: 48px; margin-bottom: 16px;">
+        🎁
+       </div>
+       <h3 class="text-2xl font-bold mb-4" style="color: var(--primary);">Gift Packages</h3>
+       <p class="text-[var(--text-light)] mb-6">Premium cocktail kits with custom branding</p><button class="btn-secondary text-sm w-full">Learn More</button>
+      </div>
+     </div>
+    </div>
+   </section><!-- Webshop Section -->
+   <section id="shop" class="py-20 md:py-32 px-6 bg-white">
+    <div class="max-w-7xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Direct Ordering</p>
+      <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-6">Order Your Mixtures</h2>
+      <p class="text-[var(--text-light)] max-w-2xl mx-auto">Browse our collection and place your order anytime. We accept orders 24/7, and we'll confirm availability within 24 hours.</p>
+     </div><!-- Shop Grid & Cart Layout -->
+     <div class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-8">
+      <!-- Products Section -->
+      <div>
+       <div class="flex items-center justify-between mb-8">
+        <h3 class="text-2xl font-bold" style="color: var(--primary);">Available Products</h3><button id="refreshShopProducts" type="button" class="rounded-full border border-gray-300 bg-white/70 px-4 py-2 text-sm font-semibold hover:bg-gray-100">Refresh</button>
+       </div><!-- Search & Filter Container -->
+       <div class="search-container"><input type="text" id="shopSearchInput" class="search-input" placeholder="Search by name..."> <select id="shopSortFilter" class="filter-select"> <option value="newest">Sort by: Newest</option> <option value="price-low">Price: Low to High</option> <option value="price-high">Price: High to Low</option> <option value="name-asc">Name: A to Z</option> <option value="name-desc">Name: Z to A</option> </select> <select id="shopStockFilter" class="filter-select"> <option value="all">All Stock</option> <option value="available">In Stock Only</option> <option value="out">Out of Stock</option> </select>
+       </div>
+       <div id="shopResultsCount" class="results-count"></div>
+       <div id="shopProductsState" class="rounded-2xl border-2 border-dashed border-gray-300 px-4 py-10 text-center text-sm text-gray-500">
+        Loading products...
+       </div>
+       <div id="shopProductsGrid" class="shop-grid"></div>
+      </div><!-- Shopping Cart Sidebar -->
+      <div>
+       <div class="glass-card p-6 sticky top-24">
+        <div class="flex items-center justify-between mb-6">
+         <h3 class="text-xl font-bold" style="color: var(--primary);">Your Cart</h3><button id="shopClearCart" class="text-sm hover:opacity-70" style="color: var(--text-light);">Clear</button>
+        </div>
+        <div id="cartEmpty" class="rounded-xl p-6 text-center" style="background: rgba(255, 193, 7, 0.08); color: var(--text-light);">
+         <p>Your cart is empty</p>
+        </div>
+        <div id="cartItems" class="space-y-4 mb-6 max-h-96 overflow-y-auto"></div>
+        <div class="space-y-3 p-4 rounded-xl" style="background: rgba(153, 27, 62, 0.05);">
+         <div class="flex justify-between text-sm">
+          <span style="color: var(--text-light);">Subtotal</span> <span id="subtotal" class="font-semibold">€0.00</span>
+         </div>
+         <div class="flex justify-between text-sm">
+          <span style="color: var(--text-light);">Shipping</span> <span id="shipping" class="font-semibold">€0.00</span>
+         </div>
+         <div class="rounded-lg p-2 text-xs font-semibold" style="background: rgba(243, 112, 33, 0.08); color: var(--text-light);" id="freeShippingMsg">
+          Shipping info loading...
+         </div>
+         <div class="flex justify-between text-lg font-bold pt-3" style="border-top: 2px solid rgba(153, 27, 62, 0.1); color: var(--primary);">
+          <span>Total</span> <span id="total">€0.00</span>
+         </div>
+        </div><button id="checkoutBtn" class="btn-primary w-full mt-6" onclick="document.getElementById('shopCheckout').scrollIntoView({ behavior: 'smooth' });">Proceed to Checkout</button>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Shop Checkout Section -->
+   <section id="shopCheckout" class="py-20 md:py-32 px-6 bg-gradient-to-br from-gray-50 to-white">
+    <div class="max-w-4xl mx-auto">
+     <div class="text-center mb-16">
+      <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Checkout</p>
+      <h2 class="text-4xl md:text-5xl font-bold mt-4">Complete Your Order</h2>
+      <p class="text-[var(--text-light)] mt-4 text-sm">✓ Checkout is always available — your order will be processed within 24 hours, regardless of store status.</p>
+     </div>
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div class="glass-card p-8">
+       <h3 class="text-2xl font-bold mb-6" style="color: var(--primary);">Order Details</h3>
+       <form id="shopCheckoutForm" class="space-y-4">
+        <div>
+         <label class="block text-sm font-semibold mb-2">Full Name *</label> <input type="text" id="shopName" required placeholder="Your name" class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold mb-2">Email *</label> <input type="email" id="shopEmail" required placeholder="your@email.com" class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold mb-2">Phone *</label> <input type="tel" id="shopPhone" required placeholder="+31 6 ..." class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);">
+        </div>
+        <div>
+         <label class="block text-sm font-semibold mb-2">Levering *</label> <select id="shopDeliveryType" required class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);"> <option value="">Kies een optie</option> <option value="verzenden">Verzenden</option> <option value="ophalen">Ophalen</option> </select>
+        </div>
+        <div>
+         <label class="block text-sm font-semibold mb-2">Address *</label> <textarea id="shopAddress" required placeholder="Street, number, postal code, city" rows="3" class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);"></textarea>
+        </div>
+        <div>
+         <label class="block text-sm font-semibold mb-2">Special Notes</label> <textarea id="shopNotes" placeholder="Any special requests?" rows="2" class="w-full px-4 py-3 rounded-lg border-2" style="border-color: rgba(153, 27, 62, 0.1);"></textarea>
+        </div>
+        <div id="shopCheckoutMessage" class="mt-4 p-4 rounded-lg hidden"></div>
+        <p class="text-xs text-[var(--text-light)] mt-3 italic">💡 Your order will be reviewed for availability confirmation within 24 hours.</p><button type="submit" id="shopSubmitBtn" class="btn-primary w-full mt-6">Place Order</button>
+       </form>
+      </div>
+      <div class="glass-card p-8 h-fit">
+       <h3 class="text-2xl font-bold mb-6" style="color: var(--primary);">Order Summary</h3>
+       <div id="shopSummaryItems" class="space-y-3 mb-6 max-h-64 overflow-y-auto"></div>
+       <div class="space-y-3 p-4 rounded-lg" style="background: rgba(153, 27, 62, 0.05);">
+        <div class="flex justify-between">
+         <span style="color: var(--text-light);">Items</span> <span id="shopSummaryCount" class="font-semibold">0</span>
+        </div>
+        <div class="flex justify-between">
+         <span style="color: var(--text-light);">Subtotal</span> <span id="shopSummarySubtotal" class="font-semibold">€0.00</span>
+        </div>
+        <div class="flex justify-between">
+         <span style="color: var(--text-light);">Shipping</span> <span id="shopSummaryShipping" class="font-semibold">€0.00</span>
+        </div>
+        <div class="flex justify-between text-lg font-bold pt-3" style="border-top: 2px solid rgba(153, 27, 62, 0.1); color: var(--primary);">
+         <span>Total</span> <span id="shopSummaryTotal">€0.00</span>
+        </div>
+       </div>
+      </div>
+     </div>
+    </div>
+   </section>
+  </div><!-- Contact & Booking Section -->
+  <section id="contact" class="py-20 md:py-32 px-6">
+   <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-16">
+     <p class="text-[var(--accent)] font-semibold uppercase tracking-widest">Get in Touch</p>
+     <h2 class="text-4xl md:text-5xl font-bold mt-4 mb-6">Book Your Event or Ask Questions</h2>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+     <div class="glass-card p-8">
+      <h3 class="text-2xl font-bold mb-6" style="color: var(--primary);">Contact Form</h3>
+      <form id="contact-form" class="space-y-4"><input type="text" placeholder="Your Name" class="w-full px-4 py-3 rounded-lg border border-gray-300 outline-none focus:border-[var(--accent)]" required> <input type="email" placeholder="Email Address" class="w-full px-4 py-3 rounded-lg border border-gray-300 outline-none focus:border-[var(--accent)]" required> <select class="w-full px-4 py-3 rounded-lg border border-gray-300 outline-none focus:border-[var(--accent)]" required> <option value="">Select Event Type</option> <option value="wedding">Wedding</option> <option value="birthday">Birthday</option> <option value="corporate">Corporate</option> <option value="private">Private Party</option> </select> <input type="number" placeholder="Number of Guests" class="w-full px-4 py-3 rounded-lg border border-gray-300 outline-none focus:border-[var(--accent)]" required> <textarea placeholder="Your Message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 outline-none focus:border-[var(--accent)]"></textarea> <button type="submit" class="btn-primary w-full">Send Message</button>
+      </form>
+     </div>
+     <div class="space-y-8">
+      <div class="glass-card p-8">
+       <h3 class="text-xl font-bold mb-4" style="color: var(--primary);">📞 WhatsApp Us</h3>
+       <p class="text-[var(--text-light)] mb-4">Get instant replies for event inquiries</p><a id="el-whatsapp" href="https://wa.me/31612345678" target="_blank" rel="noopener noreferrer" class="btn-secondary inline-block">Chat on WhatsApp</a>
+      </div>
+      <div class="glass-card p-8">
+       <h3 class="text-xl font-bold mb-4" style="color: var(--primary);">ℹ️ Info</h3>
+       <p class="text-[var(--text-light)]">📍 Amsterdam, Netherlands<br>
+         ⏰ Available for events worldwide<br>
+         🎉 Minimum 20 guests for events</p>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- Footer -->
+  <footer class="bg-[var(--primary)] text-white py-12 px-6">
+   <div class="max-w-7xl mx-auto text-center">
+    <p class="mb-4 text-lg font-semibold">YAA Mixtures</p>
+    <p class="opacity-80 mb-8">Shake Your Vibe • Premium Cocktails &amp; Events</p>
+    <div class="flex gap-6 justify-center mb-8"><a href="#hero" class="hover:opacity-80">Home</a> <a href="#drinks" class="hover:opacity-80">Menu</a> <a href="#events" class="hover:opacity-80">Events</a> <a href="#contact" class="hover:opacity-80">Contact</a>
+    </div>
+    <p class="text-sm opacity-75">© 2024 YAA Mixtures. All rights reserved.</p>
+   </div>
+  </footer>
+  <script>
+    // ============================================================================
+    // CONSTANTS & STATE MANAGEMENT
+    // ============================================================================
+    const API_BASE = 'https://script.google.com/macros/s/AKfycbylocrzIrW3JY05oy56sfYc7giOjZgMROvTWmpTSAeLx1HQeK1jjY20Ln9U-tSKymGr/exec';
+    const CART_KEY = 'yaa_mixtures_cart_v1';
+    const USE_MOCK_DATA = false; // Live API - set to true for local testing
+    
+    // Mock data for local development
+    const MOCK_DATA = {
+      settings: {
+        shipping_cost: 5,
+        free_shipping_above: 50
+      },
+      products: [
+        {
+          id: 1,
+          name: 'Classic Mojito',
+          description: 'Fresh mint, lime, rum & soda water. Perfect refreshment.',
+          price: 8.50,
+          stock: 15,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23991B3E" width="100" height="100"/%3E%3Ccircle cx="50" cy="40" r="20" fill="%23FFC20E"/%3E%3Crect x="45" y="55" width="10" height="30" fill="%2310b981"/%3E%3C/svg%3E'
+        },
+        {
+          id: 2,
+          name: 'Passion Punch',
+          description: 'Tropical fruits & vodka. Exotic vibes guaranteed.',
+          price: 9.00,
+          stock: 12,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23F37021" width="100" height="100"/%3E%3Ccircle cx="50" cy="45" r="25" fill="%23FFC20E" opacity="0.8"/%3E%3Ccircle cx="35" cy="35" r="8" fill="%23991B3E"/%3E%3C/svg%3E'
+        },
+        {
+          id: 3,
+          name: 'Berry Bliss',
+          description: 'Mixed berries, gin & sparkling water. Refreshingly light.',
+          price: 8.00,
+          stock: 18,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23991B3E" width="100" height="100"/%3E%3Ccircle cx="30" cy="35" r="6" fill="%23ef4444"/%3E%3Ccircle cx="50" cy="40" r="6" fill="%23991B3E"/%3E%3Ccircle cx="70" cy="35" r="6" fill="%23ef4444"/%3E%3Crect x="40" y="50" width="20" height="35" fill="%2310b981"/%3E%3C/svg%3E'
+        },
+        {
+          id: 4,
+          name: 'Margarita Sunset',
+          description: 'Tequila, lime & triple sec. Classic Mexican favorite.',
+          price: 9.50,
+          stock: 10,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23FFC20E" width="100" height="100"/%3E%3Crect x="20" y="40" width="60" height="40" fill="%23F37021"/%3E%3Ccircle cx="50" cy="30" r="12" fill="%2310b981"/%3E%3C/svg%3E'
+        },
+        {
+          id: 5,
+          name: 'Piña Colada',
+          description: 'Coconut rum, pineapple juice & cream. Beach vibes.',
+          price: 10.00,
+          stock: 8,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%23F37021" width="100" height="100"/%3E%3Ccircle cx="50" cy="35" r="15" fill="%23FFC20E"/%3E%3Crect x="35" y="55" width="30" height="30" fill="%23fff" opacity="0.7"/%3E%3C/svg%3E'
+        },
+        {
+          id: 6,
+          name: 'Dark & Stormy',
+          description: 'Dark rum & spiced ginger beer. Bold & spicy kick.',
+          price: 9.25,
+          stock: 14,
+          image_url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Crect fill="%232D2D2D" width="100" height="100"/%3E%3Ccircle cx="50" cy="40" r="18" fill="%23991B3E"/%3E%3Crect x="45" y="58" width="10" height="28" fill="%23F37021"/%3E%3C/svg%3E'
+        }
+      ]
+    };
+    
+    const state = {
+      settings: {},
+      products: [],
+      filteredProducts: [],
+      cart: loadCart(),
+      currentPage: 1,
+      productsPerPage: 10,
+      searchQuery: '',
+      sortBy: 'newest',
+      stockFilter: 'all'
+    };
+
+    // ============================================================================
+    // UTILITY FUNCTIONS
+    // ============================================================================
+    function loadCart() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+        return Array.isArray(saved) ? saved : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveCart() {
+      localStorage.setItem(CART_KEY, JSON.stringify(state.cart));
+    }
+
+    function formatPrice(value) {
+      return '€' + Number(value || 0).toFixed(2);
+    }
+
+    function escapeHtml(text) {
+      return String(text == null ? '' : text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3500);
+    }
+
+    async function apiGet(action) {
+      // Use mock data in development
+      if (USE_MOCK_DATA) {
+        await new Promise(r => setTimeout(r, 300)); // Simulate network delay
+        if (action === 'products') {
+          return { success: true, data: MOCK_DATA.products };
+        } else if (action === 'settings') {
+          return { success: true, data: MOCK_DATA.settings };
+        }
+        return { success: false, error: { message: 'Unknown action' } };
+      }
+      
+      // Real API call
+      const response = await fetch(`${API_BASE}?action=${encodeURIComponent(action)}`);
+      return await response.json();
+    }
+
+    async function apiPost(payload) {
+      // Use mock data in development
+      if (USE_MOCK_DATA) {
+        await new Promise(r => setTimeout(r, 500)); // Simulate network delay
+        if (payload.action === 'createOrder') {
+          return {
+            success: true,
+            data: {
+              order_id: 'MOCK-' + Date.now()
+            }
+          };
+        }
+        return { success: false, error: { message: 'Unknown action' } };
+      }
+      
+      // Real API call
+      const response = await fetch(API_BASE, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      return await response.json();
+    }
+
+    // ============================================================================
+    // PRODUCT LOADING & RENDERING
+    // ============================================================================
+    function createSkeletons(count = 10) {
+      const skeletons = [];
+      for (let i = 0; i < count; i++) {
+        skeletons.push(`
+          <div class="skeleton-card fade-up" style="animation-delay: ${i * 0.06}s;">
+            <div class="skeleton skeleton-image"></div>
+            <div style="padding: 20px;">
+              <div class="skeleton skeleton-text" style="width: 70%;"></div>
+              <div class="skeleton skeleton-text" style="width: 100%;"></div>
+              <div class="skeleton skeleton-text" style="width: 60%; margin-bottom: 16px;"></div>
+              <div class="skeleton skeleton-text" style="width: 80%; height: 20px; margin-bottom: 12px;"></div>
+              <div class="skeleton skeleton-text" style="width: 100%; height: 32px;"></div>
+            </div>
+          </div>
+        `);
+      }
+      return skeletons.join('');
+    }
+
+    function filterAndSortProducts() {
+      let filtered = [...state.products];
+
+      // Search filter
+      if (state.searchQuery.trim()) {
+        const query = state.searchQuery.toLowerCase();
+        filtered = filtered.filter(p => 
+          p.name.toLowerCase().includes(query) || 
+          (p.description && p.description.toLowerCase().includes(query))
+        );
+      }
+
+      // Stock filter
+      if (state.stockFilter === 'available') {
+        filtered = filtered.filter(p => Number(p.stock) > 0);
+      } else if (state.stockFilter === 'out') {
+        filtered = filtered.filter(p => Number(p.stock) <= 0);
+      }
+
+      // Sort
+      switch(state.sortBy) {
+        case 'price-low':
+          filtered.sort((a, b) => Number(a.price) - Number(b.price));
+          break;
+        case 'price-high':
+          filtered.sort((a, b) => Number(b.price) - Number(a.price));
+          break;
+        case 'name-asc':
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case 'name-desc':
+          filtered.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        default: // newest
+          break;
+      }
+
+      state.filteredProducts = filtered;
+      state.currentPage = 1; // Reset to first page
+    }
+
+    function shareProduct(product) {
+      const text = `Check out ${product.name} from YAA Mixtures! €${Number(product.price).toFixed(2)} - ${product.description}`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'YAA Mixtures',
+          text: text,
+          url: window.location.href
+        }).catch(err => console.log('Share cancelled'));
+      } else {
+        // Fallback: Copy to clipboard
+        const url = `${window.location.href}#product-${product.id}`;
+        const fullText = `${text}\n${url}`;
+        
+        navigator.clipboard.writeText(fullText).then(() => {
+          showToast('Product link copied to clipboard!', 'success');
+        }).catch(() => {
+          showToast('Product: ' + product.name, 'info');
+        });
+      }
+    }
+
+    async function loadProducts() {
+      const stateEl = document.getElementById('shopProductsState');
+      const grid = document.getElementById('shopProductsGrid');
+      stateEl.style.display = 'block';
+      stateEl.textContent = 'Loading products...';
+      grid.innerHTML = createSkeletons(10);
+
+      try {
+        const response = await apiGet('products');
+        if (!response.success) {
+          throw new Error(response.error?.message || 'Failed to load products');
+        }
+
+        state.products = Array.isArray(response.data) ? response.data : [];
+
+        if (state.products.length === 0) {
+          stateEl.textContent = 'No products found';
+          grid.innerHTML = '';
+          return;
+        }
+
+        filterAndSortProducts();
+        stateEl.style.display = 'none';
+        renderProducts();
+      } catch (error) {
+        stateEl.textContent = '⚠️ ' + error.message;
+        grid.innerHTML = '';
+      }
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('shopProductsGrid');
+      const resultsCount = document.getElementById('shopResultsCount');
+      grid.innerHTML = '';
+
+      const totalResults = state.filteredProducts.length;
+      const totalPages = Math.ceil(totalResults / state.productsPerPage);
+      const startIdx = (state.currentPage - 1) * state.productsPerPage;
+      const endIdx = startIdx + state.productsPerPage;
+      const pageProducts = state.filteredProducts.slice(startIdx, endIdx);
+
+      // Show results count
+      if (state.searchQuery || state.stockFilter !== 'all' || state.sortBy !== 'newest') {
+        resultsCount.textContent = `${totalResults} product${totalResults !== 1 ? 's' : ''} found`;
+      } else {
+        resultsCount.textContent = '';
+      }
+
+      // No results
+      if (pageProducts.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.innerHTML = `
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <p>No products match your search</p>
+          <p style="font-size: 12px; margin-top: 8px;">Try different filters or keywords</p>
+        `;
+        grid.appendChild(noResults);
+        renderPagination(totalPages);
+        return;
+      }
+
+      pageProducts.forEach((product, idx) => {
+        const card = document.createElement('div');
+        card.className = 'product-card fade-up';
+        card.style.animationDelay = `${idx * 0.08}s`;
+        card.id = `product-${product.id}`;
+
+        const stock = Number(product.stock || 0);
+        const isDisabled = stock <= 0;
+        const stockText = stock > 0 ? `${stock} in stock` : 'Out of stock';
+
+        const imageHtml = product.image_url
+          ? `<img src="${product.image_url}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy" onerror="this.style.background='rgba(153,27,62,0.1)'; this.alt='Image unavailable';">`
+          : `<div class="product-image" style="display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(153,27,62,0.1), rgba(243,112,33,0.1)); color: var(--text-light); font-size: 12px;">No image</div>`;
+
+        card.innerHTML = `
+          ${imageHtml}
+          <div class="product-body">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 6px;">
+              <h3 class="product-name" style="margin: 0; flex: 1;">${escapeHtml(product.name)}</h3>
+              <button class="share-btn" data-product-id="${product.id}" title="Share product">
+                <i data-lucide="share-2" style="width: 14px; height: 14px;"></i>
+              </button>
+            </div>
+            <p class="product-desc">${escapeHtml((product.description || '').substring(0, 55))}...</p>
+            <div class="product-price">${formatPrice(product.price)}</div>
+            <div class="product-stock ${stock > 0 ? 'stock-in' : 'stock-out'}">${stockText}</div>
+            <button 
+              class="product-btn"
+              data-product-id="${product.id}"
+              ${isDisabled ? 'disabled' : ''}
+            >Add to Cart</button>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Render pagination
+      renderPagination(totalPages);
+
+      // Attach event delegation for add-to-cart
+      grid.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-product-id]');
+        if (btn) {
+          const productId = Number(btn.dataset.productId);
+          if (e.target.closest('.share-btn')) {
+            const product = state.products.find(p => Number(p.id) === productId);
+            if (product) shareProduct(product);
+          } else if (!btn.disabled) {
+            addToCart(productId);
+          }
+        }
+      });
+
+      lucide.createIcons();
+    }
+
+    function renderPagination(totalPages) {
+      const gridContainer = document.getElementById('shopProductsGrid').parentElement;
+      
+      if (totalPages <= 1) return;
+
+      // Remove old pagination if exists
+      const oldPagination = gridContainer.querySelector('.pagination-container');
+      if (oldPagination) oldPagination.remove();
+
+      const paginationContainer = document.createElement('div');
+      paginationContainer.className = 'pagination-container';
+
+      // Previous button
+      const prevBtn = document.createElement('button');
+      prevBtn.textContent = '← Prev';
+      prevBtn.className = 'pagination-btn';
+      prevBtn.disabled = state.currentPage === 1;
+      prevBtn.onclick = () => {
+        if (state.currentPage > 1) {
+          state.currentPage--;
+          renderProducts();
+          document.getElementById('shopProductsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      paginationContainer.appendChild(prevBtn);
+
+      // Page numbers - show max 7 buttons
+      let startPage = Math.max(1, state.currentPage - 3);
+      let endPage = Math.min(totalPages, startPage + 6);
+      if (endPage - startPage < 6) {
+        startPage = Math.max(1, endPage - 6);
+      }
+
+      if (startPage > 1) {
+        const firstBtn = document.createElement('button');
+        firstBtn.textContent = '1';
+        firstBtn.className = 'pagination-btn';
+        firstBtn.onclick = () => {
+          state.currentPage = 1;
+          renderProducts();
+          document.getElementById('shopProductsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        paginationContainer.appendChild(firstBtn);
+
+        if (startPage > 2) {
+          const dots = document.createElement('span');
+          dots.textContent = '...';
+          dots.style.cssText = 'padding: 10px 4px; line-height: 40px;';
+          paginationContainer.appendChild(dots);
+        }
+      }
+
+      for (let i = startPage; i <= endPage; i++) {
+        const pageBtn = document.createElement('button');
+        pageBtn.textContent = i;
+        pageBtn.className = `pagination-btn ${i === state.currentPage ? 'active' : ''}`;
+        pageBtn.onclick = () => {
+          state.currentPage = i;
+          renderProducts();
+          document.getElementById('shopProductsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        paginationContainer.appendChild(pageBtn);
+      }
+
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+          const dots = document.createElement('span');
+          dots.textContent = '...';
+          dots.style.cssText = 'padding: 10px 4px; line-height: 40px;';
+          paginationContainer.appendChild(dots);
+        }
+
+        const lastBtn = document.createElement('button');
+        lastBtn.textContent = totalPages;
+        lastBtn.className = 'pagination-btn';
+        lastBtn.onclick = () => {
+          state.currentPage = totalPages;
+          renderProducts();
+          document.getElementById('shopProductsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        };
+        paginationContainer.appendChild(lastBtn);
+      }
+
+      // Next button
+      const nextBtn = document.createElement('button');
+      nextBtn.textContent = 'Next →';
+      nextBtn.className = 'pagination-btn';
+      nextBtn.disabled = state.currentPage === totalPages;
+      nextBtn.onclick = () => {
+        if (state.currentPage < totalPages) {
+          state.currentPage++;
+          renderProducts();
+          document.getElementById('shopProductsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      };
+      paginationContainer.appendChild(nextBtn);
+
+      gridContainer.appendChild(paginationContainer);
+    }
+
+    // ============================================================================
+    // CART MANAGEMENT
+    // ============================================================================
+    function addToCart(productId) {
+      const product = state.products.find(p => Number(p.id) === productId);
+      if (!product) return showToast('Product not found', 'error');
+
+      const existing = state.cart.find(item => Number(item.product_id) === productId);
+
+      if (existing) {
+        if (existing.quantity >= Number(product.stock)) {
+          return showToast('Not enough stock available', 'error');
+        }
+        existing.quantity += 1;
+      } else {
+        state.cart.push({
+          product_id: Number(product.id),
+          product_name: product.name,
+          price: Number(product.price),
+          quantity: 1,
+          image_url: product.image_url || ''
+        });
+      }
+
+      saveCart();
+      renderCart();
+      showToast(`${product.name} added to cart!`, 'success');
+    }
+
+    function updateCartItem(productId, newQuantity) {
+      const item = state.cart.find(p => Number(p.product_id) === productId);
+      if (!item) return;
+
+      if (newQuantity <= 0) {
+        state.cart = state.cart.filter(p => Number(p.product_id) !== productId);
+      } else {
+        const product = state.products.find(p => Number(p.id) === productId);
+        const maxStock = product ? Number(product.stock) : newQuantity;
+        item.quantity = Math.min(newQuantity, maxStock);
+      }
+
+      saveCart();
+      renderCart();
+    }
+
+    function getCartTotals() {
+      const subtotal = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+      const shippingCost = Number(state.settings.shipping_cost || 5);
+      const freeShippingThreshold = Number(state.settings.free_shipping_above || 50);
+      const deliveryType = document.getElementById('deliveryType')?.value;
+
+      let shipping = shippingCost;
+      if (deliveryType === 'ophalen') {
+        shipping = 0;
+      } else if (subtotal >= freeShippingThreshold) {
+        shipping = 0;
+      }
+
+      const itemCount = state.cart.reduce((sum, item) => sum + item.quantity, 0);
+
+      return {
+        itemCount,
+        subtotal,
+        shipping,
+        total: subtotal + shipping,
+        freeThreshold: freeShippingThreshold
+      };
+    }
+
+    function renderCart() {
+      const emptyMsg = document.getElementById('cartEmpty');
+      const itemsContainer = document.getElementById('cartItems');
+      const totals = getCartTotals();
+
+      // Toggle empty message
+      if (emptyMsg) emptyMsg.style.display = state.cart.length === 0 ? 'block' : 'none';
+      if (itemsContainer) itemsContainer.innerHTML = '';
+
+      // Render cart items
+      if (itemsContainer) {
+        state.cart.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'fade-up rounded-2xl border-2 border-[rgba(153,27,62,0.08)] bg-white/75 p-3';
+          const imageHtml = item.image_url ? `<img src="${item.image_url}" alt="${escapeHtml(item.product_name)}" style="height: 100%; width: 100%; object-fit: cover;">` : '';
+          row.innerHTML = `
+            <div style="display: flex; gap: 12px; font-size: 13px;">
+              <div style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 12px; overflow: hidden; background: rgba(153,27,62,0.08);">${imageHtml}</div>
+              <div style="flex: 1;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                  <strong style="color: var(--primary);">${escapeHtml(item.product_name)}</strong>
+                  <button class="remove-btn" data-id="${item.product_id}" style="background: none; border: none; color: var(--text-light); font-size: 11px; cursor: pointer; padding: 0; font-weight: 600;">Remove</button>
+                </div>
+                <p style="color: var(--text-light); margin: 0 0 8px 0; font-size: 12px;">${formatPrice(item.price)} per item</p>
+                <div style="display: flex; gap: 8px; align-items: center; justify-content: space-between;">
+                  <div style="display: inline-flex; gap: 4px; border: 1px solid rgba(153,27,62,0.1); border-radius: 8px; background: white; padding: 4px;">
+                    <button class="qty-dec" data-id="${item.product_id}" style="width: 24px; height: 24px; border: none; background: none; cursor: pointer; font-size: 12px; font-weight: 700;">−</button>
+                    <span style="min-width: 16px; text-align: center; font-weight: 600; font-size: 12px;">${item.quantity}</span>
+                    <button class="qty-inc" data-id="${item.product_id}" style="width: 24px; height: 24px; border: none; background: none; cursor: pointer; font-size: 12px; font-weight: 700;">+</button>
+                  </div>
+                  <strong style="font-size: 14px;">${formatPrice(item.price * item.quantity)}</strong>
+                </div>
+              </div>
+            </div>
+          `;
+          itemsContainer.appendChild(row);
+        });
+
+        // Attach event listeners to quantity controls
+        itemsContainer.querySelectorAll('.qty-dec').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = state.cart.find(p => Number(p.product_id) === Number(btn.dataset.id));
+            if (item) updateCartItem(Number(btn.dataset.id), item.quantity - 1);
+          });
+        });
+
+        itemsContainer.querySelectorAll('.qty-inc').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = state.cart.find(p => Number(p.product_id) === Number(btn.dataset.id));
+            if (item) updateCartItem(Number(btn.dataset.id), item.quantity + 1);
+          });
+        });
+
+        itemsContainer.querySelectorAll('.remove-btn').forEach(btn => {
+          btn.addEventListener('click', () => updateCartItem(Number(btn.dataset.id), 0));
+        });
+      }
+
+      // Update sidebar totals
+      const subtotalEl = document.getElementById('subtotal');
+      const shippingEl = document.getElementById('shipping');
+      const totalEl = document.getElementById('total');
+      if (subtotalEl) subtotalEl.textContent = formatPrice(totals.subtotal);
+      if (shippingEl) shippingEl.textContent = formatPrice(totals.shipping);
+      if (totalEl) totalEl.textContent = formatPrice(totals.total);
+
+      // Update free shipping message
+      const msg = document.getElementById('freeShippingMsg');
+      if (msg) {
+        if (totals.freeThreshold > 0 && totals.subtotal < totals.freeThreshold) {
+          msg.textContent = `€${(totals.freeThreshold - totals.subtotal).toFixed(2)} more for free shipping`;
+        } else if (totals.freeThreshold > 0 && totals.subtotal >= totals.freeThreshold) {
+          msg.textContent = '✓ Free shipping applied!';
+        } else {
+          msg.textContent = 'Shipping info will be shown at checkout';
+        }
+      }
+
+      // Update checkout summary
+      const summaryEl = document.getElementById('shopSummaryItems');
+      if (summaryEl) {
+        summaryEl.innerHTML = '';
+        state.cart.forEach(item => {
+          const line = document.createElement('div');
+          line.style.cssText = 'display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0;';
+          line.innerHTML = `
+            <span>${escapeHtml(item.product_name)} ×${item.quantity}</span>
+            <strong>${formatPrice(item.price * item.quantity)}</strong>
+          `;
+          summaryEl.appendChild(line);
+        });
+      }
+      const countEl = document.getElementById('shopSummaryCount');
+      if (countEl) countEl.textContent = totals.itemCount;
+      const subtotalSumEl = document.getElementById('shopSummarySubtotal');
+      if (subtotalSumEl) subtotalSumEl.textContent = formatPrice(totals.subtotal);
+      const shippingSumEl = document.getElementById('shopSummaryShipping');
+      if (shippingSumEl) shippingSumEl.textContent = formatPrice(totals.shipping);
+      const totalSumEl = document.getElementById('shopSummaryTotal');
+      if (totalSumEl) totalSumEl.textContent = formatPrice(totals.total);
+    }
+
+    // ============================================================================
+    // CHECKOUT FORM HANDLING
+    // ============================================================================
+    document.getElementById('shopCheckoutForm')?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const msgBox = document.getElementById('shopCheckoutMessage');
+      const submitBtn = document.getElementById('shopSubmitBtn');
+      msgBox.classList.add('hidden');
+
+      try {
+        if (!state.cart.length) throw new Error('Your cart is empty');
+
+        const name = document.getElementById('shopName').value.trim();
+        const email = document.getElementById('shopEmail').value.trim();
+        const phone = document.getElementById('shopPhone').value.trim();
+        const deliveryType = document.getElementById('shopDeliveryType').value;
+        const address = document.getElementById('shopAddress').value.trim();
+        const notes = document.getElementById('shopNotes').value.trim();
+
+        if (!name || !email || !phone || !deliveryType || !address) {
+          throw new Error('Please fill in all required fields');
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          throw new Error('Please enter a valid email address');
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+
+        const payload = {
+          action: 'createOrder',
+          customer_name: name,
+          email,
+          phone,
+          delivery_type: deliveryType,
+          address,
+          notes,
+          items: state.cart.map(item => ({
+            product_id: item.product_id,
+            quantity: item.quantity
+          }))
+        };
+
+        const response = await apiPost(payload);
+
+        if (!response.success) {
+          throw new Error(response.error?.message || 'Failed to submit order');
+        }
+
+        // Success
+        const orderId = response.data?.order_id || 'PENDING';
+        state.cart = [];
+        saveCart();
+        renderCart();
+        document.getElementById('shopCheckoutForm').reset();
+
+        // Show success overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 100;
+          padding: 20px;
+        `;
+        
+        const successCard = document.createElement('div');
+        successCard.style.cssText = `
+          background: white;
+          border-radius: 28px;
+          padding: 48px 32px;
+          max-width: 500px;
+          text-align: center;
+          box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+          animation: slideUp 0.5s ease;
+        `;
+        
+        successCard.innerHTML = `
+          <div style="font-size: 64px; margin-bottom: 24px;">✓</div>
+          <h2 style="font-size: 28px; font-weight: 700; color: var(--primary); margin: 0 0 12px 0;">Bestelling Gelukt!</h2>
+          <p style="color: var(--text-light); font-size: 16px; margin: 0 0 28px 0;">Je bestelling is succesvol geplaatst. We nemen contact met je op binnen 24 uur.</p>
+          
+          <div style="background: rgba(153, 27, 62, 0.05); border-radius: 16px; padding: 20px; margin-bottom: 24px;">
+            <p style="color: var(--text-light); font-size: 13px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 1px;">Order Nummer</p>
+            <p style="font-family: 'Courier New', monospace; font-size: 24px; font-weight: 700; color: var(--primary); margin: 0; word-break: break-all;">${escapeHtml(orderId)}</p>
+          </div>
+          
+          <div style="background: rgba(243, 112, 33, 0.05); border-radius: 12px; padding: 16px; margin-bottom: 24px; font-size: 14px; color: var(--text-light); line-height: 1.6;">
+            <p style="margin: 0;">📧 Je ontvangt een bevestigings-e-mail</p>
+            <p style="margin: 8px 0 0 0;">💬 We contacteren je via WhatsApp/telefoon</p>
+          </div>
+          
+          <button id="closeSuccessBtn" style="
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.background='#7a1530'" onmouseout="this.style.background='var(--primary)'">
+            Terug naar Shop
+          </button>
+        `;
+        
+        overlay.appendChild(successCard);
+        document.body.appendChild(overlay);
+        
+        // Add animation style if not exists
+        if (!document.getElementById('success-animation-style')) {
+          const style = document.createElement('style');
+          style.id = 'success-animation-style';
+          style.textContent = `
+            @keyframes slideUp {
+              from {
+                opacity: 0;
+                transform: translateY(40px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        document.getElementById('closeSuccessBtn').addEventListener('click', () => {
+          overlay.remove();
+          document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        showToast('Order submitted successfully!', 'success');
+      } catch (error) {
+        msgBox.className = 'mt-4 p-4 rounded-lg';
+        msgBox.style.background = '#fee2e2';
+        msgBox.style.color = '#991b1b';
+        msgBox.textContent = error.message;
+        msgBox.classList.remove('hidden');
+        showToast(error.message, 'error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Place Order';
+      }
+    });
+
+    // ============================================================================
+    // EVENT LISTENERS
+    // ============================================================================
+    document.getElementById('refreshShopProducts')?.addEventListener('click', loadProducts);
+
+    document.getElementById('shopSearchInput')?.addEventListener('input', (e) => {
+      state.searchQuery = e.target.value;
+      filterAndSortProducts();
+      renderProducts();
+    });
+
+    document.getElementById('shopSortFilter')?.addEventListener('change', (e) => {
+      state.sortBy = e.target.value;
+      filterAndSortProducts();
+      renderProducts();
+    });
+
+    document.getElementById('shopStockFilter')?.addEventListener('change', (e) => {
+      state.stockFilter = e.target.value;
+      filterAndSortProducts();
+      renderProducts();
+    });
+
+    document.getElementById('shopClearCart')?.addEventListener('click', () => {
+      if (state.cart.length === 0) {
+        showToast('Cart is already empty', 'info');
+        return;
+      }
+      state.cart = [];
+      saveCart();
+      renderCart();
+      showToast('Cart cleared', 'info');
+    });
+
+    document.getElementById('shopDeliveryType')?.addEventListener('change', renderCart);
+
+    document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+      if (state.cart.length === 0) {
+        showToast('Add items to cart first', 'error');
+        return;
+      }
+      document.getElementById('shopCheckout').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ============================================================================
+    // ELEMENT SDK INITIALIZATION
+    // ============================================================================
+    const defaultConfig = {
+      hero_title: 'Shake Your Vibe with YAA Mixtures',
+      hero_subtitle: 'Craft the perfect moment – cocktails, mocktails, events & custom branding',
+      contact_phone: '+31 6 12345678'
+    };
+
+    // Safe SDK check - SDK only available in Canva
+    if (window.elementSdk && window.elementSdk.init) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (cfg) => {
+          document.getElementById('el-hero-title').textContent = cfg.hero_title || defaultConfig.hero_title;
+          document.getElementById('el-hero-subtitle').textContent = cfg.hero_subtitle || defaultConfig.hero_subtitle;
+          
+          const phoneNumber = cfg.contact_phone || defaultConfig.contact_phone;
+          const encoded = encodeURIComponent('Hi YAA Mixtures! I\'m interested in booking an event.');
+          const whatsappLink = document.getElementById('el-whatsapp');
+          if (whatsappLink) {
+            whatsappLink.href = `https://wa.me/${phoneNumber.replace(/\D/g, '')}?text=${encoded}`;
+          }
+        },
+        mapToCapabilities: () => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (cfg) => new Map([
+          ['hero_title', cfg.hero_title || defaultConfig.hero_title],
+          ['hero_subtitle', cfg.hero_subtitle || defaultConfig.hero_subtitle],
+          ['contact_phone', cfg.contact_phone || defaultConfig.contact_phone]
+        ])
+      });
+    }
+
+    // Contact form handler
+    document.getElementById('contact-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const inputs = e.target.querySelectorAll('input, select, textarea');
+      const name = inputs[0].value;
+      const email = inputs[1].value;
+      const eventType = inputs[2].value;
+      const guests = inputs[3].value;
+      const message = inputs[4].value;
+
+      const msg = `Hello! I'd like to book YAA Mixtures for an event.\n\nName: ${name}\nEmail: ${email}\nEvent Type: ${eventType}\nGuests: ${guests}\nMessage: ${message}`;
+      const encoded = encodeURIComponent(msg);
+      const phone = (window.elementSdk.config?.contact_phone || defaultConfig.contact_phone).replace(/\D/g, '');
+
+      window.open(`https://wa.me/${phone}?text=${encoded}`, '_blank');
+      e.target.reset();
+      showToast('Redirecting to WhatsApp...', 'success');
+    });
+
+    // ============================================================================
+    // INITIALIZATION
+    // ============================================================================
+    async function init() {
+      // Load settings
+      const settingsResp = await apiGet('settings');
+      if (settingsResp.success) {
+        state.settings = settingsResp.data || {};
+      }
+
+      // Load products
+      await loadProducts();
+      renderCart();
+      lucide.createIcons();
+    }
+
+    init();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ed7a452d2f366de',t:'MTc3NjM4OTE4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

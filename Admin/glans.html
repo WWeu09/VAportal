@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard - Glans en Klasse</title>
+  <style>
+    :root {
+      --ink: #17201d;
+      --muted: #60746d;
+      --line: #d8e4df;
+      --brand: #0f766e;
+      --brand-dark: #0b4f49;
+      --gold: #c9a227;
+      --bg: #f6faf8;
+      --panel: #ffffff;
+      --danger: #b42318;
+      --ok: #147c43;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: var(--bg); }
+    header {
+      background: #0b2f2b;
+      color: #fff;
+      padding: 18px clamp(16px, 4vw, 42px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    main { padding: 18px clamp(16px, 4vw, 42px) 44px; }
+    h1, h2, h3 { margin: 0; }
+    a { color: inherit; }
+    .btn {
+      border: 0;
+      min-height: 38px;
+      padding: 0 12px;
+      border-radius: 6px;
+      background: var(--brand);
+      color: #fff;
+      font-weight: 900;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn.light { background: #fff; color: var(--ink); }
+    .btn.gold { background: var(--gold); color: #111; }
+    .btn.danger { background: var(--danger); }
+    .panel, form {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .login { max-width: 420px; margin: 40px auto; }
+    label { display: grid; gap: 6px; font-weight: 800; margin-bottom: 10px; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #b8c8c3;
+      border-radius: 6px;
+      min-height: 38px;
+      padding: 8px 10px;
+      font: inherit;
+      background: #fff;
+    }
+    textarea { min-height: 76px; resize: vertical; }
+    .hidden { display: none !important; }
+    .status { margin-top: 10px; font-weight: 900; }
+    .status.ok { color: var(--ok); }
+    .status.error { color: var(--danger); }
+    .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 16px; }
+    .stat { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 14px; }
+    .stat strong { display: block; font-size: 24px; }
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .tab.active { background: var(--brand-dark); }
+    .view { display: none; }
+    .view.active { display: block; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+    .table-wrap { overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+    table { width: 100%; min-width: 980px; border-collapse: collapse; font-size: 14px; }
+    th, td { border-bottom: 1px solid var(--line); padding: 9px; text-align: left; vertical-align: top; }
+    th { background: #eaf2ef; position: sticky; top: 0; }
+    .pill { display: inline-flex; padding: 4px 8px; border-radius: 999px; background: #e8f2ef; font-weight: 900; font-size: 12px; }
+    .forms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+    .span-3 { grid-column: span 3; }
+    .muted { color: var(--muted); }
+    .toast { position: fixed; right: 18px; bottom: 18px; background: #0b2f2b; color: #fff; padding: 12px 14px; border-radius: 8px; display: none; z-index: 20; }
+    @media (max-width: 980px) {
+      header { flex-direction: column; align-items: flex-start; }
+      .stats, .forms { grid-template-columns: 1fr; }
+      .span-3 { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>Admin Dashboard</h1>
+      <div id="adminLine" class="muted" style="color:#d8ece7">Glans en Klasse administratie</div>
+    </div>
+    <div>
+      <a class="btn light" href="index.html">Website</a>
+      <a class="btn light" href="client.html">Klantportaal</a>
+      <button class="btn gold hidden" id="logoutBtn">Uitloggen</button>
+    </div>
+  </header>
+
+  <main>
+    <form id="loginForm" class="login">
+      <h2>Admin login</h2>
+      <p class="muted">Standaard na setup: admin@glans-en-klasse.nl / Admin123!</p>
+      <label>Email<input name="email" type="email" required></label>
+      <label>Wachtwoord<input name="wachtwoord" type="password" required></label>
+      <button class="btn" type="submit">Inloggen</button>
+      <div class="status"></div>
+    </form>
+
+    <section id="dashboard" class="hidden">
+      <div class="stats" id="stats"></div>
+
+      <div class="panel">
+        <div class="tabs" id="tabs"></div>
+        <div class="toolbar">
+          <input id="search" placeholder="Zoeken">
+          <button class="btn gold" id="refreshBtn">Verversen</button>
+        </div>
+        <div id="views"></div>
+      </div>
+
+      <section class="forms">
+        <form id="serviceForm">
+          <h3>Dienst toevoegen</h3>
+          <label>Titel<input name="titel" required></label>
+          <label>Prijs<input name="prijs" type="number" step="0.01" min="0" required></label>
+          <label>Actief<select name="actief"><option value="true">Ja</option><option value="false">Nee</option></select></label>
+          <label class="span-3">Beschrijving<textarea name="beschrijving" required></textarea></label>
+          <button class="btn" type="submit">Opslaan</button>
+          <div class="status"></div>
+        </form>
+
+        <form id="customerForm">
+          <h3>Klant toevoegen</h3>
+          <label>Naam<input name="naam" required></label>
+          <label>Email<input name="email" type="email" required></label>
+          <label>Telefoon<input name="telefoon" required></label>
+          <label>Adres<input name="adres" required></label>
+          <label>Type<select name="klant_type"><option>particulier</option><option>bedrijf</option></select></label>
+          <button class="btn" type="submit">Opslaan</button>
+          <div class="status"></div>
+        </form>
+
+        <form id="userForm">
+          <h3>Gebruiker aanmaken</h3>
+          <label>Klant<select name="klant_id" id="userCustomer"></select></label>
+          <label>Email<input name="email" type="email" required></label>
+          <label>Wachtwoord<input name="wachtwoord" required></label>
+          <label>Rol<select name="rol"><option value="klant">klant</option><option value="admin">admin</option></select></label>
+          <label>Actief<select name="actief"><option value="true">Ja</option><option value="false">Nee</option></select></label>
+          <button class="btn" type="submit">Account maken</button>
+          <div class="status"></div>
+        </form>
+
+        <form id="planningForm">
+          <h3>Planning toevoegen</h3>
+          <label>Klant<select name="klant_id" id="planningCustomer" required></select></label>
+          <label>Dienst<select name="dienst_id" id="planningService" required></select></label>
+          <label>Datum<input name="datum" type="date" required></label>
+          <label>Start<input name="start_tijd" type="time" required></label>
+          <label>Eind<input name="eind_tijd" type="time" required></label>
+          <label>Medewerker<input name="medewerker" required></label>
+          <label>Status<input name="status" value="gepland"></label>
+          <button class="btn" type="submit">Inplannen</button>
+          <div class="status"></div>
+        </form>
+
+        <form id="invoiceForm">
+          <h3>Factuur toevoegen</h3>
+          <label>Klant<select name="klant_id" id="invoiceCustomer" required></select></label>
+          <label>Bedrag<input name="bedrag" type="number" step="0.01" min="0" required></label>
+          <label>Status<select name="status"><option>open</option><option>betaald</option></select></label>
+          <label class="span-3">PDF URL<input name="pdf_url" type="url"></label>
+          <button class="btn" type="submit">Factuur opslaan</button>
+          <div class="status"></div>
+        </form>
+
+        <form id="companyForm">
+          <h3>Bedrijfsgegevens</h3>
+          <label>Naam<input name="bedrijfsNaam"></label>
+          <label>Adres<input name="adres"></label>
+          <label>Postcode<input name="postcode"></label>
+          <label>Stad<input name="stad"></label>
+          <label>Telefoon 1<input name="telefoon1"></label>
+          <label>Telefoon 2<input name="telefoon2"></label>
+          <label>Email 1<input name="email1"></label>
+          <label>Email 2<input name="email2"></label>
+          <label>Email 3<input name="email3"></label>
+          <label>Instagram<input name="instagram"></label>
+          <label>LinkedIn<input name="linkedin"></label>
+          <label>Facebook<input name="facebook"></label>
+          <label>TikTok<input name="tiktok"></label>
+          <label>Website<input name="website"></label>
+          <label>Externe link 1<input name="externeLink1"></label>
+          <label>Externe link 2<input name="externeLink2"></label>
+          <label class="span-3">Openingstijden JSON/tekst<textarea name="openingstijden"></textarea></label>
+          <button class="btn" type="submit">Bedrijf opslaan</button>
+          <div class="status"></div>
+        </form>
+      </section>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const API_URL = 'https://script.google.com/macros/s/AKfycbz7eAcu1ApfSLgUauYeiXXQhUsKd-WYoPb6LnT--pzncAGBuyKkOR3Q-8rNc64ONT91/exec';
+    const state = {
+      token: localStorage.getItem('gk_admin_token') || '',
+      data: {},
+      active: 'offertes',
+      tabs: [
+        ['offertes', 'Offertes'], ['contact', 'Contact'], ['reviews', 'Reviews'], ['klanten', 'Klanten'],
+        ['gebruikers', 'Gebruikers'], ['planning', 'Planning'], ['werkorders', 'Werkorders'], ['facturen', 'Facturen'], ['diensten', 'Diensten']
+      ],
+      columns: {
+        offertes: ['id', 'naam', 'email', 'telefoon', 'dienst_id', 'beschrijving', 'status', 'created_at'],
+        contact: ['id', 'naam', 'email', 'bericht', 'created_at'],
+        reviews: ['id', 'naam', 'rating', 'bericht', 'status', 'created_at'],
+        klanten: ['id', 'naam', 'email', 'telefoon', 'adres', 'klant_type', 'created_at'],
+        gebruikers: ['id', 'klant_id', 'email', 'rol', 'actief', 'last_login'],
+        planning: ['id', 'klant', 'datum', 'start_tijd', 'eind_tijd', 'dienst', 'medewerker', 'status', 'created_at'],
+        werkorders: ['id', 'planning_id', 'status', 'notities', 'foto_url', 'created_at'],
+        facturen: ['id', 'klant_id', 'bedrag', 'status', 'pdf_url', 'created_at'],
+        diensten: ['id', 'titel', 'beschrijving', 'prijs', 'actief', 'created_at']
+      }
+    };
+
+    async function apiGet(action, params = {}) {
+      const url = new URL(API_URL);
+      url.searchParams.set('action', action);
+      if (state.token) url.searchParams.set('token', state.token);
+      Object.entries(params).forEach(([key, value]) => url.searchParams.set(key, value));
+      const response = await fetch(url.toString());
+      const json = await response.json();
+      if (json.status !== 'success') throw new Error(json.message || 'API fout');
+      return json.data;
+    }
+
+    async function apiPost(action, payload = {}) {
+      const body = new URLSearchParams();
+      if (state.token) body.set('token', state.token);
+      Object.entries(payload).forEach(([key, value]) => body.set(key, value ?? ''));
+      const response = await fetch(`${API_URL}?action=${encodeURIComponent(action)}`, { method: 'POST', body });
+      const json = await response.json();
+      if (json.status !== 'success') throw new Error(json.message || 'API fout');
+      return json.data;
+    }
+
+    function formData(form) { return Object.fromEntries(new FormData(form).entries()); }
+    function escapeHtml(value) { return String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[c])); }
+    function setStatus(form, message, ok) {
+      const box = form.querySelector('.status');
+      box.textContent = message;
+      box.className = 'status ' + (ok ? 'ok' : 'error');
+    }
+    function toast(message, error) {
+      const box = document.getElementById('toast');
+      box.textContent = message;
+      box.style.background = error ? '#b42318' : '#0b2f2b';
+      box.style.display = 'block';
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => box.style.display = 'none', 3000);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      try {
+        const result = await apiPost('login', formData(form));
+        if (result.user.rol !== 'admin') throw new Error('Dit account is geen admin');
+        state.token = result.token;
+        localStorage.setItem('gk_admin_token', state.token);
+        setStatus(form, 'Ingelogd', true);
+        await openDashboard(result.user.email);
+      } catch (error) {
+        setStatus(form, error.message, false);
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      try { await apiPost('logout', {}); } catch {}
+      localStorage.removeItem('gk_admin_token');
+      location.reload();
+    });
+
+    document.getElementById('refreshBtn').addEventListener('click', loadAll);
+    document.getElementById('search').addEventListener('input', renderActive);
+
+    function renderTabs() {
+      document.getElementById('tabs').innerHTML = state.tabs.map(([key, label]) => `<button class="btn tab ${key === state.active ? 'active' : ''}" data-key="${key}">${label}</button>`).join('');
+      document.querySelectorAll('.tab').forEach(button => {
+        button.addEventListener('click', () => {
+          state.active = button.dataset.key;
+          document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+          button.classList.add('active');
+          renderActive();
+        });
+      });
+    }
+
+    async function openDashboard(email) {
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.remove('hidden');
+      document.getElementById('adminLine').textContent = `Ingelogd als ${email || 'admin'}`;
+      renderTabs();
+      await loadAll();
+    }
+
+    async function loadAll() {
+      toast('Laden...');
+      const [bedrijf, diensten, klanten, gebruikers, planning, werkorders, facturen, reviews, offertes, contact] = await Promise.all([
+        apiGet('getBedrijf'),
+        apiGet('getAllDiensten'),
+        apiGet('getKlanten'),
+        apiGet('getGebruikers'),
+        apiGet('getPlanning'),
+        apiGet('getWerkorders'),
+        apiGet('getFacturen'),
+        apiGet('getAllReviews'),
+        apiGet('getOffertes'),
+        apiGet('getContact')
+      ]);
+      Object.assign(state.data, { bedrijf, diensten, klanten, gebruikers, planning, werkorders, facturen, reviews, offertes, contact });
+      fillSelects();
+      fillCompanyForm();
+      renderStats();
+      renderActive();
+      toast('Dashboard bijgewerkt');
+    }
+
+    function fillSelects() {
+      const customerOptions = state.data.klanten.map(k => `<option value="${escapeHtml(k.id)}">${escapeHtml(k.naam)} - ${escapeHtml(k.email)}</option>`).join('');
+      document.getElementById('userCustomer').innerHTML = '<option value="">Geen klant</option>' + customerOptions;
+      document.getElementById('planningCustomer').innerHTML = customerOptions;
+      document.getElementById('invoiceCustomer').innerHTML = customerOptions;
+      document.getElementById('planningService').innerHTML = state.data.diensten.filter(d => d.actief).map(d => `<option value="${escapeHtml(d.id)}">${escapeHtml(d.titel)}</option>`).join('');
+    }
+
+    function fillCompanyForm() {
+      const form = document.getElementById('companyForm');
+      Object.entries(state.data.bedrijf || {}).forEach(([key, value]) => {
+        if (form.elements[key]) form.elements[key].value = value || '';
+      });
+    }
+
+    function renderStats() {
+      const stats = [
+        ['Offertes', state.data.offertes.length],
+        ['Contact', state.data.contact.length],
+        ['Klanten', state.data.klanten.length],
+        ['Planning', state.data.planning.length],
+        ['Werkorders', state.data.werkorders.length],
+        ['Facturen', state.data.facturen.length]
+      ];
+      document.getElementById('stats').innerHTML = stats.map(([label, value]) => `<article class="stat"><span>${label}</span><strong>${value}</strong></article>`).join('');
+    }
+
+    function renderActive() {
+      const key = state.active;
+      const columns = state.columns[key];
+      const query = document.getElementById('search').value.toLowerCase().trim();
+      const rows = (state.data[key] || []).filter(row => !query || Object.values(row).join(' ').toLowerCase().includes(query));
+      document.getElementById('views').innerHTML = `
+        <div class="view active">
+          <h2>${label(key)}</h2>
+          <div class="table-wrap">
+            <table>
+              <thead><tr>${columns.map(col => `<th>${label(col)}</th>`).join('')}<th>Acties</th></tr></thead>
+              <tbody>${rows.length ? rows.map(row => rowHtml(key, columns, row)).join('') : `<tr><td colspan="${columns.length + 1}">Geen records gevonden.</td></tr>`}</tbody>
+            </table>
+          </div>
+        </div>`;
+      bindActions();
+    }
+
+    function rowHtml(key, columns, row) {
+      return `<tr data-id="${escapeHtml(row.id)}">${columns.map(col => `<td>${cell(col, row[col])}</td>`).join('')}<td>${actions(key, row)}</td></tr>`;
+    }
+
+    function cell(col, value) {
+      if (col === 'status' || col === 'actief') return `<span class="pill">${escapeHtml(value)}</span>`;
+      if (col.endsWith('_url') && value) return `<a href="${escapeHtml(value)}" target="_blank" rel="noopener">Openen</a>`;
+      if (col === 'prijs' || col === 'bedrag') return `€${Number(value || 0).toFixed(2)}`;
+      return escapeHtml(value || '');
+    }
+
+    function actions(key, row) {
+      if (key === 'reviews') return `<button class="btn" data-action="review-approved">Approve</button> <button class="btn danger" data-action="review-rejected">Reject</button>`;
+      if (key === 'offertes') return `<button class="btn" data-action="offerte-progress">In behandeling</button> <button class="btn gold" data-action="offerte-done">Afgerond</button>`;
+      if (key === 'diensten') return `<button class="btn danger" data-action="dienst-delete">Deactiveren</button>`;
+      if (key === 'planning') return `<button class="btn gold" data-action="planning-done">Afgerond</button>`;
+      if (key === 'werkorders') return `<button class="btn gold" data-action="werkorder-done">Afgerond</button>`;
+      if (key === 'facturen') return `<button class="btn gold" data-action="factuur-paid">Betaald</button>`;
+      return '-';
+    }
+
+    function bindActions() {
+      document.querySelectorAll('[data-action]').forEach(button => {
+        button.addEventListener('click', async () => {
+          const id = button.closest('tr').dataset.id;
+          const action = button.dataset.action;
+          try {
+            if (action === 'review-approved') await apiPost('moderateReview', { id, status: 'approved' });
+            if (action === 'review-rejected') await apiPost('moderateReview', { id, status: 'rejected' });
+            if (action === 'offerte-progress') await apiPost('updateOfferte', { id, status: 'in behandeling' });
+            if (action === 'offerte-done') await apiPost('updateOfferte', { id, status: 'afgerond' });
+            if (action === 'dienst-delete') await apiPost('deleteDienst', { id });
+            if (action === 'planning-done') await apiPost('updatePlanning', { id, status: 'afgerond' });
+            if (action === 'werkorder-done') await apiPost('updateWerkorder', { id, status: 'afgerond' });
+            if (action === 'factuur-paid') await apiPost('updateFactuur', { id, status: 'betaald' });
+            await loadAll();
+          } catch (error) {
+            toast(error.message, true);
+          }
+        });
+      });
+    }
+
+    function bindCreate(formId, action) {
+      document.getElementById(formId).addEventListener('submit', async event => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        try {
+          await apiPost(action, formData(form));
+          form.reset();
+          setStatus(form, 'Opgeslagen', true);
+          await loadAll();
+        } catch (error) {
+          setStatus(form, error.message, false);
+        }
+      });
+    }
+
+    bindCreate('serviceForm', 'createDienst');
+    bindCreate('customerForm', 'createKlant');
+    bindCreate('userForm', 'createGebruiker');
+    bindCreate('planningForm', 'createPlanning');
+    bindCreate('invoiceForm', 'createFactuur');
+
+    document.getElementById('companyForm').addEventListener('submit', async event => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      try {
+        await apiPost('updateBedrijf', formData(form));
+        setStatus(form, 'Bedrijfsgegevens opgeslagen', true);
+        await loadAll();
+      } catch (error) {
+        setStatus(form, error.message, false);
+      }
+    });
+
+    function label(value) {
+      return value.replaceAll('_', ' ').replace(/\b\w/g, c => c.toUpperCase());
+    }
+
+    if (state.token) {
+      apiGet('getMijnProfiel').then(profile => {
+        if (!profile.gebruiker || profile.gebruiker.rol !== 'admin') throw new Error('Geen admin');
+        openDashboard(profile.gebruiker.email);
+      }).catch(() => localStorage.removeItem('gk_admin_token'));
+    }
+  </script>
+</body>
+</html>

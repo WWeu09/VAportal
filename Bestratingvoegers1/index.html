@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="nl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De Bestratingsvoegers - Specialist in Bestrating</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { height: 100%; margin: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; }
+    .font-heading { font-family: 'Lora', serif; letter-spacing: -0.5px; }
+    .font-body { font-family: 'Inter', sans-serif; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .anim-fade { animation: fadeUp 0.8s ease-out forwards; opacity: 0; }
+    .anim-slide { animation: slideDown 0.6s ease-out forwards; opacity: 0; }
+    .anim-d1 { animation-delay: 0.1s; }
+    .anim-d2 { animation-delay: 0.2s; }
+    .anim-d3 { animation-delay: 0.3s; }
+    .anim-d4 { animation-delay: 0.4s; }
+    .anim-d5 { animation-delay: 0.5s; }
+    .page-hidden { display: none; }
+    .page-visible { display: block; animation: fadeUp 0.6s ease-out; }
+    .service-card { transition: all 0.4s ease; }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(51, 115, 102, 0.08); }
+    .nav-link { position: relative; transition: color 0.3s ease; }
+    .nav-link::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px; background: #337366; transition: width 0.3s ease; }
+    .nav-link:hover::after { width: 100%; }
+    .btn-primary { transition: all 0.3s ease; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(51, 115, 102, 0.15); }
+    .accent-line { background: linear-gradient(90deg, #337366 0%, rgba(51, 115, 102, 0) 100%); }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-body">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #ffffff;"><!-- Nav -->
+   <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); border-color: rgba(51, 115, 102, 0.1);">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+     <div class="flex items-center gap-3 cursor-pointer" onclick="goToPage('home')">
+      <div class="w-9 h-9 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%);">
+       <i data-lucide="layers" style="width:20px;height:20px;color:#ffffff;"></i>
+      </div><span id="nav-brand" class="font-heading text-lg font-semibold hidden sm:inline" style="color: #1a1a1a;">De Bestratingsvoegers</span>
+     </div>
+     <div class="hidden md:flex items-center gap-10"><a href="#" onclick="goToPage('home'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Privacy</a> <a href="#" onclick="goToPage('contact'); return false;" class="px-6 py-2.5 rounded-lg text-sm font-600 btn-primary" style="background: #337366; color: #ffffff;">Offerte</a>
+     </div><button id="mobile-menu-btn" class="md:hidden" style="color: #337366;" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"> <i data-lucide="menu" style="width:24px;height:24px;"></i> </button>
+    </div>
+    <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 flex flex-col gap-3 border-t" style="border-color: rgba(51, 115, 102, 0.1);"><a href="#" onclick="goToPage('home'); return false;" class="text-sm py-2 font-500" style="color: #337366;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="text-sm py-2 font-500" style="color: #337366;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="text-sm py-2 font-500" style="color: #337366;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="text-sm py-2 font-500" style="color: #337366;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="text-sm py-2 font-500" style="color: #337366;">Privacy</a>
+    </div>
+   </nav><!-- HOME PAGE -->
+   <div id="page-home" class="page-visible"><!-- Hero -->
+    <section class="relative flex items-center justify-center text-center px-6 pt-24" style="min-height: 90%; background: linear-gradient(135deg, #f8f9f7 0%, #f0f4f2 100%);">
+     <div class="max-w-4xl mx-auto py-16">
+      <div class="anim-fade anim-d1 inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-600 mb-8" style="background: rgba(51, 115, 102, 0.08); color: #337366; border: 1px solid rgba(51, 115, 102, 0.2);">
+       <i data-lucide="check" style="width:14px;height:14px;"></i> Specialist in bestrating, reiniging en bescherming
+      </div>
+      <h1 id="hero-title" class="font-heading anim-fade anim-d2 text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 font-bold" style="color: #1a1a1a;">De Bestratingsvoegers</h1>
+      <p id="hero-subtitle" class="anim-fade anim-d3 text-lg md:text-xl mb-10 max-w-2xl mx-auto leading-relaxed" style="color: #666666;">Specialist in bestrating, reiniging en bescherming. Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid.</p>
+      <div class="anim-fade anim-d4 flex flex-col sm:flex-row items-center justify-center gap-4"><a href="#" onclick="goToPage('contact'); return false;" class="px-8 py-3.5 rounded-lg font-semibold text-base flex items-center gap-2 btn-primary" style="background: #337366; color: #ffffff;"> <i data-lucide="phone" style="width:18px;height:18px;"></i> Offerte aanvragen </a> <a href="#" onclick="goToPage('diensten'); return false;" class="px-8 py-3.5 rounded-lg font-semibold text-base transition hover:scale-105" style="border: 2px solid #337366; color: #337366;"> Onze diensten </a>
+      </div>
+     </div>
+    </section><!-- Services Grid -->
+    <section class="px-6 py-24" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <p class="text-sm font-600 tracking-widest uppercase mb-3 text-center" style="color: #337366;">Onze expertise</p>
+      <h2 class="font-heading text-4xl md:text-5xl text-center mb-16 font-bold" style="color: #1a1a1a;">Wat wij voor u doen</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+       <div class="rounded-xl p-8 service-card border transition" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1); cursor: pointer;" onclick="goToPage('onkruid')">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="leaf" style="width:24px;height:24px;color:#337366;"></i>
+        </div>
+        <h3 class="font-heading text-lg font-semibold mb-3" style="color: #1a1a1a;">Onkruidbestrijding</h3>
+        <p class="text-sm leading-relaxed" style="color: #666666;">Duurzaam en effectief voegen zodat onkruid geen kans meer krijgt.</p>
+       </div>
+       <div class="rounded-xl p-8 service-card border transition" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1); cursor: pointer;" onclick="goToPage('reinigen')">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="droplets" style="width:24px;height:24px;color:#337366;"></i>
+        </div>
+        <h3 class="font-heading text-lg font-semibold mb-3" style="color: #1a1a1a;">Bestrating reinigen</h3>
+        <p class="text-sm leading-relaxed" style="color: #666666;">Professionele reiniging van klinkers, tegels en natuursteen met gespecialiseerde apparatuur.</p>
+       </div>
+       <div class="rounded-xl p-8 service-card border transition" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1); cursor: pointer;" onclick="goToPage('impregneren')">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="shield-check" style="width:24px;height:24px;color:#337366;"></i>
+        </div>
+        <h3 class="font-heading text-lg font-semibold mb-3" style="color: #1a1a1a;">Impregneren</h3>
+        <p class="text-sm leading-relaxed" style="color: #666666;">Langdurige bescherming tegen vocht, vuil en vlekken voor jarenlang genieten.</p>
+       </div>
+       <div class="rounded-xl p-8 service-card border transition" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1); cursor: pointer;" onclick="goToPage('water')">
+        <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="waves" style="width:24px;height:24px;color:#337366;"></i>
+        </div>
+        <h3 class="font-heading text-lg font-semibold mb-3" style="color: #1a1a1a;">Waterbeheersing</h3>
+        <p class="text-sm leading-relaxed" style="color: #666666;">Voorkom wateroverlast en bescherm uw bestrating tegen schadelijke vochtopbouw.</p>
+       </div>
+      </div>
+     </div>
+    </section><!-- About Preview -->
+    <section class="px-6 py-24" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+      <div>
+       <p class="text-sm font-600 tracking-widest uppercase mb-4" style="color: #337366;">Over ons</p>
+       <h2 class="font-heading text-4xl md:text-5xl mb-8 font-bold leading-tight" style="color: #1a1a1a;">Kwaliteit en vakmanschap sinds dag één</h2>
+       <p class="leading-relaxed mb-6 text-lg" style="color: #666666;">Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid. Wat begon met het reinigen van stoepen, groeide uit tot een totaalservice voor bestrating in heel Nederland.</p>
+       <p class="leading-relaxed mb-8 text-lg" style="color: #666666;">Door continu te investeren in nieuwe technieken en vakkennis, zijn wij uitgegroeid tot specialist in het reinigen, voegen, impregneren en beschermen van bestrating.</p><a href="#" onclick="goToPage('over-ons'); return false;" class="inline-block px-8 py-3.5 rounded-lg font-semibold btn-primary" style="background: #337366; color: #ffffff;">Meer over ons</a>
+      </div>
+      <div class="rounded-2xl p-12 flex flex-col items-center justify-center text-center border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1); min-height: 380px;">
+       <svg viewbox="0 0 120 120" width="120" height="120" style="opacity: 0.8;">
+        <g fill="none" stroke="#337366" stroke-width="2">
+         <rect x="10" y="10" width="35" height="20" rx="2" />
+         <rect x="55" y="10" width="45" height="20" rx="2" />
+         <rect x="10" y="38" width="25" height="20" rx="2" />
+         <rect x="42" y="38" width="25" height="20" rx="2" />
+         <rect x="75" y="38" width="25" height="20" rx="2" />
+         <rect x="10" y="66" width="40" height="20" rx="2" />
+         <rect x="58" y="66" width="42" height="20" rx="2" />
+         <rect x="10" y="94" width="32" height="20" rx="2" />
+         <rect x="50" y="94" width="50" height="20" rx="2" />
+        </g>
+       </svg>
+       <p class="font-heading text-2xl font-semibold mt-8" style="color: #337366;">Vakmanschap in elk voeg</p>
+       <p class="text-sm mt-3" style="color: #999999;">Strak, duurzaam en professioneel afgewerkt</p>
+      </div>
+     </div>
+    </section><!-- Stats -->
+    <section class="px-6 py-20" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+       <p class="font-heading text-4xl md:text-5xl font-bold" style="color: #337366;">5.0</p>
+       <p class="text-sm mt-2" style="color: #cccccc;">Sterren beoordeling</p>
+      </div>
+      <div>
+       <p class="font-heading text-4xl md:text-5xl font-bold" style="color: #337366;">100+</p>
+       <p class="text-sm mt-2" style="color: #cccccc;">Tevreden klanten</p>
+      </div>
+      <div>
+       <p class="font-heading text-4xl md:text-5xl font-bold" style="color: #337366;">NRVD</p>
+       <p class="text-sm mt-2" style="color: #cccccc;">Erkend lid</p>
+      </div>
+      <div>
+       <p class="font-heading text-4xl md:text-5xl font-bold" style="color: #337366;">24/7</p>
+       <p class="text-sm mt-2" style="color: #cccccc;">Bereikbaar</p>
+      </div>
+     </div>
+    </section><!-- CTA Banner -->
+    <section class="px-6 py-20" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%);">
+     <div class="max-w-4xl mx-auto text-center">
+      <h2 class="font-heading text-4xl md:text-5xl mb-6 font-bold" style="color: #ffffff;">Klaar voor een offerte?</h2>
+      <p class="text-lg mb-10 max-w-2xl mx-auto mx-auto" style="color: rgba(255,255,255,0.85);">Neem vandaag nog contact met ons op voor een vrijblijvende offerte. Wij bellen of mailen u terug.</p><a href="#" onclick="goToPage('contact'); return false;" class="inline-block px-10 py-4 rounded-lg font-semibold text-lg btn-primary" style="background: #ffffff; color: #337366;">Offerte aanvragen</a>
+     </div>
+    </section><!-- Footer -->
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+      <div class="flex items-center gap-2"><span style="color:#337366;"><i data-lucide="star" style="width:16px;height:16px;fill:#337366;"></i></span> <span class="text-sm ml-1" style="color: #cccccc;">5,0 beoordeling</span>
+      </div>
+     </div>
+    </footer>
+   </div><!-- DIENSTEN PAGE -->
+   <div id="page-diensten" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <div class="mb-12"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-6 btn-primary" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar home </a>
+       <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Onze Diensten</h1>
+       <p class="text-xl max-w-2xl leading-relaxed" style="color: #666666;">Wij bieden een compleet scala aan professionele bestratingsvoeg-, reiniging-, beschermings- en herstellingsdiensten voor particulieren en zakelijke klanten in heel Nederland.</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8"><!-- Service Cards -->
+       <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="h-32 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="leaf" style="width:48px;height:48px;color:#337366;opacity:0.6;"></i>
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+         <h3 class="font-heading text-xl font-semibold mb-2" style="color: #1a1a1a;">Onkruidbestrijding</h3>
+         <p class="text-sm leading-relaxed flex-grow" style="color: #666666;">Duurzaam voegen zodat onkruid geen kans meer krijgt. Jarenlang onderhoudsvrij.</p><button onclick="goToPage('onkruid')" class="mt-4 text-sm font-semibold hover:opacity-70 transition" style="color: #337366; text-align: left;">Lees meer →</button>
+        </div>
+       </div>
+       <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="h-32 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="droplets" style="width:48px;height:48px;color:#337366;opacity:0.6;"></i>
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+         <h3 class="font-heading text-xl font-semibold mb-2" style="color: #1a1a1a;">Bestrating Reinigen</h3>
+         <p class="text-sm leading-relaxed flex-grow" style="color: #666666;">Professionele reiniging voor een zinderende schone bestrating.</p><button onclick="goToPage('reinigen')" class="mt-4 text-sm font-semibold hover:opacity-70 transition" style="color: #337366; text-align: left;">Lees meer →</button>
+        </div>
+       </div>
+       <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="h-32 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="shield-check" style="width:48px;height:48px;color:#337366;opacity:0.6;"></i>
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+         <h3 class="font-heading text-xl font-semibold mb-2" style="color: #1a1a1a;">Impregneren</h3>
+         <p class="text-sm leading-relaxed flex-grow" style="color: #666666;">Langdurige bescherming tegen vuil, vocht en vlekken.</p><button onclick="goToPage('impregneren')" class="mt-4 text-sm font-semibold hover:opacity-70 transition" style="color: #337366; text-align: left;">Lees meer →</button>
+        </div>
+       </div>
+       <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="h-32 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="waves" style="width:48px;height:48px;color:#337366;opacity:0.6;"></i>
+        </div>
+        <div class="p-8 flex flex-col flex-grow">
+         <h3 class="font-heading text-xl font-semibold mb-2" style="color: #1a1a1a;">Waterbeheersing</h3>
+         <p class="text-sm leading-relaxed flex-grow" style="color: #666666;">Geen plassen meer en optimale afwatering van uw bestrating.</p><button onclick="goToPage('water')" class="mt-4 text-sm font-semibold hover:opacity-70 transition" style="color: #337366; text-align: left;">Lees meer →</button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- ONKRUIDBESTRIJDING PAGE -->
+   <div id="page-onkruid" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-8" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar diensten </a>
+      <div class="grid md:grid-cols-2 gap-12 items-start mb-16">
+       <div>
+        <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Onkruidbestrijding</h1>
+        <p class="text-xl leading-relaxed mb-8" style="color: #666666;">Onkruid tussen uw bestrating is niet alleen storend, maar geeft uw tuin, terras of oprit ook een onverzorgde uitstraling. Wij zorgen ervoor dat uw bestrating niet alleen volledig onkruidvrij wordt, maar ook langdurig beschermd blijft tegen nieuwe groei.</p>
+        <p class="text-lg leading-relaxed" style="color: #666666;">Met duurzame technieken en professionele materialen pakken wij het probleem bij de bron aan.</p>
+       </div>
+       <div class="rounded-2xl p-12 flex items-center justify-center" style="background: #ffffff; border: 1px solid rgba(51, 115, 102, 0.1); min-height: 340px;"><i data-lucide="leaf" style="width:120px;height:120px;color:#337366;opacity:0.2;"></i>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">De voordelen</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Nooit meer zelf onkruid verwijderen</h3>
+         <p style="color: #666666;">Geen meer pijnlijke uren op uw knieën</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Verzorgde uitstraling</h3>
+         <p style="color: #666666;">Uw tuin of terras ziet er permanent strak en luxe uit</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Duurzame oplossing</h3>
+         <p style="color: #666666;">Zonder schadelijke middelen, milieuvrij en veilig</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Langdurige bescherming</h3>
+         <p style="color: #666666;">Voeg die jarenlang standhoudt tegen onkruid</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">Onze werkwijze</h2>
+      <div class="space-y-6">
+       <div class="flex gap-8 items-start p-8 rounded-xl bg-white border" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 font-heading font-bold text-xl" style="background: #337366; color: #ffffff;">
+         1
+        </div>
+        <div>
+         <h3 class="font-heading text-2xl font-semibold mb-2" style="color: #1a1a1a;">Adviesgesprek</h3>
+         <p style="color: #666666;">Wij bezoeken uw locatie en analyseren de situatie. Welke soort voeg past het best bij uw bestrating?</p>
+        </div>
+       </div>
+       <div class="flex gap-8 items-start p-8 rounded-xl bg-white border" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 font-heading font-bold text-xl" style="background: #337366; color: #ffffff;">
+         2
+        </div>
+        <div>
+         <h3 class="font-heading text-2xl font-semibold mb-2" style="color: #1a1a1a;">Plan van aanpak</h3>
+         <p style="color: #666666;">Wij stellen een plan op met schema, voegkeuze en kostenschatting.</p>
+        </div>
+       </div>
+       <div class="flex gap-8 items-start p-8 rounded-xl bg-white border" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 font-heading font-bold text-xl" style="background: #337366; color: #ffffff;">
+         3
+        </div>
+        <div>
+         <h3 class="font-heading text-2xl font-semibold mb-2" style="color: #1a1a1a;">Uitvoering</h3>
+         <p style="color: #666666;">Professioneel en vakkundig voegen zodat onkruid geen kans krijgt.</p>
+        </div>
+       </div>
+       <div class="flex gap-8 items-start p-8 rounded-xl bg-white border" style="border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 font-heading font-bold text-xl" style="background: #337366; color: #ffffff;">
+         4
+        </div>
+        <div>
+         <h3 class="font-heading text-2xl font-semibold mb-2" style="color: #1a1a1a;">Genieten</h3>
+         <p style="color: #666666;">Jarenlang van uw onderhoudsvrijie, onkruidvrije bestrating genieten!</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto text-center">
+      <h2 class="font-heading text-4xl font-bold mb-6" style="color: #1a1a1a;">Maak een einde aan onkruid</h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto" style="color: #666666;">Geniet van een onderhoudsvrije bestrating zonder onkruid.</p><a href="#" onclick="goToPage('contact'); return false;" class="inline-block px-10 py-4 rounded-lg font-semibold text-lg btn-primary" style="background: #337366; color: #ffffff;">Offerte aanvragen</a>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- OVER ONS PAGE -->
+   <div id="page-reinigen" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-8" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar diensten </a>
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+       <div>
+        <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Bestrating Reinigen</h1>
+        <p class="text-xl leading-relaxed mb-6" style="color: #666666;">Door regen, vuil, groene aanslag en alg kan bestrating na verloop van tijd zijn frisse uitstraling verliezen. Met gespecialiseerde machines, professionele reinigingsmiddelen en jarenlange ervaring reinigen wij iedere soort bestrating grondig en veilig.</p>
+        <p class="text-lg leading-relaxed" style="color: #666666;">Specialist in het reinigen en hernieuwen van bestrating met volledige service van reiniging tot bescherming.</p>
+       </div>
+       <div class="rounded-2xl p-12 flex items-center justify-center" style="background: #ffffff; border: 1px solid rgba(51, 115, 102, 0.1); min-height: 340px;"><i data-lucide="droplets" style="width:120px;height:120px;color:#337366;opacity:0.2;"></i>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">Waarom klanten voor ons kiezen</h2>
+      <div class="grid md:grid-cols-2 gap-8 mb-16">
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Specialist in iedere soort bestrating</h3>
+         <p style="color: #666666;">Van klinkers tot natuursteen, wij kennen alle materialen</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Jarenlange ervaring</h3>
+         <p style="color: #666666;">Tientallen jaren expertise in professionele reiniging</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Complete service</h3>
+         <p style="color: #666666;">Van reiniging tot bescherming en impregneren</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Snelle service</h3>
+         <p style="color: #666666;">Betrouwbare after-sales en toewijding</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Landelijk actief</h3>
+         <p style="color: #666666;">Wij werken in heel Nederland</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Onze garantie</h3>
+         <p style="color: #666666;">Kwaliteit waar u op kunt vertrouwen</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto text-center">
+      <h2 class="font-heading text-4xl font-bold mb-6" style="color: #1a1a1a;">Laat uw bestrating weer stralen</h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto" style="color: #666666;">Van vuil, alg en aanslag tot een zinderende schone bestrating.</p><a href="#" onclick="goToPage('contact'); return false;" class="inline-block px-10 py-4 rounded-lg font-semibold text-lg btn-primary" style="background: #337366; color: #ffffff;">Offerte aanvragen</a>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- IMPREGNEREN PAGE -->
+   <div id="page-impregneren" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-8" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar diensten </a>
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+       <div>
+        <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Impregneren</h1>
+        <p class="text-xl leading-relaxed mb-8" style="color: #666666;">Uw bestrating dagelijks blootgesteld aan zon, regen, vuil en gemorste vloeistoffen? Dan is impregneren dé oplossing om uw terras, oprit of tuin langdurig te beschermen.</p>
+        <p class="text-lg leading-relaxed" style="color: #666666;">Zorgeloos genieten van uw terras met langdurige bescherming.</p>
+       </div>
+       <div class="rounded-2xl p-12 flex items-center justify-center" style="background: #ffffff; border: 1px solid rgba(51, 115, 102, 0.1); min-height: 340px;"><i data-lucide="shield-check" style="width:120px;height:120px;color:#337366;opacity:0.2;"></i>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">Voordelen van impregneren</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Bescherming tegen vocht en vuil</h3>
+         <p style="color: #666666;">Blijvend beschermd tegen weersomstandigheden</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Minder verkleuring</h3>
+         <p style="color: #666666;">Bescherming tegen zonlicht en oxidatie</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Eenvoudiger schoon te maken</h3>
+         <p style="color: #666666;">Vlekken en vuil lossen makkelijker af</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Langere levensduur</h3>
+         <p style="color: #666666;">Uw bestrating gaat veel langer mee</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Minder kans op krassen</h3>
+         <p style="color: #666666;">Sterke beschermlaag tegen slijtage</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto text-center">
+      <h2 class="font-heading text-4xl font-bold mb-6" style="color: #1a1a1a;">Bescherm uw bestrating nu</h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto" style="color: #666666;">Jaren van bescherming en glans voor uw terras of oprit.</p><a href="#" onclick="goToPage('contact'); return false;" class="inline-block px-10 py-4 rounded-lg font-semibold text-lg btn-primary" style="background: #337366; color: #ffffff;">Offerte aanvragen</a>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- WATERBEHEERSING PAGE -->
+   <div id="page-water" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-8" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar diensten </a>
+      <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+       <div>
+        <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Waterbeheersing</h1>
+        <p class="text-xl leading-relaxed mb-8" style="color: #666666;">Last van plassen water op uw terras, oprit of bestrating na een flinke regenbui? Met professionele waterbeheersing voorkomt u wateroverlast en beschermt u uw bestrating tegen schade door vocht en stilstaand water.</p>
+        <p class="text-lg leading-relaxed" style="color: #666666;">Slimme oplossingen voor optimale afwatering van iedere tuin.</p>
+       </div>
+       <div class="rounded-2xl p-12 flex items-center justify-center" style="background: #ffffff; border: 1px solid rgba(51, 115, 102, 0.1); min-height: 340px;"><i data-lucide="waves" style="width:120px;height:120px;color:#337366;opacity:0.2;"></i>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">Voordelen van waterbeheersing</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Geen plassen water</h3>
+         <p style="color: #666666;">Optimale afwatering zonder stilstaand water</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Langere levensduur</h3>
+         <p style="color: #666666;">Bescherming van uw bestrating tegen vochtschade</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Schone voeten</h3>
+         <p style="color: #666666;">Veilig lopen zonder natte voeten</p>
+        </div>
+       </div>
+       <div class="flex gap-6 items-start p-8 rounded-xl border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="check-circle" style="width:20px;height:20px;color:#337366;"></i>
+        </div>
+        <div>
+         <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Duurzaam</h3>
+         <p style="color: #666666;">Mogelijkheid om regenwater te hergebruiken</p>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto text-center">
+      <h2 class="font-heading text-4xl font-bold mb-6" style="color: #1a1a1a;">Waterproblemen opgelost</h2>
+      <p class="text-xl mb-10 max-w-2xl mx-auto" style="color: #666666;">Geen meer water op uw terras dankzij slimme waterbeheersing.</p><a href="#" onclick="goToPage('contact'); return false;" class="inline-block px-10 py-4 rounded-lg font-semibold text-lg btn-primary" style="background: #337366; color: #ffffff;">Offerte aanvragen</a>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- CONTACT PAGE -->
+   <div id="page-over-ons" class="page-hidden">
+    <section class="pt-32 px-6 py-20" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-8" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar home </a>
+      <h1 class="font-heading text-5xl md:text-6xl mb-6 font-bold" style="color: #1a1a1a;">Over De Bestratingsvoegers</h1>
+      <p class="text-xl max-w-3xl leading-relaxed" style="color: #666666;">Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid. Wij zijn gespecialiseerd in het reinigen, voegen, impregneren en beschermen van bestrating in heel Nederland.</p>
+     </div>
+    </section>
+    <section class="px-6 py-20" style="background-color: #ffffff;">
+     <div class="max-w-7xl mx-auto">
+      <div class="grid md:grid-cols-2 gap-16 items-start mb-20">
+       <div>
+        <h2 class="font-heading text-4xl font-bold mb-8" style="color: #1a1a1a;">Onze missie</h2>
+        <p class="leading-relaxed mb-6 text-lg" style="color: #666666;">Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid. Wat begon met het reinigen van stoepen, groeide uit tot een totaalservice voor bestrating in heel Nederland.</p>
+        <p class="leading-relaxed text-lg" style="color: #666666;">Door continu te investeren in nieuwe technieken en vakkennis, zijn wij uitgegroeid tot specialist in het reinigen, voegen, impregneren en beschermen van bestrating. Wij combineren jarenlange ervaring met moderne oplossingen, afgestemd op uw situatie.</p>
+       </div>
+       <div class="rounded-2xl p-12 bg-gradient-to-br from-gray-50 to-gray-100 border" style="border-color: rgba(51, 115, 102, 0.1);">
+        <h3 class="font-heading text-2xl font-bold mb-10" style="color: #1a1a1a;">Onze kernwaarden</h3>
+        <div class="space-y-6">
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="award" style="width:24px;height:24px;color:#337366;"></i>
+          </div>
+          <div>
+           <p class="font-heading font-semibold text-lg" style="color: #1a1a1a;">Kwaliteit</p>
+           <p class="text-sm mt-1" style="color: #666666;">Alleen de beste materialen en technieken</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="handshake" style="width:24px;height:24px;color:#337366;"></i>
+          </div>
+          <div>
+           <p class="font-heading font-semibold text-lg" style="color: #1a1a1a;">Betrouwbaarheid</p>
+           <p class="text-sm mt-1" style="color: #666666;">Wij staan achter ons werk met volle garantie</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="zap" style="width:24px;height:24px;color:#337366;"></i>
+          </div>
+          <div>
+           <p class="font-heading font-semibold text-lg" style="color: #1a1a1a;">Innovatie</p>
+           <p class="text-sm mt-1" style="color: #666666;">Voortdurend verbeteren en ontwikkelen</p>
+          </div>
+         </div>
+         <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded-lg flex items-center justify-center shrink-0" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="leaf" style="width:24px;height:24px;color:#337366;"></i>
+          </div>
+          <div>
+           <p class="font-heading font-semibold text-lg" style="color: #1a1a1a;">Duurzaamheid</p>
+           <p class="text-sm mt-1" style="color: #666666;">Milieubewust en verantwoord werken</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div>
+      <h2 class="font-heading text-4xl font-bold mb-12" style="color: #1a1a1a;">Waarom kiezen voor ons?</h2>
+      <div class="grid md:grid-cols-4 gap-8 mb-16">
+       <div class="rounded-xl p-8 text-center border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <i data-lucide="check-circle" style="width:32px;height:32px;color:#337366;margin:0 auto 12px;"></i>
+        <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Complete aanpak</h3>
+        <p class="text-sm" style="color: #666666;">Reiniging, bescherming en onderhoud in één</p>
+       </div>
+       <div class="rounded-xl p-8 text-center border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <i data-lucide="briefcase" style="width:32px;height:32px;color:#337366;margin:0 auto 12px;"></i>
+        <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Specialistische kennis</h3>
+        <p class="text-sm" style="color: #666666;">Jarenlange expertise en ervaring</p>
+       </div>
+       <div class="rounded-xl p-8 text-center border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <i data-lucide="users" style="width:32px;height:32px;color:#337366;margin:0 auto 12px;"></i>
+        <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Persoonlijke service</h3>
+        <p class="text-sm" style="color: #666666;">Snelle after-sales en toewijding</p>
+       </div>
+       <div class="rounded-xl p-8 text-center border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+        <i data-lucide="map" style="width:32px;height:32px;color:#337366;margin:0 auto 12px;"></i>
+        <h3 class="font-heading font-semibold mb-2" style="color: #1a1a1a;">Landelijk actief</h3>
+        <p class="text-sm" style="color: #666666;">Overal in Nederland beschikbaar</p>
+       </div>
+      </div>
+      <div class="rounded-xl p-12 border bg-gradient-to-br from-gray-50 to-gray-100" style="border-color: rgba(51, 115, 102, 0.1);">
+       <h3 class="font-heading text-2xl font-bold mb-4" style="color: #1a1a1a;">Meer dan voegers</h3>
+       <p class="text-lg leading-relaxed" style="color: #666666;">Wij zijn meer dan voegers — wij zijn uw totaalpartner voor iedere soort bestrating. Van professioneel voegen tot langdurige bescherming, wij zorgen dat uw bestrating er jarenlang mooi uitziet.</p>
+      </div>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- PRIVACY PAGE -->
+   <div id="page-privacy" class="page-hidden">
+    <section class="pt-24 px-6 pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
+     <div class="max-w-4xl mx-auto"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar home </a>
+      <h1 class="font-heading text-4xl md:text-5xl mb-4 font-bold" style="color: #1a1a1a;">Privacyverklaring</h1>
+      <p class="text-lg leading-relaxed" style="color: #666666;">Uw privacy is belangrijk voor ons. Lees hoe wij uw gegevens beschermen en verwerken.</p>
+     </div>
+    </section>
+    <section class="px-6 py-12" style="background-color: #ffffff;">
+     <div class="max-w-4xl mx-auto">
+      <div class="rounded-xl p-8 border mb-12" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+       <p class="leading-relaxed text-base mb-8" style="color: #666666;">Bestratingsvoegers, gevestigd aan Diepenbeek 2, 5271 XN Sint-Michielsgestel, is verantwoordelijk voor de verwerking van persoonsgegevens zoals weergegeven in deze privacyverklaring.</p>
+       <div class="grid md:grid-cols-3 gap-8">
+        <div class="flex items-start gap-4"><i data-lucide="phone" style="width:24px;height:24px;color:#337366;flex-shrink:0;"></i>
+         <div>
+          <p class="font-semibold mb-2 text-sm" style="color: #1a1a1a;">Telefoon</p>
+          <p class="text-sm" style="color: #666666;">06-5336 8637</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4"><i data-lucide="mail" style="width:24px;height:24px;color:#337366;flex-shrink:0;"></i>
+         <div>
+          <p class="font-semibold mb-2 text-sm" style="color: #1a1a1a;">E-mail</p>
+          <p class="text-sm" style="color: #666666;">info@bestratingsvoegers.nl</p>
+         </div>
+        </div>
+        <div class="flex items-start gap-4"><i data-lucide="map-pin" style="width:24px;height:24px;color:#337366;flex-shrink:0;"></i>
+         <div>
+          <p class="font-semibold mb-2 text-sm" style="color: #1a1a1a;">Adres</p>
+          <p class="text-sm" style="color: #666666;">Diepenbeek 2, 5271 XN</p>
+         </div>
+        </div>
+       </div>
+       <div class="mt-8 pt-8 border-t" style="border-color: rgba(51, 115, 102, 0.1);">
+        <p class="leading-relaxed text-sm" style="color: #666666;"><span class="font-semibold" style="color: #1a1a1a;">Functionaris Gegevensbescherming:</span> Zef van de Wetering is de Functionaris Gegevensbescherming van NRVD. Hij is te bereiken via info@bestratingsvoegers.nl</p>
+       </div>
+      </div>
+      <div class="space-y-10">
+       <div class="rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+        <h2 class="font-heading text-xl font-bold mb-4" style="color: #1a1a1a;">Persoonsgegevens</h2>
+        <p class="leading-relaxed mb-4 text-sm" style="color: #666666;">Bestratingsvoegers verwerkt de volgende persoonsgegevens:</p>
+        <ul class="space-y-2 ml-6">
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Voor- en achternaam</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Adresgegevens</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Telefoonnummer</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>E-mailadres</span></li>
+        </ul>
+       </div>
+       <div class="rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+        <h2 class="font-heading text-xl font-bold mb-4" style="color: #1a1a1a;">Minderjarigen</h2>
+        <p class="leading-relaxed text-sm" style="color: #666666;">Bijzondere en/of gevoelige persoonsgegevens verwerken wij niet. Wij verzamelen geen gegevens van minderjarigen zonder toestemming van ouders of voogden.</p>
+       </div>
+       <div class="rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+        <h2 class="font-heading text-xl font-bold mb-4" style="color: #1a1a1a;">Doeleinden verwerking</h2>
+        <p class="leading-relaxed mb-4 text-sm" style="color: #666666;">Wij verwerken uw gegevens voor de volgende doeleinden:</p>
+        <ul class="space-y-2 ml-6">
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Het afhandelen van uw betaling</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Je te kunnen bellen of e-mailen</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Om goederen en diensten af te leveren</span></li>
+         <li class="flex items-start gap-3 text-sm" style="color: #666666;"><i data-lucide="check" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i> <span>Wettelijke verplichtingen</span></li>
+        </ul>
+       </div>
+       <div class="rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+        <h2 class="font-heading text-xl font-bold mb-4" style="color: #1a1a1a;">Geautomatiseerde besluitvorming</h2>
+        <p class="leading-relaxed text-sm" style="color: #666666;">Bestratingsvoegers.nl gebruikt geen computerprogramma's of -systemen voor geautomatiseerde verwerkingen om te komen tot besluiten over zaken die voor u van belang kunnen zijn.</p>
+       </div>
+       <div class="rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+        <h2 class="font-heading text-xl font-bold mb-4" style="color: #1a1a1a;">Bewaartermijn</h2>
+        <p class="leading-relaxed text-sm" style="color: #666666;">Bestratingsvoegers.nl bewaart uw persoonsgegevens niet langer dan strikt nodig is voor de doeleinden waarvoor zij zijn verzameld. Gegevens worden in principe verwijderd na afhandeling van de diensten, tenzij wij deze langer moeten bewaren uit wettelijke verplichting.</p>
+       </div>
+      </div>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div><!-- CONTACT PAGE -->
+   <div id="page-contact" class="page-hidden">
+    <section class="pt-24 px-6 pb-12" style="background-color: #ffffff;">
+     <div class="max-w-4xl mx-auto"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-sm font-600 mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:16px;height:16px;"></i> Terug naar home </a>
+      <h1 class="font-heading text-4xl md:text-5xl mb-4 font-bold" style="color: #1a1a1a;">Neem Contact Op</h1>
+      <p class="text-lg leading-relaxed" style="color: #666666;">Vraag vrijblijvend een offerte aan of stel uw vragen. Ons team helpt u graag!</p>
+     </div>
+    </section>
+    <section class="px-6 py-12" style="background-color: #ffffff;">
+     <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 mb-12"><!-- Contact Info Card 1 -->
+      <div class="rounded-xl p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+       <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="phone" style="width:24px;height:24px;color:#337366;"></i>
+       </div>
+       <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">Telefoon</p><a href="tel:0653368637" class="text-base font-semibold hover:opacity-70 transition" style="color: #337366;">06 5336 8637</a>
+       <p class="text-xs mt-3" style="color: #666666;">Maandag - Vrijdag 09:00 - 18:00</p>
+      </div><!-- Contact Info Card 2 -->
+      <div class="rounded-xl p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+       <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="mail" style="width:24px;height:24px;color:#337366;"></i>
+       </div>
+       <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">E-mail</p><a href="mailto:info@bestratingsvoegers.nl" class="text-base font-semibold hover:opacity-70 transition" style="color: #337366;">info@bestratingsvoegers.nl</a>
+       <p class="text-xs mt-3" style="color: #666666;">Antwoord binnen 24 uur</p>
+      </div><!-- Contact Info Card 3 -->
+      <div class="rounded-xl p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
+       <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="map-pin" style="width:24px;height:24px;color:#337366;"></i>
+       </div>
+       <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">Adres</p>
+       <p class="text-sm leading-relaxed" style="color: #666666;">Diepenbeek 2<br>
+        5271 XN Sint-Michielsgestel</p>
+      </div>
+     </div><!-- Contact Form -->
+     <div class="max-w-2xl mx-auto rounded-xl p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
+      <h2 class="font-heading text-2xl font-bold mb-6" style="color: #1a1a1a;">Offerte aanvragen</h2>
+      <form id="contact-form" onsubmit="handleFormSubmit(event)">
+       <div class="mb-6"><label class="block text-sm font-semibold mb-3" style="color: #1a1a1a;">Uw Naam *</label> <input type="text" required class="w-full px-4 py-3 rounded-lg border bg-white" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="John Doe">
+       </div>
+       <div class="mb-6"><label class="block text-sm font-semibold mb-3" style="color: #1a1a1a;">Telefoonnummer *</label> <input type="tel" required class="w-full px-4 py-3 rounded-lg border bg-white" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="06 12345678">
+       </div>
+       <div class="mb-6"><label class="block text-sm font-semibold mb-3" style="color: #1a1a1a;">E-mailadres *</label> <input type="email" required class="w-full px-4 py-3 rounded-lg border bg-white" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="john@example.com">
+       </div>
+       <div class="mb-6"><label class="block text-sm font-semibold mb-3" style="color: #1a1a1a;">Dienst *</label> <select required class="w-full px-4 py-3 rounded-lg border bg-white" style="border-color: rgba(51, 115, 102, 0.2);"> <option value="">Kies een dienst...</option> <option value="onkruid">Onkruidbestrijding</option> <option value="reinigen">Bestrating Reinigen</option> <option value="impregneren">Impregneren</option> <option value="water">Waterbeheersing</option> <option value="overig">Overig</option> </select>
+       </div>
+       <div class="mb-8"><label class="block text-sm font-semibold mb-3" style="color: #1a1a1a;">Bericht</label> <textarea required rows="4" class="w-full px-4 py-3 rounded-lg border bg-white" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="Beschrijf uw vraag of project..."></textarea>
+       </div><button type="submit" id="form-submit-btn" class="w-full py-3.5 rounded-lg font-semibold text-base btn-primary" style="background: #337366; color: #ffffff;">Offerte Aanvragen</button>
+       <p id="form-message" class="text-sm mt-4 text-center hidden" style="color: #10b981;">✓ Dank u! Wij nemen zo snel mogelijk contact op.</p>
+      </form>
+     </div>
+    </section>
+    <footer class="px-6 py-12" style="background-color: #1a1a1a;">
+     <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <p class="text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
+     </div>
+    </footer>
+   </div>
+  </div>
+  <script>
+  lucide.createIcons();
+
+  // Page Navigation
+  function goToPage(pageName) {
+    document.querySelectorAll('[id^="page-"]').forEach(page => {
+      page.classList.remove('page-visible');
+      page.classList.add('page-hidden');
+    });
+    const targetPage = document.getElementById(`page-${pageName}`);
+    if (targetPage) {
+      targetPage.classList.remove('page-hidden');
+      targetPage.classList.add('page-visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('mobile-menu').classList.add('hidden');
+      lucide.createIcons();
+    }
+  }
+
+  // Form Handler
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit-btn');
+    const msg = document.getElementById('form-message');
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    msg.classList.add('hidden');
+    
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      msg.classList.remove('hidden');
+      document.getElementById('contact-form').reset();
+      setTimeout(() => msg.classList.add('hidden'), 5000);
+    }, 1000);
+  }
+
+  // Element SDK Config
+  const defaultConfig = {
+    hero_title: 'De Bestratingsvoegers',
+    hero_subtitle: 'Specialist in bestrating, reiniging en bescherming',
+    company_name: 'De Bestratingsvoegers',
+    company_phone: '06 21833345',
+    company_email: 'info@bestratingsvoegers.nl'
+  };
+
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (config) => {
+      document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
+      document.getElementById('nav-brand').textContent = config.company_name || defaultConfig.company_name;
+      document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+    },
+    mapToCapabilities: (config) => ({
+      recolorables: [],
+      borderables: [],
+      fontEditable: undefined,
+      fontSizeable: undefined
+    }),
+    mapToEditPanelValues: (config) => new Map([
+      ['hero_title', config.hero_title || defaultConfig.hero_title],
+      ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['company_name', config.company_name || defaultConfig.company_name],
+      ['company_phone', config.company_phone || defaultConfig.company_phone],
+    ])
+  });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f894249760bb97a',t:'MTc3ODI1MTYzOS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

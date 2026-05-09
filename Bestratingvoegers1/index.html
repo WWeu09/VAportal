@@ -126,6 +126,26 @@
         opacity: 0.6;
       }
     }
+
+    /* SCROLL-BASED ANIMATIONS */
+    .scroll-fade {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: opacity, transform;
+    }
+
+    .scroll-fade.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .scroll-fade-delay-1 { transition-delay: 0.1s; }
+    .scroll-fade-delay-2 { transition-delay: 0.2s; }
+    .scroll-fade-delay-3 { transition-delay: 0.3s; }
+    .scroll-fade-delay-4 { transition-delay: 0.4s; }
+    .scroll-fade-delay-5 { transition-delay: 0.5s; }
+    .scroll-fade-delay-6 { transition-delay: 0.6s; }
     
     /* EASING FUNCTIONS - Premium Motion */
     .ease-luxury {
@@ -320,7 +340,18 @@
       transform: rotate(-45deg) translate(8px, -8px);
     }
     
-    /* TOUCH DEVICE OPTIMIZATIONS */
+    /* Services Grid */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.25rem, 3vw, 1.75rem);
+    }
+
+    @media (max-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      }
+    }
     @media (hover: none) and (pointer: coarse) {
       .service-card {
         box-shadow: 0 2px 8px rgba(51, 115, 102, 0.05);
@@ -345,43 +376,57 @@
   <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
  </head>
  <body class="h-full font-body">
-  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #ffffff;"><!-- NAVBAR - Mobile First Premium -->
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background-color: #ffffff;">
+   <!-- NAVBAR - Mobile First Premium -->
    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300 border-b" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); border-color: rgba(51, 115, 102, 0.08);">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between"><!-- Logo -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+     <!-- Logo -->
      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="goToPage('home')" style="min-height: 44px;">
-      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center transition-transform duration-200 active:scale-95" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%);"><i data-lucide="layers" style="width:18px;height:18px;color:#ffffff;"></i>
+      <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-lg flex items-center justify-center transition-transform duration-200 active:scale-95" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%);">
+       <i data-lucide="layers" style="width:18px;height:18px;color:#ffffff;"></i>
       </div><span id="nav-brand" class="font-heading text-sm sm:text-base font-semibold hidden sm:inline" style="color: #1a1a1a;">De Bestratingsvoegers</span>
      </div><!-- Desktop Menu -->
-     <div class="hidden lg:flex items-center gap-8"><a href="#" onclick="goToPage('home'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Privacy</a> <a href="#" onclick="goToPage('contact'); return false;" class="px-6 py-2.5 rounded-lg text-sm font-600 btn-primary" style="background: #337366; color: #ffffff;">Offerte</a>
+     <div class="hidden lg:flex items-center gap-8">
+      <a href="#" onclick="goToPage('home'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="text-sm font-500 nav-link" style="color: #4a4a4a;">Privacy</a> <a href="#" onclick="goToPage('contact'); return false;" class="px-6 py-2.5 rounded-lg text-sm font-600 btn-primary" style="background: #337366; color: #ffffff;">Offerte</a>
      </div><!-- Mobile Menu Button --> <button id="mobile-menu-btn" class="mobile-menu-btn lg:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300" style="color: #337366; background: rgba(51, 115, 102, 0.05);" onclick="toggleMobileMenu(event)">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24"><line class="hamburger-line" x1="3" y1="6" x2="21" y2="6" stroke-width="2" stroke-linecap="round"></line> <line class="hamburger-line" x1="3" y1="12" x2="21" y2="12" stroke-width="2" stroke-linecap="round"></line> <line class="hamburger-line" x1="3" y1="18" x2="21" y2="18" stroke-width="2" stroke-linecap="round"></line>
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+       <line class="hamburger-line" x1="3" y1="6" x2="21" y2="6" stroke-width="2" stroke-linecap="round"></line> <line class="hamburger-line" x1="3" y1="12" x2="21" y2="12" stroke-width="2" stroke-linecap="round"></line> <line class="hamburger-line" x1="3" y1="18" x2="21" y2="18" stroke-width="2" stroke-linecap="round"></line>
       </svg></button>
     </div><!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden lg:hidden fixed top-16 left-0 right-0 bottom-0 bg-white overflow-y-auto mobile-nav-overlay" style="z-index: 40;">
-     <div class="px-4 py-6 space-y-2"><a href="#" onclick="goToPage('home'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Privacy</a>
-      <div class="pt-4 border-t" style="border-color: rgba(51, 115, 102, 0.1);"><a href="#" onclick="goToPage('contact'); return false;" class="block w-full px-4 py-3 rounded-lg text-base font-600 text-center btn-primary" style="background: #337366; color: #ffffff;">Offerte Aanvragen</a>
+     <div class="px-4 py-6 space-y-2">
+      <a href="#" onclick="goToPage('home'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Home</a> <a href="#" onclick="goToPage('diensten'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Diensten</a> <a href="#" onclick="goToPage('over-ons'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Over Ons</a> <a href="#" onclick="goToPage('contact'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Contact</a> <a href="#" onclick="goToPage('privacy'); return false;" class="block px-4 py-3 rounded-lg text-base font-500 transition-colors active:bg-gray-50" style="color: #337366;">Privacy</a>
+      <div class="pt-4 border-t" style="border-color: rgba(51, 115, 102, 0.1);">
+       <a href="#" onclick="goToPage('contact'); return false;" class="block w-full px-4 py-3 rounded-lg text-base font-600 text-center btn-primary" style="background: #337366; color: #ffffff;">Offerte Aanvragen</a>
       </div>
      </div>
     </div>
    </nav><!-- HOME PAGE -->
-   <div id="page-home" class="page-visible"><!-- HERO SECTION - Premium Cinema Style with Background Image -->
-    <section class="hero-section"><!-- Background Image with Overlay -->
-     <div class="hero-bg-container"><img src="https://www.vrijinculemborg.nl/files/-Marina-Kemp---Vrij-in-Culemborg--111913103512.jpg" alt="De Bestratingsvoegers - Specialist in bestrating" loading="lazy" class="hero-bg-image" onerror="console.error('Hero image failed to load:', this.src); this.style.display='none'; document.querySelector('.hero-section').style.background='linear-gradient(135deg, #f8f9f7 0%, #f0f4f2 100%)';"> <!-- Premium Dark Overlay - Layered for depth -->
+   <div id="page-home" class="page-visible">
+    <!-- HERO SECTION - Premium Cinema Style with Background Image -->
+    <section class="hero-section">
+     <!-- Background Image with Overlay -->
+     <div class="hero-bg-container">
+      <img src="https://www.vrijinculemborg.nl/files/-Marina-Kemp---Vrij-in-Culemborg--111913103512.jpg" alt="De Bestratingsvoegers - Specialist in bestrating" loading="lazy" class="hero-bg-image" onerror="console.error('Hero image failed to load:', this.src); this.style.display='none'; document.querySelector('.hero-section').style.background='linear-gradient(135deg, #f8f9f7 0%, #f0f4f2 100%)';"> <!-- Premium Dark Overlay - Layered for depth -->
       <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.42) 50%, rgba(26, 26, 26, 0.52) 100%); z-index: 1;"></div><!-- Green tinted accent overlay for premium feel -->
       <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse at center, rgba(51, 115, 102, 0.15) 0%, transparent 70%); z-index: 2;"></div><!-- Subtle blur/glass effect edge vignette -->
       <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.3); z-index: 3;"></div>
      </div><!-- Content Container - Centered and Responsive -->
-     <div class="hero-content max-w-4xl mx-auto px-4 sm:px-6 md:px-8 w-full flex flex-col items-center justify-center"><!-- Top Label - Elegant Badge with Glass Effect -->
-      <div class="anim-fade anim-d1 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-600 mb-6 sm:mb-8" style="background: rgba(255, 255, 255, 0.08); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);"><i data-lucide="check" style="width:14px;height:14px;"></i> <span>Specialist in bestrating</span>
+     <div class="hero-content max-w-4xl mx-auto px-4 sm:px-6 md:px-8 w-full flex flex-col items-center justify-center">
+      <!-- Top Label - Elegant Badge with Glass Effect -->
+      <div class="anim-fade anim-d1 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-600 mb-6 sm:mb-8" style="background: rgba(255, 255, 255, 0.08); color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(8px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);">
+       <i data-lucide="check" style="width:14px;height:14px;"></i> <span>Specialist in bestrating</span>
       </div><!-- Main Heading - Luxe and Bold -->
       <h1 id="hero-title" class="font-heading anim-fade anim-d2 font-bold leading-tight mb-4 sm:mb-6 md:mb-8" style="color: #ffffff; font-size: clamp(2.5rem, 8vw, 5.5rem); letter-spacing: -1px; text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4); font-weight: 700;">De Bestratingsvoegers</h1><!-- Subtitle - Elegant description -->
       <p id="hero-subtitle" class="anim-fade anim-d3 max-w-2xl mx-auto leading-relaxed mb-8 sm:mb-12" style="color: rgba(255, 255, 255, 0.9); font-size: clamp(1rem, 2.5vw, 1.3rem); font-weight: 400;">Specialist in bestrating, reiniging en bescherming. Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid.</p><!-- CTA Buttons - Modern Premium Style -->
-      <div class="anim-fade anim-d4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto"><!-- Primary CTA Button - Green with Shadow --> <a href="#" onclick="goToPage('contact'); return false;" class="group px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 btn-primary" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%); color: #ffffff; min-height: 48px; box-shadow: 0 12px 32px rgba(51, 115, 102, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px);"> <i data-lucide="phone" style="width:17px;height:17px;"></i> <span>Offerte</span> </a> <!-- Secondary CTA Button - Glass Morphism --> <a href="#" onclick="goToPage('diensten'); return false;" class="px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center" style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); min-height: 48px;"> <span>Diensten</span> </a>
+      <div class="anim-fade anim-d4 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto">
+       <!-- Primary CTA Button - Green with Shadow --> <a href="#" onclick="goToPage('contact'); return false;" class="group px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base flex items-center justify-center gap-2 btn-primary" style="background: linear-gradient(135deg, #337366 0%, #2a6155 100%); color: #ffffff; min-height: 48px; box-shadow: 0 12px 32px rgba(51, 115, 102, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); backdrop-filter: blur(8px);"> <i data-lucide="phone" style="width:17px;height:17px;"></i> <span>Offerte</span> </a> <!-- Secondary CTA Button - Glass Morphism --> <a href="#" onclick="goToPage('diensten'); return false;" class="px-6 sm:px-10 py-3.5 sm:py-4 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 flex items-center justify-center" style="background: rgba(255, 255, 255, 0.1); color: #ffffff; border: 2px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15); min-height: 48px;"> <span>Diensten</span> </a>
       </div><!-- Scroll Indicator - Subtle bounce animation -->
       <div class="anim-fade anim-d5 mt-12 sm:mt-16" style="animation-delay: 0.6s;">
        <div class="flex flex-col items-center gap-2" style="opacity: 0.7;">
         <p class="text-xs sm:text-sm" style="color: rgba(255, 255, 255, 0.7);">Scroll naar beneden</p>
-        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ffffff; animation: bounce 2s infinite;"><polyline points="6 9 12 15 18 9"></polyline>
+        <svg width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #ffffff; animation: bounce 2s infinite;">
+         <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
        </div>
       </div>
@@ -389,29 +434,33 @@
     </section><!-- Services Grid -->
     <section class="px-4 py-12 sm:px-6 sm:py-16 md:py-20" style="background-color: #ffffff;">
      <div class="max-w-7xl mx-auto">
-      <p class="text-xs sm:text-sm font-600 tracking-widest uppercase mb-2 sm:mb-3 text-center" style="color: #337366;">Onze expertise</p>
-      <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center mb-8 sm:mb-12 font-bold" style="color: #1a1a1a;">Wat wij voor u doen</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('onkruid')">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="leaf" style="width:20px;height:20px;color:#337366;"></i>
+      <p class="text-xs sm:text-sm font-600 tracking-widest uppercase mb-2 sm:mb-3 text-center scroll-fade" style="color: #337366;">Onze expertise</p>
+      <h2 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-center mb-8 sm:mb-12 font-bold scroll-fade scroll-fade-delay-1" style="color: #1a1a1a;">Wat wij voor u doen</h2>
+      <div class="services-grid">
+       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer scroll-fade scroll-fade-delay-1" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('onkruid')">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="leaf" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <h3 class="font-heading text-base sm:text-lg font-semibold mb-2 sm:mb-3" style="color: #1a1a1a;">Onkruidbestrijding</h3>
         <p class="text-xs sm:text-sm leading-relaxed" style="color: #666666;">Duurzaam en effectief voegen zodat onkruid geen kans meer krijgt.</p>
        </div>
-       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('reinigen')">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="droplets" style="width:20px;height:20px;color:#337366;"></i>
+       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer scroll-fade scroll-fade-delay-2" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('reinigen')">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="droplets" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <h3 class="font-heading text-base sm:text-lg font-semibold mb-2 sm:mb-3" style="color: #1a1a1a;">Bestrating reinigen</h3>
         <p class="text-xs sm:text-sm leading-relaxed" style="color: #666666;">Professionele reiniging met gespecialiseerde apparatuur.</p>
        </div>
-       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('impregneren')">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="shield-check" style="width:20px;height:20px;color:#337366;"></i>
+       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer scroll-fade scroll-fade-delay-3" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('impregneren')">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="shield-check" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <h3 class="font-heading text-base sm:text-lg font-semibold mb-2 sm:mb-3" style="color: #1a1a1a;">Impregneren</h3>
         <p class="text-xs sm:text-sm leading-relaxed" style="color: #666666;">Langdurige bescherming tegen vocht, vuil en vlekken.</p>
        </div>
-       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('water')">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="waves" style="width:20px;height:20px;color:#337366;"></i>
+       <div class="rounded-xl p-6 sm:p-8 service-card border transition cursor-pointer scroll-fade scroll-fade-delay-4" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('water')">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-4 sm:mb-6" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="waves" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <h3 class="font-heading text-base sm:text-lg font-semibold mb-2 sm:mb-3" style="color: #1a1a1a;">Waterbeheersing</h3>
         <p class="text-xs sm:text-sm leading-relaxed" style="color: #666666;">Voorkom wateroverlast en bescherm uw bestrating.</p>
@@ -428,7 +477,8 @@
        <p class="leading-relaxed mb-6 sm:mb-8 text-base sm:text-lg" style="color: #666666;">Door continu te investeren in nieuwe technieken zijn wij specialist in het reinigen, voegen, impregneren en beschermen van bestrating.</p><a href="#" onclick="goToPage('over-ons'); return false;" class="inline-flex px-6 sm:px-8 py-3 rounded-lg font-semibold btn-primary" style="background: #337366; color: #ffffff; min-height: 44px; align-items: center;">Meer over ons</a>
       </div>
       <div class="rounded-2xl p-6 sm:p-12 flex flex-col items-center justify-center text-center border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1); min-height: 300px;">
-       <svg viewbox="0 0 120 120" width="100" height="100" style="opacity: 0.8;" class="sm:w-[120px] sm:h-[120px]"><g fill="none" stroke="#337366" stroke-width="2">
+       <svg viewbox="0 0 120 120" width="100" height="100" style="opacity: 0.8;" class="sm:w-[120px] sm:h-[120px]">
+        <g fill="none" stroke="#337366" stroke-width="2">
          <rect x="10" y="10" width="35" height="20" rx="2" />
          <rect x="55" y="10" width="45" height="20" rx="2" />
          <rect x="10" y="38" width="25" height="20" rx="2" />
@@ -474,35 +524,41 @@
     <footer class="px-4 py-8 sm:px-6 sm:py-12" style="background-color: #1a1a1a;">
      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-4 sm:gap-6 text-center sm:text-left">
       <p class="text-xs sm:text-sm" style="color: #999999;">© 2024 De Bestratingsvoegers V.O.F. · KVK 80125271</p>
-      <div class="flex items-center gap-2"><span style="color:#337366;"><i data-lucide="star" style="width:14px;height:14px;fill:#337366;"></i></span> <span class="text-xs sm:text-sm" style="color: #cccccc;">5,0 beoordeling</span>
+      <div class="flex items-center gap-2">
+       <span style="color:#337366;"><i data-lucide="star" style="width:14px;height:14px;fill:#337366;"></i></span> <span class="text-xs sm:text-sm" style="color: #cccccc;">5,0 beoordeling</span>
       </div>
      </div>
     </footer>
    </div><!-- CONTACT PAGE -->
    <div id="page-contact" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background-color: #ffffff;">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4 font-bold" style="color: #1a1a1a;">Contact</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Neem vrijblijvend contact op of vraag een offerte aan.</p>
      </div>
     </section>
     <section class="px-4 py-8 sm:px-6 sm:py-12" style="background-color: #ffffff;">
-     <div class="max-w-3xl mx-auto"><!-- Contact Cards -->
+     <div class="max-w-3xl mx-auto">
+      <!-- Contact Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-12">
        <div class="rounded-xl p-4 sm:p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
-        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="phone" style="width:20px;height:20px;color:#337366;"></i>
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="phone" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">Telefoon</p><a href="tel:0653368637" class="text-sm sm:text-base font-semibold hover:opacity-70 transition" style="color: #337366;">06 5336 8637</a>
         <p class="text-xs mt-2" style="color: #666666;">Maandag - Vrijdag 09:00 - 18:00</p>
        </div>
        <div class="rounded-xl p-4 sm:p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
-        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="mail" style="width:20px;height:20px;color:#337366;"></i>
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="mail" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">E-mail</p><a href="mailto:info@bestratingsvoegers.nl" class="text-sm sm:text-base font-semibold hover:opacity-70 transition" style="color: #337366;">info@bestratingsvoegers.nl</a>
         <p class="text-xs mt-2" style="color: #666666;">Antwoord binnen 24 uur</p>
        </div>
        <div class="rounded-xl p-4 sm:p-6 border" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
-        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);"><i data-lucide="map-pin" style="width:20px;height:20px;color:#337366;"></i>
+        <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-3 sm:mb-4" style="background: rgba(51, 115, 102, 0.1);">
+         <i data-lucide="map-pin" style="width:20px;height:20px;color:#337366;"></i>
         </div>
         <p class="font-heading font-semibold text-sm mb-2" style="color: #1a1a1a;">Adres</p>
         <p class="text-xs sm:text-sm leading-relaxed" style="color: #666666;">Diepenbeek 2<br>
@@ -512,15 +568,20 @@
       <div class="rounded-xl p-6 sm:p-8 border" style="background: #ffffff; border-color: rgba(51, 115, 102, 0.1);">
        <h2 class="font-heading text-xl sm:text-2xl font-bold mb-6" style="color: #1a1a1a;">Offerte aanvragen</h2>
        <form id="contact-form" onsubmit="handleFormSubmit(event)">
-        <div class="mb-4 sm:mb-6"><label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Uw Naam *</label> <input type="text" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="John Doe">
+        <div class="mb-4 sm:mb-6">
+         <label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Uw Naam *</label> <input type="text" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="John Doe">
         </div>
-        <div class="mb-4 sm:mb-6"><label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Telefoon *</label> <input type="tel" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="06 12345678">
+        <div class="mb-4 sm:mb-6">
+         <label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Telefoon *</label> <input type="tel" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="06 12345678">
         </div>
-        <div class="mb-4 sm:mb-6"><label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">E-mail *</label> <input type="email" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="john@example.com">
+        <div class="mb-4 sm:mb-6">
+         <label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">E-mail *</label> <input type="email" required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="john@example.com">
         </div>
-        <div class="mb-4 sm:mb-6"><label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Dienst *</label> <select required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);"> <option value="">Kies een dienst...</option> <option value="onkruid">Onkruidbestrijding</option> <option value="reinigen">Bestrating Reinigen</option> <option value="impregneren">Impregneren</option> <option value="water">Waterbeheersing</option> <option value="overig">Overig</option> </select>
+        <div class="mb-4 sm:mb-6">
+         <label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Dienst *</label> <select required class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);"> <option value="">Kies een dienst...</option> <option value="onkruid">Onkruidbestrijding</option> <option value="reinigen">Bestrating Reinigen</option> <option value="impregneren">Impregneren</option> <option value="water">Waterbeheersing</option> <option value="overig">Overig</option> </select>
         </div>
-        <div class="mb-6 sm:mb-8"><label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Bericht</label> <textarea required rows="4" class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="Beschrijf uw vraag of project..."></textarea>
+        <div class="mb-6 sm:mb-8">
+         <label class="block text-xs sm:text-sm font-semibold mb-2" style="color: #1a1a1a;">Bericht</label> <textarea required rows="4" class="w-full px-4 py-3 rounded-lg border bg-white text-sm sm:text-base" style="border-color: rgba(51, 115, 102, 0.2);" placeholder="Beschrijf uw vraag of project..."></textarea>
         </div><button type="submit" id="form-submit-btn" class="w-full py-3 rounded-lg font-semibold text-base btn-primary" style="background: #337366; color: #ffffff; min-height: 44px;">Offerte Aanvragen</button>
         <p id="form-message" class="text-xs sm:text-sm mt-4 text-center hidden" style="color: #10b981;">✓ Dank u! Wij nemen zo snel mogelijk contact op.</p>
        </form>
@@ -535,7 +596,8 @@
    </div><!-- PRIVACY PAGE -->
    <div id="page-privacy" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-3 sm:mb-4 font-bold" style="color: #1a1a1a;">Privacyverklaring</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Uw privacy is belangrijk voor ons.</p>
      </div>
@@ -545,19 +607,22 @@
       <div class="rounded-xl p-4 sm:p-8 border mb-8 sm:mb-12" style="background: #f8f9f7; border-color: rgba(51, 115, 102, 0.1);">
        <p class="leading-relaxed text-sm sm:text-base mb-6 sm:mb-8" style="color: #666666;">Bestratingsvoegers, gevestigd aan Diepenbeek 2, 5271 XN Sint-Michielsgestel, is verantwoordelijk voor de verwerking van persoonsgegevens.</p>
        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div class="flex items-start gap-3"><i data-lucide="phone" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
+        <div class="flex items-start gap-3">
+         <i data-lucide="phone" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
          <div>
           <p class="font-semibold text-xs sm:text-sm mb-1" style="color: #1a1a1a;">Telefoon</p>
           <p class="text-xs sm:text-sm" style="color: #666666;">06-5336 8637</p>
          </div>
         </div>
-        <div class="flex items-start gap-3"><i data-lucide="mail" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
+        <div class="flex items-start gap-3">
+         <i data-lucide="mail" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
          <div>
           <p class="font-semibold text-xs sm:text-sm mb-1" style="color: #1a1a1a;">E-mail</p>
           <p class="text-xs sm:text-sm" style="color: #666666;">info@bestratingsvoegers.nl</p>
          </div>
         </div>
-        <div class="flex items-start gap-3"><i data-lucide="map-pin" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
+        <div class="flex items-start gap-3">
+         <i data-lucide="map-pin" style="width:18px;height:18px;color:#337366;flex-shrink:0;margin-top:2px;"></i>
          <div>
           <p class="font-semibold text-xs sm:text-sm mb-1" style="color: #1a1a1a;">Adres</p>
           <p class="text-xs sm:text-sm" style="color: #666666;">Diepenbeek 2, 5271 XN</p>
@@ -591,12 +656,14 @@
    </div><!-- DIENSTEN PAGE -->
    <div id="page-diensten" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12 md:py-20" style="background-color: #ffffff;">
-     <div class="max-w-7xl mx-auto"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-7xl mx-auto">
+      <a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Onze Diensten</h1>
       <p class="text-base sm:text-lg max-w-2xl leading-relaxed mb-8 sm:mb-12" style="color: #666666;">Wij bieden een compleet scala aan professionele bestratingsvoeg-, reiniging-, beschermings- en herstellingsdiensten.</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
        <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col cursor-pointer" style="border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('onkruid')">
-        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="leaf" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
+        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);">
+         <i data-lucide="leaf" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
         </div>
         <div class="p-4 sm:p-6 flex flex-col flex-grow">
          <h3 class="font-heading text-base sm:text-lg font-semibold mb-2" style="color: #1a1a1a;">Onkruidbestrijding</h3>
@@ -604,7 +671,8 @@
         </div>
        </div>
        <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col cursor-pointer" style="border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('reinigen')">
-        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="droplets" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
+        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);">
+         <i data-lucide="droplets" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
         </div>
         <div class="p-4 sm:p-6 flex flex-col flex-grow">
          <h3 class="font-heading text-base sm:text-lg font-semibold mb-2" style="color: #1a1a1a;">Bestrating Reinigen</h3>
@@ -612,7 +680,8 @@
         </div>
        </div>
        <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col cursor-pointer" style="border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('impregneren')">
-        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="shield-check" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
+        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);">
+         <i data-lucide="shield-check" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
         </div>
         <div class="p-4 sm:p-6 flex flex-col flex-grow">
          <h3 class="font-heading text-base sm:text-lg font-semibold mb-2" style="color: #1a1a1a;">Impregneren</h3>
@@ -620,7 +689,8 @@
         </div>
        </div>
        <div class="rounded-xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border hover:shadow-xl transition service-card flex flex-col cursor-pointer" style="border-color: rgba(51, 115, 102, 0.1);" onclick="goToPage('water')">
-        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);"><i data-lucide="waves" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
+        <div class="h-20 sm:h-24 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(51, 115, 102, 0.1) 0%, rgba(51, 115, 102, 0.05) 100%);">
+         <i data-lucide="waves" style="width:40px;height:40px;color:#337366;opacity:0.6;"></i>
         </div>
         <div class="p-4 sm:p-6 flex flex-col flex-grow">
          <h3 class="font-heading text-base sm:text-lg font-semibold mb-2" style="color: #1a1a1a;">Waterbeheersing</h3>
@@ -638,7 +708,8 @@
    </div><!-- SERVICE DETAIL PAGES -->
    <div id="page-onkruid" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Onkruidbestrijding</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Onkruid tussen uw bestrating? Wij zorgen ervoor dat uw bestrating volledig onkruidvrij wordt en langdurig beschermd blijft.</p>
      </div>
@@ -651,7 +722,8 @@
    </div>
    <div id="page-reinigen" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Bestrating Reinigen</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Professionele reiniging van uw bestrating met gespecialiseerde apparatuur.</p>
      </div>
@@ -664,7 +736,8 @@
    </div>
    <div id="page-impregneren" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Impregneren</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Langdurige bescherming tegen vocht, vuil en vlekken.</p>
      </div>
@@ -677,7 +750,8 @@
    </div>
    <div id="page-water" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('diensten'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Waterbeheersing</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Geen meer water op uw bestrating dankzij slimme waterbeheersing.</p>
      </div>
@@ -690,7 +764,8 @@
    </div>
    <div id="page-over-ons" class="page-hidden">
     <section class="pt-20 px-4 pb-8 sm:pt-24 sm:px-6 sm:pb-12" style="background: linear-gradient(135deg, #f0f4f2 0%, #e8ede8 100%);">
-     <div class="max-w-3xl mx-auto w-full"><a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
+     <div class="max-w-3xl mx-auto w-full">
+      <a href="#" onclick="goToPage('home'); return false;" class="inline-flex items-center gap-2 text-xs sm:text-sm font-600 mb-4 sm:mb-6" style="color: #337366;"> <i data-lucide="arrow-left" style="width:14px;height:14px;"></i> Terug </a>
       <h1 class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-4 sm:mb-6 font-bold" style="color: #1a1a1a;">Over De Bestratingsvoegers</h1>
       <p class="text-base sm:text-lg leading-relaxed" style="color: #666666;">Bij Bestratingsvoegers draait alles om kwaliteit, innovatie en duurzaamheid.</p>
      </div>
@@ -703,6 +778,37 @@
    </div>
   </div>
   <script>
+  // SCROLL-BASED ANIMATION OBSERVER
+  const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      }
+    });
+  }, observerOptions);
+
+  // Initialize observer on DOM ready
+  function initScrollAnimations() {
+    document.querySelectorAll('.scroll-fade').forEach(el => {
+      observer.observe(el);
+    });
+  }
+
+  // Call on page load
+  document.addEventListener('DOMContentLoaded', initScrollAnimations);
+
+  // Re-initialize when page changes
+  const originalGoToPage = window.goToPage;
+  window.goToPage = function(pageName) {
+    originalGoToPage(pageName);
+    setTimeout(initScrollAnimations, 50);
+  };
+
   // Prevent browser from remembering scroll position
   if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
@@ -795,6 +901,9 @@
       // Recreate icons for new page
       lucide.createIcons();
       
+      // Re-initialize scroll animations
+      setTimeout(initScrollAnimations, 50);
+      
       // Log navigation for debugging (optional)
       console.log(`Navigated to: ${pageName}`);
     }
@@ -822,6 +931,8 @@
   const defaultConfig = {
     hero_title: 'De Bestratingsvoegers',
     hero_subtitle: 'Specialist in bestrating, reiniging en bescherming',
+    about_intro: 'Bij Bestratingsvoegers staan innovatie, kwaliteit en service centraal',
+    about_body: 'Wat begon met het reinigen van stoepen groeide uit tot een specialistisch bedrijf voor complete bestratingsoplossingen in heel Nederland.',
     company_name: 'De Bestratingsvoegers',
     company_phone: '06 21833345',
     company_email: 'info@bestratingsvoegers.nl'
@@ -833,6 +944,10 @@
       document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
       document.getElementById('nav-brand').textContent = config.company_name || defaultConfig.company_name;
       document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
+      const aboutIntro = document.getElementById('about-intro-text');
+      if (aboutIntro) aboutIntro.textContent = config.about_intro || defaultConfig.about_intro;
+      const aboutBody = document.getElementById('about-body-text');
+      if (aboutBody) aboutBody.textContent = config.about_body || defaultConfig.about_body;
     },
     mapToCapabilities: (config) => ({
       recolorables: [],
@@ -843,10 +958,12 @@
     mapToEditPanelValues: (config) => new Map([
       ['hero_title', config.hero_title || defaultConfig.hero_title],
       ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
+      ['about_intro', config.about_intro || defaultConfig.about_intro],
+      ['about_body', config.about_body || defaultConfig.about_body],
       ['company_name', config.company_name || defaultConfig.company_name],
       ['company_phone', config.company_phone || defaultConfig.company_phone],
     ])
   });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f8b67eed076b97a',t:'MTc3ODI3NDE1Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9f909f097506b97a',t:'MTc3ODMyODgzOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>

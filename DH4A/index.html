@@ -7,60 +7,235 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
   <style>
-    * { font-family: 'DM Sans', sans-serif; }
+    * {
+      box-sizing: border-box;
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0;
+    }
 
-    .glass {
-      background: rgba(21, 24, 33, 0.6);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.08);
+    html {
+      min-height: 100%;
+      background: #050507;
+    }
+
+    body,
+    body[data-template-id="__page-root"] {
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)) !important;
+      color: #FFFFFF !important;
+      background: radial-gradient(circle at top, #1E1B4B 0%, #0B0B12 45%, #050507 100%) !important;
+    }
+
+    h1,
+    h2,
+    p,
+    button,
+    .canva-text,
+    .canva-button,
+    #question-text {
+      color: #FFFFFF !important;
+    }
+
+    button {
+      touch-action: manipulation;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    #start-screen,
+    #end-screen,
+    #question-screen {
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.55);
+      text-align: center;
+      background: rgba(15, 17, 28, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    #start-screen,
+    #end-screen {
+      width: min(100%, 440px);
+      padding: 28px 20px;
+      border-radius: 28px;
+    }
+
+    #question-screen {
+      width: min(100%, 760px);
+      padding: 24px 18px;
+      border-radius: 28px;
+    }
+
+    #start-screen h1,
+    #end-screen h2 {
+      margin: 0 0 16px;
+      font-size: clamp(2.25rem, 10vw, 4.35rem);
+      line-height: 1.02;
+      text-wrap: balance;
+    }
+
+    #start-screen p,
+    #end-screen [data-template-id="end-message"] {
+      margin-top: 0;
+      color: #C7CBD6 !important;
+      line-height: 1.5;
+    }
+
+    #start-screen p {
+      margin-bottom: 48px;
+    }
+
+    #end-screen [data-template-id="end-message"] {
+      margin-bottom: 40px;
+    }
+
+    #progress {
+      color: #B8BDCC !important;
+      font-weight: 500;
+    }
+
+    #question-text {
+      margin-bottom: 32px;
+      font-size: clamp(1.6rem, 7vw, 2.6rem);
+      line-height: 1.15;
+      text-wrap: balance;
+    }
+
+    #answers {
+      display: grid;
+      gap: 16px;
     }
 
     .answer-btn {
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      background: rgba(21, 24, 33, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.08);
+      width: 100%;
+      min-height: 60px;
+      padding: 18px;
+      border: 1px solid rgba(255,255,255,0.14) !important;
+      border-radius: 20px;
+      color: #FFFFFF !important;
+      background: rgba(20, 23, 36, 0.95) !important;
+      font-size: 1.05rem;
+      line-height: 1.35;
+      text-align: left;
+      filter: none !important;
+      transition: transform 0.2s ease, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
     }
-    .answer-btn:hover {
-      transform: translateY(-3px);
-      border-color: rgba(91, 140, 255, 0.4);
-      box-shadow: 0 8px 32px rgba(91, 140, 255, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
-      background: rgba(30, 35, 50, 0.8);
+
+    .answer-btn:hover,
+    .answer-btn:focus-visible {
+      border-color: rgba(139,92,246,0.65) !important;
+      box-shadow: 0 10px 34px rgba(99,102,241,0.22), inset 0 1px 0 rgba(255,255,255,0.08);
+      background: rgba(38, 43, 66, 0.98) !important;
     }
+
+    .answer-btn:focus-visible,
+    .glow-btn:focus-visible {
+      outline: 3px solid rgba(236,72,153,0.55);
+      outline-offset: 3px;
+    }
+
+    .answer-btn:active,
+    .glow-btn:active {
+      transform: scale(0.98);
+    }
+
     .answer-btn.correct {
-      background: rgba(34, 197, 94, 0.2) !important;
-      border-color: #22C55E !important;
-      box-shadow: 0 0 24px rgba(34, 197, 94, 0.3);
-      color: #22C55E;
-      transform: scale(1.02);
+      border-color: #86EFAC !important;
+      box-shadow: 0 0 30px rgba(34,197,94,0.45);
+      color: #FFFFFF !important;
+      background: linear-gradient(135deg, #16A34A, #22C55E) !important;
     }
+
     .answer-btn.wrong {
-      background: rgba(239, 68, 68, 0.2) !important;
-      border-color: #EF4444 !important;
-      box-shadow: 0 0 24px rgba(239, 68, 68, 0.2);
-      color: #EF4444;
-      opacity: 0.8;
+      border-color: #FCA5A5 !important;
+      box-shadow: 0 0 30px rgba(239,68,68,0.4);
+      color: #FFFFFF !important;
+      background: linear-gradient(135deg, #DC2626, #EF4444) !important;
+    }
+
+    .answer-btn.is-dimmed {
+      opacity: 0.55;
+      filter: none !important;
     }
 
     .glow-btn {
-      background: linear-gradient(135deg, #5B8CFF, #7C4DFF);
-      box-shadow: 0 4px 24px rgba(91, 140, 255, 0.3);
-      transition: all 0.3s ease;
+      width: 100%;
+      min-height: 60px;
+      color: #FFFFFF !important;
+      background: linear-gradient(135deg, #6366F1, #8B5CF6, #EC4899) !important;
+      box-shadow: 0 10px 38px rgba(99,102,241,0.34);
+      font-weight: 700 !important;
+      transition: transform 0.22s ease, box-shadow 0.25s ease, filter 0.25s ease;
     }
+
     .glow-btn:hover {
-      transform: translateY(-2px) scale(1.03);
-      box-shadow: 0 8px 40px rgba(91, 140, 255, 0.5);
+      box-shadow: 0 14px 46px rgba(236,72,153,0.33);
+      filter: saturate(1.1);
     }
 
-    .fade-in { animation: fadeIn 0.5s ease; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeSlide 0.42s ease-out; }
+    @keyframes fadeSlide { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-    .progress-track { background: rgba(255,255,255,0.06); }
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.36);
+    }
+
     .progress-fill {
-      background: linear-gradient(90deg, #5B8CFF, #7C4DFF, #A855F7);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #6366F1, #8B5CF6, #EC4899);
       transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 0 12px rgba(91, 140, 255, 0.4);
+      box-shadow: 0 0 18px rgba(139,92,246,0.72);
+    }
+
+    #feedback {
+      min-height: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      body,
+      body[data-template-id="__page-root"] {
+        padding: 32px !important;
+      }
+
+      #start-screen,
+      #end-screen {
+        padding: 40px 34px;
+      }
+
+      #question-screen {
+        padding: 40px;
+      }
+
+      .answer-btn {
+        padding: 20px 28px;
+        font-size: 1.35rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
@@ -76,14 +251,14 @@
    <div class="w-full h-2 progress-track rounded-full mb-6 overflow-hidden">
     <div id="progress-bar" class="progress-fill h-full rounded-full" style="width:0%"></div>
    </div>
-   <p id="progress" class="text-base mb-4" style="color:#9CA3AF"></p>
-   <h2 id="question-text" class="text-3xl md:text-5xl font-bold mb-10 leading-tight" style="color:#F5F7FA"></h2>
+   <p id="progress" class="text-base mb-4"></p>
+   <h2 id="question-text" class="text-3xl md:text-5xl font-bold mb-10 leading-tight"></h2>
    <div id="answers" class="space-y-4"></div>
    <p id="feedback" class="text-2xl md:text-3xl font-bold mt-8 h-10"></p>
   </div>
   <div id="end-screen" class="hidden text-center fade-in">
    <h2 data-template-id="end-title" class="canva-text text-4xl md:text-6xl font-bold mb-4"></h2>
-   <p id="score-text" class="text-3xl md:text-5xl mb-6 font-bold" style="color:#F5F7FA"></p>
+   <p id="score-text" class="text-3xl md:text-5xl mb-6 font-bold"></p>
    <p data-template-id="end-message" class="canva-text text-lg md:text-2xl mb-10"></p><button data-template-id="restart-btn" class="canva-button glow-btn text-xl md:text-2xl px-10 py-4 rounded-2xl font-medium" onclick="startQuiz()"></button>
   </div>
   <script src="/_sdk/editing_sdk.js"></script>
@@ -124,7 +299,7 @@
       q.options.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'answer-btn w-full text-left text-xl md:text-2xl px-8 py-5 rounded-2xl cursor-pointer';
-        btn.style.color = '#F5F7FA';
+        btn.type = 'button';
         btn.textContent = String.fromCharCode(65 + i) + '. ' + opt;
         btn.onclick = () => selectAnswer(i, btn);
         container.appendChild(btn);
@@ -147,6 +322,11 @@
         fb.textContent = '❌ Fout!';
         fb.style.color = '#EF4444';
       }
+      btns.forEach((answerBtn, index) => {
+        if (index !== i && index !== correct) {
+          answerBtn.classList.add('is-dimmed');
+        }
+      });
       setTimeout(() => {
         current++;
         if (current < questions.length) {

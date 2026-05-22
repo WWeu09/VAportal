@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="nl">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drama Quiz</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'DM Sans', sans-serif; }
+
+    .glass {
+      background: rgba(21, 24, 33, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .answer-btn {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      background: rgba(21, 24, 33, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .answer-btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(91, 140, 255, 0.4);
+      box-shadow: 0 8px 32px rgba(91, 140, 255, 0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+      background: rgba(30, 35, 50, 0.8);
+    }
+    .answer-btn.correct {
+      background: rgba(34, 197, 94, 0.2) !important;
+      border-color: #22C55E !important;
+      box-shadow: 0 0 24px rgba(34, 197, 94, 0.3);
+      color: #22C55E;
+      transform: scale(1.02);
+    }
+    .answer-btn.wrong {
+      background: rgba(239, 68, 68, 0.2) !important;
+      border-color: #EF4444 !important;
+      box-shadow: 0 0 24px rgba(239, 68, 68, 0.2);
+      color: #EF4444;
+      opacity: 0.8;
+    }
+
+    .glow-btn {
+      background: linear-gradient(135deg, #5B8CFF, #7C4DFF);
+      box-shadow: 0 4px 24px rgba(91, 140, 255, 0.3);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 8px 40px rgba(91, 140, 255, 0.5);
+    }
+
+    .fade-in { animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+    .progress-track { background: rgba(255,255,255,0.06); }
+    .progress-fill {
+      background: linear-gradient(90deg, #5B8CFF, #7C4DFF, #A855F7);
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 12px rgba(91, 140, 255, 0.4);
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js" type="text/javascript"></script>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="/_sdk/resizing_sdk.js" type="text/javascript"></script>
+ </head>
+ <body data-template-id="__page-root" class="min-h-screen flex items-center justify-center p-6">
+  <div id="start-screen" class="text-center fade-in">
+   <h1 data-template-id="quiz-title" class="canva-text text-5xl md:text-7xl font-bold mb-4"></h1>
+   <p data-template-id="quiz-subtitle" class="canva-text text-xl md:text-2xl mb-12"></p><button data-template-id="start-btn" class="canva-button glow-btn text-xl md:text-2xl px-10 py-4 rounded-2xl font-medium" onclick="startQuiz()"></button>
+  </div>
+  <div id="question-screen" class="hidden w-full max-w-4xl text-center fade-in">
+   <div class="w-full h-2 progress-track rounded-full mb-6 overflow-hidden">
+    <div id="progress-bar" class="progress-fill h-full rounded-full" style="width:0%"></div>
+   </div>
+   <p id="progress" class="text-base mb-4" style="color:#9CA3AF"></p>
+   <h2 id="question-text" class="text-3xl md:text-5xl font-bold mb-10 leading-tight" style="color:#F5F7FA"></h2>
+   <div id="answers" class="space-y-4"></div>
+   <p id="feedback" class="text-2xl md:text-3xl font-bold mt-8 h-10"></p>
+  </div>
+  <div id="end-screen" class="hidden text-center fade-in">
+   <h2 data-template-id="end-title" class="canva-text text-4xl md:text-6xl font-bold mb-4"></h2>
+   <p id="score-text" class="text-3xl md:text-5xl mb-6 font-bold" style="color:#F5F7FA"></p>
+   <p data-template-id="end-message" class="canva-text text-lg md:text-2xl mb-10"></p><button data-template-id="restart-btn" class="canva-button glow-btn text-xl md:text-2xl px-10 py-4 rounded-2xl font-medium" onclick="startQuiz()"></button>
+  </div>
+  <script src="/_sdk/editing_sdk.js"></script>
+  <script>
+    const questions = [
+      { q: "Wat is de vierde wand?", options: ["Een decorstuk", "Een denkbeeldige muur tussen acteurs en publiek", "Een theaterlamp"], correct: 1 },
+      { q: "Waarom was Ben-Hur spectaculair?", options: ["Door robots", "Door echte paarden en strijdwagens", "Door computers"], correct: 1 },
+      { q: "Wat hoort bij realisme?", options: ["Gewone mensen en echte emoties", "Alleen fantasie", "Overdreven toneel"], correct: 0 },
+      { q: "Wat veranderde theater in de 19e eeuw?", options: ["Technologie", "Internet", "Smartphones"], correct: 0 },
+      { q: "Wat gebruikte men in spectaculaire shows?", options: ["Echte paarden", "Auto's", "Helikopters"], correct: 0 },
+      { q: "Wat betekent naturalisme?", options: ["Alleen natuur schilderen", "Zo realistisch mogelijk spelen", "Alleen muziek gebruiken"], correct: 1 },
+      { q: "Waarom gingen meer mensen naar theater?", options: ["Door betere treinen en verlichting", "Door vliegtuigen", "Door televisie"], correct: 0 },
+      { q: "Wat deden acteurs bij de vierde wand?", options: ["Tegen publiek praten", "Publiek negeren", "Dansen"], correct: 1 },
+      { q: "Welke schrijver hoort bij realisme?", options: ["Henrik Ibsen", "Walt Disney", "Picasso"], correct: 0 },
+      { q: "Wat wilden mensen in theater zien?", options: ["Meer spektakel en realisme", "Alleen stilte", "Alleen sport"], correct: 0 }
+    ];
+
+    let current = 0, score = 0;
+
+    function startQuiz() {
+      current = 0; score = 0;
+      document.getElementById('start-screen').classList.add('hidden');
+      document.getElementById('end-screen').classList.add('hidden');
+      const qs = document.getElementById('question-screen');
+      qs.classList.remove('hidden');
+      qs.classList.add('fade-in');
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const q = questions[current];
+      document.getElementById('progress').textContent = `Vraag ${current + 1} / ${questions.length}`;
+      document.getElementById('progress-bar').style.width = `${((current) / questions.length) * 100}%`;
+      document.getElementById('question-text').textContent = q.q;
+      document.getElementById('feedback').textContent = '';
+      const container = document.getElementById('answers');
+      container.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn w-full text-left text-xl md:text-2xl px-8 py-5 rounded-2xl cursor-pointer';
+        btn.style.color = '#F5F7FA';
+        btn.textContent = String.fromCharCode(65 + i) + '. ' + opt;
+        btn.onclick = () => selectAnswer(i, btn);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(i, btn) {
+      const btns = document.querySelectorAll('.answer-btn');
+      btns.forEach(b => b.onclick = null);
+      const correct = questions[current].correct;
+      const fb = document.getElementById('feedback');
+      if (i === correct) {
+        btn.classList.add('correct');
+        score++;
+        fb.textContent = '✅ Goed!';
+        fb.style.color = '#22C55E';
+      } else {
+        btn.classList.add('wrong');
+        btns[correct].classList.add('correct');
+        fb.textContent = '❌ Fout!';
+        fb.style.color = '#EF4444';
+      }
+      setTimeout(() => {
+        current++;
+        if (current < questions.length) {
+          showQuestion();
+        } else {
+          document.getElementById('progress-bar').style.width = '100%';
+          setTimeout(showEnd, 400);
+        }
+      }, 1400);
+    }
+
+    function showEnd() {
+      document.getElementById('question-screen').classList.add('hidden');
+      const es = document.getElementById('end-screen');
+      es.classList.remove('hidden');
+      es.classList.add('fade-in');
+      document.getElementById('score-text').textContent = `Jouw score: ${score}/${questions.length}`;
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9ff93fbacc980a57',t:'MTc3OTQyNTkzOQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

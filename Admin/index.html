@@ -1,1984 +1,1008 @@
 <!doctype html>
-<html lang="nl" class="h-full">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, maximum-scale=1">
-  <title>Amstel &amp; Appiah - Admin Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      width: 100%;
-      max-width: 100%;
-      height: 100%;
-      overflow-x: hidden;
-      overscroll-behavior: none;
-      touch-action: pan-y;
-      -webkit-user-select: none;
-      -webkit-touch-callout: none;
-    }
-
-    body {
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #0e0e0f;
-      color: #f5f5f7;
-      line-height: 1.6;
-      -webkit-overflow-scrolling: touch;
-      position: fixed;
-      width: 100%;
-      height: 100vh;
-    }
-
-    #app {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: fixed;
-    }
-
-    /* ===== HEADER ===== */
-    header {
-      position: relative;
-      height: 56px;
-      background: linear-gradient(135deg, rgba(14, 14, 15, 0.98) 0%, rgba(20, 20, 22, 0.98) 100%);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-      z-index: 50;
-      display: flex;
-      align-items: center;
-      padding: 0 1rem;
-      gap: 1rem;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-      flex-shrink: 0;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      gap: 1rem;
-    }
-
-    .logo {
-      font-size: 0.9rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      white-space: nowrap;
-      background: linear-gradient(135deg, #d4af37 0%, #e8c158 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      min-width: max-content;
-    }
-
-    .header-search {
-      flex: 1;
-      display: none;
-    }
-
-    .mobile-menu-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 40px;
-      height: 40px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-      color: #f5f5f7;
-      padding: 0;
-      margin-left: auto;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .mobile-menu-button:active {
-      transform: scale(0.9);
-    }
-
-    /* ===== MOBILE MENU DROPDOWN ===== */
-    .mobile-menu-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(4px);
-      z-index: 99;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .mobile-menu-overlay.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .mobile-menu {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      background: linear-gradient(135deg, rgba(20, 20, 22, 0.98) 0%, rgba(28, 28, 31, 0.98) 100%);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-      z-index: 100;
-      display: none;
-      flex-direction: column;
-      gap: 0;
-      max-height: calc(100vh - 56px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      animation: slideDown 0.3s ease;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .mobile-menu.active {
-      display: flex;
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mafash Admin</title>
+    <style>
+      :root {
+        --bg: #101418;
+        --panel: #171d23;
+        --panel2: #1f2730;
+        --ink: #eef3f0;
+        --muted: #9aa7a1;
+        --line: #2b3640;
+        --brand: #28b487;
+        --warn: #f59e0b;
+        --bad: #ef4444;
       }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      * {
+        box-sizing: border-box;
       }
-    }
-
-    .mobile-menu-item {
-      padding: 1rem 1.5rem;
-      background: none;
-      border: none;
-      color: #b5b5bd;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      font-family: inherit;
-      text-align: left;
-      width: 100%;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .mobile-menu-item:active {
-      background: rgba(212, 175, 55, 0.1);
-    }
-
-    .mobile-menu-item.active {
-      background: rgba(212, 175, 55, 0.12);
-      color: #d4af37;
-      border-left: 3px solid #d4af37;
-      padding-left: calc(1.5rem - 3px);
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    main {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 1rem;
-      width: 100%;
-      max-width: 100%;
-      overflow-x: hidden;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    h1 {
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 0.25rem;
-      letter-spacing: -0.5px;
-      word-wrap: break-word;
-    }
-
-    .page-subtitle {
-      color: #b5b5bd;
-      font-size: 12px;
-      margin-bottom: 1.5rem;
-    }
-
-    /* ===== STATS GRID ===== */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      margin-bottom: 1.5rem;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .stat-card {
-      background: #141416;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .stat-card:active {
-      transform: scale(0.98);
-    }
-
-    .stat-value {
-      font-size: 24px;
-      font-weight: 600;
-      color: #f5f5f7;
-      margin-bottom: 0.25rem;
-      word-wrap: break-word;
-    }
-
-    .stat-label {
-      color: #7d7d86;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    /* ===== CONTROLS ===== */
-    .controls {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 1rem;
-      flex-wrap: wrap;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .controls-group {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .btn {
-      padding: 8px 12px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: inherit;
-      white-space: nowrap;
-      min-height: 36px;
-      flex-shrink: 0;
-    }
-
-    .btn-primary {
-      background: #d4af37;
-      color: #000;
-    }
-
-    .btn-primary:active {
-      background: #e8c158;
-      transform: scale(0.95);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: #f5f5f7;
-    }
-
-    .btn-secondary:active {
-      background: #1c1c1f;
-    }
-
-    .btn-danger {
-      background: transparent;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      color: #ef4444;
-    }
-
-    .btn-danger:active {
-      background: rgba(239, 68, 68, 0.1);
-    }
-
-    /* ===== FILTER SECTION ===== */
-    .filter-section {
-      background: #141416;
-      padding: 1rem;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .filter-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      width: 100%;
-    }
-
-    .filter-group label {
-      font-weight: 600;
-      font-size: 11px;
-      color: #b5b5bd;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .filter-group select,
-    .filter-group input {
-      padding: 8px 10px;
-      background: #1c1c1f;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      color: #f5f5f7;
-      font-size: 0.9rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-      width: 100%;
-      max-width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
-      padding-right: 30px;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23b5b5bd' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 8px center;
-      background-size: 16px;
-      padding-right: 32px;
-    }
-
-    .filter-group input:focus,
-    .filter-group select:focus {
-      outline: none;
-      border-color: #d4af37;
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-    }
-
-    /* ===== TABLES ON MOBILE → CARDS ===== */
-    .table-wrapper {
-      overflow-x: hidden;
-      margin-bottom: 1rem;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .data-table {
-      display: none;
-    }
-
-    .mobile-card-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .mobile-data-card {
-      background: #141416;
-      padding: 1rem;
-      border-radius: 12px;
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      display: grid;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .card-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 0.5rem;
-      align-items: start;
-    }
-
-    .card-label {
-      font-size: 11px;
-      color: #7d7d86;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-    }
-
-    .card-value {
-      font-size: 13px;
-      color: #f5f5f7;
-      word-wrap: break-word;
-      font-weight: 500;
-    }
-
-    .card-value strong {
-      color: #d4af37;
-    }
-
-    .card-badge {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 10px;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-      width: fit-content;
-    }
-
-    .badge-success {
-      background: rgba(74, 222, 128, 0.15);
-      color: #4ade80;
-    }
-
-    .badge-danger {
-      background: rgba(239, 68, 68, 0.15);
-      color: #ef4444;
-    }
-
-    .badge-warning {
-      background: rgba(250, 204, 21, 0.15);
-      color: #facc15;
-    }
-
-    .card-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding-top: 0.75rem;
-    }
-
-    .btn-card {
-      padding: 8px 10px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 600;
-      transition: all 0.2s ease;
-      font-family: inherit;
-      text-align: center;
-    }
-
-    .btn-card-edit {
-      background: #d4af37;
-      color: #000;
-    }
-
-    .btn-card-edit:active {
-      background: #e8c158;
-      transform: scale(0.95);
-    }
-
-    .btn-card-delete {
-      background: rgba(239, 68, 68, 0.1);
-      color: #ef4444;
-      border: 1px solid rgba(239, 68, 68, 0.3);
-    }
-
-    .btn-card-delete:active {
-      background: rgba(239, 68, 68, 0.2);
-    }
-
-    /* ===== CHARTS ===== */
-    .charts-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .chart-container {
-      background: #141416;
-      padding: 1rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    .chart-title {
-      font-size: 12px;
-      font-weight: 600;
-      margin-bottom: 0.75rem;
-      color: #f5f5f7;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .chart-canvas {
-      max-height: 250px;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    /* ===== MODALS ===== */
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(6px);
-      z-index: 101;
-      animation: fadeIn 0.2s ease;
-    }
-
-    .modal-backdrop.active {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .modal {
-      background: #141416;
-      border-radius: 16px 16px 0 0;
-      padding: 1.5rem 1rem;
-      width: 100%;
-      max-width: 100%;
-      max-height: 85vh;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(212, 175, 55, 0.1);
-      border-radius: 20px 20px 0 0;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(100%);
-        opacity: 0;
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          sans-serif;
       }
-      to {
-        transform: translateY(0);
-        opacity: 1;
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
       }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 600;
-      letter-spacing: -0.5px;
-    }
-
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #7d7d86;
-      transition: color 0.2s ease;
-      padding: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .modal-close:active {
-      color: #f5f5f7;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      width: 100%;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      width: 100%;
-    }
-
-    .form-group label {
-      font-weight: 600;
-      font-size: 11px;
-      color: #b5b5bd;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      padding: 10px 12px;
-      background: #1c1c1f;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
-      color: #f5f5f7;
-      font-size: 0.95rem;
-      font-family: inherit;
-      transition: all 0.2s ease;
-      width: 100%;
-      max-width: 100%;
-      -webkit-appearance: none;
-      appearance: none;
-    }
-
-    .form-group textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: #d4af37;
-      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
-    }
-
-    .form-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-      width: 100%;
-    }
-
-    .form-actions .btn {
-      width: 100%;
-      justify-content: center;
-    }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #7d7d86;
-    }
-
-    .empty-state-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    /* ===== TABS ===== */
-    .tab-content {
-      display: none;
-      animation: fadeIn 0.3s ease;
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    /* ===== TOASTS ===== */
-    .toast-container {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
-      left: 1rem;
-      z-index: 200;
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      max-width: calc(100% - 2rem);
-    }
-
-    .toast {
-      background: #1c1c1f;
-      color: #f5f5f7;
-      padding: 12px 14px;
-      border-radius: 10px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      font-weight: 500;
-      animation: slideInRight 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border-left: 3px solid #d4af37;
-      font-size: 13px;
-      word-wrap: break-word;
-      max-width: 100%;
-    }
-
-    .toast.success {
-      border-left-color: #4ade80;
-    }
-
-    .toast.error {
-      border-left-color: #ef4444;
-    }
-
-    .toast.warning {
-      border-left-color: #facc15;
-    }
-
-    @keyframes slideInRight {
-      from {
-        transform: translateX(400px);
-        opacity: 0;
+      button {
+        cursor: pointer;
       }
-      to {
-        transform: translateX(0);
-        opacity: 1;
+      .shell {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 18px;
       }
-    }
-
-    /* ===== BULK ACTIONS ===== */
-    .bulk-actions {
-      background: rgba(212, 175, 55, 0.12);
-      padding: 0.75rem;
-      border-radius: 8px;
-      margin-bottom: 0.75rem;
-      display: none;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      align-items: center;
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      width: 100%;
-      max-width: 100%;
-    }
-
-    .bulk-actions.active {
-      display: flex;
-    }
-
-    .bulk-count {
-      color: #d4af37;
-      font-weight: 600;
-      font-size: 0.9rem;
-      flex: 1;
-    }
-
-    /* ===== HIDE DESKTOP ELEMENTS ON MOBILE ===== */
-    .desktop-only {
-      display: none;
-    }
-
-    /* ===== SCROLLBAR STYLING ===== */
-    main::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    main::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    main::-webkit-scrollbar-thumb {
-      background: rgba(212, 175, 55, 0.3);
-      border-radius: 3px;
-    }
-
-    main::-webkit-scrollbar-thumb:active {
-      background: rgba(212, 175, 55, 0.6);
-    }
-
-    .mobile-menu::-webkit-scrollbar {
-      width: 4px;
-    }
-
-    .mobile-menu::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .mobile-menu::-webkit-scrollbar-thumb {
-      background: rgba(212, 175, 55, 0.3);
-      border-radius: 2px;
-    }
-  </style>
-  <style>@view-transition { navigation: auto; }</style>
-  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
-  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
-  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
- </head>
- <body class="h-full">
-  <div id="app"><!-- HEADER -->
-   <header>
-    <div class="header-content">
-     <div class="logo">
-      ✨ A&amp;A
-     </div><button class="mobile-menu-button" onclick="toggleMobileMenu()">☰</button>
-    </div>
-   </header><!-- MOBILE MENU OVERLAY -->
-   <div class="mobile-menu-overlay" id="mobile-menu-overlay" onclick="closeMobileMenu()"></div><!-- MOBILE MENU -->
-   <div class="mobile-menu" id="mobile-menu"><button class="mobile-menu-item active" onclick="switchTabMobile('products')">🎁 Products</button> <button class="mobile-menu-item" onclick="switchTabMobile('users')">👑 Users</button> <button class="mobile-menu-item" onclick="switchTabMobile('payments')">💎 Payments</button> <button class="mobile-menu-item" onclick="switchTabMobile('subscriptions')">🔑 Plans</button> <button class="mobile-menu-item" onclick="switchTabMobile('categories')">🏛️ Categories</button> <button class="mobile-menu-item" onclick="switchTabMobile('analytics')">📈 Analytics</button> <button class="mobile-menu-item" onclick="switchTabMobile('api-test')">⚙️ Settings</button>
-   </div><!-- MAIN CONTENT -->
-   <main><!-- PRODUCTS TAB -->
-    <div id="tab-products" class="tab-content active">
-     <div class="container">
-      <h1>🎁 Products</h1>
-      <p class="page-subtitle">Manage your collection</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadProducts()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('products')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('products')">📥 Export</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="product-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Products
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-products">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="avg-price">
-         €0
-        </div>
-        <div class="stat-label">
-         Avg Price
-        </div>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Category</label> <select id="filter-category" onchange="applyFilters('products')"> <option value="">All Categories</option> </select>
-       </div>
-       <div class="filter-group"><label>Status</label> <select id="filter-product-status" onchange="applyFilters('products')"> <option value="">All Status</option> <option value="Active">Active</option> <option value="Inactive">Inactive</option> </select>
-       </div>
-      </div><!-- MOBILE CARD LIST -->
-      <div class="table-wrapper">
-       <div class="mobile-card-list" id="products-list"></div>
-      </div>
-     </div>
-    </div><!-- USERS TAB -->
-    <div id="tab-users" class="tab-content">
-     <div class="container">
-      <h1>👑 Users</h1>
-      <p class="page-subtitle">Manage members</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadUsers()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('users')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('users')">📥 Export</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="user-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="paid-users">
-         0
-        </div>
-        <div class="stat-label">
-         Paid Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="premium-users">
-         0
-        </div>
-        <div class="stat-label">
-         Premium
-        </div>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Subscription</label> <select id="filter-sub-type" onchange="applyFilters('users')"> <option value="">All Types</option> <option value="Free">Free</option> <option value="Premium">Premium</option> <option value="Enterprise">Enterprise</option> </select>
-       </div>
-       <div class="filter-group"><label>Paid Status</label> <select id="filter-paid" onchange="applyFilters('users')"> <option value="">All Status</option> <option value="true">Paid</option> <option value="false">Unpaid</option> </select>
-       </div>
-      </div><!-- MOBILE CARD LIST -->
-      <div class="table-wrapper">
-       <div class="mobile-card-list" id="users-list"></div>
-      </div>
-     </div>
-    </div><!-- PAYMENTS TAB -->
-    <div id="tab-payments" class="tab-content">
-     <div class="container">
-      <h1>💎 Payments</h1>
-      <p class="page-subtitle">Track revenue</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadPayments()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('payments')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('payments')">📥 Export</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="payment-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Payments
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-revenue">
-         €0
-        </div>
-        <div class="stat-label">
-         Revenue
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="avg-payment">
-         €0
-        </div>
-        <div class="stat-label">
-         Avg Payment
-        </div>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-payment-status" onchange="applyFilters('payments')"> <option value="">All Status</option> <option value="Completed">Completed</option> <option value="Pending">Pending</option> <option value="Failed">Failed</option> </select>
-       </div>
-       <div class="filter-group"><label>Method</label> <select id="filter-method" onchange="applyFilters('payments')"> <option value="">All Methods</option> <option value="Credit Card">Card</option> <option value="PayPal">PayPal</option> <option value="Bank Transfer">Bank</option> </select>
-       </div>
-      </div><!-- MOBILE CARD LIST -->
-      <div class="table-wrapper">
-       <div class="mobile-card-list" id="payments-list"></div>
-      </div>
-     </div>
-    </div><!-- SUBSCRIPTIONS TAB -->
-    <div id="tab-subscriptions" class="tab-content">
-     <div class="container">
-      <h1>🔑 Plans</h1>
-      <p class="page-subtitle">Manage subscriptions</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadSubscriptions()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('subscriptions')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('subscriptions')">📥 Export</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="sub-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Subs
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-subs">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="cancelled-subs">
-         0
-        </div>
-        <div class="stat-label">
-         Cancelled
-        </div>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-sub-status" onchange="applyFilters('subscriptions')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Cancelled</option> </select>
-       </div>
-       <div class="filter-group"><label>Type</label> <select id="filter-sub-type2" onchange="applyFilters('subscriptions')"> <option value="">All Types</option> <option value="Monthly">Monthly</option> <option value="Yearly">Yearly</option> </select>
-       </div>
-      </div><!-- MOBILE CARD LIST -->
-      <div class="table-wrapper">
-       <div class="mobile-card-list" id="subscriptions-list"></div>
-      </div>
-     </div>
-    </div><!-- CATEGORIES TAB -->
-    <div id="tab-categories" class="tab-content">
-     <div class="container">
-      <h1>🏛️ Categories</h1>
-      <p class="page-subtitle">Organize collections</p>
-      <div class="controls">
-       <div class="controls-group"><button class="btn btn-primary" onclick="loadCategories()">🔄 Refresh</button> <button class="btn btn-secondary" onclick="openAddModal('categories')">➕ Add</button> <button class="btn btn-secondary" onclick="exportData('categories')">📥 Export</button>
-       </div>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="category-count">
-         0
-        </div>
-        <div class="stat-label">
-         Total Categories
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="active-categories">
-         0
-        </div>
-        <div class="stat-label">
-         Active
-        </div>
-       </div>
-      </div><!-- FILTERS -->
-      <div class="filter-section">
-       <div class="filter-group"><label>Status</label> <select id="filter-cat-status" onchange="applyFilters('categories')"> <option value="">All Status</option> <option value="true">Active</option> <option value="false">Inactive</option> </select>
-       </div>
-      </div><!-- MOBILE CARD LIST -->
-      <div class="table-wrapper">
-       <div class="mobile-card-list" id="categories-list"></div>
-      </div>
-     </div>
-    </div><!-- ANALYTICS TAB -->
-    <div id="tab-analytics" class="tab-content">
-     <div class="container">
-      <h1>📈 Analytics</h1>
-      <p class="page-subtitle">Business overview</p>
-      <div class="controls"><button class="btn btn-primary" onclick="loadAnalytics()">🔄 Refresh</button>
-      </div><!-- STATS -->
-      <div class="stats-grid">
-       <div class="stat-card">
-        <div class="stat-value" id="total-products">
-         0
-        </div>
-        <div class="stat-label">
-         Products
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-users">
-         0
-        </div>
-        <div class="stat-label">
-         Users
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-transactions">
-         0
-        </div>
-        <div class="stat-label">
-         Transactions
-        </div>
-       </div>
-       <div class="stat-card">
-        <div class="stat-value" id="total-revenue-analytics">
-         €0
-        </div>
-        <div class="stat-label">
-         Revenue
-        </div>
-       </div>
-      </div><!-- CHARTS -->
-      <div class="charts-grid">
-       <div class="chart-container">
-        <div class="chart-title">
-         Products by Category
-        </div>
-        <canvas class="chart-canvas" id="chart-category"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Payment Status
-        </div>
-        <canvas class="chart-canvas" id="chart-payment-status"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Users by Subscription
-        </div>
-        <canvas class="chart-canvas" id="chart-subscription"></canvas>
-       </div>
-       <div class="chart-container">
-        <div class="chart-title">
-         Product Status
-        </div>
-        <canvas class="chart-canvas" id="chart-product-status"></canvas>
-       </div>
-      </div>
-     </div>
-    </div><!-- API TEST TAB -->
-    <div id="tab-api-test" class="tab-content">
-     <div class="container">
-      <h1>⚙️ Settings</h1>
-      <p class="page-subtitle">System console</p>
-      <div style="background: #141416; padding: 1rem; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.1);">
-       <div style="font-size: 12px; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
-        API Test
-       </div>
-       <div class="filter-section">
-        <div class="filter-group"><label>Select Tab</label> <select id="test-tab"> <option value="products">Products</option> <option value="users">Users</option> <option value="payments">Payments</option> <option value="subscriptions">Subscriptions</option> <option value="categories">Categories</option> </select>
-        </div>
-       </div><button class="btn btn-primary" onclick="testGet()" style="width: 100%; margin-top: 0.75rem;">🔍 Execute GET</button>
-      </div>
-      <div style="background: #141416; padding: 1rem; border-radius: 12px; border: 1px solid rgba(212, 175, 55, 0.1); margin-top: 1rem;">
-       <div style="font-size: 12px; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">
-        Response
-       </div>
-       <pre id="test-response" style="background: #1c1c1f; padding: 0.75rem; border-radius: 8px; max-height: 300px; overflow: auto; color: #b5b5bd; font-size: 11px;">Execute a test...</pre>
-      </div>
-     </div>
-    </div>
-   </main><!-- MODALS -->
-   <div id="modal-form" class="modal-backdrop" onclick="if(event.target === this) closeModal()">
-    <div class="modal" onclick="event.stopPropagation()">
-     <div class="modal-header">
-      <h2 class="modal-title" id="modal-title">Add Item</h2><button class="modal-close" onclick="closeModal()">✕</button>
-     </div>
-     <form id="form-main" onsubmit="submitForm(event)"></form>
-    </div>
-   </div><!-- Delete Modal -->
-   <div id="modal-delete" class="modal-backdrop" onclick="if(event.target === this) closeDeleteModal()">
-    <div class="modal" onclick="event.stopPropagation()">
-     <div class="modal-header">
-      <h2 class="modal-title">⚠️ Confirm Delete</h2><button class="modal-close" onclick="closeDeleteModal()">✕</button>
-     </div>
-     <p id="delete-message" style="margin-bottom: 1rem; color: #b5b5bd; font-size: 13px;"></p>
-     <div class="form-actions"><button class="btn btn-danger" onclick="confirmDelete()" style="width: 100%; justify-content: center;">Delete</button> <button class="btn btn-secondary" onclick="closeDeleteModal()" style="width: 100%; justify-content: center;">Cancel</button>
-     </div>
-    </div>
-   </div><!-- Toast Container -->
-   <div class="toast-container" id="toast-container"></div>
-  </div>
-  <script>
-    // ===== CONFIG =====
-    const API_URL = 'https://script.google.com/macros/s/AKfycbz6C5grHGbF2I2FJaA8sN70arFg1aJG-Abw4-tZ9B7NEZWLQZYOr-s_4aicQmDLSl1k/exec';
-
-    // ===== STATE =====
-    let appState = {
-      products: [],
-      users: [],
-      payments: [],
-      subscriptions: [],
-      categories: [],
-      currentTab: 'products',
-      editingRecord: null,
-      charts: {},
-      deleteCallback: null,
-      menuOpen: false
-    };
-
-    const FORM_CONFIGS = {
-      products: {
-        title: 'Product',
-        fields: [
-          { name: 'Category', type: 'select', required: true, options: 'categories' },
-          { name: 'Name', type: 'text', required: true },
-          { name: 'Description', type: 'textarea', required: true },
-          { name: 'Price', type: 'number', required: true, step: '0.01' },
-          { name: 'Affiliate Link', type: 'url' },
-          { name: 'Images Link', type: 'url' },
-          { name: 'Owner Email', type: 'email', required: true },
-          { name: 'Status', type: 'select', required: true, options: ['Active', 'Inactive'] }
-        ]
-      },
-      users: {
-        title: 'User',
-        fields: [
-          { name: 'User ID', type: 'text', required: true },
-          { name: 'Name', type: 'text', required: true },
-          { name: 'Email', type: 'email', required: true },
-          { name: 'Subscription Type', type: 'select', required: true, options: ['Free', 'Premium', 'Enterprise'] },
-          { name: 'Paid', type: 'checkbox' },
-          { name: 'Notes', type: 'textarea' }
-        ]
-      },
-      payments: {
-        title: 'Payment',
-        fields: [
-          { name: 'Payment ID', type: 'text', required: true },
-          { name: 'User Email', type: 'email', required: true },
-          { name: 'Amount', type: 'number', required: true, step: '0.01' },
-          { name: 'Payment Status', type: 'select', required: true, options: ['Completed', 'Pending', 'Failed'] },
-          { name: 'Payment Method', type: 'select', required: true, options: ['Credit Card', 'PayPal', 'Bank Transfer'] },
-          { name: 'Payment Date', type: 'date', required: true }
-        ]
-      },
-      subscriptions: {
-        title: 'Subscription',
-        fields: [
-          { name: 'Sub ID', type: 'text', required: true },
-          { name: 'User Email', type: 'email', required: true },
-          { name: 'Subscription Type', type: 'select', required: true, options: ['Monthly', 'Yearly'] },
-          { name: 'Subscribed', type: 'checkbox' },
-          { name: 'Date Subscribed', type: 'date' },
-          { name: 'Date Unsubscribed', type: 'date' }
-        ]
-      },
-      categories: {
-        title: 'Category',
-        fields: [
-          { name: 'Category ID', type: 'text', required: true },
-          { name: 'Category Name', type: 'text', required: true },
-          { name: 'Description', type: 'textarea' },
-          { name: 'Active', type: 'checkbox' }
-        ]
+      .top {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(16, 20, 24, 0.92);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line);
       }
-    };
-
-    // ===== INITIALIZATION =====
-    document.addEventListener('DOMContentLoaded', async () => {
-      await loadAllData();
-    });
-
-    // ===== MOBILE MENU =====
-    function toggleMobileMenu() {
-      appState.menuOpen = !appState.menuOpen;
-      const menu = document.getElementById('mobile-menu');
-      const overlay = document.getElementById('mobile-menu-overlay');
-      
-      if (appState.menuOpen) {
-        menu.classList.add('active');
-        overlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      } else {
-        menu.classList.remove('active');
-        overlay.classList.remove('active');
-        document.body.style.overflow = '';
+      .bar {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
       }
-    }
-
-    function closeMobileMenu() {
-      appState.menuOpen = false;
-      document.getElementById('mobile-menu').classList.remove('active');
-      document.getElementById('mobile-menu-overlay').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function switchTabMobile(tabName) {
-      switchTab(tabName);
-      closeMobileMenu();
-    }
-
-    // ===== DATA LOADING =====
-    async function fetchTab(tab) {
-      try {
-        const response = await fetch(`${API_URL}?tab=${tab}`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const data = await response.json();
-        if (data.status === 'success') {
-          return data.data || [];
-        } else {
-          throw new Error(data.message);
+      .brand {
+        font-size: 22px;
+        font-weight: 850;
+      }
+      .nav {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .btn,
+      .nav button {
+        border: 1px solid var(--line);
+        background: var(--panel2);
+        color: var(--ink);
+        border-radius: 8px;
+        min-height: 42px;
+        padding: 9px 12px;
+      }
+      .btn.primary,
+      .nav button.active {
+        background: var(--brand);
+        border-color: var(--brand);
+        color: #06110d;
+      }
+      .btn.warn {
+        background: var(--warn);
+        border-color: var(--warn);
+        color: #111;
+      }
+      .btn.danger {
+        background: var(--bad);
+        border-color: var(--bad);
+        color: #fff;
+      }
+      .grid {
+        display: grid;
+        gap: 14px;
+      }
+      .cols {
+        grid-template-columns: 340px 1fr;
+      }
+      .two {
+        grid-template-columns: 1fr 1fr;
+      }
+      .cards {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .hidden {
+        display: none !important;
+      }
+      .input {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: #11171d;
+        color: var(--ink);
+        border-radius: 8px;
+        min-height: 42px;
+        padding: 9px;
+      }
+      .field {
+        display: grid;
+        gap: 6px;
+      }
+      .field span {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--muted);
+      }
+      .stack {
+        display: grid;
+        gap: 10px;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      .table th,
+      .table td {
+        padding: 10px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      .table th {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .split {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .section {
+        display: none;
+      }
+      .section.active {
+        display: block;
+      }
+      .notice {
+        padding: 10px;
+        border-radius: 8px;
+        background: #203428;
+        color: #9cf0c9;
+      }
+      .error {
+        background: #3b1d1d;
+        color: #ffb4b4;
+      }
+      .scroll {
+        overflow: auto;
+      }
+      .login {
+        max-width: 440px;
+        margin: 10vh auto;
+      }
+      .pill {
+        display: inline-flex;
+        border-radius: 999px;
+        background: #22372f;
+        color: #7ee0bb;
+        padding: 4px 8px;
+        font-size: 12px;
+        font-weight: 800;
+      }
+      .status {
+        position: fixed;
+        inset: auto 12px 12px;
+        z-index: 30;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.32);
+      }
+      .busy {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+      .busy::after {
+        animation: spin 0.75s linear infinite;
+        border: 2px solid currentColor;
+        border-right-color: transparent;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 14px;
+        margin-left: 8px;
+        vertical-align: -2px;
+        width: 14px;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
-      } catch (error) {
-        console.error(`Error fetching ${tab}:`, error);
-        showToast(`Error loading ${tab}`, 'error');
-        return [];
       }
-    }
-
-    async function loadAllData() {
-      const [products, users, payments, subscriptions, categories] = await Promise.all([
-        fetchTab('products'),
-        fetchTab('users'),
-        fetchTab('payments'),
-        fetchTab('subscriptions'),
-        fetchTab('categories')
-      ]);
-
-      appState.products = products;
-      appState.users = users;
-      appState.payments = payments;
-      appState.subscriptions = subscriptions;
-      appState.categories = categories;
-
-      populateAllSelects();
-      renderAllTabs();
-    }
-
-    async function loadProducts() { appState.products = await fetchTab('products'); renderProducts(); }
-    async function loadUsers() { appState.users = await fetchTab('users'); renderUsers(); }
-    async function loadPayments() { appState.payments = await fetchTab('payments'); renderPayments(); }
-    async function loadSubscriptions() { appState.subscriptions = await fetchTab('subscriptions'); renderSubscriptions(); }
-    async function loadCategories() { appState.categories = await fetchTab('categories'); renderCategories(); populateAllSelects(); }
-    async function loadAnalytics() { renderCharts(); }
-
-    function renderAllTabs() {
-      renderProducts();
-      renderUsers();
-      renderPayments();
-      renderSubscriptions();
-      renderCategories();
-      renderCharts();
-    }
-
-    // ===== RENDERING =====
-    function renderProducts() {
-      const list = document.getElementById('products-list');
-      const filtered = getFilteredData('products');
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📦</div>No products found</div>';
-        return;
+      .product-grid,
+      .proof-grid {
+        display: grid;
+        gap: 12px;
       }
+      .manage-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        display: grid;
+        gap: 12px;
+        padding: 14px;
+      }
+      .variants {
+        display: grid;
+        gap: 8px;
+      }
+      .variant-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 92px auto;
+        gap: 8px;
+        align-items: end;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .proof {
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 12px;
+      }
+      .proof img {
+        aspect-ratio: 3 / 4;
+        background: var(--panel2);
+        object-fit: cover;
+        width: 100%;
+      }
+      footer a,
+      .manage-card a {
+        color: var(--ink);
+      }
+      @media (max-width: 920px) {
+        .cols,
+        .two,
+        .cards {
+          grid-template-columns: 1fr;
+        }
+        .bar {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .table {
+          min-width: 720px;
+        }
+        .shell {
+          padding: 12px;
+        }
+      }
+      @media (min-width: 720px) {
+        .product-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .proof-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        .status {
+          inset: auto auto 18px 50%;
+          min-width: 320px;
+          transform: translateX(-50%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="globalStatus" class="notice status hidden" aria-live="polite"></div>
+    <div id="loginView" class="login panel stack">
+      <h1>Mafash Admin</h1>
+      <label class="field"
+        ><span>Google Apps Script Web App URL</span><input class="input" id="apiBase"
+      /></label>
+      <button class="btn" onclick="saveApiBase()" type="button">API URL opslaan</button>
+      <form id="loginForm" class="stack">
+        <label class="field"
+          ><span>E-mail</span
+          ><input class="input" name="email" type="email" value="admin@webshop.local" required
+        /></label>
+        <label class="field"
+          ><span>Wachtwoord</span><input class="input" name="password" type="password" required
+        /></label>
+        <button class="btn primary">Inloggen</button>
+      </form>
+      <div id="loginMsg"></div>
+    </div>
 
-      list.innerHTML = filtered.map((p, i) => `
-        <div class="mobile-data-card">
-          <div class="card-row"><div class="card-label">Product</div><div class="card-value"><strong>${p['Name'] || '-'}</strong></div></div>
-          <div class="card-row"><div class="card-label">Category</div><div class="card-value">${p['Category'] || '-'}</div></div>
-          <div class="card-row"><div class="card-label">Price</div><div class="card-value">€${parseFloat(p['Price'] || 0).toFixed(2)}</div></div>
-          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge badge-${(p['Status'] || 'Active').toLowerCase() === 'active' ? 'success' : 'danger'}">${p['Status'] || 'Inactive'}</span></div></div>
-          <div class="card-actions">
-            <button class="btn-card btn-card-edit" onclick="openEditModal('products', ${i})">Edit</button>
-            <button class="btn-card btn-card-delete" onclick="openDeleteModal('products', ${i})">Delete</button>
+    <div id="appView" class="hidden">
+      <header class="top">
+        <div class="bar">
+          <div>
+            <div class="brand">Mafash Admin</div>
+            <div class="muted" id="actor"></div>
           </div>
+          <nav class="nav">
+            <button data-tab="products" class="active">Producten</button>
+            <button data-tab="orders">Orders</button>
+            <button data-tab="proof">Customer Proof</button>
+            <button data-tab="planning">Planning</button>
+            <button data-tab="settings">Bedrijfsgegevens</button>
+            <button onclick="logout()">Uitloggen</button>
+          </nav>
         </div>
-      `).join('');
+      </header>
 
-      updateStats('products');
-    }
+      <main class="shell">
+        <section id="products" class="section active">
+          <div class="grid cols">
+            <form id="productForm" class="panel stack">
+              <h2>Product aanmaken</h2>
+              <label class="field"
+                ><span>Naam</span><input class="input" name="name" required
+              /></label>
+              <label class="field"
+                ><span>Merk</span
+                ><input class="input" name="brand" placeholder="Essentials" required
+              /></label>
+              <label class="field"
+                ><span>Categorie</span
+                ><select class="input" name="category" required>
+                  <option>Tops</option>
+                  <option>Bottoms</option>
+                  <option>Outerwear</option>
+                  <option>Footwear</option>
+                </select></label
+              >
+              <div class="field">
+                <span>Maten en voorraad</span>
+                <div id="newVariants" class="variants"></div>
+                <button class="btn" onclick="addVariantRow('newVariants')" type="button">
+                  Maat toevoegen
+                </button>
+              </div>
+              <div class="grid two">
+                <label class="field"
+                  ><span>Verkoopprijs incl. BTW</span
+                  ><input class="input" name="sell_price" type="number" step="0.01" required
+                /></label>
+                <label class="field"
+                  ><span>Originele prijs</span
+                  ><input class="input" name="retail_price" type="number" step="0.01"
+                /></label>
+              </div>
+              <div class="grid two">
+                <label class="field"
+                  ><span>Inkoopprijs</span
+                  ><input class="input" name="cost_price" type="number" step="0.01" value="0"
+                /></label>
+              </div>
+              <div class="grid two">
+                <label class="field"
+                  ><span>Kortingstype</span
+                  ><select class="input" name="discount_type">
+                    <option value="none">Geen</option>
+                    <option value="percent">Percentage</option>
+                    <option value="fixed">Vast bedrag</option>
+                  </select></label
+                >
+                <label class="field"
+                  ><span>Kortingswaarde</span
+                  ><input class="input" name="discount_value" type="number" step="0.01" value="0"
+                /></label>
+              </div>
+              <label
+                ><input type="checkbox" name="featured" value="true" checked /> Featured op
+                homepage</label
+              >
+              <label class="field"><span>SKU</span><input class="input" name="sku" /></label>
+              <label class="field"
+                ><span>Afbeelding URL of Drive file URL</span><input class="input" name="image_url"
+              /></label>
+              <label class="field"
+                ><span>Beschrijving</span
+                ><textarea class="input" name="description" rows="4"></textarea>
+              </label>
+              <button class="btn primary">Aanmaken + Drive-map</button>
+            </form>
 
-    function renderUsers() {
-      const list = document.getElementById('users-list');
-      const filtered = getFilteredData('users');
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">👤</div>No users found</div>';
-        return;
-      }
-
-      list.innerHTML = filtered.map((u, i) => `
-        <div class="mobile-data-card">
-          <div class="card-row"><div class="card-label">Name</div><div class="card-value"><strong>${u['Name'] || '-'}</strong></div></div>
-          <div class="card-row"><div class="card-label">Email</div><div class="card-value">${(u['Email'] || '-').substring(0, 25)}</div></div>
-          <div class="card-row"><div class="card-label">Subscription</div><div class="card-value">${u['Subscription Type'] || '-'}</div></div>
-          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isPaid(u) ? 'badge-success' : 'badge-danger'}">${isPaid(u) ? 'Paid' : 'Unpaid'}</span></div></div>
-          <div class="card-actions">
-            <button class="btn-card btn-card-edit" onclick="openEditModal('users', ${i})">Edit</button>
-            <button class="btn-card btn-card-delete" onclick="openDeleteModal('users', ${i})">Delete</button>
+            <div class="stack">
+              <div class="split">
+                <h2>Producten</h2>
+                <button class="btn" onclick="loadProducts()">Vernieuwen</button>
+              </div>
+              <div id="productsBody" class="product-grid"></div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        </section>
 
-      updateStats('users');
-    }
-
-    function renderPayments() {
-      const list = document.getElementById('payments-list');
-      const filtered = getFilteredData('payments');
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">💰</div>No payments found</div>';
-        return;
-      }
-
-      list.innerHTML = filtered.map((p, i) => `
-        <div class="mobile-data-card">
-          <div class="card-row"><div class="card-label">Payment ID</div><div class="card-value"><strong>${p['Payment ID'] || '-'}</strong></div></div>
-          <div class="card-row"><div class="card-label">Amount</div><div class="card-value">€${parseFloat(p['Amount'] || 0).toFixed(2)}</div></div>
-          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge badge-${getPaymentStatusBadge(p['Payment Status'])}">${p['Payment Status'] || '-'}</span></div></div>
-          <div class="card-row"><div class="card-label">Method</div><div class="card-value">${p['Payment Method'] || '-'}</div></div>
-          <div class="card-actions">
-            <button class="btn-card btn-card-edit" onclick="openEditModal('payments', ${i})">Edit</button>
-            <button class="btn-card btn-card-delete" onclick="openDeleteModal('payments', ${i})">Delete</button>
+        <section id="proof" class="section">
+          <div class="grid cols">
+            <form id="proofForm" class="panel stack">
+              <h2>Proof-afbeelding</h2>
+              <label class="field"><span>Afbeelding URL of Drive file URL</span><input class="input" name="image_url" required /></label>
+              <label class="field"><span>Productnaam</span><input class="input" name="product_name" /></label>
+              <label class="field"><span>Badge tekst</span><input class="input" name="badge_text" value="Binnenkort" /></label>
+              <label class="field"><span>Korte beschrijving</span><textarea class="input" name="quote" rows="3"></textarea></label>
+              <div class="grid two">
+                <label class="field"><span>Datum</span><input class="input" name="review_date" type="date" /></label>
+                <label class="field"><span>Volgorde</span><input class="input" name="sort_order" type="number" value="0" /></label>
+              </div>
+              <label><input type="checkbox" name="active" value="true" checked /> Actief</label>
+              <button class="btn primary">Toevoegen</button>
+            </form>
+            <div class="stack">
+              <div class="split"><h2>Customer Proof</h2><button class="btn" onclick="loadProof()">Vernieuwen</button></div>
+              <div id="proofList" class="proof-grid"></div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        </section>
 
-      updateStats('payments');
-    }
-
-    function renderSubscriptions() {
-      const list = document.getElementById('subscriptions-list');
-      const filtered = getFilteredData('subscriptions');
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📋</div>No subscriptions found</div>';
-        return;
-      }
-
-      list.innerHTML = filtered.map((s, i) => `
-        <div class="mobile-data-card">
-          <div class="card-row"><div class="card-label">Sub ID</div><div class="card-value"><strong>${s['Sub ID'] || '-'}</strong></div></div>
-          <div class="card-row"><div class="card-label">Email</div><div class="card-value">${(s['User Email'] || '-').substring(0, 25)}</div></div>
-          <div class="card-row"><div class="card-label">Type</div><div class="card-value">${s['Subscription Type'] || '-'}</div></div>
-          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isSubscribed(s) ? 'badge-success' : 'badge-danger'}">${isSubscribed(s) ? 'Active' : 'Cancelled'}</span></div></div>
-          <div class="card-actions">
-            <button class="btn-card btn-card-edit" onclick="openEditModal('subscriptions', ${i})">Edit</button>
-            <button class="btn-card btn-card-delete" onclick="openDeleteModal('subscriptions', ${i})">Delete</button>
+        <section id="planning" class="section">
+          <div class="stack">
+            <div class="split"><h1>Planning</h1><button class="btn" onclick="loadPlanning()">Vernieuwen</button></div>
+            <div class="panel stack">
+              <div class="split"><h2>Product planning</h2><span class="muted">Zichtbaarheid per product</span></div>
+              <div id="productPlanningList" class="product-grid"></div>
+            </div>
+            <div class="grid two">
+              <form id="collectionForm" class="panel stack">
+                <h2>Collectie / drop</h2>
+                <label class="field"><span>Collectienaam</span><input class="input" name="name" required /></label>
+                <label class="field"><span>Product IDs, komma-gescheiden</span><input class="input" name="product_ids" /></label>
+                <label class="field"><span>Tekst</span><textarea class="input" name="description" rows="2"></textarea></label>
+                <label class="field"><span>Badge</span><input class="input" name="badge_text" placeholder="Drop opent binnenkort" /></label>
+                <div class="grid two"><label class="field"><span>Start</span><input class="input" name="start_at" type="datetime-local" /></label><label class="field"><span>Einde</span><input class="input" name="end_at" type="datetime-local" /></label></div>
+                <label class="field"><span>Status</span><select class="input" name="status"><option>draft</option><option selected>scheduled</option><option>live</option><option>hidden</option></select></label>
+                <button class="btn primary">Collectie opslaan</button>
+              </form>
+              <form id="actionForm" class="panel stack">
+                <h2>Actie met tijd</h2>
+                <label class="field"><span>Actienaam</span><input class="input" name="name" required /></label>
+                <div class="grid two"><label class="field"><span>Actietype</span><select class="input" name="action_type"><option value="discount">Korting</option><option value="free_shipping">Free shipping</option><option value="custom">Custom</option></select></label><label class="field"><span>Korting</span><select class="input" name="discount_type"><option value="percent">Percentage</option><option value="fixed">Vast bedrag</option><option value="none">Geen</option></select></label></div>
+                <label class="field"><span>Waarde</span><input class="input" name="discount_value" type="number" step="0.01" value="0" /></label>
+                <div class="grid two"><label class="field"><span>Doel</span><select class="input" name="target_type"><option value="all">Alles</option><option value="products">Producten</option><option value="collections">Collecties</option></select></label><label class="field"><span>Doel IDs</span><input class="input" name="target_ids" placeholder="PROD-..., COL-..." /></label></div>
+                <div class="grid two"><label class="field"><span>Vanaf</span><input class="input" name="starts_at" type="datetime-local" required /></label><label class="field"><span>Tot</span><input class="input" name="ends_at" type="datetime-local" required /></label></div>
+                <label class="field"><span>Frontend tekst</span><input class="input" name="frontend_text" placeholder="15% korting tot middernacht" /></label>
+                <button class="btn primary">Actie opslaan</button>
+              </form>
+            </div>
+            <div class="grid two">
+              <div class="panel stack"><h2>Collecties</h2><div id="collectionsList" class="stack"></div></div>
+              <div class="panel stack"><h2>Acties</h2><div id="actionsList" class="stack"></div></div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        </section>
 
-      updateStats('subscriptions');
-    }
-
-    function renderCategories() {
-      const list = document.getElementById('categories-list');
-      const filtered = getFilteredData('categories');
-
-      if (filtered.length === 0) {
-        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">📁</div>No categories found</div>';
-        return;
-      }
-
-      list.innerHTML = filtered.map((c, i) => `
-        <div class="mobile-data-card">
-          <div class="card-row"><div class="card-label">Category</div><div class="card-value"><strong>${c['Category Name'] || '-'}</strong></div></div>
-          <div class="card-row"><div class="card-label">Description</div><div class="card-value">${(c['Description'] || '-').substring(0, 40)}</div></div>
-          <div class="card-row"><div class="card-label">Status</div><div class="card-value"><span class="card-badge ${isActive(c) ? 'badge-success' : 'badge-danger'}">${isActive(c) ? 'Active' : 'Inactive'}</span></div></div>
-          <div class="card-actions">
-            <button class="btn-card btn-card-edit" onclick="openEditModal('categories', ${i})">Edit</button>
-            <button class="btn-card btn-card-delete" onclick="openDeleteModal('categories', ${i})">Delete</button>
+        <section id="orders" class="section">
+          <div class="split">
+            <h1>Orders</h1>
+            <button class="btn" onclick="loadOrders()">Vernieuwen</button>
           </div>
+          <div class="panel scroll">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Klant</th>
+                  <th>Betaling</th>
+                  <th>Levering</th>
+                  <th>Totaal</th>
+                  <th>Actie</th>
+                </tr>
+              </thead>
+              <tbody id="ordersBody"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="settings" class="section">
+          <div class="split">
+            <h1>Bedrijfsgegevens</h1>
+            <button class="btn" onclick="loadCompany()">Vernieuwen</button>
+          </div>
+          <form id="companyForm" class="panel stack">
+            <div id="companyFields" class="grid two"></div>
+            <button class="btn primary">Opslaan</button>
+          </form>
+        </section>
+      </main>
+      <footer class="shell">
+        <div class="panel split muted">
+          <span>Mafash Admin</span>
+          <span>Built by <a href="https://vanappiah.com/" target="_blank" rel="noopener">Van Appiah VA</a></span>
         </div>
-      `).join('');
+      </footer>
+    </div>
 
-      updateStats('categories');
-    }
+    <dialog
+      id="orderDialog"
+      class="panel"
+      style="
+        width: min(760px, 94vw);
+        border: 1px solid var(--line);
+        color: var(--ink);
+        background: var(--panel);
+      "
+    >
+      <div class="split">
+        <h2 id="dialogTitle">Order</h2>
+        <button class="btn" onclick="orderDialog.close()">Sluiten</button>
+      </div>
+      <div id="orderDetails" class="stack"></div>
+    </dialog>
 
-    function renderCharts() {
-      const categoryData = {};
-      appState.products.forEach(p => {
-        const cat = p['Category'] || 'Unknown';
-        categoryData[cat] = (categoryData[cat] || 0) + 1;
-      });
-      createChart('chart-category', 'doughnut', Object.keys(categoryData), Object.values(categoryData));
-
-      const paymentStatus = {};
-      appState.payments.forEach(p => {
-        const status = p['Payment Status'] || 'Unknown';
-        paymentStatus[status] = (paymentStatus[status] || 0) + 1;
-      });
-      createChart('chart-payment-status', 'doughnut', Object.keys(paymentStatus), Object.values(paymentStatus));
-
-      const subType = {};
-      appState.users.forEach(u => {
-        const type = u['Subscription Type'] || 'Unknown';
-        subType[type] = (subType[type] || 0) + 1;
-      });
-      createChart('chart-subscription', 'bar', Object.keys(subType), Object.values(subType));
-
-      const prodStatus = {
-        'Active': appState.products.filter(p => (p['Status'] || 'Active') === 'Active').length,
-        'Inactive': appState.products.filter(p => (p['Status'] || 'Active') !== 'Active').length
+    <script>
+      const DEFAULT_API_BASE =
+        "https://script.google.com/macros/s/AKfycbyiQvbymRAMknw96eZ8r7rtFIK2UyMyLg-7nEme9QgSOEoGbaUXucOEtns6TwJHOHBC/exec";
+      const storedApiBase = localStorage.getItem("mafash_api_base") || "";
+      const state = {
+        token: localStorage.getItem("webshop_staff_token") || "",
+        apiBase: storedApiBase || DEFAULT_API_BASE,
+        staff: null,
+        products: [],
+        orders: [],
+        proof: [],
+        collections: [],
+        actions: [],
       };
-      createChart('chart-product-status', 'doughnut', ['Active', 'Inactive'], [prodStatus['Active'], prodStatus['Inactive']]);
+      const qs = (s) => document.querySelector(s);
+      const qsa = (s) => Array.from(document.querySelectorAll(s));
+      const esc = (v) =>
+        String(v ?? "").replace(
+          /[&<>"']/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+        );
+      const money = (v) => "EUR " + Number(v || 0).toFixed(2);
+      qs("#apiBase").value = state.apiBase;
 
-      const totalRevenue = appState.payments.reduce((sum, p) => sum + (parseFloat(p['Amount']) || 0), 0);
-      document.getElementById('total-products').textContent = appState.products.length;
-      document.getElementById('total-users').textContent = appState.users.length;
-      document.getElementById('total-transactions').textContent = appState.payments.length;
-      document.getElementById('total-revenue-analytics').textContent = '€' + totalRevenue.toFixed(2);
-    }
+      function note(t, err = false) {
+        return `<div class="notice ${err ? "error" : ""}">${esc(t)}</div>`;
+      }
+      function status(t, err = false) {
+        const el = qs("#globalStatus");
+        el.className = `notice status ${err ? "error" : ""}`;
+        el.textContent = t;
+        el.classList.remove("hidden");
+        clearTimeout(status.timer);
+        status.timer = setTimeout(() => el.classList.add("hidden"), err ? 6500 : 2600);
+      }
+      function saveApiBase() {
+        state.apiBase = qs("#apiBase").value.trim() || DEFAULT_API_BASE;
+        localStorage.setItem("mafash_api_base", state.apiBase);
+      }
+      async function api(action, data = {}) {
+        try {
+          const response = await fetch(state.apiBase, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: JSON.stringify({ action, token: state.token, ...data }),
+          });
+          return response.json();
+        } catch (error) {
+          return { success: false, data: null, error: { message: "API niet bereikbaar." } };
+        }
+      }
+      async function submit(button, text, fn) {
+        const old = button.textContent;
+        button.disabled = true;
+        button.classList.add("busy");
+        button.textContent = text;
+        try {
+          return await fn();
+        } finally {
+          button.disabled = false;
+          button.classList.remove("busy");
+          button.textContent = old;
+        }
+      }
+      function addVariantRow(target, variant = {}) {
+        const box = typeof target === "string" ? qs("#" + CSS.escape(target)) : target;
+        const row = document.createElement("div");
+        row.className = "variant-row";
+        row.innerHTML = `<label class="field"><span>Maat</span><input class="input variant-size" value="${esc(variant.size || "")}" placeholder="M"></label><label class="field"><span>Voorraad</span><input class="input variant-stock" type="number" min="0" value="${esc(variant.stock ?? 0)}"></label><button class="btn danger" type="button" onclick="this.parentNode.remove()" aria-label="Verwijder maat">X</button>`;
+        box.append(row);
+      }
+      function readVariants(target) {
+        return Array.from(qs("#" + CSS.escape(target)).querySelectorAll(".variant-row"))
+          .map((row) => ({
+            size: row.querySelector(".variant-size").value.trim(),
+            stock: Number(row.querySelector(".variant-stock").value || 0),
+          }))
+          .filter((row) => row.size);
+      }
+      addVariantRow("newVariants", { size: "S", stock: 0 });
+      addVariantRow("newVariants", { size: "M", stock: 0 });
 
-    function createChart(canvasId, type, labels, data) {
-      const ctx = document.getElementById(canvasId).getContext('2d');
-      if (appState.charts[canvasId]) appState.charts[canvasId].destroy();
-
-      const colors = ['#d4af37', '#4ade80', '#ef4444', '#facc15', '#3b82f6', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316', '#06b6d4'];
-
-      appState.charts[canvasId] = new Chart(ctx, {
-        type: type,
-        data: {
-          labels: labels,
-          datasets: [{
-            data: data,
-            backgroundColor: colors.slice(0, labels.length),
-            borderColor: 'transparent'
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                color: '#b5b5bd',
-                font: { size: 10, family: "'Inter', sans-serif" }
-              }
-            }
+      qs("#loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        saveApiBase();
+        await submit(e.submitter, "Inloggen...", async () => {
+          const r = await api("adminLogin", Object.fromEntries(new FormData(e.target)));
+          if (!r.success) {
+            qs("#loginMsg").innerHTML = note(r.error.message, true);
+            return;
           }
-        }
+          state.token = r.data.token;
+          state.staff = r.data.staff;
+          localStorage.setItem("webshop_staff_token", state.token);
+          status("Ingelogd. Producten laden...");
+          start();
+        });
       });
-    }
 
-    // ===== UTILITIES =====
-    function updateStats(tab) {
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      
-      if (tab === 'products') {
-        document.getElementById('product-count').textContent = data.length;
-        const active = data.filter(p => (p['Status'] || 'Active') === 'Active').length;
-        document.getElementById('active-products').textContent = active;
-        const prices = data.map(p => parseFloat(p['Price'] || 0));
-        const avg = prices.length > 0 ? (prices.reduce((a, b) => a + b) / prices.length).toFixed(2) : '0';
-        document.getElementById('avg-price').textContent = '€' + avg;
-      } else if (tab === 'users') {
-        document.getElementById('user-count').textContent = data.length;
-        const paid = data.filter(u => isPaid(u)).length;
-        document.getElementById('paid-users').textContent = paid;
-        const premium = data.filter(u => u['Subscription Type'] === 'Premium').length;
-        document.getElementById('premium-users').textContent = premium;
-      } else if (tab === 'payments') {
-        document.getElementById('payment-count').textContent = data.length;
-        const total = data.reduce((sum, p) => sum + (parseFloat(p['Amount']) || 0), 0).toFixed(2);
-        document.getElementById('total-revenue').textContent = '€' + total;
-        const avg = data.length > 0 ? (total / data.length).toFixed(2) : '0';
-        document.getElementById('avg-payment').textContent = '€' + avg;
-      } else if (tab === 'subscriptions') {
-        document.getElementById('sub-count').textContent = data.length;
-        const active = data.filter(s => isSubscribed(s)).length;
-        document.getElementById('active-subs').textContent = active;
-        const cancelled = data.filter(s => !isSubscribed(s)).length;
-        document.getElementById('cancelled-subs').textContent = cancelled;
-      } else if (tab === 'categories') {
-        document.getElementById('category-count').textContent = data.length;
-        const active = data.filter(c => isActive(c)).length;
-        document.getElementById('active-categories').textContent = active;
+      async function start() {
+        if (!state.token) return;
+        const r = await api("getStaffSession");
+        if (!r.success) {
+          localStorage.removeItem("webshop_staff_token");
+          return;
+        }
+        state.staff = r.data.staff;
+        qs("#loginView").classList.add("hidden");
+        qs("#appView").classList.remove("hidden");
+        qs("#actor").textContent = `${state.staff.name} - ${state.staff.role}`;
+        loadProducts();
       }
-    }
-
-    function isPaid(user) { return user['Paid'] === true || user['Paid'] === 'true' || user['Paid'] === 1; }
-    function isSubscribed(sub) { return sub['Subscribed'] === true || sub['Subscribed'] === 'true' || sub['Subscribed'] === 1; }
-    function isActive(item) { return item['Active'] === true || item['Active'] === 'true' || item['Active'] === 1; }
-    function getPaymentStatusBadge(status) { if (status === 'Completed') return 'success'; if (status === 'Failed') return 'danger'; return 'warning'; }
-
-    // ===== FILTERING =====
-    function getFilteredData(tab) {
-      let data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-
-      if (tab === 'products') {
-        const category = document.getElementById('filter-category')?.value || '';
-        const status = document.getElementById('filter-product-status')?.value || '';
-        data = data.filter(p => {
-          if (category && p['Category'] !== category) return false;
-          if (status && p['Status'] !== status) return false;
-          return true;
-        });
-      } else if (tab === 'users') {
-        const paid = document.getElementById('filter-paid')?.value || '';
-        const subType = document.getElementById('filter-sub-type')?.value || '';
-        data = data.filter(u => {
-          if (paid === 'true' && !isPaid(u)) return false;
-          if (paid === 'false' && isPaid(u)) return false;
-          if (subType && u['Subscription Type'] !== subType) return false;
-          return true;
-        });
-      } else if (tab === 'payments') {
-        const status = document.getElementById('filter-payment-status')?.value || '';
-        const method = document.getElementById('filter-method')?.value || '';
-        data = data.filter(p => {
-          if (status && p['Payment Status'] !== status) return false;
-          if (method && p['Payment Method'] !== method) return false;
-          return true;
-        });
-      } else if (tab === 'subscriptions') {
-        const status = document.getElementById('filter-sub-status')?.value || '';
-        const type = document.getElementById('filter-sub-type2')?.value || '';
-        data = data.filter(s => {
-          if (status === 'true' && !isSubscribed(s)) return false;
-          if (status === 'false' && isSubscribed(s)) return false;
-          if (type && s['Subscription Type'] !== type) return false;
-          return true;
-        });
-      } else if (tab === 'categories') {
-        const status = document.getElementById('filter-cat-status')?.value || '';
-        data = data.filter(c => {
-          if (status === 'true' && !isActive(c)) return false;
-          if (status === 'false' && isActive(c)) return false;
-          return true;
-        });
+      function logout() {
+        localStorage.removeItem("webshop_staff_token");
+        location.reload();
       }
 
-      return data;
-    }
+      qsa("[data-tab]").forEach((b) =>
+        b.addEventListener("click", () => {
+          qsa("[data-tab]").forEach((x) => x.classList.remove("active"));
+          qsa(".section").forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          qs("#" + b.dataset.tab).classList.add("active");
+          if (b.dataset.tab === "products") loadProducts();
+          if (b.dataset.tab === "orders") loadOrders();
+          if (b.dataset.tab === "proof") loadProof();
+          if (b.dataset.tab === "planning") loadPlanning();
+          if (b.dataset.tab === "settings") loadCompany();
+        }),
+      );
 
-    function applyFilters(tab) {
-      const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
-      render();
-    }
-
-    // ===== FORMS =====
-    function populateAllSelects() {
-      const categorySelect = document.getElementById('filter-category');
-      if (categorySelect) {
-        categorySelect.innerHTML = '<option value="">All Categories</option>' + 
-          appState.categories.map(c => `<option value="${c['Category Name']}">${c['Category Name']}</option>`).join('');
-      }
-    }
-
-    function openAddModal(tab) {
-      appState.editingRecord = null;
-      const config = FORM_CONFIGS[tab];
-      document.getElementById('modal-title').textContent = `Add ${config.title}`;
-      
-      const form = document.getElementById('form-main');
-      form.innerHTML = '';
-      form.dataset.tab = tab;
-
-      const grid = document.createElement('div');
-      grid.className = 'form-grid';
-
-      config.fields.forEach(field => {
-        const group = document.createElement('div');
-        group.className = 'form-group';
-        
-        let input;
-        if (field.type === 'checkbox') {
-          input = document.createElement('input');
-          input.type = 'checkbox';
-          input.name = field.name;
-          const label = document.createElement('label');
-          label.style.display = 'flex';
-          label.style.alignItems = 'center';
-          label.style.gap = '0.5rem';
-          label.appendChild(input);
-          label.appendChild(document.createTextNode(field.name));
-          group.appendChild(label);
-        } else if (field.type === 'select') {
-          const label = document.createElement('label');
-          label.textContent = field.name;
-          group.appendChild(label);
-
-          input = document.createElement('select');
-          input.name = field.name;
-          input.required = field.required;
-
-          if (Array.isArray(field.options)) {
-            field.options.forEach(opt => {
-              const option = document.createElement('option');
-              option.value = opt;
-              option.textContent = opt;
-              input.appendChild(option);
-            });
-          } else if (field.options === 'categories') {
-            appState.categories.forEach(cat => {
-              const option = document.createElement('option');
-              option.value = cat['Category Name'];
-              option.textContent = cat['Category Name'];
-              input.appendChild(option);
-            });
+      qs("#productForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await submit(e.submitter, "Aanmaken...", async () => {
+          const data = Object.fromEntries(new FormData(e.target));
+          data.featured = e.target.featured.checked;
+          data.variants = readVariants("newVariants");
+          if (!data.variants.length) {
+            status("Voeg minimaal een maat met voorraad toe.", true);
+            return;
           }
-          group.appendChild(input);
-        } else {
-          const label = document.createElement('label');
-          label.textContent = field.name;
-          group.appendChild(label);
-
-          input = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
-          input.type = field.type;
-          input.name = field.name;
-          input.required = field.required;
-          if (field.step) input.step = field.step;
-          input.placeholder = field.name;
-          group.appendChild(input);
-        }
-
-        grid.appendChild(group);
-      });
-
-      form.appendChild(grid);
-
-      const actions = document.createElement('div');
-      actions.className = 'form-actions';
-      actions.innerHTML = `
-        <button type="submit" class="btn btn-primary">Add ${config.title}</button>
-        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      `;
-      form.appendChild(actions);
-
-      document.getElementById('modal-form').classList.add('active');
-    }
-
-    function openEditModal(tab, index) {
-      appState.editingRecord = { tab, index };
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      const record = data[index];
-
-      const config = FORM_CONFIGS[tab];
-      document.getElementById('modal-title').textContent = `Edit ${config.title}`;
-
-      const form = document.getElementById('form-main');
-      form.innerHTML = '';
-      form.dataset.tab = tab;
-
-      const grid = document.createElement('div');
-      grid.className = 'form-grid';
-
-      config.fields.forEach(field => {
-        const group = document.createElement('div');
-        group.className = 'form-group';
-
-        let input;
-        if (field.type === 'checkbox') {
-          input = document.createElement('input');
-          input.type = 'checkbox';
-          input.name = field.name;
-          input.checked = record[field.name] === true || record[field.name] === 'true' || record[field.name] === 1;
-          const label = document.createElement('label');
-          label.style.display = 'flex';
-          label.style.alignItems = 'center';
-          label.style.gap = '0.5rem';
-          label.appendChild(input);
-          label.appendChild(document.createTextNode(field.name));
-          group.appendChild(label);
-        } else if (field.type === 'select') {
-          const label = document.createElement('label');
-          label.textContent = field.name;
-          group.appendChild(label);
-
-          input = document.createElement('select');
-          input.name = field.name;
-          input.required = field.required;
-          input.value = record[field.name] || '';
-
-          if (Array.isArray(field.options)) {
-            field.options.forEach(opt => {
-              const option = document.createElement('option');
-              option.value = opt;
-              option.textContent = opt;
-              input.appendChild(option);
-            });
-          } else if (field.options === 'categories') {
-            appState.categories.forEach(cat => {
-              const option = document.createElement('option');
-              option.value = cat['Category Name'];
-              option.textContent = cat['Category Name'];
-              input.appendChild(option);
-            });
+          const r = await api("createProduct", data);
+          if (!r.success) {
+            status(r.error.message, true);
+            return;
           }
-          group.appendChild(input);
-        } else {
-          const label = document.createElement('label');
-          label.textContent = field.name;
-          group.appendChild(label);
-
-          input = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
-          input.type = field.type;
-          input.name = field.name;
-          input.required = field.required;
-          if (field.step) input.step = field.step;
-          input.value = record[field.name] || '';
-          group.appendChild(input);
-        }
-
-        grid.appendChild(group);
-      });
-
-      form.appendChild(grid);
-
-      const actions = document.createElement('div');
-      actions.className = 'form-actions';
-      actions.innerHTML = `
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-      `;
-      form.appendChild(actions);
-
-      document.getElementById('modal-form').classList.add('active');
-    }
-
-    function closeModal() {
-      document.getElementById('modal-form').classList.remove('active');
-      appState.editingRecord = null;
-    }
-
-    async function submitForm(event) {
-      event.preventDefault();
-      const form = document.getElementById('form-main');
-      const tab = form.dataset.tab;
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData);
-
-      Object.keys(data).forEach(key => {
-        if (data[key] === 'on') data[key] = true;
-        else if (data[key] === '') delete data[key];
-      });
-
-      if (!validateForm(data, tab)) return;
-
-      try {
-        if (!data['Date Added'] && tab === 'products') data['Date Added'] = new Date().toISOString();
-        if (!data['Date Joined'] && tab === 'users') data['Date Joined'] = new Date().toISOString();
-
-        const response = await fetch(`${API_URL}?tab=${tab}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          e.target.reset();
+          qs("#newVariants").innerHTML = "";
+          addVariantRow("newVariants", { size: "S", stock: 0 });
+          addVariantRow("newVariants", { size: "M", stock: 0 });
+          status("Product aangemaakt.");
+          loadProducts();
         });
-
-        const result = await response.json();
-        if (result.status === 'success') {
-          showToast(`✓ ${FORM_CONFIGS[tab].title} added!`, 'success');
-          closeModal();
-          const load = tab === 'products' ? loadProducts : tab === 'users' ? loadUsers : tab === 'payments' ? loadPayments : tab === 'subscriptions' ? loadSubscriptions : loadCategories;
-          await load();
-        } else {
-          throw new Error(result.message);
-        }
-      } catch (error) {
-        showToast(`Error: ${error.message}`, 'error');
-      }
-    }
-
-    function validateForm(data, tab) {
-      const config = FORM_CONFIGS[tab];
-      const required = config.fields.filter(f => f.required).map(f => f.name);
-
-      for (let field of required) {
-        if (!data[field]) {
-          showToast(`${field} is required`, 'error');
-          return false;
-        }
-      }
-
-      if (data['Email'] && !data['Email'].match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
-        showToast('Invalid email format', 'error');
-        return false;
-      }
-
-      return true;
-    }
-
-    function openDeleteModal(tab, index) {
-      appState.deleteCallback = { tab, index };
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      const record = data[index];
-      const displayName = record['Name'] || record['Category Name'] || record['User ID'] || record['Payment ID'] || record['Sub ID'] || 'this record';
-
-      document.getElementById('delete-message').textContent = `Delete "${displayName}"? This action cannot be undone.`;
-      document.getElementById('modal-delete').classList.add('active');
-    }
-
-    function closeDeleteModal() {
-      document.getElementById('modal-delete').classList.remove('active');
-      appState.deleteCallback = null;
-    }
-
-    async function confirmDelete() {
-      const { tab, index } = appState.deleteCallback;
-      const data = appState[tab === 'products' ? 'products' : tab === 'users' ? 'users' : tab === 'payments' ? 'payments' : tab === 'subscriptions' ? 'subscriptions' : 'categories'];
-      data.splice(index, 1);
-      showToast('Record deleted', 'success');
-      closeDeleteModal();
-
-      const render = tab === 'products' ? renderProducts : tab === 'users' ? renderUsers : tab === 'payments' ? renderPayments : tab === 'subscriptions' ? renderSubscriptions : renderCategories;
-      render();
-    }
-
-    // ===== EXPORT =====
-    function exportData(tab) {
-      const filtered = getFilteredData(tab);
-      if (filtered.length === 0) {
-        showToast('No data to export', 'warning');
-        return;
-      }
-
-      const csv = convertToCSV(filtered);
-      downloadCSV(csv, `${tab}-export-${new Date().toISOString().split('T')[0]}.csv`);
-      showToast('Data exported as CSV', 'success');
-    }
-
-    function convertToCSV(data) {
-      const headers = Object.keys(data[0] || {});
-      const csv = [headers.join(',')];
-
-      data.forEach(row => {
-        const values = headers.map(header => {
-          const value = row[header];
-          return typeof value === 'string' && value.includes(',') ? `"${value}"` : value;
-        });
-        csv.push(values.join(','));
       });
 
-      return csv.join('\n');
-    }
-
-    function downloadCSV(csv, filename) {
-      const link = document.createElement('a');
-      link.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
-      link.download = filename;
-      link.click();
-    }
-
-    // ===== TAB SWITCHING =====
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.mobile-menu-item').forEach(item => item.classList.remove('active'));
-
-      document.getElementById(`tab-${tabName}`).classList.add('active');
-      document.querySelector(`.mobile-menu-item:nth-child(${['products', 'users', 'payments', 'subscriptions', 'categories', 'analytics', 'api-test'].indexOf(tabName) + 1})`).classList.add('active');
-
-      appState.currentTab = tabName;
-      window.scrollTo(0, 0);
-    }
-
-    // ===== API TESTING =====
-    async function testGet() {
-      const tab = document.getElementById('test-tab').value;
-      const responseDiv = document.getElementById('test-response');
-
-      responseDiv.textContent = '⏳ Loading...';
-
-      try {
-        const response = await fetch(`${API_URL}?tab=${tab}`);
-        const data = await response.json();
-        responseDiv.textContent = JSON.stringify(data, null, 2);
-      } catch (error) {
-        responseDiv.textContent = `❌ Error: ${error.message}`;
+      async function loadProducts() {
+        qs("#productsBody").innerHTML = '<div class="panel muted">Producten laden...</div>';
+        const r = await api("getProductsAdmin");
+        if (!r.success) {
+          qs("#productsBody").innerHTML = note(r.error.message, true);
+          return;
+        }
+        state.products = r.data || [];
+        qs("#productsBody").innerHTML = state.products
+          .map((p) => {
+            const id = esc(p.product_id || p.id);
+            const variants = (p.variants || []).map((variant) => `<div class="variant-row"><label class="field"><span>Maat</span><input class="input variant-size" value="${esc(variant.size)}"></label><label class="field"><span>Voorraad</span><input class="input variant-stock" type="number" min="0" value="${esc(variant.stock)}"></label><button class="btn danger" type="button" onclick="this.parentNode.remove()" aria-label="Verwijder maat">X</button></div>`).join("");
+            return `<article class="manage-card">
+          <div class="split"><div><strong>${esc(p.name)}</strong><div class="muted">${id} / ${esc(p.stock || 0)} op voorraad</div></div><span class="pill">${esc(p.category)}</span></div>
+          <div class="grid two"><label class="field"><span>Naam</span><input class="input" id="name-${id}" value="${esc(p.name)}"></label><label class="field"><span>Merk</span><input class="input" id="brand-${id}" value="${esc(p.brand || "")}"></label></div>
+          <div class="grid two"><label class="field"><span>Categorie</span><select class="input" id="cat-${id}">${["Tops", "Bottoms", "Outerwear", "Footwear"].map((c) => `<option ${c === p.category ? "selected" : ""}>${c}</option>`).join("")}</select></label><label class="field"><span>Verkoopprijs</span><input class="input" id="price-${id}" value="${esc(p.sell_price || p.price_inc_vat || 0)}"></label></div>
+          <div class="grid two"><label class="field"><span>Originele prijs</span><input class="input" id="retail-${id}" value="${esc(p.retail_price || "")}"></label><label class="field"><span>Korting</span><select class="input" id="dtype-${id}"><option value="none" ${p.discount_type === "none" ? "selected" : ""}>Geen</option><option value="percent" ${p.discount_type === "percent" ? "selected" : ""}>%</option><option value="fixed" ${p.discount_type === "fixed" ? "selected" : ""}>EUR</option></select><input class="input" style="margin-top:6px" id="dval-${id}" value="${esc(p.discount_value || 0)}"></label></div>
+          <label><input type="checkbox" id="featured-${id}" ${String(p.featured).toLowerCase() === "true" ? "checked" : ""}> Featured op homepage</label>
+          <div class="field"><span>Maten en voorraad per maat</span><div class="variants" id="variants-${id}">${variants}</div><button class="btn" type="button" onclick="addVariantRow('variants-${id}')">Maat toevoegen</button></div>
+          <div class="actions">${p.drive_folder_url ? `<a class="btn" href="${esc(p.drive_folder_url)}" target="_blank">Drive-map</a><button class="btn" onclick="syncImages('${id}',this)">Afbeeldingen syncen</button>` : '<span class="muted">Geen Drive-map</span>'}<button class="btn primary" onclick="saveProduct('${id}',this)">Opslaan</button><button class="btn danger" onclick="archiveProduct('${id}',this)">Archief</button></div>
+        </article>`;
+          })
+          .join("");
       }
-    }
 
-    // ===== NOTIFICATIONS =====
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      toast.innerHTML = `<span>${message}</span>`;
-      container.appendChild(toast);
-
-      setTimeout(() => {
-        toast.remove();
-      }, 4000);
-    }
-
-    // ===== KEYBOARD SHORTCUTS =====
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeModal();
-        closeDeleteModal();
-        closeMobileMenu();
+      async function saveProduct(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updateProduct", {
+            product_id: id,
+            name: qs("#name-" + CSS.escape(id)).value,
+            brand: qs("#brand-" + CSS.escape(id)).value,
+            category: qs("#cat-" + CSS.escape(id)).value,
+            sell_price: qs("#price-" + CSS.escape(id)).value,
+            retail_price: qs("#retail-" + CSS.escape(id)).value,
+            discount_type: qs("#dtype-" + CSS.escape(id)).value,
+            discount_value: qs("#dval-" + CSS.escape(id)).value,
+            variants: readVariants("variants-" + id),
+            featured: qs("#featured-" + CSS.escape(id)).checked,
+          });
+          status(r.success ? "Product bijgewerkt." : r.error.message, !r.success);
+          loadProducts();
+        });
       }
-    });
-  </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9cba1903d5f3663c',t:'MTc3MDcxMDY4Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+      async function archiveProduct(id, button) {
+        await submit(button, "Archiveren...", async () => {
+          const r = await api("archiveProduct", { product_id: id });
+          status(r.success ? "Product gearchiveerd." : r.error.message, !r.success);
+          loadProducts();
+        });
+      }
+      async function syncImages(id, button) {
+        await submit(button, "Sync...", async () => {
+          const r = await api("syncProductImages", { product_id: id });
+          status(r.success ? `${r.data.synced.length} afbeelding(en) gesynchroniseerd.` : r.error.message, !r.success);
+          loadProducts();
+        });
+      }
+
+      async function loadOrders() {
+        qs("#ordersBody").innerHTML = '<tr><td colspan="6" class="muted">Orders laden...</td></tr>';
+        const r = await api("getOrders");
+        if (!r.success) {
+          qs("#ordersBody").innerHTML =
+            `<tr><td colspan="6">${note(r.error.message, true)}</td></tr>`;
+          return;
+        }
+        state.orders = r.data || [];
+        qs("#ordersBody").innerHTML = state.orders
+          .map(
+            (o) =>
+              `<tr><td>${esc(o.order_id)}</td><td>${esc(o.customer_name)}<br><span class="muted">${esc(o.email)}</span></td><td><span class="pill">${esc(o.payment_status)}</span></td><td><span class="pill">${esc(o.fulfillment_status)}</span></td><td>${money(o.total_price)}</td><td><button class="btn" onclick="openOrder('${esc(o.order_id)}')">Open</button></td></tr>`,
+          )
+          .join("");
+      }
+      async function openOrder(id) {
+        const r = await api("getOrderDetails", { order_id: id });
+        if (!r.success) {
+          alert(r.error.message);
+          return;
+        }
+        const o = r.data;
+        qs("#dialogTitle").textContent = "Order " + o.order_id;
+        qs("#orderDetails").innerHTML =
+          `<div class="grid two"><div class="panel"><h3>Klant</h3>${esc(o.customer_name)}<br>${esc(o.email)}<br>${esc(o.phone)}<br>${esc(o.address)} ${esc(o.customer_postal_code)} ${esc(o.customer_city)}</div><div class="panel"><h3>Totaal</h3>${money(o.total_price)}<br>BTW: ${money(o.vat_amount)}<br>Verzending: ${money(o.shipping_cost)}</div></div>
+      <div class="grid two"><label class="field"><span>Betaalstatus</span><select class="input" id="pay">${["pending", "payment_link_sent", "paid", "failed", "refunded", "cancelled"].map((x) => `<option ${x === o.payment_status ? "selected" : ""}>${x}</option>`).join("")}</select></label><label class="field"><span>Betaallink</span><input class="input" id="plink" value="${esc(o.payment_link || "")}"></label><label class="field"><span>Levering</span><select class="input" id="ful">${["pending", "processing", "packed", "shipped", "delivered", "ready_for_pickup", "picked_up", "cancelled"].map((x) => `<option ${x === o.fulfillment_status ? "selected" : ""}>${x}</option>`).join("")}</select></label><label class="field"><span>Track & trace</span><input class="input" id="track" value="${esc(o.track_trace || "")}"></label></div>
+      <div class="split"><button class="btn warn" onclick="savePayment('${esc(o.order_id)}',this)">Betaling opslaan</button><button class="btn primary" onclick="saveFulfillment('${esc(o.order_id)}',this)">Levering opslaan</button></div>
+      <h3>Producten</h3>${(o.items || []).map((i) => `<div class="split"><span>${esc(i.product_name)} · ${esc(i.size || "-")} x ${esc(i.quantity)}</span><strong>${money(i.line_total)}</strong></div>`).join("")}`;
+        orderDialog.showModal();
+      }
+      async function savePayment(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updatePaymentStatus", {
+            order_id: id,
+            payment_status: qs("#pay").value,
+            payment_link: qs("#plink").value,
+          });
+          status(r.success ? "Betaling opgeslagen." : r.error.message, !r.success);
+          loadOrders();
+        });
+      }
+      async function saveFulfillment(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updateFulfillmentStatus", {
+            order_id: id,
+            fulfillment_status: qs("#ful").value,
+            track_trace: qs("#track").value,
+          });
+          status(r.success ? "Levering opgeslagen." : r.error.message, !r.success);
+          loadOrders();
+        });
+      }
+
+      async function loadProof() {
+        qs("#proofList").innerHTML = '<div class="panel muted">Proof-afbeeldingen laden...</div>';
+        const r = await api("getProofReviewsAdmin");
+        if (!r.success) {
+          qs("#proofList").innerHTML = note(r.error.message, true);
+          return;
+        }
+        state.proof = r.data || [];
+        qs("#proofList").innerHTML = state.proof
+          .map(
+            (p) => `<article class="manage-card proof"><img src="${esc(p.thumbnail_url || p.image_url)}" loading="lazy" alt=""><div class="stack"><label class="field"><span>Product</span><input class="input" id="proof-product-${esc(p.proof_id)}" value="${esc(p.product_name || "")}"></label><label class="field"><span>Badge</span><input class="input" id="proof-badge-${esc(p.proof_id)}" value="${esc(p.badge_text || "Binnenkort")}"></label><label class="field"><span>Beschrijving</span><textarea class="input" id="proof-quote-${esc(p.proof_id)}" rows="2">${esc(p.quote || "")}</textarea></label><div class="grid two"><label class="field"><span>Datum</span><input class="input" id="proof-date-${esc(p.proof_id)}" type="date" value="${esc(String(p.review_date || "").slice(0, 10))}"></label><label class="field"><span>Volgorde</span><input class="input" id="proof-sort-${esc(p.proof_id)}" type="number" value="${esc(p.sort_order || 0)}"></label></div><label><input type="checkbox" id="proof-active-${esc(p.proof_id)}" ${p.active ? "checked" : ""}> Actief</label><div class="actions"><button class="btn primary" onclick="saveProof('${esc(p.proof_id)}',this)">Opslaan</button><button class="btn danger" onclick="archiveProof('${esc(p.proof_id)}',this)">Archief</button></div></div></article>`,
+          )
+          .join("");
+      }
+      qs("#proofForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await submit(e.submitter, "Toevoegen...", async () => {
+          const r = await api("createProofReview", Object.fromEntries(new FormData(e.target)));
+          status(r.success ? "Proof-afbeelding toegevoegd." : r.error.message, !r.success);
+          if (r.success) {
+            e.target.reset();
+            loadProof();
+          }
+        });
+      });
+      async function archiveProof(id, button) {
+        await submit(button, "Verwijderen...", async () => {
+          const r = await api("archiveProofReview", { proof_id: id });
+          status(r.success ? "Proof-afbeelding verwijderd." : r.error.message, !r.success);
+          loadProof();
+        });
+      }
+      async function saveProof(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updateProofReview", {
+            proof_id: id,
+            product_name: qs("#proof-product-" + CSS.escape(id)).value,
+            badge_text: qs("#proof-badge-" + CSS.escape(id)).value,
+            quote: qs("#proof-quote-" + CSS.escape(id)).value,
+            review_date: qs("#proof-date-" + CSS.escape(id)).value,
+            sort_order: qs("#proof-sort-" + CSS.escape(id)).value,
+            active: qs("#proof-active-" + CSS.escape(id)).checked,
+          });
+          status(r.success ? "Proof-item bijgewerkt." : r.error.message, !r.success);
+          loadProof();
+        });
+      }
+
+      async function loadPlanning() {
+        if (!state.products.length) await loadProducts();
+        const [collections, actions] = await Promise.all([
+          api("getCollectionsAdmin"),
+          api("getScheduledActionsAdmin"),
+        ]);
+        if (!collections.success || !actions.success) {
+          status((collections.error || actions.error).message, true);
+          return;
+        }
+        state.collections = collections.data || [];
+        state.actions = actions.data || [];
+        renderProductPlanning();
+        renderCollections();
+        renderActions();
+      }
+      function scheduleMark(value) {
+        return `<span class="pill">${esc(value || "live")}</span>`;
+      }
+      function renderProductPlanning() {
+        qs("#productPlanningList").innerHTML = state.products
+          .map((p) => {
+            const id = esc(p.product_id || p.id);
+            return `<article class="manage-card"><div class="split"><strong>${esc(p.name)}</strong>${scheduleMark(p.schedule_state || p.status)}</div><label class="field"><span>Visible from</span><input class="input" type="datetime-local" id="from-${id}" value="${localDateValue(p.visible_from)}"></label><label class="field"><span>Visible until</span><input class="input" type="datetime-local" id="until-${id}" value="${localDateValue(p.visible_until)}"></label><label class="field"><span>Launch badge</span><input class="input" id="launch-${id}" value="${esc(p.launch_badge_text || "")}" placeholder="Coming soon"></label><label class="field"><span>Status</span><select class="input" id="pstatus-${id}">${["live", "scheduled", "draft", "hidden"].map((s) => `<option ${s === p.status ? "selected" : ""}>${s}</option>`).join("")}</select></label><button class="btn primary" onclick="saveProductSchedule('${id}',this)">Planning opslaan</button></article>`;
+          })
+          .join("");
+      }
+      function localDateValue(value) {
+        return value ? esc(String(value).replace(" ", "T").slice(0, 16)) : "";
+      }
+      async function saveProductSchedule(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updateProductSchedule", {
+            product_id: id,
+            visible_from: qs("#from-" + CSS.escape(id)).value,
+            visible_until: qs("#until-" + CSS.escape(id)).value,
+            launch_badge_text: qs("#launch-" + CSS.escape(id)).value,
+            status: qs("#pstatus-" + CSS.escape(id)).value,
+          });
+          status(r.success ? "Productplanning opgeslagen." : r.error.message, !r.success);
+          if (r.success) loadProducts();
+        });
+      }
+      function renderCollections() {
+        qs("#collectionsList").innerHTML =
+          state.collections
+            .map((c) => {
+              const id = esc(c.collection_id);
+              return `<article class="manage-card"><div class="split"><strong>${esc(c.name)}</strong>${scheduleMark(c.schedule_state)}</div><label class="field"><span>Naam</span><input class="input" id="col-name-${id}" value="${esc(c.name)}"></label><label class="field"><span>Product IDs</span><input class="input" id="col-products-${id}" value="${esc((c.product_ids || []).join(", "))}"></label><div class="grid two"><label class="field"><span>Start</span><input class="input" type="datetime-local" id="col-start-${id}" value="${localDateValue(c.start_at)}"></label><label class="field"><span>Einde</span><input class="input" type="datetime-local" id="col-end-${id}" value="${localDateValue(c.end_at)}"></label></div><label class="field"><span>Badge</span><input class="input" id="col-badge-${id}" value="${esc(c.badge_text || "")}"></label><label class="field"><span>Status</span><select class="input" id="col-status-${id}">${["draft", "scheduled", "live", "hidden"].map((s) => `<option ${s === c.status ? "selected" : ""}>${s}</option>`).join("")}</select></label><div class="actions"><button class="btn primary" onclick="saveCollection('${id}',this)">Opslaan</button><button class="btn danger" onclick="archiveCollection('${id}',this)">Archief</button></div></article>`;
+            })
+            .join("") || '<p class="muted">Nog geen collecties.</p>';
+      }
+      function renderActions() {
+        qs("#actionsList").innerHTML =
+          state.actions
+            .map((a) => {
+              const id = esc(a.action_id);
+              return `<article class="manage-card"><div class="split"><strong>${esc(a.name)}</strong>${scheduleMark(a.schedule_state)}</div><div class="grid two"><label class="field"><span>Actie</span><input class="input" id="act-name-${id}" value="${esc(a.name)}"></label><label class="field"><span>Waarde</span><input class="input" type="number" step="0.01" id="act-value-${id}" value="${esc(a.discount_value || 0)}"></label></div><div class="grid two"><label class="field"><span>Vanaf</span><input class="input" type="datetime-local" id="act-start-${id}" value="${localDateValue(a.starts_at)}"></label><label class="field"><span>Tot</span><input class="input" type="datetime-local" id="act-end-${id}" value="${localDateValue(a.ends_at)}"></label></div><label class="field"><span>Doel IDs</span><input class="input" id="act-targets-${id}" value="${esc((a.target_ids || []).join(", "))}"></label><label class="field"><span>Frontend tekst</span><input class="input" id="act-text-${id}" value="${esc(a.frontend_text || "")}"></label><div class="actions"><button class="btn primary" onclick="saveAction('${id}',this)">Opslaan</button><button class="btn danger" onclick="archiveAction('${id}',this)">Archief</button></div></article>`;
+            })
+            .join("") || '<p class="muted">Nog geen acties.</p>';
+      }
+      async function saveCollection(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const r = await api("updateCollection", { collection_id: id, name: qs("#col-name-" + CSS.escape(id)).value, product_ids: qs("#col-products-" + CSS.escape(id)).value, start_at: qs("#col-start-" + CSS.escape(id)).value, end_at: qs("#col-end-" + CSS.escape(id)).value, badge_text: qs("#col-badge-" + CSS.escape(id)).value, status: qs("#col-status-" + CSS.escape(id)).value });
+          status(r.success ? "Collectie bijgewerkt." : r.error.message, !r.success);
+          loadPlanning();
+        });
+      }
+      async function saveAction(id, button) {
+        await submit(button, "Opslaan...", async () => {
+          const current = state.actions.find((a) => a.action_id === id) || {};
+          const r = await api("updateScheduledAction", { action_id: id, name: qs("#act-name-" + CSS.escape(id)).value, action_type: current.action_type, discount_type: current.discount_type, target_type: current.target_type, discount_value: qs("#act-value-" + CSS.escape(id)).value, starts_at: qs("#act-start-" + CSS.escape(id)).value, ends_at: qs("#act-end-" + CSS.escape(id)).value, target_ids: qs("#act-targets-" + CSS.escape(id)).value, frontend_text: qs("#act-text-" + CSS.escape(id)).value, status: current.status || "scheduled" });
+          status(r.success ? "Actie bijgewerkt." : r.error.message, !r.success);
+          loadPlanning();
+        });
+      }
+      qs("#collectionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await submit(e.submitter, "Opslaan...", async () => {
+          const r = await api("createCollection", Object.fromEntries(new FormData(e.target)));
+          status(r.success ? "Collectie ingepland." : r.error.message, !r.success);
+          if (r.success) {
+            e.target.reset();
+            loadPlanning();
+          }
+        });
+      });
+      qs("#actionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await submit(e.submitter, "Opslaan...", async () => {
+          const r = await api("createScheduledAction", Object.fromEntries(new FormData(e.target)));
+          status(r.success ? "Actie ingepland." : r.error.message, !r.success);
+          if (r.success) {
+            e.target.reset();
+            loadPlanning();
+          }
+        });
+      });
+      async function archiveCollection(id, button) {
+        await submit(button, "Archief...", async () => {
+          const r = await api("archiveCollection", { collection_id: id });
+          status(r.success ? "Collectie gearchiveerd." : r.error.message, !r.success);
+          loadPlanning();
+        });
+      }
+      async function archiveAction(id, button) {
+        await submit(button, "Archief...", async () => {
+          const r = await api("archiveScheduledAction", { action_id: id });
+          status(r.success ? "Actie gearchiveerd." : r.error.message, !r.success);
+          loadPlanning();
+        });
+      }
+
+      const companyKeys = [
+        "website_name",
+        "company_name",
+        "brand_name",
+        "tagline",
+        "announcement_bar",
+        "footer_text",
+        "email_1",
+        "phone_1",
+        "shipping_cost",
+        "free_shipping_above",
+        "vat_percentage",
+      ];
+      async function loadCompany() {
+        qs("#companyFields").innerHTML = '<p class="muted">Laden...</p>';
+        const r = await api("getCompanySettings");
+        if (!r.success) {
+          qs("#companyFields").innerHTML = note(r.error.message, true);
+          return;
+        }
+        qs("#companyFields").innerHTML = companyKeys
+          .map(
+            (k) =>
+              `<label class="field"><span>${esc(k)}</span><textarea class="input" name="${esc(k)}" rows="${["announcement_bar", "footer_text"].includes(k) ? 3 : 1}">${esc(r.data[k] || "")}</textarea></label>`,
+          )
+          .join("");
+      }
+      qs("#companyForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await submit(e.submitter, "Opslaan...", async () => {
+          const r = await api("updateCompanySettings", {
+            values: Object.fromEntries(new FormData(e.target)),
+          });
+          status(r.success ? "Bedrijfsgegevens opgeslagen." : r.error.message, !r.success);
+        });
+      });
+
+      if (state.token) start();
+    </script>
+  </body>
 </html>
